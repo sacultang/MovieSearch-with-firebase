@@ -9,5 +9,5 @@ export default Footer;
 const FooterEl = styled.footer`
   height: 70px;
   background-color: var(--main-bg-color);
-  color: var(--main-text);
+  color: var(--main-text-color);
 `;

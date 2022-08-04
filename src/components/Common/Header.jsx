@@ -70,7 +70,7 @@ export default Header;
 const HeaderDIV = styled.div`
   height: 80px;
   background-color: var(--main-bg-color);
-  color: var(--main-text);
+  color: var(--main-text-color);
 `;
 const Nav = styled.nav`
   height: 100%;
@@ -90,7 +90,7 @@ const MenuLi = styled.li`
     font-weight: 500;
   }
   &:hover {
-    background-color: var(--yellow-text);
+    background-color: var(--yellow-text-color);
     color: #000;
 
     ul {
@@ -109,10 +109,17 @@ const SubMenuUl = styled.ul`
   z-index: 1;
 
   li {
-    padding: 20px;
     transition: background-color 0.3s ease-in;
+    a {
+      padding: 20px;
+      box-sizing: border-box;
+      color: var(--main-text-color);
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+    }
     &:hover {
-      background-color: var(--yellow-text);
+      background-color: var(--yellow-text-color);
       a {
         color: #000;
       }
