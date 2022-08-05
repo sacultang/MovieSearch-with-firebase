@@ -2,7 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import RegisterGroup from '../RegisterGroup';
+import Typography from '@mui/material/Typography';
+import { useSelector } from 'react-redux';
 const Header = () => {
+  const user = useSelector((state) => state.user.user);
   return (
     <>
       <HeaderDIV>
@@ -29,16 +32,16 @@ const Header = () => {
               <h4>TV프로그램</h4>
               <SubMenuUl>
                 <li>
-                  <Link to="/">인기</Link>
+                  <Link to="/tv/popular">인기</Link>
                 </li>
                 <li>
-                  <Link to="/">현재 상영중</Link>
+                  <Link to="/tv/airing_today">오늘 방영</Link>
                 </li>
                 <li>
-                  <Link to="/">개봉 예정</Link>
+                  <Link to="/tv/on_the_air">TV 방영중</Link>
                 </li>
                 <li>
-                  <Link to="/">높은 평점</Link>
+                  <Link to="/tv/top_rated">높은 평점</Link>
                 </li>
               </SubMenuUl>
             </MenuLi>
@@ -46,20 +49,12 @@ const Header = () => {
               <h4>인물</h4>
               <SubMenuUl>
                 <li>
-                  <Link to="/">인기</Link>
-                </li>
-                <li>
-                  <Link to="/">현재 상영중</Link>
-                </li>
-                <li>
-                  <Link to="/">개봉 예정</Link>
-                </li>
-                <li>
-                  <Link to="/">높은 평점</Link>
+                  <Link to="/">인기 인물</Link>
                 </li>
               </SubMenuUl>
             </MenuLi>
           </MenuUl>
+
           <RegisterGroup />
         </Nav>
       </HeaderDIV>

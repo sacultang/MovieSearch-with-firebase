@@ -57,6 +57,8 @@ const Join = () => {
       joinValue.password === joinValue.confirmPassword
     ) {
       setErrorData(false);
+    } else {
+      setErrorData(true);
     }
   }, [joinValue]);
   return (

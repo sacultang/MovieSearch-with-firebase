@@ -25,6 +25,32 @@ const RegisterGroup = () => {
   }, []);
   return (
     <RegisterGroupDiv>
+      {user && (
+        <Typography
+          variant="body"
+          sx={{
+            fontSize: '0.8rem',
+            mb: 0,
+            mr: 2,
+            color: 'var(--main-text-color)',
+          }}
+        >
+          <Typography
+            variant="body"
+            sx={{
+              fontSize: '0.8rem',
+              mb: 0,
+              fontWeight: 500,
+              color: 'var(--main-text-color)',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+            }}
+          >
+            {user.email}
+          </Typography>
+          님 안녕하세요.
+        </Typography>
+      )}
       <IconButton
         sx={{
           color: 'var(--main-text-color)',

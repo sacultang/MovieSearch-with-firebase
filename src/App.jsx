@@ -3,6 +3,7 @@ import Layout from './components/Common/Layout';
 import Home from './pages/home/Home';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MoviePage from './pages/movies/MoviePage';
+import TvPage from './pages/tv/TvPage';
 import Join from './pages/register/Join';
 import Login from './pages/register/Login';
 import { useSelector, useDispatch } from 'react-redux';
@@ -43,6 +44,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/movie/:query" element={<MoviePage />} />
+        <Route path="/tv" element={<TvPage />} />
+        <Route path="/tv/:query" element={<TvPage />} />
         <Route path="/join" element={user ? <Navigate to="/" /> : <Join />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       </Route>

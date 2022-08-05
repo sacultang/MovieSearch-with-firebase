@@ -60,6 +60,8 @@ const Login = () => {
       PW_REGEX.test(joinValue.password)
     ) {
       setErrorData(false);
+    } else {
+      setErrorData(true);
     }
   }, [joinValue]);
   return (
