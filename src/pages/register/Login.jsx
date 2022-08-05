@@ -3,11 +3,15 @@ import { Container, Box, Typography, Grid, TextField } from '@mui/material';
 import '../../firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { LoadingButton } from '@mui/lab';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '../../store/userSlice';
 const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PW_REGEX = new RegExp('^[a-zA-Z0-9]{6,16}$');
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [joinValue, setJoinValue] = useState({
     email: '',
     password: '',
@@ -16,17 +20,24 @@ const Login = () => {
 
   const [errorData, setErrorData] = useState(true);
   const [loading, setLoading] = useState(false);
-  const loginUser = useCallback(async (email, password) => {
-    setLoading(true);
-    try {
-      const res = await signInWithEmailAndPassword(getAuth(), email, password);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const loginUser = useCallback(
+    async (email, password) => {
+      setLoading(true);
+      try {
+        const { user } = await signInWithEmailAndPassword(
+          getAuth(),
+          email,
+          password
+        );
+        dispatch(setUserAction(user));
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [dispatch]
+  );
 
   const handleInputValue = useCallback(
     (e) => {
@@ -114,6 +125,16 @@ const Login = () => {
           >
             로그인
           </LoadingButton>
+          <Grid container justifyContent="flex-end" mt={3}>
+            <Grid item>
+              <Link
+                to="/join"
+                style={{ textDecoration: 'none', color: '#5d5d5d' }}
+              >
+                계정이 없나요? 회원가입으로 이동
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

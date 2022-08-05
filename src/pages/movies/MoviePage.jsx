@@ -9,18 +9,23 @@ import Container from '@mui/material/Container';
 const MoviePage = () => {
   const params = useParams();
   const [movieDatas, setMovieDatas] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const fetch = useCallback(async () => {
-    const res = await getMovieData(params.query);
-    setMovieDatas(res);
-    setIsLoading(false);
+    setIsLoading(true);
+    try {
+      const res = await getMovieData(params.query);
+      setMovieDatas(res);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   }, [params]);
   useEffect(() => {
-    // console.log(isLoading);
+    console.log(isLoading);
     fetch();
     return () => {
       fetch();
-      setIsLoading(true);
     };
   }, [params]);
   return (
@@ -29,7 +34,6 @@ const MoviePage = () => {
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          // justifyContent: 'space-between',
           margin: '0 auto',
         }}
       >

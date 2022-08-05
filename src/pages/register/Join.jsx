@@ -3,6 +3,8 @@ import { Container, Box, Typography, Grid, TextField } from '@mui/material';
 import '../../firebase';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { LoadingButton } from '@mui/lab';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '../../store/userSlice';
 
 const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -14,9 +16,9 @@ const Join = () => {
     password: '',
     confirmPassword: '',
   });
-
   const [errorData, setErrorData] = useState(true);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const postUserData = useCallback(async (email, password) => {
     setLoading(true);
     try {
@@ -25,6 +27,7 @@ const Join = () => {
         email,
         password
       );
+      dispatch(setUserAction(user));
     } catch (e) {
       console.log(e);
     } finally {

@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Skeleton from '@mui/material/Skeleton';
 const CardSkeleton = () => {
   return (
-    <Card sx={{ minWidth: 166, maxWidth: 166 }}>
+    <Card sx={{ minWidth: 166, maxWidth: 166, mr: 1, ml: 2, mt: 1 }}>
       {<Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />}
       <CardContent>
         <React.Fragment>
@@ -13,18 +13,6 @@ const CardSkeleton = () => {
           <Skeleton animation="wave" height={10} width="80%" />
         </React.Fragment>
       </CardContent>
-      {/* <CardHeader
-        action={null}
-        title={
-          <Skeleton
-            animation="wave"
-            height={10}
-            width="80%"
-            style={{ marginBottom: 6 }}
-          />
-        }
-        // subheader={<Skeleton animation="wave" height={10} width="40%" />}
-      /> */}
     </Card>
   );
 };
