@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import RegisterGroup from '../RegisterGroup';
+
 const Header = () => {
   return (
     <>
@@ -28,16 +30,16 @@ const Header = () => {
               <h4>TV프로그램</h4>
               <SubMenuUl>
                 <li>
-                  <Link to="/">인기</Link>
+                  <Link to="/tv/popular">인기</Link>
                 </li>
                 <li>
-                  <Link to="/">현재 상영중</Link>
+                  <Link to="/tv/airing_today">오늘 방영</Link>
                 </li>
                 <li>
-                  <Link to="/">개봉 예정</Link>
+                  <Link to="/tv/on_the_air">TV 방영중</Link>
                 </li>
                 <li>
-                  <Link to="/">높은 평점</Link>
+                  <Link to="/tv/top_rated">높은 평점</Link>
                 </li>
               </SubMenuUl>
             </MenuLi>
@@ -45,20 +47,13 @@ const Header = () => {
               <h4>인물</h4>
               <SubMenuUl>
                 <li>
-                  <Link to="/">인기</Link>
-                </li>
-                <li>
-                  <Link to="/">현재 상영중</Link>
-                </li>
-                <li>
-                  <Link to="/">개봉 예정</Link>
-                </li>
-                <li>
-                  <Link to="/">높은 평점</Link>
+                  <Link to="/">인기 인물</Link>
                 </li>
               </SubMenuUl>
             </MenuLi>
           </MenuUl>
+
+          <RegisterGroup />
         </Nav>
       </HeaderDIV>
     </>
@@ -70,10 +65,15 @@ export default Header;
 const HeaderDIV = styled.div`
   height: 80px;
   background-color: var(--main-bg-color);
-  color: var(--main-text);
+  color: var(--main-text-color);
+  display: flex;
+  justify-content: space-between;
 `;
 const Nav = styled.nav`
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 const MenuUl = styled.ul`
   display: flex;
@@ -90,7 +90,7 @@ const MenuLi = styled.li`
     font-weight: 500;
   }
   &:hover {
-    background-color: var(--yellow-text);
+    background-color: var(--yellow-text-color);
     color: #000;
 
     ul {
@@ -109,10 +109,17 @@ const SubMenuUl = styled.ul`
   z-index: 1;
 
   li {
-    padding: 20px;
     transition: background-color 0.3s ease-in;
+    a {
+      padding: 20px;
+      box-sizing: border-box;
+      color: var(--main-text-color);
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+    }
     &:hover {
-      background-color: var(--yellow-text);
+      background-color: var(--yellow-text-color);
       a {
         color: #000;
       }

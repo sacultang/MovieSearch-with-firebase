@@ -2,16 +2,25 @@ import React from 'react';
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
+import styled from '@emotion/styled';
 const Layout = () => {
   return (
     <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
+      <Wrapper>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+      </Wrapper>
       <Footer />
     </>
   );
 };
 
 export default Layout;
+
+const Wrapper = styled.div`
+  height: auto;
+  min-height: 100%;
+  position: relative;
+`;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,7 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import { Stack, CircularProgress } from '@mui/material';
-const MovieCard = ({ movie }) => {
+const TvCard = ({ tv }) => {
   const [favorite, setFavorite] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [imgLoading, setImgLoading] = useState(true);
@@ -24,13 +24,13 @@ const MovieCard = ({ movie }) => {
   const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
   }, []);
+  useEffect(() => {}, []);
   return (
     <CardItem
       sx={{
         minWidth: 166,
         maxWidth: 166,
         minHeight: 250,
-        // border: '1px solid #dede',
         boxShadow: 'none',
         position: 'relative',
         ml: 1,
@@ -44,7 +44,7 @@ const MovieCard = ({ movie }) => {
           <CircularProgress color="secondary" size={30} />
           <CardImg
             component="img"
-            image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+            image={`https://image.tmdb.org/t/p/w300/${tv.poster_path}`}
             sx={{ display: 'none' }}
             onLoad={() => setImgLoading(false)}
           />
@@ -52,11 +52,13 @@ const MovieCard = ({ movie }) => {
       ) : (
         <CardImg
           component="img"
-          image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-          alt={movie.original_title}
+          image={`https://image.tmdb.org/t/p/w300/${tv.poster_path}`}
+          alt={tv.original_name}
           sx={{ borderRadius: '10px', minHeight: 248.99 }}
+          onLoad={() => setImgLoading(false)}
         />
       )}
+
       <IconButton
         sx={{
           position: 'absolute',
@@ -96,7 +98,6 @@ const MovieCard = ({ movie }) => {
         aria-labelledby="demo-positioned-button"
         open={open}
         onClose={handleCloseMenu}
-        // anchorPosition={{ vertical: 'top', horizontal: 'left' }}
         anchorEl={anchorEl}
       >
         <MenuItem onClick={handleCloseMenu}>
@@ -138,7 +139,7 @@ const MovieCard = ({ movie }) => {
           variant="body"
           sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
         >
-          {movie.release_date}
+          {tv.release_date}
         </Typography>
         <Typography
           gutterBottom
@@ -159,7 +160,7 @@ const MovieCard = ({ movie }) => {
               mb: 0,
             }}
           />
-          {movie.vote_average}
+          {tv.vote_average}
         </Typography>
       </Box>
       <Typography
@@ -168,15 +169,15 @@ const MovieCard = ({ movie }) => {
         component="h2"
         sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
       >
-        {movie.original_title.length > 15
-          ? movie.original_title.slice(0, 17) + ' ...'
-          : movie.original_title}
+        {tv.original_name.length > 15
+          ? tv.original_name.slice(0, 17) + ' ...'
+          : tv.original_name}
       </Typography>
     </CardItem>
   );
 };
 
-export default MovieCard;
+export default TvCard;
 
 const CardItem = styled(Card)`
   &:hover {

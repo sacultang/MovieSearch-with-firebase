@@ -1,48 +1,66 @@
-# Getting Started with Create React App
+# TMDB Movie Search Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/react-%2320232a?style=flat&logo=react&logoColor=%2361DAFB)
+![firebase](https://img.shields.io/badge/firebase-FFCA28?style=flat&logo=firebase&logoColor=white)
+![TMDB](https://img.shields.io/badge/TMDB-01B4E4?style=flat&logo=TheMovieDatabase&logoColor=white)
 
-## Available Scripts
+## Start project
 
-In the project directory, you can run:
+```bash
+# Clone repository
+$ git clone https://github.com/sacultang/react-movie-with-firebase
 
-### `npm start`
+# Access Directory
+$ cd react-movie-with-firebase
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Install dependencies
+$ npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+or
 
-### `npm test`
+$ yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Start Application
+$ npm start
 
-### `npm run build`
+or
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+$ yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Observation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To use TMDB API and firebase, create `.env`
 
-### `npm run eject`
+```env
+// your key
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+REACT_APP_TMDB_API=[your key]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+REACT_APP_APIKEY=[your key]
+REACT_APP_AUTH_DOMAIN=[your key]
+REACT_APP_PROJECT_ID=[your key]
+REACT_APP_STORAGE_BUCKET=[your key]
+REACT_APP_MESSAGING_SENDER_ID=[your key]
+REACT_APP_APP_ID=[your key]
+REACT_APP_MEASURE_MENT_ID=[your key]
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+## Git Convention
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Commit prefix
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-ss
+- prefix: 파일명
+  - (줄바꿈 아래) 아래 코드 수정한 부분 설명
+- feat: 기능 개발 관련
+- fix: 오류 개선 / 버그 패치
+- refactor: feat에 코드 수정
+- docs: 문서화 작업
+  - ex) docs: UPDATE README.md
+- style: css style 작업
+- test: test 관련 (테스트코드, 리펙토링 테스트 코드 추가)
+- conf: 환경설정 관련, 빌드 업무 수정, 패키지 매니저, 폴더트리, 파일이름 변경
+- build: 빌드 관련
+- ci: Continuous Integration 관련

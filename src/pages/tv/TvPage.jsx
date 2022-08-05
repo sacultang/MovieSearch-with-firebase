@@ -1,20 +1,19 @@
 import { useEffect, useState, useCallback } from 'react';
-import MovieCard from './MovieCard';
-import CardSkeleton from '../../components/Skeleton/CardSkeleton';
-import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
 import { useParams } from 'react-router-dom';
+import { getTvData } from '../../api/TMDB/Tv/getTvAPI';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-
-const MoviePage = () => {
+import CardSkeleton from '../../components/Skeleton/CardSkeleton';
+import TvCard from './TvCard';
+const TvPage = () => {
   const params = useParams();
-  const [movieDatas, setMovieDatas] = useState({});
+  const [tvDatas, setTvDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getMovieData(params.query);
-      setMovieDatas(res);
+      const res = await getTvData(params.query);
+      setTvDatas(res);
     } catch (e) {
       console.log(e);
     } finally {
@@ -36,10 +35,10 @@ const MoviePage = () => {
           padding: '9px 30px',
         }}
       >
-        {movieDatas.results &&
-          movieDatas.results.map((movie) => (
-            <div key={movie.id}>
-              {isLoading ? <CardSkeleton /> : <MovieCard movie={movie} />}
+        {tvDatas.results &&
+          tvDatas.results.map((tv) => (
+            <div key={tv.id}>
+              {isLoading ? <CardSkeleton /> : <TvCard tv={tv} />}
             </div>
           ))}
       </Box>
@@ -47,4 +46,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default TvPage;
