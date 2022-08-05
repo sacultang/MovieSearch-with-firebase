@@ -22,9 +22,10 @@ code {
 }
 a {
   text-decoration: none;
+  color: val(--main-text-color);
 }
 
 .inner-container {
-  width: 800px;
+  width: 1200px;
   margin: 0 auto;
 }

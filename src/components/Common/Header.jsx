@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import RegisterGroup from '../RegisterGroup';
 const Header = () => {
   return (
     <>
@@ -59,6 +60,7 @@ const Header = () => {
               </SubMenuUl>
             </MenuLi>
           </MenuUl>
+          <RegisterGroup />
         </Nav>
       </HeaderDIV>
     </>
@@ -71,9 +73,14 @@ const HeaderDIV = styled.div`
   height: 80px;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
+  display: flex;
+  justify-content: space-between;
 `;
 const Nav = styled.nav`
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 const MenuUl = styled.ul`
   display: flex;

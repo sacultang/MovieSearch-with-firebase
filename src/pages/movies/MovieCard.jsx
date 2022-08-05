@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import { Menu, MenuItem } from '@mui/material';
+import ListIcon from '@mui/icons-material/List';
 const MovieCard = ({ movie }) => {
   const [favorite, setFavorite] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleOpenMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
   return (
     <CardItem
       sx={{
@@ -41,7 +47,7 @@ const MovieCard = ({ movie }) => {
           position: 'absolute',
           top: 5,
           right: 5,
-          backgroundColor: 'rgba(221,221,221,0.47)',
+          backgroundColor: 'rgba(221,221,221,0.57)',
           borderRadius: '50%',
         }}
         onClick={() => setFavorite((prev) => !prev)}
@@ -56,16 +62,54 @@ const MovieCard = ({ movie }) => {
       </IconButton>
       <IconButton
         aria-label="settings"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
         sx={{
           position: 'absolute',
           top: 42,
           right: 5,
-          backgroundColor: 'rgba(221,221,221,0.47)',
+          backgroundColor: 'rgba(221,221,221,0.57)',
           borderRadius: '50%',
         }}
+        onClick={handleOpenMenu}
       >
         <MoreVertIcon sx={{ width: '1rem', height: '1rem' }} />
       </IconButton>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={open}
+        onClose={handleCloseMenu}
+        // anchorPosition={{ vertical: 'top', horizontal: 'left' }}
+        anchorEl={anchorEl}
+      >
+        <MenuItem onClick={handleCloseMenu}>
+          <ListIcon sx={{ width: '1rem' }} />
+          <Typography
+            gutterBottom
+            variant="body"
+            sx={{ fontSize: '0.8rem', mb: 0 }}
+          >
+            &nbsp;목록에 추가
+          </Typography>
+        </MenuItem>
+        <MenuItem onClick={handleCloseMenu}>
+          <StarIcon
+            sx={{
+              width: '1rem',
+              height: '1rem',
+            }}
+          />
+          <Typography
+            gutterBottom
+            variant="body"
+            sx={{ fontSize: '0.8rem', mb: 0 }}
+          >
+            &nbsp;즐겨찾기 추가
+          </Typography>
+        </MenuItem>
+      </Menu>
       <Box
         sx={{
           display: 'flex',
