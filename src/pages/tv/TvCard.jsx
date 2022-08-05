@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -18,12 +18,12 @@ const TvCard = ({ tv }) => {
   const [imgLoading, setImgLoading] = useState(true);
   const open = Boolean(anchorEl);
 
-  const handleOpenMenu = (e) => {
+  const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
-  };
-  const handleCloseMenu = () => {
+  }, []);
+  const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
   useEffect(() => {}, []);
   return (
     <CardItem
@@ -31,12 +31,12 @@ const TvCard = ({ tv }) => {
         minWidth: 166,
         maxWidth: 166,
         minHeight: 250,
-        // border: '1px solid #dede',
         boxShadow: 'none',
         position: 'relative',
+        ml: 1,
         mr: 1,
-        ml: 2,
         mt: 1,
+        mb: 1,
       }}
     >
       {imgLoading ? (

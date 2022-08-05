@@ -33,7 +33,7 @@ const MoviePage = () => {
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          margin: '0 auto',
+          padding: '9px 30px',
         }}
       >
         {movieDatas.results &&

@@ -5,20 +5,22 @@ import Footer from './Footer';
 import styled from '@emotion/styled';
 const Layout = () => {
   return (
-    <Wrapper>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
+    <>
+      <Wrapper>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+      </Wrapper>
       <Footer />
-    </Wrapper>
+    </>
   );
 };
 
 export default Layout;
 
 const Wrapper = styled.div`
-  /* height: auto; */
+  height: auto;
   min-height: 100%;
   position: relative;
 `;

@@ -62,15 +62,17 @@ const Join = () => {
     }
   }, [joinValue]);
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ minHeight: '80vh', display: 'flex' }}
+    >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          pt: 20,
-          pb: 20,
         }}
       >
         <Typography component="h1" variant="h5" mb={5}>

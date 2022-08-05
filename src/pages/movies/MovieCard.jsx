@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -18,12 +18,12 @@ const MovieCard = ({ movie }) => {
   const [imgLoading, setImgLoading] = useState(true);
   const open = Boolean(anchorEl);
 
-  const handleOpenMenu = (e) => {
+  const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
-  };
-  const handleCloseMenu = () => {
+  }, []);
+  const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
   return (
     <CardItem
       sx={{
@@ -33,9 +33,10 @@ const MovieCard = ({ movie }) => {
         // border: '1px solid #dede',
         boxShadow: 'none',
         position: 'relative',
+        ml: 1,
         mr: 1,
-        ml: 2,
         mt: 1,
+        mb: 1,
       }}
     >
       {imgLoading ? (

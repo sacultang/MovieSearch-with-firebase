@@ -2,10 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import RegisterGroup from '../RegisterGroup';
-import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+
 const Header = () => {
-  const user = useSelector((state) => state.user.user);
   return (
     <>
       <HeaderDIV>
