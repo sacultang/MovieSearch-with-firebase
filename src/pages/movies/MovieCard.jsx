@@ -1,99 +1,174 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
+
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Box from '@mui/material/Box';
+import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 const MovieCard = ({ movie }) => {
-  const [expanded, setExpanded] = useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const [favorite, setFavorite] = useState(false);
   return (
-    <Card sx={{ minWidth: 150, maxWidth: 300 }}>
-      <CardMedia
+    <CardItem
+      sx={{
+        minWidth: 166,
+        maxWidth: 166,
+        minHeight: 250,
+        // border: '1px solid #dede',
+        boxShadow: 'none',
+        position: 'relative',
+        mr: 1,
+        ml: 2,
+        mt: 1,
+      }}
+    >
+      <CardImg
         component="img"
-        height="450"
         image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-        alt="Paella dish"
+        alt={movie.original_title}
+        sx={{ borderRadius: '10px' }}
       />
-      <CardHeader
-        sx={{ fontSize: '1rem' }}
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={movie.title}
-        subheader={movie.release_date}
-      />
-      {/* <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {movie.overview}
+      <IconButton
+        sx={{
+          position: 'absolute',
+          top: 5,
+          right: 5,
+          backgroundColor: 'rgba(221,221,221,0.47)',
+          borderRadius: '50%',
+        }}
+        onClick={() => setFavorite((prev) => !prev)}
+      >
+        {favorite ? (
+          <FavoriteIcon
+            sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+          />
+        ) : (
+          <FavoriteBorder sx={{ width: '1rem', height: '1rem' }} />
+        )}
+      </IconButton>
+      <IconButton
+        aria-label="settings"
+        sx={{
+          position: 'absolute',
+          top: 42,
+          right: 5,
+          backgroundColor: 'rgba(221,221,221,0.47)',
+          borderRadius: '50%',
+        }}
+      >
+        <MoreVertIcon sx={{ width: '1rem', height: '1rem' }} />
+      </IconButton>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          pt: 1,
+        }}
+      >
+        <Typography
+          gutterBottom
+          variant="body"
+          sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
+        >
+          {movie.release_date}
         </Typography>
-      </CardContent> */}
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse> */}
-    </Card>
+        <Typography
+          gutterBottom
+          variant="body"
+          sx={{
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            mb: 0,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <StarIcon
+            sx={{
+              width: '1rem',
+              height: '1rem',
+              color: 'var(--yellow-text-color)',
+              mb: 0,
+            }}
+          />
+          {movie.vote_average}
+        </Typography>
+      </Box>
+      <Typography
+        gutterBottom
+        variant="h2"
+        component="h2"
+        sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
+      >
+        {movie.original_title.length > 15
+          ? movie.original_title.slice(0, 17) + ' ...'
+          : movie.original_title}
+      </Typography>
+    </CardItem>
   );
 };
 
 export default MovieCard;
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+const CardItem = styled(Card)`
+  &:hover {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 5px solid var(--yellow-text-color);
+    }
+    h2 {
+      color: var(--yellow-text-color);
+    }
+  }
+`;
+const CardImg = styled(CardMedia)`
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.03);
+    /* &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 5px solid var(--yellow-text-color);
+    } */
+  }
+`;
+// const MovieImg = styled.img`
+//   width: 100%;
+// `;
+
+// <CardMedia
+//         component="img"
+//         height="244"
+//         image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+//         alt="Paella dish"
+//       />
+//       <CardContent>
+//         <Typography
+//           gutterBottom
+//           variant="h5"
+//           component="div"
+//           sx={{ fontSize: '1rem' }}
+//           textOverflow="hidden"
+//         >
+//           {movie.original_title}
+//         </Typography>
+//         <Typography variant="caption">{movie.release_date}</Typography>
