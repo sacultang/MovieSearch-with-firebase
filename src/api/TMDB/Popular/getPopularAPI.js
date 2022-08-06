@@ -9,7 +9,7 @@ export const getSearchData = async (search, page) => {
         language: process.env.REACT_APP_TMDB_API_LANGUAGE,
         query: search,
         page: page === undefined ? 1 : page,
-      }
+      },
     });
     if (res.status === 200) {
       return res.data;

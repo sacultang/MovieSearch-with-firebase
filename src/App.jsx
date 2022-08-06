@@ -6,6 +6,8 @@ import MoviePage from './pages/movies/MoviePage';
 import TvPage from './pages/tv/TvPage';
 import Join from './pages/register/Join';
 import Login from './pages/register/Login';
+import Favorite from './pages/favorite/Favorite';
+import Profile from './pages/profile/Profile';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { setUserAction, clearUserAction } from './store/userSlice';
@@ -48,6 +50,10 @@ function App() {
         <Route path="/tv/:query" element={<TvPage />} />
         <Route path="/join" element={user ? <Navigate to="/" /> : <Join />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="/profile"
+          element={!user ? <Navigate to="/login" /> : <Profile />}
+        />
       </Route>
     </Routes>
   );

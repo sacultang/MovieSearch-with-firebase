@@ -5,6 +5,7 @@ import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
 import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 const MoviePage = () => {
   const params = useParams();
@@ -28,21 +29,15 @@ const MoviePage = () => {
     };
   }, [params]);
   return (
-    <Container className="inner-container">
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          padding: '9px 30px',
-        }}
-      >
+    <Container sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
         {movieDatas.results &&
           movieDatas.results.map((movie) => (
-            <div key={movie.id}>
+            <Grid item xs={12} sm={4} md={4} lg={2} key={movie.id}>
               {isLoading ? <CardSkeleton /> : <MovieCard movie={movie} />}
-            </div>
+            </Grid>
           ))}
-      </Box>
+      </Grid>
     </Container>
   );
 };

@@ -78,6 +78,17 @@ const RegisterGroup = () => {
               &nbsp;로그아웃
             </Typography>
           </MenuItem>
+          <MenuItem>
+            <Typography
+              gutterBottom
+              variant="body"
+              component={Link}
+              to="/profile"
+              sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
+            >
+              &nbsp;프로필
+            </Typography>
+          </MenuItem>
         </Menu>
       ) : (
         <Menu

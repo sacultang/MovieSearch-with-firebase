@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { getTvData } from '../../api/TMDB/Tv/getTvAPI';
-import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 import TvCard from './TvCard';
@@ -27,21 +27,15 @@ const TvPage = () => {
     };
   }, [params]);
   return (
-    <Container className="inner-container">
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          padding: '9px 30px',
-        }}
-      >
+    <Container sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
-            <div key={tv.id}>
+            <Grid item xs={12} sm={4} md={4} lg={2} key={tv.id}>
               {isLoading ? <CardSkeleton /> : <TvCard tv={tv} />}
-            </div>
+            </Grid>
           ))}
-      </Box>
+      </Grid>
     </Container>
   );
 };

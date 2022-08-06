@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,10 +12,17 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import { Stack, CircularProgress } from '@mui/material';
+import { useSelector } from 'react-redux';
+import PopupModal from '../../components/PopupModal/PopupModal';
+import { useDispatch } from 'react-redux';
+import '../../firebase';
+import { db } from '../../firebase';
 const MovieCard = ({ movie }) => {
+  const user = useSelector((state) => state.user.user);
   const [favorite, setFavorite] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [imgLoading, setImgLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleOpenMenu = useCallback((e) => {
@@ -24,19 +31,25 @@ const MovieCard = ({ movie }) => {
   const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
   }, []);
+
+  const handleFavorite = useCallback(() => {
+    user ? setOpenModal(false) : setOpenModal(true);
+  }, [user]);
+  const handleCloseModal = useCallback(() => {
+    setOpenModal(false);
+  }, []);
+  const handleAddList = () => {};
+
+  useEffect(() => {}, []);
+
   return (
     <CardItem
       sx={{
         minWidth: 166,
-        maxWidth: 166,
         minHeight: 250,
-        // border: '1px solid #dede',
         boxShadow: 'none',
         position: 'relative',
-        ml: 1,
-        mr: 1,
-        mt: 1,
-        mb: 1,
+        m: 1,
       }}
     >
       {imgLoading ? (
@@ -65,7 +78,7 @@ const MovieCard = ({ movie }) => {
           backgroundColor: 'rgba(221,221,221,0.57)',
           borderRadius: '50%',
         }}
-        onClick={() => setFavorite((prev) => !prev)}
+        onClick={handleFavorite}
       >
         {favorite ? (
           <FavoriteIcon
@@ -96,10 +109,9 @@ const MovieCard = ({ movie }) => {
         aria-labelledby="demo-positioned-button"
         open={open}
         onClose={handleCloseMenu}
-        // anchorPosition={{ vertical: 'top', horizontal: 'left' }}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={handleAddList}>
           <ListIcon sx={{ width: '1rem' }} />
           <Typography
             gutterBottom
@@ -172,6 +184,7 @@ const MovieCard = ({ movie }) => {
           ? movie.original_title.slice(0, 17) + ' ...'
           : movie.original_title}
       </Typography>
+      <PopupModal open={openModal} onClose={handleCloseModal} />
     </CardItem>
   );
 };

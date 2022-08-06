@@ -10,6 +10,11 @@ const Header = () => {
         <Nav className="inner-container">
           <MenuUl>
             <MenuLi>
+              <Link to="/">
+                <LogoDiv />
+              </Link>
+            </MenuLi>
+            <MenuLi>
               <h4>영화</h4>
               <SubMenuUl>
                 <li>
@@ -80,14 +85,27 @@ const MenuUl = styled.ul`
   align-items: center;
   height: 100%;
 `;
-
+const LogoDiv = styled.div`
+  width: 50px;
+  height: 30px;
+  border-radius: 20px;
+  background: #8360c3;
+  background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
+  background: linear-gradient(to right, #2ebf91, #8360c3);
+`;
 const MenuLi = styled.li`
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 20px;
   transition: background-color 0.3s ease-in;
+  margin-right: 10px;
   h4 {
-    padding: 10px 20px;
+    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
     font-weight: 500;
+  }
+  &:nth-of-type(1):hover {
+    background-color: transparent;
   }
   &:hover {
     background-color: var(--yellow-text-color);
@@ -104,9 +122,10 @@ const SubMenuUl = styled.ul`
   display: none;
   background-color: var(--main-bg-color);
   min-width: 160px;
-  border-radius: 4px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 5px rgba(167, 167, 167, 0.22);
   z-index: 1;
+  overflow: hidden;
 
   li {
     transition: background-color 0.3s ease-in;

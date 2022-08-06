@@ -3,14 +3,15 @@ import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import styled from '@emotion/styled';
+import Container from '@mui/material/Container';
 const Layout = () => {
   return (
     <>
       <Wrapper>
         <Header />
-        <main>
+        <Container>
           <Outlet />
-        </main>
+        </Container>
       </Wrapper>
       <Footer />
     </>

@@ -29,8 +29,7 @@ const TvCard = ({ tv }) => {
     <CardItem
       sx={{
         minWidth: 166,
-        maxWidth: 166,
-        minHeight: 250,
+
         boxShadow: 'none',
         position: 'relative',
         ml: 1,
