@@ -144,7 +144,9 @@ const MovieCard = ({
         <CardImg
           component="img"
           image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-          alt={movie.original_title}
+          alt={
+            movie.original_title ? movie.original_title : movie.original_name
+          }
           sx={{ borderRadius: '10px', minHeight: 248.99 }}
         />
       )}
@@ -242,7 +244,7 @@ const MovieCard = ({
           variant="body"
           sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
         >
-          {movie.release_date}
+          {movie.release_date ? movie.release_date : movie.first_air_date}
         </Typography>
         <Typography
           gutterBottom
@@ -272,9 +274,11 @@ const MovieCard = ({
         component="h2"
         sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
       >
-        {movie.original_title.length > 15
-          ? movie.original_title.slice(0, 17) + ' ...'
-          : movie.original_title}
+        {movie.original_title
+          ? movie.original_title.length > 15
+            ? movie.original_title.slice(0, 17) + ' ...'
+            : movie.original_title
+          : movie.original_name}
       </Typography>
       <PopupModal open={openModal} onClose={handleCloseModal} />
     </CardItem>

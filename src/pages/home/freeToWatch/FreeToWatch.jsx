@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Tabs, Tab } from '@mui/material';
 import Box from '@mui/material/Box';
-import MovieScroll from './MovieScroll';
-import TvScroll from './TvScroll';
+// import MovieScroll from './MovieScroll';
+// import TvScroll from './TvScroll';
 const TabPannel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
@@ -11,7 +11,7 @@ const TabPannel = ({ children, value, index }) => {
   );
 };
 
-const WhatsPopular = () => {
+const FreeToWatch = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = useCallback(async (e, newValue) => {
@@ -19,11 +19,9 @@ const WhatsPopular = () => {
   }, []);
   return (
     <Box>
-      <Typography variant="h5" sx={{ fontWeight: 600 }}>
-        WhatsPopular
-      </Typography>
+      <Typography variant="h5">WhatsPopular</Typography>
 
-      <Tabs value={value} onChange={handleChange}>
+      {/* <Tabs value={value} onChange={handleChange}>
         <Tab label="영화" id="movie/popular"></Tab>
         <Tab label="TV" id="tv/popular"></Tab>
       </Tabs>
@@ -34,9 +32,9 @@ const WhatsPopular = () => {
         <TabPannel value={value} index={1}>
           <TvScroll />
         </TabPannel>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
 
-export default WhatsPopular;
+export default FreeToWatch;
