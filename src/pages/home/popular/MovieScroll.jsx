@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestHome } from '../../../api/TMDB/baseUrl';
-import MovieCard from '../../movies/MovieCard';
+
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { List, ListItem } from '@mui/material';
+import MovieCard from '../../movies/MovieCard';
 const MovieScroll = () => {
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);

@@ -4,11 +4,13 @@ import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
+import FullSearchLayout from '../../pages/home/search/FullSearchLayout';
 const Layout = () => {
   return (
     <>
       <Wrapper>
         <Header />
+        <FullSearchLayout />
         <Container>
           <Outlet />
         </Container>

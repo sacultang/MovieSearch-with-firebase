@@ -1,8 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, lazy, Suspense } from 'react';
 import { Typography, Tabs, Tab } from '@mui/material';
 import Box from '@mui/material/Box';
-import MovieScroll from './MovieScroll';
-import TvScroll from './TvScroll';
+
+const MovieScroll = lazy(() => import('./MovieScroll'));
+const TvScroll = lazy(() => import('./TvScroll'));
+const TabLayout = lazy(() => import('../common/TabLayout'));
+const Loader = lazy(() => import('../../../components/Common/Loader'));
+
 const TabPannel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
@@ -18,24 +22,26 @@ const WhatsPopular = () => {
     setValue(newValue);
   }, []);
   return (
-    <Box>
-      <Typography variant="h5" sx={{ fontWeight: 600 }}>
-        WhatsPopular
-      </Typography>
+    <Suspense fallback={<Loader />}>
+      <TabLayout>
+        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+          WhatsPopular
+        </Typography>
 
-      <Tabs value={value} onChange={handleChange}>
-        <Tab label="영화" id="movie/popular"></Tab>
-        <Tab label="TV" id="tv/popular"></Tab>
-      </Tabs>
-      <Box sx={{ overflowX: 'scroll' }}>
-        <TabPannel value={value} index={0}>
-          <MovieScroll />
-        </TabPannel>
-        <TabPannel value={value} index={1}>
-          <TvScroll />
-        </TabPannel>
-      </Box>
-    </Box>
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="영화"></Tab>
+          <Tab label="TV"></Tab>
+        </Tabs>
+        <Box sx={{ overflowX: 'scroll' }}>
+          <TabPannel value={value} index={0}>
+            <MovieScroll />
+          </TabPannel>
+          <TabPannel value={value} index={1}>
+            <TvScroll />
+          </TabPannel>
+        </Box>
+      </TabLayout>
+    </Suspense>
   );
 };
 

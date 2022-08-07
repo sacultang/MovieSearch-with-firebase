@@ -28,7 +28,7 @@ const Login = () => {
           email,
           password
         );
-        dispatch(setUserAction(user));
+        dispatch(setUserAction({ uid: user.uid, email: user.email }));
       } catch (e) {
         console.log(e);
       } finally {

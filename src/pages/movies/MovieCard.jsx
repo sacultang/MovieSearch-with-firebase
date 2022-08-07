@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, memo } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Typography from '@mui/material/Typography';
@@ -11,10 +10,8 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-import { Stack, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import PopupModal from '../../components/PopupModal/PopupModal';
-import { useDispatch } from 'react-redux';
 import { checkClip } from '../../utils/checkSome';
 import CreateIcon from '@mui/icons-material/Create';
 import SubMenuList from './SubMenuList';
@@ -28,6 +25,7 @@ import {
 } from 'firebase/firestore';
 import '../../firebase';
 import { db } from '../../firebase';
+import MoviePosterImg from './MoviePosterImg';
 
 const MovieCard = ({
   movie,
@@ -37,15 +35,17 @@ const MovieCard = ({
   favoriteList,
 }) => {
   const user = useSelector((state) => state.user.user);
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [imgLoading, setImgLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
-  const docRef = doc(db, 'users', user.uid);
-  const dataCollectionRef = collection(docRef, user.uid);
-  // console.log(dataCollectionRef);
+  let docRef;
+  if (user.uid) {
+    docRef = doc(db, 'users', user.uid);
+    // const dataCollectionRef = collection(docRef, user?.uid);
+  }
 
   const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
@@ -58,17 +58,14 @@ const MovieCard = ({
     setSubAnchorEl(null);
   };
   useEffect(() => {
-    if (user) {
+    if (user?.uid) {
       const getData = async () => {
         const docSnap = await getDoc(docRef);
         // console.log(docSnap.data());
         if (docSnap.data()) {
-          setFavoriteList((prev) => [...prev, ...docSnap.data().list]);
+          setFavoriteList((prev) => [...prev, ...docSnap.data()?.list]);
         }
         // console.log(userFavorite);
-        // const data = await getDocs(dataCollectionRef);
-        // data.docs.map((doc) => console.log());
-        // const queryRef = query(dataCollectionRef, where(user.uid, '==', user));
       };
       getData();
       // const unsubs = onSnapshot(doc(db, 'users', user.uid), (doc) => {
@@ -81,11 +78,11 @@ const MovieCard = ({
   }, [user]);
   const updateFavorite = useCallback(
     async (userFavorite) => {
-      try {
-        await updateDoc(docRef, { favorite: userFavorite });
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   await updateDoc(docRef, { favorite: userFavorite });
+      // } catch (e) {
+      //   console.log(e);
+      // }
     },
     [docRef]
   );
@@ -100,11 +97,11 @@ const MovieCard = ({
       } else {
         setUserFavorite((prev) => prev.filter((item) => item.id !== movie.id));
       }
-      await updateFavorite(userFavorite);
+      // await updateFavorite(userFavorite);
       // console.log('newFavorite', newFavorite);
     },
 
-    [user, setUserFavorite, userFavorite, updateFavorite]
+    [user, setUserFavorite, userFavorite]
   );
 
   useEffect(() => {}, [userFavorite]);
@@ -130,28 +127,11 @@ const MovieCard = ({
         m: 1,
       }}
     >
-      {imgLoading ? (
-        <Stack alignItems="center" justifyContent="center" height={250}>
-          <CircularProgress color="secondary" size={30} />
-          <CardImg
-            component="img"
-            image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-            sx={{ display: 'none' }}
-            onLoad={() => setImgLoading(false)}
-          />
-        </Stack>
-      ) : (
-        <CardImg
-          component="img"
-          image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-          alt={
-            movie.original_title ? movie.original_title : movie.original_name
-          }
-          sx={{ borderRadius: '10px', minHeight: 248.99 }}
-        />
-      )}
+      {/* IMG */}
+      <MoviePosterImg movie={movie} />
 
       <IconButton
+        aria-label="favorite"
         sx={{
           position: 'absolute',
           top: 5,
@@ -244,7 +224,7 @@ const MovieCard = ({
           variant="body"
           sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
         >
-          {movie.release_date ? movie.release_date : movie.first_air_date}
+          {movie?.release_date || movie?.first_air_date}
         </Typography>
         <Typography
           gutterBottom
@@ -265,7 +245,7 @@ const MovieCard = ({
               mb: 0,
             }}
           />
-          {movie.vote_average}
+          {movie?.vote_average}
         </Typography>
       </Box>
       <Typography
@@ -274,11 +254,11 @@ const MovieCard = ({
         component="h2"
         sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
       >
-        {movie.original_title
-          ? movie.original_title.length > 15
-            ? movie.original_title.slice(0, 17) + ' ...'
-            : movie.original_title
-          : movie.original_name}
+        {movie?.original_title
+          ? movie?.original_title.length > 15
+            ? movie?.original_title.slice(0, 17) + ' ...'
+            : movie?.original_title
+          : movie?.original_name}
       </Typography>
       <PopupModal open={openModal} onClose={handleCloseModal} />
     </CardItem>
@@ -303,40 +283,3 @@ const CardItem = styled(Card)`
     }
   }
 `;
-const CardImg = styled(CardMedia)`
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  &:hover {
-    transform: scale(1.03);
-    /* &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      border: 5px solid var(--yellow-text-color);
-    } */
-  }
-`;
-// const MovieImg = styled.img`
-//   width: 100%;
-// `;
-
-// <CardMedia
-//         component="img"
-//         height="244"
-//         image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-//         alt="Paella dish"
-//       />
-//       <CardContent>
-//         <Typography
-//           gutterBottom
-//           variant="h5"
-//           component="div"
-//           sx={{ fontSize: '1rem' }}
-//           textOverflow="hidden"
-//         >
-//           {movie.original_title}
-//         </Typography>
-//         <Typography variant="caption">{movie.release_date}</Typography>

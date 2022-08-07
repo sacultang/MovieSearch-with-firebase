@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestHome } from '../../../api/TMDB/baseUrl';
-import TvCard from '../../tv/TvCard';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { List, ListItem } from '@mui/material';
+import MovieCard from '../../movies/MovieCard';
+
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -38,9 +39,9 @@ const TvScroll = () => {
             {isLoading ? (
               <CardSkeleton />
             ) : (
-              <TvCard
+              <MovieCard
                 userFavorite={userFavorite}
-                datas={movie}
+                movie={movie}
                 setUserFavorite={setUserFavorite}
                 setFavoriteList={setFavoriteList}
                 favoriteList={favoriteList}

@@ -25,7 +25,7 @@ const RegisterGroup = () => {
   }, []);
   return (
     <RegisterGroupDiv>
-      {user && (
+      {user?.uid && (
         <Typography
           variant="body"
           sx={{
@@ -61,7 +61,7 @@ const RegisterGroup = () => {
       >
         <PersonIcon />
       </IconButton>
-      {user ? (
+      {user?.uid ? (
         <Menu
           id="demo-positioned-menu"
           aria-labelledby="demo-positioned-button"

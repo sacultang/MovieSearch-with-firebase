@@ -3,6 +3,7 @@ import { Typography, Tabs, Tab } from '@mui/material';
 import Box from '@mui/material/Box';
 import TodayTrending from './TodayTrending';
 import WeekTrending from './WeekTrending';
+import TabLayout from '../common/TabLayout';
 const TabPannel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
@@ -17,14 +18,14 @@ const Trending = () => {
     setValue(newValue);
   }, []);
   return (
-    <Box>
+    <TabLayout>
       <Typography variant="h5" sx={{ fontWeight: 600 }}>
         Trending
       </Typography>
 
       <Tabs value={value} onChange={handleChange}>
-        <Tab label="오늘" id="movie/popular"></Tab>
-        <Tab label="이번주" id="tv/popular"></Tab>
+        <Tab label="오늘"></Tab>
+        <Tab label="이번주"></Tab>
       </Tabs>
       <Box sx={{ overflowX: 'scroll' }}>
         <TabPannel value={value} index={0}>
@@ -34,7 +35,7 @@ const Trending = () => {
           <WeekTrending />
         </TabPannel>
       </Box>
-    </Box>
+    </TabLayout>
   );
 };
 
