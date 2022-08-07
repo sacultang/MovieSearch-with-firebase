@@ -12,7 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import { Stack, CircularProgress } from '@mui/material';
-const TvCard = ({ tv }) => {
+const TvCard = ({ datas }) => {
   const [favorite, setFavorite] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [imgLoading, setImgLoading] = useState(true);
@@ -43,7 +43,7 @@ const TvCard = ({ tv }) => {
           <CircularProgress color="secondary" size={30} />
           <CardImg
             component="img"
-            image={`https://image.tmdb.org/t/p/w300/${tv.poster_path}`}
+            image={`https://image.tmdb.org/t/p/w300/${datas.poster_path}`}
             sx={{ display: 'none' }}
             onLoad={() => setImgLoading(false)}
           />
@@ -51,8 +51,8 @@ const TvCard = ({ tv }) => {
       ) : (
         <CardImg
           component="img"
-          image={`https://image.tmdb.org/t/p/w300/${tv.poster_path}`}
-          alt={tv.original_name}
+          image={`https://image.tmdb.org/t/p/w300/${datas.poster_path}`}
+          alt={datas.original_name}
           sx={{ borderRadius: '10px', minHeight: 248.99 }}
           onLoad={() => setImgLoading(false)}
         />
@@ -138,7 +138,7 @@ const TvCard = ({ tv }) => {
           variant="body"
           sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
         >
-          {tv.release_date}
+          {datas.release_date}
         </Typography>
         <Typography
           gutterBottom
@@ -159,7 +159,7 @@ const TvCard = ({ tv }) => {
               mb: 0,
             }}
           />
-          {tv.vote_average}
+          {datas.vote_average}
         </Typography>
       </Box>
       <Typography
@@ -168,9 +168,9 @@ const TvCard = ({ tv }) => {
         component="h2"
         sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
       >
-        {tv.original_name.length > 15
-          ? tv.original_name.slice(0, 17) + ' ...'
-          : tv.original_name}
+        {datas.original_name.length > 15
+          ? datas.original_name.slice(0, 17) + ' ...'
+          : datas.original_name}
       </Typography>
     </CardItem>
   );

@@ -7,7 +7,9 @@ import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from '../../components/Common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
-
+import { getDoc, doc, collection, setDoc } from 'firebase/firestore';
+import '../../firebase';
+import { db } from '../../firebase';
 const Join = () => {
   const [joinValue, setJoinValue] = useState({
     email: '',
@@ -16,6 +18,7 @@ const Join = () => {
   });
   const [errorData, setErrorData] = useState(true);
   const [loading, setLoading] = useState(false);
+  const dataCollectionRef = collection(db, 'users');
   const dispatch = useDispatch();
   const postUserData = useCallback(
     async (email, password) => {
@@ -27,6 +30,10 @@ const Join = () => {
           password
         );
         dispatch(setUserAction(user));
+        console.log(user.uid);
+        await setDoc(doc(dataCollectionRef, user.uid), {
+          favorite: [],
+        });
       } catch (e) {
         console.log(e);
       } finally {

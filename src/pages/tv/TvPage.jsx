@@ -32,7 +32,7 @@ const TvPage = () => {
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
             <Grid item xs={12} sm={4} md={4} lg={2} key={tv.id}>
-              {isLoading ? <CardSkeleton /> : <TvCard tv={tv} />}
+              {isLoading ? <CardSkeleton /> : <TvCard datas={tv} />}
             </Grid>
           ))}
       </Grid>

@@ -9,3 +9,16 @@ const TMDBServer = axios.create({
   },
 });
 export default TMDBServer;
+
+export const requestHome = async (url) => {
+  try {
+    const res = await TMDBServer({
+      url,
+    });
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
