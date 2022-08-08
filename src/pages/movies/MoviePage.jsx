@@ -36,7 +36,7 @@ const MoviePage = () => {
       <Grid container spacing={2}>
         {movieDatas.results &&
           movieDatas.results.map((movie) => (
-            <Grid item xs={12} sm={4} md={4} lg={2} key={movie.id}>
+            <Grid item xs={12} sm={8} md={4} lg={2} key={movie.id}>
               {isLoading ? (
                 <CardSkeleton />
               ) : (

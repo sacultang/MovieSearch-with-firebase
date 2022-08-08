@@ -14,7 +14,8 @@ import Join from './pages/register/Join';
 import Login from './pages/register/Login';
 import Profile from './pages/profile/Profile';
 import Loader from './components/Common/Loader';
-
+import SearchMain from './pages/home/search/SearchMain';
+import SearchResults from './pages/home/search/SearchResults';
 function App() {
   const dispatch = useDispatch();
 
@@ -47,6 +48,9 @@ function App() {
         <Route path="/movie/:query" element={<MoviePage />} />
         <Route path="/tv" element={<TvPage />} />
         <Route path="/tv/:query" element={<TvPage />} />
+        <Route path="/search" element={<SearchMain />}>
+          <Route path=":query" element={<SearchResults />} />
+        </Route>
         <Route
           path="/join"
           element={user?.uid ? <Navigate to="/" /> : <Join />}

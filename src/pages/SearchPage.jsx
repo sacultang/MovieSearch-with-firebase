@@ -38,7 +38,7 @@ const Search = () => {
         <input type="text" name="search" />
         <button>search</button>
       </form>
-      {movieDatas &&
+      {/* {movieDatas &&
         movieDatas.map((item, idx) => {
           return (
             <div key={item.id}>
@@ -70,7 +70,7 @@ const Search = () => {
             &gt;
           </button>
         </>
-      ) : null}
+      ) : null} */}
     </>
   );
 };

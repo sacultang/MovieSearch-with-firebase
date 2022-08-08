@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestHome } from '../../../api/TMDB/baseUrl';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
-import { List, ListItem } from '@mui/material';
+import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 
 const TvScroll = () => {
@@ -9,11 +9,7 @@ const TvScroll = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
-  const flexContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: 0,
-  };
+
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -32,10 +28,16 @@ const TvScroll = () => {
     };
   }, []);
   return (
-    <List style={{ ...flexContainer, minHeight: '330px' }}>
+    <Grid
+      container
+      spacing={2}
+      style={{ minHeight: '330px' }}
+      direction="row"
+      flexWrap="nowrap"
+    >
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
-          <ListItem key={movie.id}>
+          <Grid item key={movie.id} xs={3} sx={{ minWidth: 200 }}>
             {isLoading ? (
               <CardSkeleton />
             ) : (
@@ -47,9 +49,9 @@ const TvScroll = () => {
                 favoriteList={favoriteList}
               />
             )}
-          </ListItem>
+          </Grid>
         ))}
-    </List>
+    </Grid>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, lazy, Suspense } from 'react';
-import { Typography, Tabs, Tab } from '@mui/material';
+import { Typography, Tabs, Tab, Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 
@@ -10,9 +10,9 @@ const Loader = lazy(() => import('../../../components/Common/Loader'));
 
 const TabPannel = ({ children, value, index }) => {
   return (
-    <div hidden={value !== index}>
+    <Box hidden={value !== index}>
       {value === index && <Box>{children}</Box>}
-    </div>
+    </Box>
   );
 };
 

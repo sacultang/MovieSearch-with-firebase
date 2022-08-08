@@ -3,10 +3,10 @@ import TMDBServer from '../baseUrl';
 export const getSearchData = async (query) => {
   try {
     const res = await TMDBServer({
-      url: 'search/tv',
+      url: 'search/multi',
       method: 'GET',
       params: {
-        query: 'stranger',
+        query,
       },
     });
     if (res.status === 200) {

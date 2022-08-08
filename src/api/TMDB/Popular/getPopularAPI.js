@@ -1,13 +1,12 @@
 import TMDBServer from '../baseUrl';
 
-export const getSearchData = async (search, page) => {
+export const getSearchData = async (query, page) => {
   try {
     const res = await TMDBServer({
       url: `search/movie`,
       method: 'GET',
       params: {
-        language: process.env.REACT_APP_TMDB_API_LANGUAGE,
-        query: search,
+        query,
         page: page === undefined ? 1 : page,
       },
     });

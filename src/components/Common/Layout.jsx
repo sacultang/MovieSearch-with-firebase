@@ -1,5 +1,4 @@
 import PersistentDrawerLeft from './Drawer';
-import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import styled from '@emotion/styled';
 const Layout = () => {

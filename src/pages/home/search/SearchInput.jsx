@@ -1,8 +1,8 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useGetDiscoverQuery } from '../../../store/moviesApi';
 import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 
 const getRandom = () => {
   const num = Math.floor(Math.random() * 20);
@@ -10,7 +10,17 @@ const getRandom = () => {
 };
 const SearchInput = () => {
   const { data } = useGetDiscoverQuery();
-  // console.log('searchinput', data);
+  const navigate = useNavigate();
+
+  const getMovieList = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const search = data.get('search');
+    if (search === null || search === undefined || search === '') return;
+    else {
+      navigate(`/search/${search}`, { state: { search } });
+    }
+  };
 
   return (
     <>
@@ -30,8 +40,13 @@ const SearchInput = () => {
                 now.
               </Typography>
             </Box>
-            <InputWrap>
-              <input type="text" placeholder="영화,TV프로그램,인물 검색..." />
+            <InputWrap onSubmit={getMovieList}>
+              <input
+                type="text"
+                placeholder="영화,TV프로그램,인물 검색..."
+                name="search"
+              />
+              <button>검색</button>
             </InputWrap>
           </Container>
         </BoxEl>
@@ -64,21 +79,30 @@ const BoxEl = styled(Box)`
     align-items: center;
   }
 `;
-const InputWrap = styled.div`
+const InputWrap = styled.form`
+  display: flex;
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
-  padding: 0 15px;
+
   background-color: #fff;
   box-sizing: border-box;
   input {
     border-radius: 20px;
-    width: 100%;
+    flex: 1;
     height: 40px;
     border: none;
-
+    margin-left: 10px;
     &:focus {
       outline-width: 0;
     }
+  }
+  button {
+    width: 100px;
+    background: var(--main-bg-color);
+
+    border: var(--main-bg-color);
+    border-radius: 20px;
+    color: #fff;
   }
 `;

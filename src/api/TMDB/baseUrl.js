@@ -6,6 +6,7 @@ const TMDBServer = axios.create({
   baseURL: `https://api.themoviedb.org/3/`,
   params: {
     api_key: `${TMDB_API}`,
+    language: 'ko-KR',
   },
 });
 export default TMDBServer;

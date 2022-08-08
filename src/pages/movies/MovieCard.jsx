@@ -120,7 +120,7 @@ const MovieCard = ({
   return (
     <CardItem
       sx={{
-        minWidth: 166,
+        minWidth: '100%',
         minHeight: 250,
         boxShadow: 'none',
         position: 'relative',

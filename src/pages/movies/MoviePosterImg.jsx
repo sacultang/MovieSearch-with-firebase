@@ -29,8 +29,8 @@ const MoviePosterImg = ({ movie }) => {
         sx={{
           borderRadius: '10px',
           minHeight: 248.99,
-          maxWidth: 166,
-          maxHeight: 249,
+          maxWidth: '100%',
+          // maxHeight: 249,
           overflow: 'hidden',
         }}
       >
@@ -48,8 +48,8 @@ const MoviePosterImg = ({ movie }) => {
 export default MoviePosterImg;
 const CardImg = styled(CardMedia)`
   object-fit: contain;
-  width: 166px;
-  height: 249px;
+  width: 100%;
+  /* height: 249px; */
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   &:hover {

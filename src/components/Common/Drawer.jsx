@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -117,12 +118,17 @@ export default function PermanentDrawerLeft() {
           ))}
         </List>
       </Drawer>
-      <Box
+      <Container
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        xs={12}
+        sm={8}
+        md={4}
+        lg={2}
+        xl={1}
       >
         <Outlet />
-      </Box>
+      </Container>
     </Box>
   );
 }
