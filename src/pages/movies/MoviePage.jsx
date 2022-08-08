@@ -1,11 +1,11 @@
-import { useEffect, useState, useCallback } from 'react';
-import MovieCard from './MovieCard';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
 import { useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-
+import Loader from '../../components/Common/Loader';
+const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
   const params = useParams();
   const [movieDatas, setMovieDatas] = useState({});
@@ -40,13 +40,15 @@ const MoviePage = () => {
               {isLoading ? (
                 <CardSkeleton />
               ) : (
-                <MovieCard
-                  userFavorite={userFavorite}
-                  movie={movie}
-                  setUserFavorite={setUserFavorite}
-                  setFavoriteList={setFavoriteList}
-                  favoriteList={favoriteList}
-                />
+                <Suspense fallback={<Loader />}>
+                  <MovieCard
+                    userFavorite={userFavorite}
+                    movie={movie}
+                    setUserFavorite={setUserFavorite}
+                    setFavoriteList={setFavoriteList}
+                    favoriteList={favoriteList}
+                  />
+                </Suspense>
               )}
             </Grid>
           ))}

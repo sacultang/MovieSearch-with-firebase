@@ -25,7 +25,7 @@ const RegisterGroup = () => {
   }, []);
   return (
     <RegisterGroupDiv>
-      {user?.uid && (
+      {/* {user?.uid && (
         <Typography
           variant="body"
           sx={{
@@ -50,7 +50,7 @@ const RegisterGroup = () => {
           </Typography>
           님 안녕하세요.
         </Typography>
-      )}
+      )} */}
       <IconButton
         sx={{
           color: 'var(--main-text-color)',

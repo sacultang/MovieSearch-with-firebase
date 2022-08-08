@@ -1,6 +1,7 @@
 import React, { useState, useCallback, lazy, Suspense } from 'react';
 import { Typography, Tabs, Tab } from '@mui/material';
 import Box from '@mui/material/Box';
+import styled from '@emotion/styled';
 
 const MovieScroll = lazy(() => import('./MovieScroll'));
 const TvScroll = lazy(() => import('./TvScroll'));
@@ -21,12 +22,21 @@ const WhatsPopular = () => {
   const handleChange = useCallback(async (e, newValue) => {
     setValue(newValue);
   }, []);
+
+  const TitleTypo = styled(Typography)`
+    &::before {
+      content: '';
+      border-left: 4px solid var(--yellow-text-color);
+      margin-right: 5px;
+    }
+  `;
+
   return (
     <Suspense fallback={<Loader />}>
       <TabLayout>
-        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+        <TitleTypo variant="h5" sx={{ fontWeight: 600 }}>
           WhatsPopular
-        </Typography>
+        </TitleTypo>
 
         <Tabs value={value} onChange={handleChange}>
           <Tab label="영화"></Tab>

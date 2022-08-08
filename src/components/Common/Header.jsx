@@ -2,17 +2,25 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import RegisterGroup from '../RegisterGroup';
-
+import { AppBar, Drawer, Toolbar } from '@mui/material';
+const drawerWidth = 240;
 const Header = () => {
   return (
     <>
-      <HeaderDIV>
-        <Nav className="inner-container">
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+      >
+        <Nav>
           <MenuUl>
             <MenuLi>
-              <Link to="/">
-                <LogoDiv />
-              </Link>
+              <Link to="/">{/* <LogoDiv /> */}</Link>
             </MenuLi>
             <MenuLi>
               <h4>영화</h4>
@@ -60,7 +68,7 @@ const Header = () => {
 
           <RegisterGroup />
         </Nav>
-      </HeaderDIV>
+      </Drawer>
     </>
   );
 };
@@ -76,6 +84,7 @@ const HeaderDIV = styled.div`
 `;
 const Nav = styled.nav`
   height: 100%;
+  min-height: 'calc(100vh - 64px)';
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -85,14 +94,14 @@ const MenuUl = styled.ul`
   align-items: center;
   height: 100%;
 `;
-const LogoDiv = styled.div`
-  width: 50px;
-  height: 30px;
-  border-radius: 20px;
-  background: #8360c3;
-  background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
-  background: linear-gradient(to right, #2ebf91, #8360c3);
-`;
+// const LogoDiv = styled.div`
+//   width: 50px;
+//   height: 30px;
+//   border-radius: 20px;
+//   background: #8360c3;
+//   background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
+//   background: linear-gradient(to right, #2ebf91, #8360c3);
+// `;
 const MenuLi = styled.li`
   cursor: pointer;
   border-radius: 20px;

@@ -3,6 +3,7 @@ import { getTrending } from '../../../api/TMDB/Trending/trending';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { List, ListItem } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
+
 const WeekTrending = () => {
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);

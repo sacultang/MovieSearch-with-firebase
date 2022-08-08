@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TodayTrending from './TodayTrending';
 import WeekTrending from './WeekTrending';
 import TabLayout from '../common/TabLayout';
+import styled from '@emotion/styled';
 const TabPannel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
@@ -11,6 +12,15 @@ const TabPannel = ({ children, value, index }) => {
     </div>
   );
 };
+
+const TitleTypo = styled(Typography)`
+  &::before {
+    content: '';
+    border-left: 4px solid var(--yellow-text-color);
+    margin-right: 5px;
+  }
+`;
+
 const Trending = () => {
   const [value, setValue] = useState(0);
 
@@ -19,9 +29,9 @@ const Trending = () => {
   }, []);
   return (
     <TabLayout>
-      <Typography variant="h5" sx={{ fontWeight: 600 }}>
+      <TitleTypo variant="h5" sx={{ fontWeight: 600 }}>
         Trending
-      </Typography>
+      </TitleTypo>
 
       <Tabs value={value} onChange={handleChange}>
         <Tab label="오늘"></Tab>
