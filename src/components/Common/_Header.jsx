@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import RegisterGroup from '../RegisterGroup';
-import { AppBar, Drawer, Toolbar } from '@mui/material';
+import { Drawer } from '@mui/material';
 const drawerWidth = 240;
 const Header = () => {
   return (

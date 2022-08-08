@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { useGetDiscoverQuery } from '../../../store/moviesApi';
+import { useGetDiscoverQuery } from '../../store/moviesApi';
 import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,22 @@ const SearchInput = () => {
             data.results[getRandom()].backdrop_path
           }`}
         >
-          <Container className="container">
+          <Container
+            className="container"
+            sx={{
+              flexDirection: {
+                xs: 'column',
+                sm: 'column',
+                md: 'column',
+                lg: 'row',
+              },
+              justifyContent: {
+                xs: 'center',
+                sm: 'center',
+                md: 'center',
+              },
+            }}
+          >
             <Box mb={4}>
               <Typography variant="h3" sx={{ fontWeight: 600, color: '#fff' }}>
                 Welcome.

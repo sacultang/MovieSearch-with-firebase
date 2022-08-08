@@ -1,132 +1,107 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { Outlet, Link, NavLink } from 'react-router-dom';
-import { LogoDiv } from './DrawerCSS';
-import RegisterGroup from '../RegisterGroup';
-import MovieIcon from '@mui/icons-material/Movie';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import Typography from '@mui/material/Typography';
-import StarPurple500Icon from '@mui/icons-material/StarPurple500';
-const drawerWidth = 200;
-const moviePath = [
-  { text: '인기', path: '/movie/popular', icon: <StarPurple500Icon /> },
-  { text: '현재 상영중', path: '/movie/now_playing', icon: <LiveTvIcon /> },
-  { text: '개봉 예정', path: '/movie/upcoming', icon: <LiveTvIcon /> },
-  { text: '높은 평점', path: '/movie/top_rated', icon: <LiveTvIcon /> },
-];
-
-const tvPath = [
-  { text: '인기', path: '/tv/popular', icon: <StarPurple500Icon /> },
-  { text: '오늘 방영', path: '/tv/airing_today', icon: <LiveTvIcon /> },
-  { text: 'TV 방영중', path: '/tv/on_the_air', icon: <LiveTvIcon /> },
-  { text: '높은 평점', path: '/tv/top_rated', icon: <LiveTvIcon /> },
-];
-
-const buttonHandler = ({ isActive }) => {
-  return {
-    width: '100%',
-    backgroundColor: isActive ? '#f3f3f3' : '',
-    borderLeft: isActive ? '4px solid var(--yellow-text-color)' : '',
-  };
-};
+import { Outlet } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
+import DrawerMenu from './DrawerMenu';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function PermanentDrawerLeft() {
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+    console.log(open);
+  };
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      width: `calc(100% - 200px)`,
+      marginLeft: `200px`,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <Drawer
+      <AppBar
         sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
+          display: { xs: 'block', sm: 'block', md: 'none' },
+          zIndex: 1251,
         }}
-        variant="permanent"
-        anchor="left"
+        position="fixed"
       >
-        <Toolbar
-          sx={{
-            backgroundColor: 'var(--main-bg-color)',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Link to="/">
-            <LogoDiv />
-          </Link>
-          <RegisterGroup />
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ml: open && '200px' }}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
-        <Divider />
-        <List>
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            fontSize={'1.2rem'}
-            p={1}
-            sx={{ display: 'flex', alignItems: 'center' }}
-          >
-            <MovieIcon sx={{ mr: 1 }} /> Movie
-          </Typography>
+      </AppBar>
+      <DrawerMenu open={open} handleDrawerClose={handleDrawerClose} />
 
-          {moviePath.map((list, index) => (
-            <ListItem key={list.text} disablePadding>
-              <NavLink to={`${list.path}`} style={buttonHandler}>
-                <ListItemButton>
-                  <ListItemText
-                    primary={list.text}
-                    sx={{ color: 'var(--main-bg-color)' }}
-                  />
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            fontSize={'1.2rem'}
-            p={1}
-            sx={{ display: 'flex', alignItems: 'center' }}
-          >
-            <LiveTvIcon sx={{ mr: 1 }} /> TV
-          </Typography>
-
-          {tvPath.map((list, index) => (
-            <ListItem key={list.text} disablePadding>
-              <NavLink to={`${list.path}`} style={buttonHandler}>
-                <ListItemButton>
-                  <ListItemText
-                    primary={list.text}
-                    sx={{ color: 'var(--main-bg-color)' }}
-                  />
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
       <Container
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-        xs={12}
-        sm={8}
-        md={4}
-        lg={2}
-        xl={1}
+        sx={{
+          flex: 1,
+          bgcolor: 'background.default',
+          p: 2,
+          pt: {
+            xs: 9,
+            sm: 9,
+            md: 2,
+            lg: 2,
+            xl: 2,
+          },
+          boxSizing: 'border-box',
+          maxWidth: {
+            xs: open ? 'calc(100% - 200px)' : 'xs',
+            sm: open ? 'calc(100% - 200px)' : 'sm',
+            md: 'md',
+            lg: 'lg',
+            xl: 'calc(100% - 200px)',
+          },
+        }}
       >
+        {/* <Box
+          onClick={handleDrawerClose}
+          open={open}
+          sx={{
+            minHeight: '100%',
+            backgroundColor: 'rgba(0,0,0,.34)',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            zIndex: 1,
+            display: {
+              xs: open ? 'block' : 'none',
+              sm: open ? 'block' : 'none',
+              md: 'none',
+            },
+          }}
+        /> */}
         <Outlet />
       </Container>
     </Box>

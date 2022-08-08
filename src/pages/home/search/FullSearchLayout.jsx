@@ -1,4 +1,4 @@
-import SearchInput from './SearchInput';
+import SearchInput from '../Header';
 import { Box } from '@mui/material';
 const FullSearchLayout = () => {
   return (

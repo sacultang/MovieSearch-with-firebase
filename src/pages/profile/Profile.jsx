@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 const Profile = () => {
   return (
     <Container>
-      <Box className="inner-container" sx={{ pt: 3, pb: 3 }}>
+      <Box sx={{ pt: 3, pb: 3 }}>
         <Typography variant="h2" sx={{ fontWeight: 500, fontSize: '1.4rem' }}>
           프로필
         </Typography>

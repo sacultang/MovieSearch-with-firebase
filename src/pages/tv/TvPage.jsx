@@ -35,7 +35,7 @@ const TvPage = () => {
       <Grid container spacing={2}>
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
-            <Grid item xs={12} sm={8} md={4} lg={2} key={tv.id}>
+            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={tv.id}>
               {isLoading ? (
                 <CardSkeleton />
               ) : (
