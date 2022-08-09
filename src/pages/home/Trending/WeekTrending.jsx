@@ -3,13 +3,13 @@ import { getTrending } from '../../../api/TMDB/Trending/trending';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
-
+import { useNavigate } from 'react-router-dom';
 const WeekTrending = () => {
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
-
+  const navigate = useNavigate();
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -27,7 +27,9 @@ const WeekTrending = () => {
       fetch();
     };
   }, []);
-
+  const handleClick = (id, type) => {
+    navigate(`/details/${id}`, { state: { type, id } });
+  };
   return (
     <Grid
       container
@@ -48,6 +50,7 @@ const WeekTrending = () => {
                 setUserFavorite={setUserFavorite}
                 setFavoriteList={setFavoriteList}
                 favoriteList={favoriteList}
+                onClick={handleClick}
               />
             )}
           </Grid>

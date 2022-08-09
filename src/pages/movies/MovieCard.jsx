@@ -15,7 +15,7 @@ import PopupModal from '../../components/PopupModal/PopupModal';
 import { checkClip } from '../../utils/checkSome';
 import CreateIcon from '@mui/icons-material/Create';
 import SubMenuList from './SubMenuList';
-
+import { useLocation } from 'react-router-dom';
 import {
   getDoc,
   doc,
@@ -33,7 +33,9 @@ const MovieCard = ({
   setUserFavorite,
   setFavoriteList,
   favoriteList,
+  onClick,
 }) => {
+  const location = useLocation();
   const user = useSelector((state) => state.user.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,6 +43,8 @@ const MovieCard = ({
   const [subAnchorEl, setSubAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
+  const detailType = location.pathname.split('/')[1];
+
   let docRef;
   if (user.uid) {
     docRef = doc(db, 'users', user.uid);
@@ -126,6 +130,7 @@ const MovieCard = ({
         position: 'relative',
         mt: 1,
       }}
+      onClick={() => onClick(movie.id, detailType || movie.media_type)}
     >
       {/* IMG */}
       <MoviePosterImg movie={movie} />

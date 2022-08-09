@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getTvData } from '../../api/TMDB/Tv/getTvAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -9,6 +9,7 @@ import Loader from '../../components/Common/Loader';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [tvDatas, setTvDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
@@ -30,6 +31,9 @@ const TvPage = () => {
       fetch();
     };
   }, [params]);
+  const handleClick = (id, type) => {
+    navigate(`/details/${id}`, { state: { type, id } });
+  };
   return (
     <Container sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -46,6 +50,7 @@ const TvPage = () => {
                     setUserFavorite={setUserFavorite}
                     setFavoriteList={setFavoriteList}
                     favoriteList={favoriteList}
+                    onClick={handleClick}
                   />
                 </Suspense>
               )}

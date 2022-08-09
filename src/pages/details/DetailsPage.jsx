@@ -19,6 +19,7 @@ const DetailsPage = () => {
   };
 
   useEffect(() => {
+    console.log(state);
     if (state.type === 'movie') {
       fetch(state.id, getMovieDetails);
     }

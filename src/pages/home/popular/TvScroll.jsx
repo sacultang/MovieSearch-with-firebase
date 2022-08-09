@@ -3,13 +3,13 @@ import { requestHome } from '../../../api/TMDB/baseUrl';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
-
+import { useNavigate } from 'react-router-dom';
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
-
+  const navigate = useNavigate();
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -27,6 +27,9 @@ const TvScroll = () => {
       fetch();
     };
   }, []);
+  const handleClick = (id, type) => {
+    navigate(`/details/${id}`, { state: { type: 'tv', id } });
+  };
   return (
     <Grid
       container
@@ -47,6 +50,7 @@ const TvScroll = () => {
                 setUserFavorite={setUserFavorite}
                 setFavoriteList={setFavoriteList}
                 favoriteList={favoriteList}
+                onClick={handleClick}
               />
             )}
           </Grid>

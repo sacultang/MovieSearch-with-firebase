@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
@@ -12,6 +12,7 @@ const MoviePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
+  const navigate = useNavigate();
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -30,6 +31,10 @@ const MoviePage = () => {
     };
   }, [params]);
 
+  const handleClick = (id, type) => {
+    navigate(`/details/${id}`, { state: { type, id } });
+  };
+
   //  JSX
   return (
     <Container sx={{ flexGrow: 1 }}>
@@ -47,6 +52,7 @@ const MoviePage = () => {
                     setUserFavorite={setUserFavorite}
                     setFavoriteList={setFavoriteList}
                     favoriteList={favoriteList}
+                    onClick={handleClick}
                   />
                 </Suspense>
               )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestHome } from '../../../api/TMDB/baseUrl';
-
+import { useNavigate } from 'react-router-dom';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
@@ -9,7 +9,7 @@ const MovieScroll = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
-
+  const navigate = useNavigate();
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -27,7 +27,9 @@ const MovieScroll = () => {
       fetch();
     };
   }, []);
-
+  const handleClick = (id, type) => {
+    navigate(`/details/${id}`, { state: { type: 'movie', id } });
+  };
   return (
     <Grid
       container
@@ -48,6 +50,7 @@ const MovieScroll = () => {
                 setUserFavorite={setUserFavorite}
                 setFavoriteList={setFavoriteList}
                 favoriteList={favoriteList}
+                onClick={handleClick}
               />
             )}
           </Grid>
