@@ -12,9 +12,12 @@ const Footer = () => {
         position: ' relative',
         width: { xs: '100%', lg: 'calc(100% - 200px)' },
         marginLeft: 'auto',
+        textAlign: 'center',
+        lineHeight: '150px',
+        fontSize: '0.9rem',
       }}
     >
-      Footer
+      &#169;{new Date().getFullYear()} OJ
     </Box>
   );
 };

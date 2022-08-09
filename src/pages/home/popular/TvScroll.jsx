@@ -28,7 +28,7 @@ const TvScroll = () => {
     };
   }, []);
   const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type: 'tv', id } });
+    navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };
   return (
     <Grid

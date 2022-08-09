@@ -28,7 +28,7 @@ const WeekTrending = () => {
     };
   }, []);
   const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type, id } });
+    navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
     <Grid

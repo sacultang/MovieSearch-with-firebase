@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getTvData } from '../../api/TMDB/Tv/getTvAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -8,7 +8,7 @@ import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 import Loader from '../../components/Common/Loader';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
-  const params = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const [tvDatas, setTvDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -17,22 +17,22 @@ const TvPage = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getTvData(params.query);
+      const res = await getTvData(location.pathname);
       setTvDatas(res);
     } catch (e) {
       console.log(e);
     } finally {
       setIsLoading(false);
     }
-  }, [params]);
+  }, [location]);
   useEffect(() => {
     fetch();
     return () => {
       fetch();
     };
-  }, [params]);
+  }, [location]);
   const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type, id } });
+    navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
     <Container sx={{ flexGrow: 1 }}>

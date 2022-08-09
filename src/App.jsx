@@ -52,7 +52,7 @@ function App() {
         <Route path="/search" element={<SearchMain />}>
           <Route path=":query" element={<SearchResults />} />
         </Route>
-        <Route path="/details/:id" element={<DetailsPage />} />
+        <Route path="/details/:type/:id" element={<DetailsPage />} />
         <Route
           path="/join"
           element={user?.uid ? <Navigate to="/" /> : <Join />}

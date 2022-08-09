@@ -11,7 +11,7 @@ const SearchResults = () => {
   const navigate = useNavigate();
   const handleNavigate = useCallback(
     (type, id) => {
-      navigate(`/details/${id}`, { state: { type, id } });
+      navigate(`/details/${type}/${id}`, { state: { type, id } });
     },
     [navigate]
   );
@@ -20,18 +20,7 @@ const SearchResults = () => {
       <Grid container spacing={2} mt={0}>
         {movieData.results &&
           movieData.results.map((movie) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={4}
-              xl={3}
-              key={movie.id}
-              onClick={() => {
-                handleNavigate(movie.media_type, movie.id);
-              }}
-            >
+            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard
                   userFavorite={userFavorite}
@@ -39,6 +28,9 @@ const SearchResults = () => {
                   setUserFavorite={setUserFavorite}
                   setFavoriteList={setFavoriteList}
                   favoriteList={favoriteList}
+                  onClick={() => {
+                    handleNavigate(movie.media_type, movie.id);
+                  }}
                 />
               </Suspense>
             </Grid>

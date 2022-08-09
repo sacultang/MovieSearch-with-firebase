@@ -7,24 +7,26 @@ import Loader from '../../components/Common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { getTrailer } from '../../api/TMDB/Search/getSearchAPI';
 const DetailsPage = () => {
-  const { state } = useLocation();
+  const { pathname, state } = useLocation();
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
-  const fetch = async (id, func) => {
-    const res = await func(id);
-    console.log(res);
-    if (!!res) setLoading(false);
-    setDetails(res);
+  const fetch = async (id, func, type) => {
+    const detailRes = await func(`${type}/${id}`);
+    // const trailerRes = await func(id, type);
+    // console.log(trailerRes);
+    if (!!detailRes) setLoading(false);
+    setDetails(detailRes);
   };
 
   useEffect(() => {
-    console.log(state);
+    console.log(pathname, state);
     if (state.type === 'movie') {
-      fetch(state.id, getMovieDetails);
+      fetch(state.id, getMovieDetails, state.type);
     }
     if (state.type === 'tv') {
-      fetch(state.id, getTvDetilas);
+      fetch(state.id, getTvDetilas, state.type);
     }
   }, [state]);
   return (
@@ -57,7 +59,7 @@ const DetailsPage = () => {
                   />
                 )}
               </Grid>
-              <Grid item ml={2}>
+              <Grid item ml={2} maxWidth={1200}>
                 <Typography variant="h4" fontWeight={600}>
                   {details?.title || details?.name}(
                   {(details?.release_date &&
@@ -82,29 +84,39 @@ const DetailsPage = () => {
                 <Typography fontStyle={'italic'} variant="h5" lineHeight={3}>
                   "{details?.tagline && details?.tagline}"
                 </Typography>
-                <Typography variant="h6">개요</Typography>
-                <Typography variant="body" lineHeight={1.3} fontSize={'1rem'}>
+                <Typography variant="h6" fontWeight={600} fontSize={'0.9rem'}>
+                  개요
+                </Typography>
+                <Typography
+                  variant="body"
+                  lineHeight={1.3}
+                  fontSize={'1rem'}
+                  mt={1}
+                  display={'inline-block'}
+                >
                   {details?.overview}
                 </Typography>
                 <Box mt={3}>
-                  <Typography
-                    variant="body"
-                    fontWeight={600}
-                    fontSize={'0.8rem'}
-                  >
+                  <Typography variant="h6" fontWeight={600} fontSize={'0.8rem'}>
                     Production Company
                   </Typography>
-                  {details?.production_companies.map((item) => (
-                    <Box key={item.id} mr={2}>
-                      {item.logo_path && (
-                        <img
-                          src={`https://image.tmdb.org/t/p/w200/${item.logo_path}`}
-                          alt={item.name}
-                          style={{ width: '80px', marginTop: '10px' }}
-                        />
-                      )}
-                    </Box>
-                  ))}
+                  <Box display={'flex'} alignItems={'center'}>
+                    {details?.production_companies.map((item, idx) => (
+                      <div key={item.id || idx}>
+                        {item.logo_path && (
+                          <img
+                            src={`https://image.tmdb.org/t/p/w200/${item.logo_path}`}
+                            alt={item.name}
+                            style={{
+                              width: '60px',
+                              marginTop: '10px',
+                              marginRight: '10px',
+                            }}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </Box>
                 </Box>
               </Grid>
             </Grid>

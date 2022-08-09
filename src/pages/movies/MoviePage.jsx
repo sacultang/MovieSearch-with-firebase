@@ -1,38 +1,39 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
 const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
-  const params = useParams();
+  const location = useLocation();
   const [movieDatas, setMovieDatas] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
+    console.log(location);
     setIsLoading(true);
     try {
-      const res = await getMovieData(params.query);
+      const res = await getMovieData(location.pathname);
       setMovieDatas(res);
     } catch (e) {
       console.log(e);
     } finally {
       setIsLoading(false);
     }
-  }, [params]);
+  }, [location]);
   useEffect(() => {
     fetch();
     return () => {
       fetch();
     };
-  }, [params]);
+  }, [location]);
 
   const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type, id } });
+    navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 
   //  JSX

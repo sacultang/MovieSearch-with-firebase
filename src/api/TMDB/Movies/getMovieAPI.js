@@ -1,9 +1,9 @@
 import TMDBServer from '../baseUrl';
 
-export const getMovieData = async (query) => {
+export const getMovieData = async (url) => {
   try {
     const res = await TMDBServer({
-      url: `movie/${query}`,
+      url: `${url}`,
       method: 'GET',
     });
     if (res.status === 200) {

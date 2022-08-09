@@ -28,7 +28,7 @@ const MovieScroll = () => {
     };
   }, []);
   const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type: 'movie', id } });
+    navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };
   return (
     <Grid
