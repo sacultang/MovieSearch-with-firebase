@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getTvData } from '../../api/TMDB/Tv/getTvAPI';
+import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
@@ -25,7 +25,7 @@ const TvPage = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getTvData(location.pathname, page);
+      const res = await getData(location.pathname, page);
       setTvDatas(res);
     } catch (e) {
       console.log(e);

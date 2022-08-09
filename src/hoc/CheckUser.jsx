@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { setUserAction, clearUserAction } from '../store/userSlice';
 import { RequiredLogin, RequiredLogout } from './userAccessType';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -19,7 +17,7 @@ export default function CheckUser(Component, option = null) {
         }
         if (option === RequiredLogout && user) navigate('/');
       }
-    }, [dispatch]);
+    }, [dispatch, navigate, location.pathname, user]);
     return (
       <>
         {option === RequiredLogin ? (

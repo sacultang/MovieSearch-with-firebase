@@ -11,7 +11,7 @@ const TMDBServer = axios.create({
 });
 export default TMDBServer;
 
-export const requestHome = async (url) => {
+export const requestHome = async (url: string) => {
   try {
     const res = await TMDBServer({
       url,

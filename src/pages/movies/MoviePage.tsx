@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
-import { getMovieData } from '../../api/TMDB/Movies/getMovieAPI';
+import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -24,7 +24,7 @@ const MoviePage = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getMovieData(location.pathname, page);
+      const res = await getData(location.pathname, page);
       setMovieDatas(res);
     } catch (e) {
       console.log(e);

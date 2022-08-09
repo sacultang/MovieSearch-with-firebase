@@ -1,13 +1,13 @@
-import React, { lazy, useEffect, useState, Suspense } from 'react';
+import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getMovieDetails } from '../../api/TMDB/Movies/getMovieDetails';
-import { getTvDetilas } from '../../api/TMDB/Tv/getTvDetails';
+import { getDetails } from '../../api/TMDB/Details/getDetails';
 import styled from '@emotion/styled';
 import Loader from '../../components/Common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
+import DetailSkeleton from '../../components/Skeleton/DetailSkeleton';
+const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
 
 const DetailsPage = () => {
@@ -17,20 +17,18 @@ const DetailsPage = () => {
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const fetch = async (id, func, type) => {
-    const detailRes = await func(`${type}/${id}`);
+  const fetch = useCallback(async (id, type) => {
+    const detailRes = await getDetails(`${type}/${id}`);
 
     if (!!detailRes) setLoading(false);
     setDetails(detailRes);
-  };
+  }, []);
 
   useEffect(() => {
-    if (state.type === 'movie') {
-      fetch(state.id, getMovieDetails, state.type);
-    }
-    if (state.type === 'tv') {
-      fetch(state.id, getTvDetilas, state.type);
-    }
+    fetch(state.id, state.type);
+    return () => {
+      fetch(state.id, state.type);
+    };
   }, [state]);
   return (
     <Box component="section">
@@ -55,10 +53,11 @@ const DetailsPage = () => {
             >
               <Grid item>
                 {loading ? (
-                  <Loader />
+                  <DetailSkeleton />
                 ) : (
                   <DetailPosterImg
-                    src={`https://image.tmdb.org/t/p/original/${details?.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w300/${details?.poster_path}`}
+                    onLoad={() => setLoading(false)}
                   />
                 )}
               </Grid>
@@ -128,6 +127,9 @@ const DetailsPage = () => {
       )}
       <Suspense fallback={<Loader />}>
         <TrailerPage urlPath={urlPath} />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <CreditsPage urlPath={urlPath} />
       </Suspense>
     </Box>
   );

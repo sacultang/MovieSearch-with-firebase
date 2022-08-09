@@ -3,7 +3,7 @@ import TMDBServer from '../baseUrl';
 export const getPersonData = async () => {
   try {
     const res = await TMDBServer({
-      url: `person/popular}`,
+      url: `person/popular`,
       method: 'GET',
     });
     if (res.status === 200) {
