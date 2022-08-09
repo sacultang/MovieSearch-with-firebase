@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
 import { IMovie } from '../../types/movieType';
+import PaginationComp from '../../components/Common/PaginationComp';
 const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
   const location = useLocation();
@@ -18,25 +19,25 @@ const MoviePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    console.log(location);
     setIsLoading(true);
     try {
-      const res = await getMovieData(location.pathname);
+      const res = await getMovieData(location.pathname, page);
       setMovieDatas(res);
     } catch (e) {
       console.log(e);
     } finally {
       setIsLoading(false);
     }
-  }, [location]);
+  }, [location, page]);
   useEffect(() => {
     fetch();
     return () => {
       fetch();
     };
-  }, [location]);
+  }, [location, page]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
@@ -66,6 +67,7 @@ const MoviePage = () => {
             </Grid>
           ))}
       </Grid>
+      <PaginationComp setPage={setPage} />
     </Container>
   );
 };

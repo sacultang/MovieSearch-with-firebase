@@ -19,14 +19,12 @@ const DetailsPage = () => {
 
   const fetch = async (id, func, type) => {
     const detailRes = await func(`${type}/${id}`);
-    // const trailerRes = await getTrailer(urlPath);
-    // console.log(trailerRes);
+
     if (!!detailRes) setLoading(false);
     setDetails(detailRes);
   };
 
   useEffect(() => {
-    console.log(pathname, state);
     if (state.type === 'movie') {
       fetch(state.id, getMovieDetails, state.type);
     }
