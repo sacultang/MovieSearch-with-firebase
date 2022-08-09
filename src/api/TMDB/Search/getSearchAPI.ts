@@ -1,12 +1,12 @@
 import TMDBServer from '../baseUrl';
 
-export const getSearchData = async (query) => {
+export const getSearchData = async (query: string) => {
   try {
     const res = await TMDBServer({
       url: 'search/multi',
       method: 'GET',
       params: {
-        query,
+        query: query!,
       },
     });
     if (res.status === 200) {
@@ -17,11 +17,10 @@ export const getSearchData = async (query) => {
   }
 };
 
-export const getTrailer = async (id, type) => {
-  console.log(type);
+export const getTrailer = async (url: string) => {
   try {
     const res = await TMDBServer({
-      url: `${type}/${id}/videos`,
+      url: `${url}/videos`,
       method: 'GET',
     });
 

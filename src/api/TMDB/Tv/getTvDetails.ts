@@ -1,6 +1,6 @@
 import TMDBServer from '../baseUrl';
 
-export const getMovieDetails = async (url) => {
+export const getTvDetilas = async (url: string) => {
   try {
     const res = await TMDBServer({
       url: `${url}`,

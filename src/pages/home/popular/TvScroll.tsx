@@ -4,8 +4,14 @@ import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
+import { IMovie } from '../../../types/movieType';
 const TvScroll = () => {
-  const [movieDatas, setMovieDatas] = useState({});
+  const [movieDatas, setMovieDatas] = useState<IMovie>({
+    page: 0,
+    results: [],
+    total_pages: 0,
+    total_results: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
@@ -27,7 +33,7 @@ const TvScroll = () => {
       fetch();
     };
   }, []);
-  const handleClick = (id, type) => {
+  const handleClick = (id: string, type: string) => {
     navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };
   return (

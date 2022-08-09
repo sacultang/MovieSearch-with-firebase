@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getMovieDetails } from '../../api/TMDB/Movies/getMovieDetails';
 import { getTvDetilas } from '../../api/TMDB/Tv/getTvDetails';
@@ -7,14 +7,19 @@ import Loader from '../../components/Common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { getTrailer } from '../../api/TMDB/Search/getSearchAPI';
+
+const TrailerPage = lazy(() => import('./TrailerPage'));
+
 const DetailsPage = () => {
   const { pathname, state } = useLocation();
+  const urlPath = pathname.split('/').slice(2, 4).join('/');
+
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
+
   const fetch = async (id, func, type) => {
     const detailRes = await func(`${type}/${id}`);
-    // const trailerRes = await func(id, type);
+    // const trailerRes = await getTrailer(urlPath);
     // console.log(trailerRes);
     if (!!detailRes) setLoading(false);
     setDetails(detailRes);
@@ -30,7 +35,7 @@ const DetailsPage = () => {
     }
   }, [state]);
   return (
-    <>
+    <Box component="section">
       {details?.poster_path && (
         <MainDetailImageBackdrop
           urlPath={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
@@ -123,7 +128,10 @@ const DetailsPage = () => {
           </BackDrop>
         </MainDetailImageBackdrop>
       )}
-    </>
+      <Suspense fallback={<Loader />}>
+        <TrailerPage urlPath={urlPath} />
+      </Suspense>
+    </Box>
   );
 };
 
@@ -156,4 +164,3 @@ const DetailPosterImg = styled.img`
   width: 300px;
   border-radius: 20px;
 `;
-const ProductionImg = styled.img``;

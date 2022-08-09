@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { getSearchData } from '../../api/TMDB/Search/getSearchAPI';
@@ -11,17 +11,18 @@ const SearchResults = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const query = params.query;
-  const inputRef = useRef(null);
+
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    const res = await getSearchData(query);
+    const res = await getSearchData(query as string);
+
     dispatch(setMovieAction(res));
   }, [dispatch, query]);
   useEffect(() => {
     fetch();
   }, [params]);
   const handleSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const data = new FormData(e.currentTarget);
       const search = data.get('search');
@@ -33,7 +34,7 @@ const SearchResults = () => {
   return (
     <Container>
       <Box component="form" onSubmit={handleSubmit}>
-        <input placeholder={`${query}`} ref={inputRef} name="search" />
+        <input placeholder={`${query}`} name="search" />
       </Box>
       <Outlet />
     </Container>

@@ -1,6 +1,6 @@
 import TMDBServer from '../baseUrl';
 
-export const getTrending = async (query) => {
+export const getTrending = async (query: string) => {
   try {
     const res = await TMDBServer({
       url: `trending/all/${query}`,

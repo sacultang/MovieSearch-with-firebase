@@ -17,12 +17,13 @@ import Loader from './components/Common/Loader';
 import SearchMain from './pages/search/SearchMain';
 import SearchResults from './pages/search/SearchResults';
 import DetailsPage from './pages/details/DetailsPage';
+import { RootState } from './store/store';
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: RootState) => state.user.user);
 
-  const loading = useSelector((state) => state.user.loading);
+  const loading = useSelector((state: RootState) => state.user.loading);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (!!user) {

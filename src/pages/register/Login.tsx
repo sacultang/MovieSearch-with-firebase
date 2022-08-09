@@ -1,34 +1,40 @@
-import { useState, useCallback, useEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  FormEvent,
+  ChangeEvent,
+} from 'react';
 import { Box, Typography, Grid, TextField } from '@mui/material';
 import '../../firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { LoadingButton } from '@mui/lab';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from '../../components/Common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
 
-const Join = () => {
+const Login = () => {
+  const dispatch = useDispatch();
   const [joinValue, setJoinValue] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   });
+
   const [errorData, setErrorData] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
-  const postUserData = useCallback(
-    async (email, password) => {
+  const loginUser = useCallback(
+    async (email: string, password: string) => {
       setLoading(true);
       try {
-        const { user } = await createUserWithEmailAndPassword(
+        const { user } = await signInWithEmailAndPassword(
           getAuth(),
           email,
           password
         );
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
-        // console.log(user.uid);
       } catch (e) {
         console.log(e);
       } finally {
@@ -39,7 +45,7 @@ const Join = () => {
   );
 
   const handleInputValue = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.currentTarget;
       setJoinValue({ ...joinValue, [name]: value });
     },
@@ -47,17 +53,16 @@ const Join = () => {
   );
 
   const handleSubmit = useCallback(
-    (e) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      postUserData(joinValue.email, joinValue.password);
+      loginUser(joinValue.email, joinValue.password);
     },
-    [joinValue.email, joinValue.password, postUserData]
+    [joinValue.email, joinValue.password, loginUser]
   );
   useEffect(() => {
     if (
       EMAIL_REGEX.test(joinValue.email) &&
-      PW_REGEX.test(joinValue.password) &&
-      joinValue.password === joinValue.confirmPassword
+      PW_REGEX.test(joinValue.password)
     ) {
       setErrorData(false);
     } else {
@@ -67,7 +72,7 @@ const Join = () => {
   return (
     <PaddingLayout>
       <Typography component="h1" variant="h5" mb={5}>
-        회원가입
+        로그인
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -105,25 +110,6 @@ const Join = () => {
               }
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="confirmPassword"
-              required
-              fullWidth
-              label="패스워드 확인"
-              type="password"
-              autoComplete="off"
-              onChange={handleInputValue}
-              error={
-                joinValue.password === joinValue.confirmPassword ? false : true
-              }
-              helperText={
-                joinValue.password === joinValue.confirmPassword
-                  ? ''
-                  : '비밀번호가 다릅니다'
-              }
-            />
-          </Grid>
         </Grid>
         <LoadingButton
           type="submit"
@@ -134,11 +120,21 @@ const Join = () => {
           disabled={errorData}
           loading={loading}
         >
-          회원가입
+          로그인
         </LoadingButton>
+        <Grid container justifyContent="flex-end" mt={3}>
+          <Grid item>
+            <Link
+              to="/join"
+              style={{ textDecoration: 'none', color: '#5d5d5d' }}
+            >
+              계정이 없나요? 회원가입으로 이동
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
     </PaddingLayout>
   );
 };
 
-export default Join;
+export default Login;

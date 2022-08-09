@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import CardMedia from '@mui/material/CardMedia';
 import { Stack, CircularProgress, Box } from '@mui/material';
 import styled from '@emotion/styled';
+import { IMovieResult } from '../../types/movieType';
 
-const MoviePosterImg = ({ movie }) => {
+interface IProps {
+  movie: IMovieResult;
+}
+
+const MoviePosterImg = ({ movie }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
@@ -35,8 +40,7 @@ const MoviePosterImg = ({ movie }) => {
         }}
       >
         <CardImg
-          component="img"
-          image={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
           alt={movie?.original_title || movie?.original_name}
           onLoad={onLoad}
         />
@@ -46,7 +50,7 @@ const MoviePosterImg = ({ movie }) => {
 };
 
 export default MoviePosterImg;
-const CardImg = styled(CardMedia)`
+const CardImg = styled.img`
   object-fit: contain;
   width: 100%;
   /* height: 249px; */

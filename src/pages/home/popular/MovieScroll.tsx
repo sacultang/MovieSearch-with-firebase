@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { getTrending } from '../../../api/TMDB/Trending/trending';
+import { requestHome } from '../../../api/TMDB/baseUrl';
+import { useNavigate } from 'react-router-dom';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
-import { useNavigate } from 'react-router-dom';
-const WeekTrending = () => {
-  const [movieDatas, setMovieDatas] = useState({});
+import { IMovie } from '../../../types/movieType';
+const MovieScroll = () => {
+  const [movieDatas, setMovieDatas] = useState<IMovie>({
+    page: 0,
+    results: [],
+    total_pages: 0,
+    total_results: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
@@ -13,7 +19,8 @@ const WeekTrending = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getTrending('week');
+      const res = await requestHome('movie/popular');
+
       setMovieDatas(res);
     } catch (e) {
       console.log(e);
@@ -27,8 +34,8 @@ const WeekTrending = () => {
       fetch();
     };
   }, []);
-  const handleClick = (id, type) => {
-    navigate(`/details/${type}/${id}`, { state: { type, id } });
+  const handleClick = (id: string, type: string) => {
+    navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };
   return (
     <Grid
@@ -59,4 +66,4 @@ const WeekTrending = () => {
   );
 };
 
-export default memo(WeekTrending);
+export default memo(MovieScroll);

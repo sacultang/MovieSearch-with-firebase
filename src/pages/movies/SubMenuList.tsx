@@ -2,7 +2,14 @@ import React from 'react';
 import { Menu, MenuItem } from '@mui/material';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Typography from '@mui/material/Typography';
-const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }) => {
+
+interface IProps {
+  subOpen: boolean;
+  subAnchorEl: any;
+  handleSubClose: (e: any) => void;
+}
+
+const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
   return (
     <Menu
       open={subOpen}
@@ -40,7 +47,7 @@ const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }) => {
         <ControlPointIcon sx={{ width: '1rem' }} />
         <Typography
           gutterBottom
-          variant="body"
+          variant="body1"
           sx={{ fontSize: '0.8rem', mb: 0 }}
         >
           &nbsp;목록에 추가

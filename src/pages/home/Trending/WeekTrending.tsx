@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import MovieCard from '../../movies/MovieCard';
+import { getTrending } from '../../../api/TMDB/Trending/trending';
 import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
 import { Grid } from '@mui/material';
-import { getTrending } from '../../../api/TMDB/Trending/trending';
+import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
-const TodayTrending = () => {
-  const [movieDatas, setMovieDatas] = useState({});
+import { IMovie } from '../../../types/movieType';
+const WeekTrending = () => {
+  const [movieDatas, setMovieDatas] = useState<IMovie>({
+    page: 0,
+    results: [],
+    total_pages: 0,
+    total_results: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
@@ -13,8 +19,7 @@ const TodayTrending = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getTrending('day');
-
+      const res = await getTrending('week');
       setMovieDatas(res);
     } catch (e) {
       console.log(e);
@@ -28,8 +33,8 @@ const TodayTrending = () => {
       fetch();
     };
   }, []);
-  const handleClick = (id, type) => {
-    navigate(`/details/${id}`, { state: { type, id } });
+  const handleClick = (id: string, type: string) => {
+    navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
     <Grid
@@ -60,4 +65,4 @@ const TodayTrending = () => {
   );
 };
 
-export default memo(TodayTrending);
+export default memo(WeekTrending);

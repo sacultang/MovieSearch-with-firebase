@@ -31,4 +31,4 @@ export const moviesApi = createApi({
   },
 });
 
-export const { useGetMovieQuery, useGetDiscoverQuery, use } = moviesApi;
+export const { useGetMovieQuery, useGetDiscoverQuery } = moviesApi;

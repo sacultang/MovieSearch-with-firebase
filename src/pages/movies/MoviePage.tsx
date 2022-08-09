@@ -5,10 +5,16 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
+import { IMovie } from '../../types/movieType';
 const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
   const location = useLocation();
-  const [movieDatas, setMovieDatas] = useState({});
+  const [movieDatas, setMovieDatas] = useState<IMovie>({
+    page: 0,
+    results: [],
+    total_pages: 0,
+    total_results: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
@@ -32,7 +38,7 @@ const MoviePage = () => {
     };
   }, [location]);
 
-  const handleClick = (id, type) => {
+  const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 
