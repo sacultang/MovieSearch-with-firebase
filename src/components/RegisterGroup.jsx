@@ -13,12 +13,12 @@ const RegisterGroup = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const user = useSelector((state) => state.user.user);
-  const handleOpenMenu = (e) => {
+  const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
-  };
-  const handleCloseMenu = () => {
+  }, []);
+  const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
   const handleLogOut = useCallback(async () => {
     await signOut(getAuth());
     setAnchorEl(null);

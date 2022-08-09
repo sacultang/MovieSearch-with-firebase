@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,14 +12,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export default function PermanentDrawerLeft() {
   const [open, setOpen] = useState(false);
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = useCallback(() => {
     setOpen((prev) => !prev);
-  };
+  }, []);
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setOpen(false);
-    console.log(open);
-  };
+  }, []);
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -38,72 +37,56 @@ export default function PermanentDrawerLeft() {
     }),
   }));
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
-        sx={{
-          display: { xs: 'block', sm: 'block', md: 'none' },
-          zIndex: 1251,
-        }}
-        position="fixed"
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ml: open && '200px' }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <DrawerMenu open={open} handleDrawerClose={handleDrawerClose} />
-
-      <Container
-        component="main"
-        sx={{
-          flex: 1,
-          bgcolor: 'background.default',
-          p: 2,
-          pt: {
-            xs: 9,
-            sm: 9,
-            md: 2,
-            lg: 2,
-            xl: 2,
-          },
-          boxSizing: 'border-box',
-          maxWidth: {
-            xs: open ? 'calc(100% - 200px)' : 'xs',
-            sm: open ? 'calc(100% - 200px)' : 'sm',
-            md: 'md',
-            lg: 'lg',
-            xl: 'calc(100% - 200px)',
-          },
-        }}
-      >
-        {/* <Box
-          onClick={handleDrawerClose}
-          open={open}
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar
           sx={{
-            minHeight: '100%',
-            backgroundColor: 'rgba(0,0,0,.34)',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            zIndex: 1,
-            display: {
-              xs: open ? 'block' : 'none',
-              sm: open ? 'block' : 'none',
-              md: 'none',
+            display: { xs: 'block', sm: 'block', md: 'none' },
+            zIndex: 1251,
+          }}
+          position="fixed"
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ml: open && '200px' }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <DrawerMenu open={open} handleDrawerClose={handleDrawerClose} />
+
+        <Container
+          component="main"
+          sx={{
+            flex: 1,
+            bgcolor: 'background.default',
+            p: 2,
+            pt: {
+              xs: 9,
+              sm: 9,
+              md: 2,
+              lg: 2,
+              xl: 2,
+            },
+            boxSizing: 'border-box',
+            maxWidth: {
+              xs: open ? 'calc(100% - 200px)' : 'xs',
+              sm: open ? 'calc(100% - 200px)' : 'sm',
+              md: 'md',
+              lg: 'lg',
+              xl: 'calc(100% - 200px)',
             },
           }}
-        /> */}
-        <Outlet />
-      </Container>
-    </Box>
+        >
+          <Outlet />
+        </Container>
+      </Box>
+    </>
   );
 }

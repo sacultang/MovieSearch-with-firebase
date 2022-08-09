@@ -8,7 +8,7 @@ const getRandom = () => {
   const num = Math.floor(Math.random() * 20);
   return num;
 };
-const SearchInput = () => {
+const Header = () => {
   const { data } = useGetDiscoverQuery();
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const SearchInput = () => {
     const search = data.get('search');
     if (search === null || search === undefined || search === '') return;
     else {
-      navigate(`/search/${search}`, { state: { search } });
+      navigate(`/search/${search}`);
     }
   };
 
@@ -70,7 +70,7 @@ const SearchInput = () => {
   );
 };
 
-export default SearchInput;
+export default Header;
 
 const BoxEl = styled(Box)`
   height: 300px;
@@ -78,7 +78,7 @@ const BoxEl = styled(Box)`
   position: relative;
   &::before {
     content: '';
-    background: ${(props) => `url(${props.urlPath}) no-repeat center center`};
+    background: ${(props) => `url(${props.urlPath}) no-repeat top center`};
     background-size: cover;
     opacity: 0.6;
     position: absolute;

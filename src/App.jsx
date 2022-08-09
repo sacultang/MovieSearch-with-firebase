@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './firebase';
 
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { setUserAction, clearUserAction } from './store/userSlice';
-import Layout from './components/Common/Layout';
+import Layout from './pages/home/common/Layout';
 import Home from './pages/home/Home';
 import MoviePage from './pages/movies/MoviePage';
 import TvPage from './pages/tv/TvPage';
@@ -14,8 +14,9 @@ import Join from './pages/register/Join';
 import Login from './pages/register/Login';
 import Profile from './pages/profile/Profile';
 import Loader from './components/Common/Loader';
-import SearchMain from './pages/home/search/SearchMain';
-import SearchResults from './pages/home/search/SearchResults';
+import SearchMain from './pages/search/SearchMain';
+import SearchResults from './pages/search/SearchResults';
+import DetailsPage from './pages/details/DetailsPage';
 function App() {
   const dispatch = useDispatch();
 
@@ -51,6 +52,7 @@ function App() {
         <Route path="/search" element={<SearchMain />}>
           <Route path=":query" element={<SearchResults />} />
         </Route>
+        <Route path="/details/:id" element={<DetailsPage />} />
         <Route
           path="/join"
           element={user?.uid ? <Navigate to="/" /> : <Join />}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, memo } from 'react';
+import { useState, useCallback, useEffect, memo } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
@@ -124,7 +124,7 @@ const MovieCard = ({
         minHeight: 250,
         boxShadow: 'none',
         position: 'relative',
-        m: 1,
+        mt: 1,
       }}
     >
       {/* IMG */}

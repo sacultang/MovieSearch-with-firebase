@@ -13,7 +13,7 @@ import { Link, NavLink } from 'react-router-dom';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
-import { styled } from '@mui/material/styles';
+
 const drawerWidth = 200;
 const moviePath = [
   { text: '인기', path: '/movie/popular', icon: <StarPurple500Icon /> },

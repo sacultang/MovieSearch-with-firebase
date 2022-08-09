@@ -1,5 +1,5 @@
-import PersistentDrawerLeft from './Drawer';
-import Footer from './Footer';
+import PersistentDrawerLeft from '../../../components/Common/Drawer';
+import Footer from '../../../components/Common/Footer';
 import styled from '@emotion/styled';
 const Layout = () => {
   return (

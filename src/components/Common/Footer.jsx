@@ -1,16 +1,22 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
+import Box from '@mui/material/Box';
 const Footer = () => {
-  return <FooterEl>Footer</FooterEl>;
+  return (
+    <Box
+      component="footer"
+      sx={{
+        height: '150px',
+        backgroundColor: 'var(--main-bg-color)',
+        color: ' var(--main-text-color)',
+        position: ' relative',
+        width: { xs: '100%', lg: 'calc(100% - 200px)' },
+        marginLeft: 'auto',
+      }}
+    >
+      Footer
+    </Box>
+  );
 };
 
 export default Footer;
-
-const FooterEl = styled.footer`
-  height: 200px;
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
-  position: relative;
-  width: 100%;
-`;
