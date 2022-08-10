@@ -3,7 +3,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { Stack, CircularProgress, Box } from '@mui/material';
 import styled from '@emotion/styled';
 import { IMovieResult } from '../../types/movieType';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 interface IProps {
   movie: IMovieResult;
 }
@@ -39,10 +39,16 @@ const MoviePosterImg = ({ movie }: IProps) => {
           overflow: 'hidden',
         }}
       >
-        <CardImg
-          src={`https://image.tmdb.org/t/p/w300/${movie?.poster_path}`}
+        <LazyLoadImage
+          src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
           alt={movie?.original_title || movie?.original_name}
           onLoad={onLoad}
+          width={'100%'}
+          style={{
+            objectFit: 'contain',
+            cursor: 'pointer',
+            
+          }}
         />
       </Box>
     </>
@@ -50,7 +56,7 @@ const MoviePosterImg = ({ movie }: IProps) => {
 };
 
 export default MoviePosterImg;
-const CardImg = styled.img`
+const CardImg = styled(LazyLoadImage)`
   object-fit: contain;
   width: 100%;
   /* height: 249px; */

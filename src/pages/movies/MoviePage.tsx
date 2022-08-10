@@ -50,20 +50,16 @@ const MoviePage = () => {
         {movieDatas.results &&
           movieDatas.results.map((movie) => (
             <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={movie.id}>
-              {isLoading ? (
-                <CardSkeleton />
-              ) : (
-                <Suspense fallback={<Loader />}>
-                  <MovieCard
-                    userFavorite={userFavorite}
-                    movie={movie}
-                    setUserFavorite={setUserFavorite}
-                    setFavoriteList={setFavoriteList}
-                    favoriteList={favoriteList}
-                    onClick={handleClick}
-                  />
-                </Suspense>
-              )}
+              <Suspense fallback={<CardSkeleton />}>
+                <MovieCard
+                  userFavorite={userFavorite}
+                  movie={movie}
+                  setUserFavorite={setUserFavorite}
+                  setFavoriteList={setFavoriteList}
+                  favoriteList={favoriteList}
+                  onClick={handleClick}
+                />
+              </Suspense>
             </Grid>
           ))}
       </Grid>

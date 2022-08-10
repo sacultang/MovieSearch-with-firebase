@@ -32,22 +32,29 @@ interface Result {
 }
 const TrailerPage = ({ urlPath }: IProps) => {
   const [trailers, setTrailers] = useState<Root>({ id: 0, results: [] });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const fetch = async () => {
+    setLoading(true);
     const trailerRes = await getTrailer(urlPath);
     setTrailers(trailerRes);
   };
   const onLoadFunc = () => {
-    setLoading(false);
     console.log('영상 완료');
   };
   useEffect(() => {
-    fetch();
+    const fetchTime = setTimeout(async () => {
+      await fetch();
+      setLoading(false);
+    }, 1000);
+
     return () => {
       fetch();
+      clearTimeout(fetchTime);
     };
   }, []);
-
+  useEffect(() => {
+    onLoadFunc();
+  }, []);
   return (
     <Swiper
       navigation={true}
