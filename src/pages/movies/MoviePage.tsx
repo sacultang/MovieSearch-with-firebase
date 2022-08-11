@@ -19,8 +19,6 @@ const MoviePage = () => {
     total_results: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [userFavorite, setUserFavorite] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
@@ -67,14 +65,7 @@ const MoviePage = () => {
               position="relative"
             >
               <Suspense fallback={<Loader />}>
-                <MovieCard
-                  userFavorite={userFavorite}
-                  movie={movie}
-                  setUserFavorite={setUserFavorite}
-                  setFavoriteList={setFavoriteList}
-                  favoriteList={favoriteList}
-                  onClick={handleClick}
-                />
+                <MovieCard movie={movie} onClick={handleClick} />
               </Suspense>
             </Grid>
           ))}

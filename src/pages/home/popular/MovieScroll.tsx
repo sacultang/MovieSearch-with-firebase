@@ -13,8 +13,6 @@ const MovieScroll = () => {
     total_results: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [userFavorite, setUserFavorite] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
     setIsLoading(true);
@@ -51,14 +49,7 @@ const MovieScroll = () => {
             {isLoading ? (
               <CardSkeleton />
             ) : (
-              <MovieCard
-                userFavorite={userFavorite}
-                movie={movie}
-                setUserFavorite={setUserFavorite}
-                setFavoriteList={setFavoriteList}
-                favoriteList={favoriteList}
-                onClick={handleClick}
-              />
+              <MovieCard movie={movie} onClick={handleClick} />
             )}
           </Grid>
         ))}

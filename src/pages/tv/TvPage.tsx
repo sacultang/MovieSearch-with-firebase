@@ -19,8 +19,6 @@ const TvPage = () => {
     total_results: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [userFavorite, setUserFavorite] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
   const [page, setPage] = useState(1);
   const fetch = useCallback(async () => {
     setIsLoading(true);
@@ -53,14 +51,7 @@ const TvPage = () => {
                 <CardSkeleton />
               ) : (
                 <Suspense fallback={<Loader />}>
-                  <MovieCard
-                    userFavorite={userFavorite}
-                    movie={tv}
-                    setUserFavorite={setUserFavorite}
-                    setFavoriteList={setFavoriteList}
-                    favoriteList={favoriteList}
-                    onClick={handleClick}
-                  />
+                  <MovieCard movie={tv} onClick={handleClick} />
                 </Suspense>
               )}
             </Grid>

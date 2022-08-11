@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const SearchResults = () => {
-  const [userFavorite, setUserFavorite] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
   const movieData = useSelector((state: RootState) => state.movie.movie);
   const navigate = useNavigate();
   const handleNavigate = useCallback(
@@ -24,11 +22,7 @@ const SearchResults = () => {
             <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard
-                  userFavorite={userFavorite}
                   movie={movie}
-                  setUserFavorite={setUserFavorite}
-                  setFavoriteList={setFavoriteList}
-                  favoriteList={favoriteList}
                   onClick={() => {
                     handleNavigate(movie.media_type, movie.id);
                   }}

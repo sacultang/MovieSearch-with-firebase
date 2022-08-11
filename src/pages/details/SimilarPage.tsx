@@ -14,8 +14,6 @@ interface IProps {
 }
 const SimilarPage = ({ urlPath }: IProps) => {
   const [similar, setSimilar] = useState<SimilarType>([]);
-  const [userFavorite, setUserFavorite] = useState([]);
-  const [favoriteList, setFavoriteList] = useState([]);
   const navigate = useNavigate();
 
   const type = urlPath.split('/')[0];
@@ -64,14 +62,7 @@ const SimilarPage = ({ urlPath }: IProps) => {
             sx={{ minWidth: 200 }}
           >
             <Suspense fallback={<Loader />}>
-              <MovieCard
-                userFavorite={userFavorite}
-                movie={movie}
-                setUserFavorite={setUserFavorite}
-                setFavoriteList={setFavoriteList}
-                favoriteList={favoriteList}
-                onClick={handleClick}
-              />
+              <MovieCard movie={movie} onClick={handleClick} />
             </Suspense>
           </Grid>
         ))}

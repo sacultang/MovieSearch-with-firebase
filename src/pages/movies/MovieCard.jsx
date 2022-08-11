@@ -10,12 +10,16 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PopupModal from '../../components/PopupModal/PopupModal';
 import { checkClip } from '../../utils/checkSome';
 import CreateIcon from '@mui/icons-material/Create';
 import SubMenuList from './SubMenuList';
 import { useLocation } from 'react-router-dom';
+import {
+  setFavoriteAction,
+  removeFavoriteAction,
+} from '../../store/favoriteListSlice';
 import {
   getDoc,
   doc,
@@ -29,15 +33,14 @@ import MoviePosterImg from './MoviePosterImg';
 
 const MovieCard = ({
   movie,
-  userFavorite,
-  setUserFavorite,
-  setFavoriteList,
-  favoriteList,
+
   onClick,
 }) => {
   const location = useLocation();
   const user = useSelector((state) => state.user.user);
+  const userFavorite = useSelector((state) => state.favorite.favorite);
 
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
@@ -46,9 +49,8 @@ const MovieCard = ({
   const detailType = location.pathname.split('/')[1];
 
   let docRef;
-  if (user.uid) {
-    docRef = doc(db, 'users', user.uid);
-    // const dataCollectionRef = collection(docRef, user?.uid);
+  if (!!user?.uid) {
+    docRef = doc(db, 'users', user.email);
   }
 
   const handleOpenMenu = useCallback((e) => {
@@ -62,13 +64,13 @@ const MovieCard = ({
     setSubAnchorEl(null);
   };
   useEffect(() => {
-    if (user?.uid) {
+    if (user?.uid && docRef) {
       const getData = async () => {
         const docSnap = await getDoc(docRef);
-        // console.log(docSnap.data());
-        if (docSnap.data()) {
-          setFavoriteList((prev) => [...prev, ...docSnap.data()?.list]);
-        }
+        // console.log(docSnap.data()?.favorite);
+        // if (docSnap.data()?.favorite) {
+        //   setUserFavorite((prev) => [...prev, ...docSnap.data()?.favorite]);
+        // }
         // console.log(userFavorite);
       };
       getData();
@@ -79,48 +81,52 @@ const MovieCard = ({
       // });
       // return () => unsubs();
     }
-  }, [user]);
+  }, [user?.uid]);
+
+  // firebase 업데이트 함수
   const updateFavorite = useCallback(
     async (userFavorite) => {
-      // try {
-      //   await updateDoc(docRef, { favorite: userFavorite });
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        await updateDoc(docRef, { favorite: userFavorite });
+      } catch (e) {
+        console.log(e);
+      }
     },
     [docRef]
   );
   const handleFavorite = useCallback(
     async (movie) => {
-      user ? setOpenModal(false) : setOpenModal(true);
+      user?.uid ? setOpenModal(false) : setOpenModal(true);
+
       // 즐겨찾기 추가 업데이트
       // 뒤로 쌓여야 한다.
-      // console.log(movie);
+
       if (!checkClip(movie, userFavorite)) {
-        setUserFavorite((prev) => [...prev, movie]);
+        dispatch(setFavoriteAction(movie));
       } else {
-        setUserFavorite((prev) => prev.filter((item) => item.id !== movie.id));
+        dispatch(removeFavoriteAction(movie));
       }
-      // await updateFavorite(userFavorite);
-      // console.log('newFavorite', newFavorite);
+
+      // 업데이트 함수
     },
 
-    [user, setUserFavorite, userFavorite]
+    [user.uid, userFavorite, dispatch]
   );
 
-  useEffect(() => {}, [userFavorite]);
+  useEffect(() => {
+    updateFavorite(userFavorite);
+  }, [userFavorite, updateFavorite]);
   const handleCloseModal = useCallback(() => {
     setOpenModal(false);
   }, []);
+
   const handleAddList = (e, movie) => {
     setSubAnchorEl(e.currentTarget);
     // if (favoriteList.length === 0) {
     // }
     // console.log(favoriteList);
   };
-  // useEffect(() => {
-  //   console.log(userFavorite);
-  // }, [userFavorite]);
+
   return (
     <CardItem
       sx={{
@@ -138,6 +144,7 @@ const MovieCard = ({
         detailType={detailType}
       />
 
+      {/* 좋아요 버튼 */}
       <IconButton
         aria-label="favorite"
         sx={{
@@ -160,6 +167,7 @@ const MovieCard = ({
         )}
       </IconButton>
 
+      {/* 리스트 만들기 버튼 */}
       <IconButton
         aria-label="settings"
         aria-controls={open ? 'demo-positioned-menu' : undefined}
