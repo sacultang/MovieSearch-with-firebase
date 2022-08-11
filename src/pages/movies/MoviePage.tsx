@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import CardSkeleton from '../../components/Skeleton/CardSkeleton';
+
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
@@ -7,7 +7,9 @@ import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
 import { IMovie } from '../../types/movieType';
 import PaginationComp from '../../components/Common/PaginationComp';
+import PageTitle from '../../components/Common/PageTitle';
 const MovieCard = lazy(() => import('./MovieCard'));
+
 const MoviePage = () => {
   const location = useLocation();
   const [movieDatas, setMovieDatas] = useState<IMovie>({
@@ -24,6 +26,7 @@ const MoviePage = () => {
   const fetch = useCallback(async () => {
     try {
       const res = await getData(location.pathname, page);
+
       setMovieDatas(res);
     } catch (e) {
       console.log(e);
@@ -46,8 +49,10 @@ const MoviePage = () => {
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <Container sx={{ flexGrow: 1 }}>
+      <PageTitle url={location.pathname} />
       <Grid container spacing={2}>
         {movieDatas.results &&
           movieDatas.results.map((movie) => (

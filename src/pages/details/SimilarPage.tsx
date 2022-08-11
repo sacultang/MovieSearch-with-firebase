@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState, Suspense } from 'react';
+import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
 import { getSimilar } from '../../api/TMDB/Details/getDetails';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,21 +20,24 @@ const SimilarPage = ({ urlPath }: IProps) => {
 
   const type = urlPath.split('/')[0];
 
-  const fetch = async (urlPath: string) => {
+  const fetch = useCallback(async (urlPath: string) => {
     try {
       const res = await getSimilar(urlPath);
       setSimilar(res.results);
     } catch (e) {
       console.log(e);
     }
-  };
+  }, []);
   useEffect(() => {
     fetch(urlPath);
   }, [urlPath]);
 
-  const handleClick = (id: string) => {
-    navigate(`/details/${type}/${id}`, { state: { type, id } });
-  };
+  const handleClick = useCallback(
+    (id: string) => {
+      navigate(`/details/${type}/${id}`, { state: { type, id } });
+    },
+    [navigate, type]
+  );
   return (
     <Box sx={{ overflow: 'scroll' }} mt={3}>
       {' '}

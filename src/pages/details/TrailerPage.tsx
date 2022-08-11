@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { getTrailer } from '../../api/TMDB/Details/getDetails';
@@ -34,11 +34,11 @@ interface Result {
 const TrailerPage = ({ urlPath }: IProps) => {
   const [trailers, setTrailers] = useState<Root>({ id: 0, results: [] });
   const [loading, setLoading] = useState(false);
-  const fetch = async () => {
+  const fetch = useCallback(async () => {
     setLoading(true);
     const trailerRes = await getTrailer(urlPath);
     setTrailers(trailerRes);
-  };
+  }, [urlPath]);
 
   useEffect(() => {
     const fetchTime = setTimeout(async () => {

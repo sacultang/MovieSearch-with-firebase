@@ -23,6 +23,7 @@ const DetailsPage = () => {
     setLoading(true);
     try {
       const detailRes = await getDetails(`${type}/${id}`);
+
       setDetails(detailRes);
     } catch (e) {
       console.log(e);

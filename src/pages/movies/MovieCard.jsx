@@ -130,10 +130,13 @@ const MovieCard = ({
         position: 'relative',
         mt: 1,
       }}
-      onClick={() => onClick(movie.id, detailType || movie.media_type)}
     >
       {/* IMG */}
-      <MoviePosterImg movie={movie} />
+      <MoviePosterImg
+        movie={movie}
+        onClick={() => onClick(movie.id, detailType || movie.media_type)}
+        detailType={detailType}
+      />
 
       <IconButton
         aria-label="favorite"

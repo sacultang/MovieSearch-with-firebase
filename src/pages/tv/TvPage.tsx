@@ -4,10 +4,10 @@ import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
-
 import Loader from '../../components/Common/Loader';
 import PaginationComp from '../../components/Common/PaginationComp';
 import { IMovie } from '../../types/movieType';
+import PageTitle from '../../components/Common/PageTitle';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const location = useLocation();
@@ -44,6 +44,7 @@ const TvPage = () => {
   };
   return (
     <Container sx={{ flexGrow: 1 }}>
+      <PageTitle url={location.pathname} />
       <Grid container spacing={2}>
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
