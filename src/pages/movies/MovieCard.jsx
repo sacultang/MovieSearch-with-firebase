@@ -16,6 +16,7 @@ import { checkClip } from '../../utils/checkSome';
 import CreateIcon from '@mui/icons-material/Create';
 import SubMenuList from './SubMenuList';
 import { useLocation } from 'react-router-dom';
+import { setToastAction } from '../../store/toastSlice';
 import {
   setFavoriteAction,
   removeFavoriteAction,
@@ -30,12 +31,9 @@ import {
 import '../../firebase';
 import { db } from '../../firebase';
 import MoviePosterImg from './MoviePosterImg';
+import ToastUi from '../../components/Common/ToastUi';
 
-const MovieCard = ({
-  movie,
-
-  onClick,
-}) => {
+const MovieCard = ({ movie, onClick }) => {
   const location = useLocation();
   const user = useSelector((state) => state.user.user);
   const userFavorite = useSelector((state) => state.favorite.favorite);
@@ -44,6 +42,7 @@ const MovieCard = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
+  const [openToast, setOpenToast] = useState(true);
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
   const detailType = location.pathname.split('/')[1];
@@ -90,6 +89,7 @@ const MovieCard = ({
         await updateDoc(docRef, { favorite: userFavorite });
       } catch (e) {
         console.log(e);
+      } finally {
       }
     },
     [docRef]
@@ -103,6 +103,7 @@ const MovieCard = ({
 
       if (!checkClip(movie, userFavorite)) {
         dispatch(setFavoriteAction(movie));
+        dispatch(setToastAction(true));
       } else {
         dispatch(removeFavoriteAction(movie));
       }
@@ -114,8 +115,13 @@ const MovieCard = ({
   );
 
   useEffect(() => {
+    if (!user.uid) return;
     updateFavorite(userFavorite);
-  }, [userFavorite, updateFavorite]);
+    const toastTime = setTimeout(() => {
+      dispatch(setToastAction(false));
+    }, 2000);
+    return () => clearTimeout(toastTime);
+  }, [userFavorite, updateFavorite, user, dispatch]);
   const handleCloseModal = useCallback(() => {
     setOpenModal(false);
   }, []);
@@ -128,156 +134,158 @@ const MovieCard = ({
   };
 
   return (
-    <CardItem
-      sx={{
-        minWidth: '100%',
-        minHeight: 250,
-        boxShadow: 'none',
-        position: 'relative',
-        mt: 1,
-      }}
-    >
-      {/* IMG */}
-      <MoviePosterImg
-        movie={movie}
-        onClick={() => onClick(movie.id, detailType || movie.media_type)}
-        detailType={detailType}
-      />
-
-      {/* 좋아요 버튼 */}
-      <IconButton
-        aria-label="favorite"
+    <>
+      <CardItem
         sx={{
-          position: 'absolute',
-          top: 5,
-          right: 5,
-          backgroundColor: 'rgba(221,221,221,0.57)',
-          borderRadius: '50%',
-        }}
-        onClick={() => {
-          handleFavorite(movie);
+          minWidth: '100%',
+          minHeight: 250,
+          boxShadow: 'none',
+          position: 'relative',
+          mt: 1,
         }}
       >
-        {checkClip(movie, userFavorite) ? (
-          <FavoriteIcon
-            sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
-          />
-        ) : (
-          <FavoriteBorder sx={{ width: '1rem', height: '1rem' }} />
-        )}
-      </IconButton>
+        {/* IMG */}
+        <MoviePosterImg
+          movie={movie}
+          onClick={() => onClick(movie.id, detailType || movie.media_type)}
+          detailType={detailType}
+        />
 
-      {/* 리스트 만들기 버튼 */}
-      <IconButton
-        aria-label="settings"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        sx={{
-          position: 'absolute',
-          top: 42,
-          right: 5,
-          backgroundColor: 'rgba(221,221,221,0.57)',
-          borderRadius: '50%',
-        }}
-        onClick={handleOpenMenu}
-      >
-        <MoreVertIcon sx={{ width: '1rem', height: '1rem' }} />
-      </IconButton>
-      <Menu
-        id="list-positioned-menu"
-        aria-labelledby="list-positioned-button"
-        open={open}
-        onClose={handleCloseMenu}
-        anchorEl={anchorEl}
-      >
-        <MenuItem
-          onClick={(e) => {
-            handleAddList(e, movie);
+        {/* 좋아요 버튼 */}
+        <IconButton
+          aria-label="favorite"
+          sx={{
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            backgroundColor: 'rgba(221,221,221,0.57)',
+            borderRadius: '50%',
+          }}
+          onClick={() => {
+            handleFavorite(movie);
           }}
         >
-          <ListIcon sx={{ width: '1rem' }} />
-          <Typography
-            gutterBottom
-            variant="body"
-            sx={{ fontSize: '0.8rem', mb: 0 }}
-          >
-            &nbsp;목록에 추가
-          </Typography>
-        </MenuItem>
-        <SubMenuList
-          subOpen={subOpen}
-          subAnchorEl={subAnchorEl}
-          handleSubClose={handleSubClose}
-        />
-        <MenuItem onClick={handleCloseMenu}>
-          <CreateIcon
-            sx={{
-              width: '1rem',
-              height: '1rem',
-            }}
-          />
-          <Typography
-            gutterBottom
-            variant="body"
-            sx={{ fontSize: '0.8rem', mb: 0 }}
-          >
-            &nbsp;리뷰 쓰기
-          </Typography>
-        </MenuItem>
-      </Menu>
+          {checkClip(movie, userFavorite) && user.uid ? (
+            <FavoriteIcon
+              sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+            />
+          ) : (
+            <FavoriteBorder sx={{ width: '1rem', height: '1rem' }} />
+          )}
+        </IconButton>
 
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          pt: 1,
-        }}
-      >
-        <Typography
-          gutterBottom
-          variant="body"
-          sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
-        >
-          {movie?.release_date || movie?.first_air_date}
-        </Typography>
-        <Typography
-          gutterBottom
-          variant="body"
+        {/* 리스트 만들기 버튼 */}
+        <IconButton
+          aria-label="settings"
+          aria-controls={open ? 'demo-positioned-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
           sx={{
-            fontSize: '0.8rem',
-            fontWeight: 600,
-            mb: 0,
+            position: 'absolute',
+            top: 42,
+            right: 5,
+            backgroundColor: 'rgba(221,221,221,0.57)',
+            borderRadius: '50%',
+          }}
+          onClick={handleOpenMenu}
+        >
+          <MoreVertIcon sx={{ width: '1rem', height: '1rem' }} />
+        </IconButton>
+        <Menu
+          id="list-positioned-menu"
+          aria-labelledby="list-positioned-button"
+          open={open}
+          onClose={handleCloseMenu}
+          anchorEl={anchorEl}
+        >
+          <MenuItem
+            onClick={(e) => {
+              handleAddList(e, movie);
+            }}
+          >
+            <ListIcon sx={{ width: '1rem' }} />
+            <Typography
+              gutterBottom
+              variant="body"
+              sx={{ fontSize: '0.8rem', mb: 0 }}
+            >
+              &nbsp;목록에 추가
+            </Typography>
+          </MenuItem>
+          <SubMenuList
+            subOpen={subOpen}
+            subAnchorEl={subAnchorEl}
+            handleSubClose={handleSubClose}
+          />
+          <MenuItem onClick={handleCloseMenu}>
+            <CreateIcon
+              sx={{
+                width: '1rem',
+                height: '1rem',
+              }}
+            />
+            <Typography
+              gutterBottom
+              variant="body"
+              sx={{ fontSize: '0.8rem', mb: 0 }}
+            >
+              &nbsp;리뷰 쓰기
+            </Typography>
+          </MenuItem>
+        </Menu>
+
+        <Box
+          sx={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'space-between',
+            pt: 1,
           }}
         >
-          <StarIcon
+          <Typography
+            gutterBottom
+            variant="body"
+            sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
+          >
+            {movie?.release_date || movie?.first_air_date}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="body"
             sx={{
-              width: '1rem',
-              height: '1rem',
-              color: 'var(--yellow-text-color)',
+              fontSize: '0.8rem',
+              fontWeight: 600,
               mb: 0,
+              display: 'flex',
+              alignItems: 'center',
             }}
-          />
-          {movie?.vote_average}
+          >
+            <StarIcon
+              sx={{
+                width: '1rem',
+                height: '1rem',
+                color: 'var(--yellow-text-color)',
+                mb: 0,
+              }}
+            />
+            {movie?.vote_average}
+          </Typography>
+        </Box>
+        <Typography
+          gutterBottom
+          variant="h2"
+          component="h2"
+          sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
+        >
+          {movie?.original_title
+            ? movie?.original_title.length > 15
+              ? movie?.original_title.slice(0, 17) + ' ...'
+              : movie?.original_title
+            : movie?.original_name}
         </Typography>
-      </Box>
-      <Typography
-        gutterBottom
-        variant="h2"
-        component="h2"
-        sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
-      >
-        {movie?.original_title
-          ? movie?.original_title.length > 15
-            ? movie?.original_title.slice(0, 17) + ' ...'
-            : movie?.original_title
-          : movie?.original_name}
-      </Typography>
-      <PopupModal open={openModal} onClose={handleCloseModal} />
-    </CardItem>
+        <PopupModal open={openModal} onClose={handleCloseModal} />
+      </CardItem>
+    </>
   );
 };
 
