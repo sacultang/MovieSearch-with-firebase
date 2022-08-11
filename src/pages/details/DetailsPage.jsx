@@ -6,22 +6,29 @@ import Loader from '../../components/Common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import DetailSkeleton from '../../components/Skeleton/DetailSkeleton';
+import DetailPosterSkeleton from '../../components/Skeleton/DetailPosterSkeleton';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
+const SimilarPage = lazy(() => import('./SimilarPage'));
 
 const DetailsPage = () => {
   const { pathname, state } = useLocation();
   const urlPath = pathname.split('/').slice(2, 4).join('/');
 
   const [details, setDetails] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetch = useCallback(async (id, type) => {
-    const detailRes = await getDetails(`${type}/${id}`);
-
-    if (!!detailRes) setLoading(false);
-    setDetails(detailRes);
+    setLoading(true);
+    try {
+      const detailRes = await getDetails(`${type}/${id}`);
+      setDetails(detailRes);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -30,6 +37,9 @@ const DetailsPage = () => {
       fetch(state.id, state.type);
     };
   }, [state]);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <Box component="section">
       {details?.poster_path && (
@@ -53,11 +63,15 @@ const DetailsPage = () => {
             >
               <Grid item>
                 {loading ? (
-                  <DetailSkeleton />
+                  <DetailPosterSkeleton />
                 ) : (
-                  <DetailPosterImg
+                  <LazyLoadImage
                     src={`https://image.tmdb.org/t/p/w300/${details?.poster_path}`}
-                    onLoad={() => setLoading(false)}
+                    width={'300px'}
+                    alt={details?.title || details?.name}
+                    style={{
+                      borderRadius: '20px',
+                    }}
                   />
                 )}
               </Grid>
@@ -131,6 +145,9 @@ const DetailsPage = () => {
       <Suspense fallback={<Loader />}>
         <CreditsPage urlPath={urlPath} />
       </Suspense>
+      <Suspense fallback={<Loader />}>
+        <SimilarPage urlPath={urlPath} />
+      </Suspense>
     </Box>
   );
 };
@@ -158,9 +175,4 @@ const SpanTag = styled.span`
   margin: 10px 5px;
   margin-left: 0;
   display: inline-block;
-`;
-
-const DetailPosterImg = styled.img`
-  width: 300px;
-  border-radius: 20px;
 `;

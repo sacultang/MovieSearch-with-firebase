@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import CardMedia from '@mui/material/CardMedia';
-import { Stack, CircularProgress, Box } from '@mui/material';
-import styled from '@emotion/styled';
+import { Box } from '@mui/material';
 import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import CardSkeleton from '../../components/Skeleton/CardSkeleton';
 interface IProps {
   movie: IMovieResult;
 }
@@ -15,21 +14,7 @@ const MoviePosterImg = ({ movie }: IProps) => {
   }
   return (
     <>
-      {!imgLoading && (
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          height={250}
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%,-50%)',
-          }}
-        >
-          <CircularProgress color="secondary" size={30} />
-        </Stack>
-      )}
+      {!imgLoading && <CardSkeleton />}
       <Box
         sx={{
           borderRadius: '10px',
@@ -47,7 +32,6 @@ const MoviePosterImg = ({ movie }: IProps) => {
           style={{
             objectFit: 'contain',
             cursor: 'pointer',
-            
           }}
         />
       </Box>
@@ -56,13 +40,3 @@ const MoviePosterImg = ({ movie }: IProps) => {
 };
 
 export default MoviePosterImg;
-const CardImg = styled(LazyLoadImage)`
-  object-fit: contain;
-  width: 100%;
-  /* height: 249px; */
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  &:hover {
-    transform: scale(1.03);
-  }
-`;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { getTrailer } from '../../api/TMDB/Search/getSearchAPI';
+import { getTrailer } from '../../api/TMDB/Details/getDetails';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/Skeleton/MovieSkeleton';
+
 interface IProps {
   urlPath: string;
 }
@@ -38,9 +39,7 @@ const TrailerPage = ({ urlPath }: IProps) => {
     const trailerRes = await getTrailer(urlPath);
     setTrailers(trailerRes);
   };
-  const onLoadFunc = () => {
-    console.log('영상 완료');
-  };
+
   useEffect(() => {
     const fetchTime = setTimeout(async () => {
       await fetch();
@@ -51,10 +50,8 @@ const TrailerPage = ({ urlPath }: IProps) => {
       fetch();
       clearTimeout(fetchTime);
     };
-  }, []);
-  useEffect(() => {
-    onLoadFunc();
-  }, []);
+  }, [urlPath]);
+
   return (
     <Swiper
       navigation={true}
@@ -84,7 +81,6 @@ const TrailerPage = ({ urlPath }: IProps) => {
                       title={item.name}
                       width="100%"
                       height="100%"
-                      onLoad={onLoadFunc}
                     />
                   )}
                 </Container>

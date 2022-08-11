@@ -16,18 +16,3 @@ export const getSearchData = async (query: string) => {
     console.error(e);
   }
 };
-
-export const getTrailer = async (url: string) => {
-  try {
-    const res = await TMDBServer({
-      url: `${url}/videos`,
-      method: 'GET',
-    });
-
-    if (res.status === 200) {
-      return res.data;
-    }
-  } catch (e) {
-    console.error(e);
-  }
-};

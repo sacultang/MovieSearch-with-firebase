@@ -16,13 +16,12 @@ const MoviePage = () => {
     total_pages: 0,
     total_results: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [userFavorite, setUserFavorite] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    setIsLoading(true);
     try {
       const res = await getData(location.pathname, page);
       setMovieDatas(res);
@@ -44,13 +43,25 @@ const MoviePage = () => {
   };
 
   //  JSX
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <Container sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         {movieDatas.results &&
           movieDatas.results.map((movie) => (
-            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={movie.id}>
-              <Suspense fallback={<CardSkeleton />}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={4}
+              xl={3}
+              key={movie.id}
+              position="relative"
+            >
+              <Suspense fallback={<Loader />}>
                 <MovieCard
                   userFavorite={userFavorite}
                   movie={movie}

@@ -1,18 +1,34 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
 import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 const CardSkeleton = () => {
   return (
-    <Card sx={{ minWidth: 166, maxWidth: 166, mr: 1, ml: 2, mt: 1 }}>
-      {<Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />}
-      <CardContent>
-        <React.Fragment>
-          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-          <Skeleton animation="wave" height={10} width="80%" />
-        </React.Fragment>
-      </CardContent>
-    </Card>
+    <>
+      <Box
+        sx={{
+          borderRadius: '10px',
+          minHeight: 248.99,
+          // maxHeight: 249,
+          width: '100%',
+          overflow: 'hidden',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+        }}
+      >
+        <Skeleton
+          animation="wave"
+          variant="rectangular"
+          sx={{
+            minHeight: 'inherit',
+          }}
+        />
+
+        <Skeleton animation="wave" height={10} style={{ margin: '6px 0' }} />
+        <Skeleton animation="wave" height={15} width="80%" />
+      </Box>
+    </>
   );
 };
 
