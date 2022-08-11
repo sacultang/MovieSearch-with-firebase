@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import ToastUi from '../../../components/Common/ToastUi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
+import ScrollToTop from '../../../components/Common/ScrollToTop';
 const Layout = () => {
   const toast = useSelector((state: RootState) => state.toast.toast);
   return (
@@ -12,6 +13,7 @@ const Layout = () => {
       <Wrapper>
         <PersistentDrawerLeft />
       </Wrapper>
+      <ScrollToTop />
       <Footer />
     </>
   );

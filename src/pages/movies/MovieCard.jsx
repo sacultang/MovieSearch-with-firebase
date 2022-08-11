@@ -21,17 +21,10 @@ import {
   setFavoriteAction,
   removeFavoriteAction,
 } from '../../store/favoriteListSlice';
-import {
-  getDoc,
-  doc,
-  collection,
-  updateDoc,
-  onSnapshot,
-} from 'firebase/firestore';
+import { getDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import '../../firebase';
 import { db } from '../../firebase';
 import MoviePosterImg from './MoviePosterImg';
-import ToastUi from '../../components/Common/ToastUi';
 
 const MovieCard = ({ movie, onClick }) => {
   const location = useLocation();
@@ -42,7 +35,8 @@ const MovieCard = ({ movie, onClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
-  const [openToast, setOpenToast] = useState(true);
+  const [updateRes, setUpdateRes] = useState([]);
+
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
   const detailType = location.pathname.split('/')[1];
@@ -64,28 +58,30 @@ const MovieCard = ({ movie, onClick }) => {
   };
   useEffect(() => {
     if (user?.uid && docRef) {
-      const getData = async () => {
-        const docSnap = await getDoc(docRef);
-        // console.log(docSnap.data()?.favorite);
-        // if (docSnap.data()?.favorite) {
-        //   setUserFavorite((prev) => [...prev, ...docSnap.data()?.favorite]);
-        // }
-        // console.log(userFavorite);
-      };
-      getData();
-      // const unsubs = onSnapshot(doc(db, 'users', user.uid), (doc) => {
-      //   // const newFaArr = doc.data().favorite.map();
-      //   // console.log(newFaArr);
-      //   setUserFavorite((prev) => [...prev, ...doc.data().favorite]);
-      // });
-      // return () => unsubs();
+      // const getData = async () => {
+      //   const docSnap = await getDoc(docRef);
+      //   // console.log(docSnap.data()?.favorite);
+      //   // if (docSnap.data()?.favorite) {
+      //   //
+      //   // }
+      //   // console.log(userFavorite);
+      // };
+      // getData();
+      const unsubs = onSnapshot(doc(db, 'users', user.email), (doc) => {
+        const newFaArr = doc.data().favorite;
+        // console.log(newFaArr);
+        updateDoc(docRef, { favorite: newFaArr });
+        setUpdateRes(newFaArr);
+      });
+      return () => unsubs();
     }
-  }, [user?.uid]);
+  }, [user?.uid, user?.email]);
 
   // firebase 업데이트 함수
   const updateFavorite = useCallback(
     async (userFavorite) => {
       try {
+        // if (updateRes) return;
         await updateDoc(docRef, { favorite: userFavorite });
       } catch (e) {
         console.log(e);
@@ -107,21 +103,24 @@ const MovieCard = ({ movie, onClick }) => {
       } else {
         dispatch(removeFavoriteAction(movie));
       }
-
-      // 업데이트 함수
+      await updateFavorite(userFavorite);
     },
 
-    [user.uid, userFavorite, dispatch]
+    [user.uid, userFavorite, dispatch, updateFavorite]
   );
 
   useEffect(() => {
     if (!user.uid) return;
-    updateFavorite(userFavorite);
+  }, [userFavorite, updateFavorite, user]);
+
+  useEffect(() => {
+    if (!user.uid) return;
     const toastTime = setTimeout(() => {
       dispatch(setToastAction(false));
     }, 2000);
     return () => clearTimeout(toastTime);
-  }, [userFavorite, updateFavorite, user, dispatch]);
+  }, [user, dispatch, updateFavorite]);
+
   const handleCloseModal = useCallback(() => {
     setOpenModal(false);
   }, []);
