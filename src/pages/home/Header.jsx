@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useGetDiscoverQuery } from '../../store/moviesApi';
 import styled from '@emotion/styled';
@@ -70,7 +71,7 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);
 
 const BoxEl = styled(Box)`
   height: 300px;

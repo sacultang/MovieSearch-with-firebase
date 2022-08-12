@@ -30,7 +30,9 @@ const MoviePosterImg = ({ movie, onClick, detailType }: IProps) => {
           src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
           alt={movie?.original_title || movie?.original_name}
           onLoad={onLoad}
-          onClick={() => onClick(movie.id, detailType || movie.media_type)}
+          onClick={() =>
+            onClick(movie.id, movie.media_type ? movie.media_type : detailType)
+          }
           width={'100%'}
           style={{
             objectFit: 'contain',

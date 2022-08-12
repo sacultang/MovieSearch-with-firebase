@@ -40,6 +40,7 @@ const MoviePage = () => {
   }, [location, page]);
 
   const handleClick = (id: string, type: string) => {
+    console.log(type);
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { memo, useEffect, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 const ScrollToTop = () => {
@@ -48,7 +48,7 @@ const ScrollToTop = () => {
   );
 };
 
-export default ScrollToTop;
+export default memo(ScrollToTop);
 type ToTopTypeProps = {
   btnStatus: boolean;
 };

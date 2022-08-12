@@ -1,6 +1,7 @@
-import React from 'react';
-import { Box, Alert, Collapse } from '@mui/material';
+import React, { memo } from 'react';
+import { Alert, Collapse } from '@mui/material';
 import Portal from '../../Portal';
+
 interface IProps {
   toast: boolean;
 }
@@ -26,4 +27,4 @@ const ToastUi = ({ toast }: IProps) => {
   );
 };
 
-export default ToastUi;
+export default memo(ToastUi);

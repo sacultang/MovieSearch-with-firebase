@@ -1,4 +1,14 @@
 import { useState, useCallback, useEffect, memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { setToastAction } from '../../store/toastSlice';
+import {
+  setFavoriteAction,
+  removeFavoriteAction,
+} from '../../store/favoriteListSlice';
+import { checkClip } from '../../utils/checkSome';
+
+// mui
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
@@ -10,21 +20,24 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-import { useSelector, useDispatch } from 'react-redux';
-import PopupModal from '../../components/PopupModal/PopupModal';
-import { checkClip } from '../../utils/checkSome';
 import CreateIcon from '@mui/icons-material/Create';
-import SubMenuList from './SubMenuList';
-import { useLocation } from 'react-router-dom';
-import { setToastAction } from '../../store/toastSlice';
-import {
-  setFavoriteAction,
-  removeFavoriteAction,
-} from '../../store/favoriteListSlice';
-import { getDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import '../../firebase';
+import {
+  doc,
+  onSnapshot,
+  getDocs,
+  collection,
+  addDoc,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 import { db } from '../../firebase';
+
+// component
+import SubMenuList from './SubMenuList';
+import PopupModal from '../../components/PopupModal/PopupModal';
 import MoviePosterImg from './MoviePosterImg';
+import UpdateDocHook from '../../utils/UpdateDocHook';
 
 const MovieCard = ({ movie, onClick }) => {
   const location = useLocation();
@@ -35,17 +48,13 @@ const MovieCard = ({ movie, onClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
-  const [updateRes, setUpdateRes] = useState([]);
+  const [newFavorite, setNewFavorite] = useState([]);
 
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
   const detailType = location.pathname.split('/')[1];
 
-  let docRef;
-  if (!!user?.uid) {
-    docRef = doc(db, 'users', user.email);
-  }
-
+  const updateFavorite = UpdateDocHook(user);
   const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
   }, []);
@@ -56,70 +65,70 @@ const MovieCard = ({ movie, onClick }) => {
   const handleSubClose = (e) => {
     setSubAnchorEl(null);
   };
-  useEffect(() => {
-    if (user?.uid && docRef) {
-      // const getData = async () => {
-      //   const docSnap = await getDoc(docRef);
-      //   // console.log(docSnap.data()?.favorite);
-      //   // if (docSnap.data()?.favorite) {
-      //   //
-      //   // }
-      //   // console.log(userFavorite);
-      // };
-      // getData();
-      const unsubs = onSnapshot(doc(db, 'users', user.email), (doc) => {
-        const newFaArr = doc.data().favorite;
-        // console.log(newFaArr);
-        updateDoc(docRef, { favorite: newFaArr });
-        setUpdateRes(newFaArr);
-      });
-      return () => unsubs();
-    }
-  }, [user?.uid, user?.email]);
 
   // firebase 업데이트 함수
-  const updateFavorite = useCallback(
-    async (userFavorite) => {
-      try {
-        // if (updateRes) return;
-        await updateDoc(docRef, { favorite: userFavorite });
-      } catch (e) {
-        console.log(e);
-      } finally {
-      }
-    },
-    [docRef]
-  );
+
   const handleFavorite = useCallback(
     async (movie) => {
       user?.uid ? setOpenModal(false) : setOpenModal(true);
 
       // 즐겨찾기 추가 업데이트
       // 뒤로 쌓여야 한다.
+      const docRef = doc(db, 'users', user.email);
+      const favoriteRef = collection(docRef, 'favorite');
+      const favoriteDocRef = doc(favoriteRef, movie.id.toString());
+      // console.log(favoriteDocRef.path);
+      if (!checkClip(movie.id, userFavorite)) {
+        console.log('userFavorite', userFavorite);
+        console.log('card Add');
+        await setDoc(doc(favoriteRef, movie.id.toString()), {
+          movie,
+        }).then((res) => console.log(res));
+        // dispatch(setFavoriteAction(movie));
 
-      if (!checkClip(movie, userFavorite)) {
-        dispatch(setFavoriteAction(movie));
         dispatch(setToastAction(true));
       } else {
-        dispatch(removeFavoriteAction(movie));
+        console.log('delete');
+        await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
+        // dispatch(removeFavoriteAction(movie));
       }
-      await updateFavorite(userFavorite);
+
+      // console.log(newFavorite);
+      // await updateFavorite(newFavorite);
+      // setTimeout(() => {
+      //   updateFavorite(newFavorite);
+      // }, 300);
     },
 
-    [user.uid, userFavorite, dispatch, updateFavorite]
+    [user.uid, userFavorite, dispatch]
   );
 
-  useEffect(() => {
-    if (!user.uid) return;
-  }, [userFavorite, updateFavorite, user]);
+  // useEffect(() => {
+  //   setNewFavorite(userFavorite);
+  // }, [userFavorite, setNewFavorite]);
 
   useEffect(() => {
     if (!user.uid) return;
+    if (!newFavorite) {
+    }
+    // updateFavorite(userFavorite);
+    // updateFavorite(updateRes);
+  }, [newFavorite, updateFavorite, user, dispatch, userFavorite]);
+
+  useEffect(() => {
+    if (!user.uid) return;
+    const updateTime = setTimeout(() => {
+      // updateFavorite(userFavorite);
+    }, 500);
     const toastTime = setTimeout(() => {
       dispatch(setToastAction(false));
+      // updateFavorite(newFavorite);
     }, 2000);
-    return () => clearTimeout(toastTime);
-  }, [user, dispatch, updateFavorite]);
+    return () => {
+      clearTimeout(toastTime);
+      clearTimeout(updateTime);
+    };
+  }, [user, userFavorite, dispatch, updateFavorite]);
 
   const handleCloseModal = useCallback(() => {
     setOpenModal(false);
@@ -160,11 +169,9 @@ const MovieCard = ({ movie, onClick }) => {
             backgroundColor: 'rgba(221,221,221,0.57)',
             borderRadius: '50%',
           }}
-          onClick={() => {
-            handleFavorite(movie);
-          }}
+          onClick={() => handleFavorite(movie)}
         >
-          {checkClip(movie, userFavorite) && user.uid ? (
+          {checkClip(movie.id, userFavorite) && user.uid ? (
             <FavoriteIcon
               sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
             />

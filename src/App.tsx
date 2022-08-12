@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import './firebase';
-
 import { Routes, Route, Navigate } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { setUserAction, clearUserAction } from './store/userSlice';
@@ -18,16 +16,32 @@ import SearchMain from './pages/search/SearchMain';
 import SearchResults from './pages/search/SearchResults';
 import DetailsPage from './pages/details/DetailsPage';
 import { RootState } from './store/store';
+import { db } from './firebase';
+import { doc, getDocs, onSnapshot, collection } from 'firebase/firestore';
+import { setFavoriteAction } from './store/favoriteListSlice';
+import Favorite from './pages/favorite/Favorite';
+
 function App() {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.user.user);
-
   const loading = useSelector((state: RootState) => state.user.loading);
+  const favoriteList = useSelector(
+    (state: RootState) => state.favorite.favorite
+  );
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (!!user) {
+        // const docRef = doc(db, 'users', user.email!);
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
+        // const getData = async () => {
+        //   const docSnap = await getDoc(docRef);
+        //   const results = docSnap.data()?.favorite;
+        //   results.map((item: any) => setFavoriteAction(item));
+        // };
+
+        // getData();
       } else {
         dispatch(clearUserAction());
       }
@@ -37,6 +51,36 @@ function App() {
       unsubscribe();
     };
   }, [dispatch]);
+  // const getFavoList = async () => {
+  //   const docRef = doc(db, 'users', user.email!);
+  //   const favoriteRef = collection(docRef, 'favorite');
+  //   getDocs(favoriteRef).then(async (res) => {
+  //     const mov = res.docs.map((item) => ({
+  //       data: item.data()?.movie,
+  //       id: item.data()?.id,
+  //     }));
+  //     await dispatch(setFavoriteAction(mov));
+  //   });
+  // };
+  useEffect(() => {
+    if (!!user.uid) {
+      // getFavoList();
+      const docRef = doc(db, 'users', user.email!);
+      const favoriteRef = collection(docRef, 'favorite');
+
+      const unsubs = onSnapshot(favoriteRef, (snapshot) => {
+        const res = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          movie: doc.data()?.movie,
+        }));
+        // console.log(res);
+        dispatch(setFavoriteAction(res));
+      });
+      return () => {
+        unsubs();
+      };
+    }
+  }, [dispatch, user]);
 
   if (loading) {
     return <Loader />;
@@ -65,6 +109,10 @@ function App() {
         <Route
           path="/profile"
           element={!user?.uid ? <Navigate to="/login" /> : <Profile />}
+        />
+        <Route
+          path="/favorite"
+          element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
         />
       </Route>
     </Routes>
