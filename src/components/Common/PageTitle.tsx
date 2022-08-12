@@ -1,66 +1,46 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 interface ITitleProps {
   url: string;
 }
+interface ILaoutProps {
+  children: ReactElement | string;
+}
+const PageTitleLaout = ({ children }: ILaoutProps) => {
+  return (
+    <Box pt={3} pb={3}>
+      <Typography variant="h4" fontWeight={500}>
+        {children}
+      </Typography>
+      <Divider sx={{ mt: 3 }} />
+    </Box>
+  );
+};
+
 const PageTitle = ({ url }: ITitleProps) => {
   switch (url) {
     case '/movie/popular':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          인기 영화
-        </Typography>
-      );
+      return <PageTitleLaout>인기 영화</PageTitleLaout>;
     case '/movie/now_playing':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          현재 상영 영화
-        </Typography>
-      );
+      return <PageTitleLaout>현재 상영 영화</PageTitleLaout>;
     case '/movie/upcoming':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          개봉 예정 영화
-        </Typography>
-      );
+      return <PageTitleLaout>개봉 예정 영화</PageTitleLaout>;
     case '/movie/top_rated':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          높은 평점 영화
-        </Typography>
-      );
-
+      return <PageTitleLaout>높은 평점 영화</PageTitleLaout>;
     case '/tv/popular':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          인기 프로그램
-        </Typography>
-      );
+      return <PageTitleLaout>인기 프로그램</PageTitleLaout>;
     case '/tv/airing_today':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          오늘 방영 프로그램
-        </Typography>
-      );
+      return <PageTitleLaout>오늘 방영 프로그램</PageTitleLaout>;
     case '/tv/on_the_air':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          TV 방영 프로그램
-        </Typography>
-      );
+      return <PageTitleLaout>TV 방영 프로그램</PageTitleLaout>;
     case '/tv/top_rated':
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          높은 평점 프로그램
-        </Typography>
-      );
-
+      return <PageTitleLaout>높은 평점 프로그램</PageTitleLaout>;
+    case '/favorite':
+      return <PageTitleLaout>즐겨찾기 목록</PageTitleLaout>;
     default:
-      return (
-        <Typography variant="h4" fontWeight={500}>
-          페이지
-        </Typography>
-      );
+      return <PageTitleLaout>페이지</PageTitleLaout>;
   }
 };
 

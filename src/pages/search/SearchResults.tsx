@@ -9,7 +9,7 @@ const SearchResults = () => {
   const movieData = useSelector((state: RootState) => state.movie.movie);
   const navigate = useNavigate();
   const handleNavigate = useCallback(
-    (type: string, id: string | number) => {
+    (e: MouseEvent, type: string, id: string | number) => {
       navigate(`/details/${type}/${id}`, { state: { type, id } });
     },
     [navigate]
@@ -23,8 +23,8 @@ const SearchResults = () => {
               <Suspense fallback={<Loader />}>
                 <MovieCard
                   movie={movie}
-                  onClick={() => {
-                    handleNavigate(movie.media_type, movie.id);
+                  handleClick={(e: MouseEvent) => {
+                    handleNavigate(e, movie.media_type, movie.id);
                   }}
                 />
               </Suspense>

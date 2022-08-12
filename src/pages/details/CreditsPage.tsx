@@ -46,9 +46,9 @@ const CreditsPage = ({ urlPath }: IProps) => {
       >
         {credits.length > 10
           ? credits?.slice(0, 20).map((item) => (
-              <>
+              <Box key={item.name + 1}>
                 {!imgLoading ? (
-                  <Grid item key={item.name + 1}>
+                  <Grid item>
                     <Skeleton height={300} width={200} />
                   </Grid>
                 ) : (
@@ -69,12 +69,12 @@ const CreditsPage = ({ urlPath }: IProps) => {
                     </Typography>
                   </Grid>
                 )}
-              </>
+              </Box>
             ))
           : credits?.map((item) => (
-              <>
+              <Box key={item.name + 1}>
                 {!imgLoading ? (
-                  <Grid item key={item.name + 1}>
+                  <Grid item>
                     <Skeleton height={300} width={200} />
                   </Grid>
                 ) : (
@@ -95,7 +95,7 @@ const CreditsPage = ({ urlPath }: IProps) => {
                     </Typography>
                   </Grid>
                 )}
-              </>
+              </Box>
             ))}
       </Grid>
     </Box>

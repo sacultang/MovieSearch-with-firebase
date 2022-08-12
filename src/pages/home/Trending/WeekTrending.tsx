@@ -49,7 +49,7 @@ const WeekTrending = () => {
             {isLoading ? (
               <CardSkeleton />
             ) : (
-              <MovieCard movie={movie} onClick={handleClick} />
+              <MovieCard movie={movie} handleClick={handleClick} />
             )}
           </Grid>
         ))}

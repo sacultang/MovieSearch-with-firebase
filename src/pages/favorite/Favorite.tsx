@@ -1,30 +1,19 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/Common/PageTitle';
 import Loader from '../../components/Common/Loader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-// import MovieCard from '../movies/MovieCard';
-import { db } from '../../firebase';
-import { onSnapshot, doc } from 'firebase/firestore';
+
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const Favorite = () => {
   // const [movieDatas, setMovieDatas] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.user.user);
+
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
-  // useEffect(() => {
-  //   const unsubs = onSnapshot(doc(db, 'users', user.email!), (doc) => {
-  //     const newFaArr = doc.data()!.favorite;
-  //     setMovieDatas(newFaArr);
-  //   });
-  //   return () => unsubs();
-  // }, []);
-  let path: string;
-  console.log(movieDatas);
+
   const handleClick = (id: string, type: string) => {
     if (type === 'favorite') return;
     // {
@@ -32,7 +21,7 @@ const Favorite = () => {
     //     item.first_air_date ? (path = 'tv') : (path = 'movie')
     //   );
     // }
-    console.log(path);
+
     // navigate(`/details/${path}/${id}`, { state: { type, id } });
   };
   return (
@@ -52,7 +41,7 @@ const Favorite = () => {
               position="relative"
             >
               <Suspense fallback={<Loader />}>
-                <MovieCard movie={movie.movie} onClick={handleClick} />
+                <MovieCard movie={movie.movie} handleClick={handleClick} />
               </Suspense>
             </Grid>
           ))}

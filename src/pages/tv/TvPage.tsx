@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
@@ -37,6 +38,7 @@ const TvPage = () => {
       fetch();
     };
   }, [location, page]);
+
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
@@ -51,7 +53,7 @@ const TvPage = () => {
                 <CardSkeleton />
               ) : (
                 <Suspense fallback={<Loader />}>
-                  <MovieCard movie={tv} onClick={handleClick} />
+                  <MovieCard movie={tv} handleClick={handleClick} />
                 </Suspense>
               )}
             </Grid>

@@ -3,13 +3,14 @@ import { Box } from '@mui/material';
 import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
+
 interface IProps {
   movie: IMovieResult;
-  onClick: (id: number, type: string) => void;
+  handleNavi: (id: number, type: string) => void;
   detailType: string;
 }
 
-const MoviePosterImg = ({ movie, onClick, detailType }: IProps) => {
+const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
@@ -27,11 +28,18 @@ const MoviePosterImg = ({ movie, onClick, detailType }: IProps) => {
         }}
       >
         <LazyLoadImage
-          src={`https://image.tmdb.org/t/p/w400/${movie?.poster_path}`}
-          alt={movie?.original_title || movie?.original_name}
+          src={
+            movie?.poster_path
+              ? `https://image.tmdb.org/t/p/w400/${movie?.poster_path}`
+              : 'null'
+          }
+          alt={movie?.original_title || movie?.original_name || 'default Img'}
           onLoad={onLoad}
           onClick={() =>
-            onClick(movie.id, movie.media_type ? movie.media_type : detailType)
+            handleNavi(
+              movie.id,
+              movie.media_type ? movie.media_type : detailType
+            )
           }
           width={'100%'}
           style={{

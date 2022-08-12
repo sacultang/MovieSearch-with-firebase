@@ -2,10 +2,6 @@ import { useState, useCallback, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setToastAction } from '../../store/toastSlice';
-import {
-  setFavoriteAction,
-  removeFavoriteAction,
-} from '../../store/favoriteListSlice';
 import { checkClip } from '../../utils/checkSome';
 
 // mui
@@ -22,15 +18,7 @@ import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import CreateIcon from '@mui/icons-material/Create';
 import '../../firebase';
-import {
-  doc,
-  onSnapshot,
-  getDocs,
-  collection,
-  addDoc,
-  setDoc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 // component
@@ -39,7 +27,7 @@ import PopupModal from '../../components/PopupModal/PopupModal';
 import MoviePosterImg from './MoviePosterImg';
 import UpdateDocHook from '../../utils/UpdateDocHook';
 
-const MovieCard = ({ movie, onClick }) => {
+const MovieCard = ({ movie, handleClick }) => {
   const location = useLocation();
   const user = useSelector((state) => state.user.user);
   const userFavorite = useSelector((state) => state.favorite.favorite);
@@ -48,7 +36,6 @@ const MovieCard = ({ movie, onClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [subAnchorEl, setSubAnchorEl] = useState(null);
-  const [newFavorite, setNewFavorite] = useState([]);
 
   const open = Boolean(anchorEl);
   const subOpen = Boolean(subAnchorEl);
@@ -69,7 +56,8 @@ const MovieCard = ({ movie, onClick }) => {
   // firebase 업데이트 함수
 
   const handleFavorite = useCallback(
-    async (movie) => {
+    async (e, movie) => {
+      e.preventDefault();
       user?.uid ? setOpenModal(false) : setOpenModal(true);
 
       // 즐겨찾기 추가 업데이트
@@ -100,33 +88,17 @@ const MovieCard = ({ movie, onClick }) => {
       // }, 300);
     },
 
-    [user.uid, userFavorite, dispatch]
+    [user, userFavorite, dispatch]
   );
 
-  // useEffect(() => {
-  //   setNewFavorite(userFavorite);
-  // }, [userFavorite, setNewFavorite]);
-
   useEffect(() => {
     if (!user.uid) return;
-    if (!newFavorite) {
-    }
-    // updateFavorite(userFavorite);
-    // updateFavorite(updateRes);
-  }, [newFavorite, updateFavorite, user, dispatch, userFavorite]);
 
-  useEffect(() => {
-    if (!user.uid) return;
-    const updateTime = setTimeout(() => {
-      // updateFavorite(userFavorite);
-    }, 500);
     const toastTime = setTimeout(() => {
       dispatch(setToastAction(false));
-      // updateFavorite(newFavorite);
     }, 2000);
     return () => {
       clearTimeout(toastTime);
-      clearTimeout(updateTime);
     };
   }, [user, userFavorite, dispatch, updateFavorite]);
 
@@ -155,8 +127,8 @@ const MovieCard = ({ movie, onClick }) => {
         {/* IMG */}
         <MoviePosterImg
           movie={movie}
-          onClick={() => onClick(movie.id, detailType || movie.media_type)}
           detailType={detailType}
+          handleNavi={handleClick}
         />
 
         {/* 좋아요 버튼 */}
@@ -169,14 +141,18 @@ const MovieCard = ({ movie, onClick }) => {
             backgroundColor: 'rgba(221,221,221,0.57)',
             borderRadius: '50%',
           }}
-          onClick={() => handleFavorite(movie)}
+          onClick={(e) => handleFavorite(e, movie)}
         >
           {checkClip(movie.id, userFavorite) && user.uid ? (
             <FavoriteIcon
+              id="likeBtn"
               sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
             />
           ) : (
-            <FavoriteBorder sx={{ width: '1rem', height: '1rem' }} />
+            <FavoriteBorder
+              id="likeBtn"
+              sx={{ width: '1rem', height: '1rem' }}
+            />
           )}
         </IconButton>
 
@@ -195,7 +171,7 @@ const MovieCard = ({ movie, onClick }) => {
           }}
           onClick={handleOpenMenu}
         >
-          <MoreVertIcon sx={{ width: '1rem', height: '1rem' }} />
+          <MoreVertIcon id="listBtn" sx={{ width: '1rem', height: '1rem' }} />
         </IconButton>
         <Menu
           id="list-positioned-menu"
@@ -281,7 +257,14 @@ const MovieCard = ({ movie, onClick }) => {
           gutterBottom
           variant="h2"
           component="h2"
-          sx={{ fontSize: '1rem', fontWeight: 700, pt: 1, pb: 1 }}
+          sx={{
+            fontSize: '1rem',
+            fontWeight: 700,
+            pt: 1,
+            pb: 1,
+            cursor: 'pointer',
+          }}
+          onClick={() => handleClick(movie.id, detailType || movie.media_type)}
         >
           {movie?.original_title
             ? movie?.original_title.length > 15

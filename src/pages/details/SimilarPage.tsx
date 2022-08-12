@@ -62,7 +62,7 @@ const SimilarPage = ({ urlPath }: IProps) => {
             sx={{ minWidth: 200 }}
           >
             <Suspense fallback={<Loader />}>
-              <MovieCard movie={movie} onClick={handleClick} />
+              <MovieCard movie={movie} handleClick={handleClick} />
             </Suspense>
           </Grid>
         ))}
