@@ -1,11 +1,10 @@
 import React, { memo } from 'react';
 import { Alert, Collapse } from '@mui/material';
 import Portal from '../../Portal';
-
-interface IProps {
-  toast: boolean;
-}
-const ToastUi = ({ toast }: IProps) => {
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
+const ToastUi = () => {
+  const toast = useSelector((state: RootState) => state.toast.toast);
   return (
     <Portal>
       <Collapse in={toast}>

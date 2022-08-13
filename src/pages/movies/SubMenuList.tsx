@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Menu, MenuItem } from '@mui/material';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Typography from '@mui/material/Typography';
-
+import { useDispatch } from 'react-redux';
+import { setListModalAction } from '../../store/toastSlice';
 interface IProps {
   subOpen: boolean;
   subAnchorEl: null;
@@ -12,7 +13,11 @@ interface IProps {
 }
 
 const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
-  const openListModalFunc = () => {};
+  const dispatch = useDispatch();
+
+  const openListModalFunc = useCallback(() => {
+    dispatch(setListModalAction(true));
+  }, [dispatch]);
 
   return (
     <Menu
@@ -47,7 +52,7 @@ const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
         },
       }}
     >
-      <MenuItem onClick={openListModalFunc}>
+      {/* <MenuItem onClick={openListModalFunc}>
         <ControlPointIcon sx={{ width: '1rem' }} />
         <Typography
           gutterBottom
@@ -56,7 +61,7 @@ const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
         >
           &nbsp;목록생성
         </Typography>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
 };

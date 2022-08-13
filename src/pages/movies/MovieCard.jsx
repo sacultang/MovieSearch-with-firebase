@@ -1,9 +1,12 @@
-import { useState, useCallback, useEffect, memo } from 'react';
+import { useState, useCallback, useEffect, memo, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setToastAction } from '../../store/toastSlice';
 import { checkClip } from '../../utils/checkSome';
-
+import {
+  setListModalAction,
+  setLoginAlertAction,
+} from '../../store/toastSlice';
 // mui
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -17,69 +20,61 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import CreateIcon from '@mui/icons-material/Create';
+// firebase
 import '../../firebase';
 import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 // component
-import SubMenuList from './SubMenuList';
-import PopupModal from '../../components/PopupModal/PopupModal';
 import MoviePosterImg from './MoviePosterImg';
-import UpdateDocHook from '../../utils/UpdateDocHook';
 
 const MovieCard = ({ movie, handleClick }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userFavorite = useSelector((state) => state.favorite.favorite);
 
-  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
-  const [subAnchorEl, setSubAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
-  const subOpen = Boolean(subAnchorEl);
+
   const detailType = location.pathname.split('/')[1];
 
-  const updateFavorite = UpdateDocHook(user);
   const handleOpenMenu = useCallback((e) => {
     setAnchorEl(e.currentTarget);
   }, []);
   const handleCloseMenu = useCallback(() => {
     setAnchorEl(null);
-    setSubAnchorEl(null);
   }, []);
-  const handleSubClose = (e) => {
-    setSubAnchorEl(null);
-  };
 
   // firebase 업데이트 함수
 
   const handleFavorite = useCallback(
     async (e, movie) => {
       e.preventDefault();
-      user?.uid ? setOpenModal(false) : setOpenModal(true);
+      if (user?.uid) {
+        const docRef = doc(db, 'users', user.email);
+        const favoriteRef = collection(docRef, 'favorite');
+        const favoriteDocRef = doc(favoriteRef, movie.id.toString());
+        // console.log(favoriteDocRef.path);
+        if (!checkClip(movie.id, userFavorite)) {
+          await setDoc(doc(favoriteRef, movie.id.toString()), {
+            movie,
+          }).then((res) => console.log(res));
+          // dispatch(setFavoriteAction(movie));
+
+          dispatch(setToastAction(true));
+        } else {
+          await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
+          // dispatch(removeFavoriteAction(movie));
+        }
+      }
+      user?.uid
+        ? dispatch(setLoginAlertAction(false))
+        : dispatch(setLoginAlertAction(true));
 
       // 즐겨찾기 추가 업데이트
       // 뒤로 쌓여야 한다.
-      const docRef = doc(db, 'users', user.email);
-      const favoriteRef = collection(docRef, 'favorite');
-      const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-      // console.log(favoriteDocRef.path);
-      if (!checkClip(movie.id, userFavorite)) {
-        console.log('userFavorite', userFavorite);
-        console.log('card Add');
-        await setDoc(doc(favoriteRef, movie.id.toString()), {
-          movie,
-        }).then((res) => console.log(res));
-        // dispatch(setFavoriteAction(movie));
-
-        dispatch(setToastAction(true));
-      } else {
-        console.log('delete');
-        await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
-        // dispatch(removeFavoriteAction(movie));
-      }
 
       // console.log(newFavorite);
       // await updateFavorite(newFavorite);
@@ -93,21 +88,20 @@ const MovieCard = ({ movie, handleClick }) => {
 
   useEffect(() => {
     if (!user.uid) return;
-
     const toastTime = setTimeout(() => {
       dispatch(setToastAction(false));
     }, 2000);
     return () => {
       clearTimeout(toastTime);
     };
-  }, [user, userFavorite, dispatch, updateFavorite]);
+  }, [user, userFavorite, dispatch]);
 
-  const handleCloseModal = useCallback(() => {
-    setOpenModal(false);
-  }, []);
+  const handleAddList = () => {
+    if (user?.uid) dispatch(setListModalAction(true));
+    user?.uid
+      ? dispatch(setLoginAlertAction(false))
+      : dispatch(setLoginAlertAction(true));
 
-  const handleAddList = (e, movie) => {
-    setSubAnchorEl(e.currentTarget);
     // if (favoriteList.length === 0) {
     // }
     // console.log(favoriteList);
@@ -180,11 +174,7 @@ const MovieCard = ({ movie, handleClick }) => {
           onClose={handleCloseMenu}
           anchorEl={anchorEl}
         >
-          <MenuItem
-            onClick={(e) => {
-              handleAddList(e, movie);
-            }}
-          >
+          <MenuItem onClick={handleAddList}>
             <ListIcon sx={{ width: '1rem' }} />
             <Typography
               gutterBottom
@@ -194,11 +184,7 @@ const MovieCard = ({ movie, handleClick }) => {
               &nbsp;목록에 추가
             </Typography>
           </MenuItem>
-          <SubMenuList
-            subOpen={subOpen}
-            subAnchorEl={subAnchorEl}
-            handleSubClose={handleSubClose}
-          />
+
           <MenuItem onClick={handleCloseMenu}>
             <CreateIcon
               sx={{
@@ -272,7 +258,6 @@ const MovieCard = ({ movie, handleClick }) => {
               : movie?.original_title
             : movie?.original_name}
         </Typography>
-        <PopupModal open={openModal} onClose={handleCloseModal} />
       </CardItem>
     </>
   );
