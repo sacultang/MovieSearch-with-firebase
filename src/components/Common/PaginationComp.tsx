@@ -5,7 +5,7 @@ interface IProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 const PaginationComp = ({ setPage }: IProps) => {
-  const handleChange = (e: any, value: number) => {
+  const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
   return (

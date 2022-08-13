@@ -5,11 +5,15 @@ import Typography from '@mui/material/Typography';
 
 interface IProps {
   subOpen: boolean;
-  subAnchorEl: any;
-  handleSubClose: (e: any) => void;
+  subAnchorEl: null;
+  handleSubClose:
+    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
+    | undefined;
 }
 
 const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
+  const openListModalFunc = () => {};
+
   return (
     <Menu
       open={subOpen}
@@ -43,14 +47,14 @@ const SubMenuList = ({ subOpen, subAnchorEl, handleSubClose }: IProps) => {
         },
       }}
     >
-      <MenuItem>
+      <MenuItem onClick={openListModalFunc}>
         <ControlPointIcon sx={{ width: '1rem' }} />
         <Typography
           gutterBottom
           variant="body1"
           sx={{ fontSize: '0.8rem', mb: 0 }}
         >
-          &nbsp;목록에 추가
+          &nbsp;목록생성
         </Typography>
       </MenuItem>
     </Menu>

@@ -9,7 +9,7 @@ const getRandom = () => {
   const num = Math.floor(Math.random() * 20);
   return num;
 };
-const Header = () => {
+const HomeSearchHeader = () => {
   const { data } = useGetDiscoverQuery();
   const navigate = useNavigate();
 
@@ -71,7 +71,7 @@ const Header = () => {
   );
 };
 
-export default memo(Header);
+export default memo(HomeSearchHeader);
 
 const BoxEl = styled(Box)`
   height: 300px;
@@ -117,8 +117,8 @@ const InputWrap = styled.form`
     width: 100px;
     background: var(--main-bg-color);
 
-    border: var(--main-bg-color);
-    border-radius: 20px;
+    border: 5px solid var(--main-bg-color);
+    /* border-radius: 20px; */
     color: #fff;
   }
 `;

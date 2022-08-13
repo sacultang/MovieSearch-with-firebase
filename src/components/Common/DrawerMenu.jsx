@@ -1,5 +1,5 @@
 import { LogoDiv } from './DrawerCSS';
-import RegisterGroup from '../RegisterGroup';
+
 import MovieIcon from '@mui/icons-material/Movie';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -26,10 +26,7 @@ const tvPath = [
   { text: 'TV 방영중', path: '/tv/on_the_air' },
   { text: '높은 평점', path: '/tv/top_rated' },
 ];
-const myPage = [
-  { text: '즐겨찾기 목록', path: '/favorite' },
-  // { text: '오늘 방영', path: '/tv/airing_today', },
-];
+const myPage = [{ text: '즐겨찾기 목록', path: '/favorite' }];
 const buttonHandler = ({ isActive }) => {
   return {
     width: '100%',
@@ -62,13 +59,19 @@ const DrawerMenu = ({ open }) => {
       <Toolbar
         sx={{
           backgroundColor: 'var(--main-bg-color)',
-          justifyContent: 'space-between',
         }}
       >
         <Link to="/">
           <LogoDiv />
         </Link>
-        <RegisterGroup />
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          fontSize={'1.2rem'}
+          color="#fff"
+        >
+          MOVIE
+        </Typography>
       </Toolbar>
       <Divider />
       <List>

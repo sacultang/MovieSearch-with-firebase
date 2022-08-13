@@ -2,14 +2,14 @@ import React, { lazy, Suspense } from 'react';
 
 import { Box } from '@mui/material';
 import Loader from '../../components/Common/Loader';
-import Header from './Header';
+import HomeSearchHeader from './HomeSearchHeader';
 const WhatsPopular = lazy(() => import('./popular/WhatsPopular'));
 const Trending = lazy(() => import('./Trending/Trending'));
 const Home = () => {
   return (
     <>
       <Box>
-        <Header />
+        <HomeSearchHeader />
         <Suspense fallback={<Loader />}>
           <WhatsPopular />
           <Trending />

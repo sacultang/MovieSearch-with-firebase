@@ -33,12 +33,11 @@ const CreditsPage = ({ urlPath }: IProps) => {
 
   return (
     <Box sx={{ overflow: 'scroll', mt: 3 }}>
-      <Typography variant="h5" fontWeight={500}>
+      <Typography variant="h5" fontWeight={500} mb={3}>
         출연진
       </Typography>
       <Grid
         container
-        spacing={2}
         style={{ minHeight: '330px' }}
         direction="row"
         flexWrap="nowrap"
@@ -46,25 +45,37 @@ const CreditsPage = ({ urlPath }: IProps) => {
       >
         {credits.length > 10
           ? credits?.slice(0, 20).map((item) => (
-              <Box key={item.name + 1}>
+              <Box
+                key={item.name + 1}
+                mr={2}
+                borderRadius={2}
+                minWidth={180}
+                minHeight={276}
+              >
                 {!imgLoading ? (
                   <Grid item>
                     <Skeleton height={300} width={200} />
                   </Grid>
                 ) : (
                   <Grid item key={item.name}>
-                    {item.profile_path ? (
+                    {!item.profile_path ? (
+                      <Skeleton height={300} width={200} />
+                    ) : (
                       <LazyLoadImage
                         src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
                         alt={item.name}
                         onLoad={onLoad}
-                        width={200}
-                        height={300}
+                        width="100%"
+                        height="100%"
+                        style={{ borderRadius: 20 }}
                       />
-                    ) : (
-                      <Skeleton height={300} width={200} />
                     )}
-                    <Typography variant="subtitle1" fontWeight={500}>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={500}
+                      mb={2}
+                      mt={2}
+                    >
                       {item.name}
                     </Typography>
                   </Grid>

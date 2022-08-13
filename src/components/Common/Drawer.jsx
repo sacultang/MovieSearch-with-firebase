@@ -9,7 +9,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import RegisterGroup from '../RegisterGroup';
 export default function PermanentDrawerLeft() {
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = useCallback(() => {
@@ -42,12 +42,12 @@ export default function PermanentDrawerLeft() {
         <CssBaseline />
         <AppBar
           sx={{
-            display: { xs: 'block', sm: 'block', md: 'none' },
+            // display: { xs: 'block', sm: 'block', md: 'none' },
             zIndex: 1251,
           }}
           position="fixed"
         >
-          <Toolbar>
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -57,6 +57,7 @@ export default function PermanentDrawerLeft() {
             >
               <MenuIcon />
             </IconButton>
+            <RegisterGroup />
           </Toolbar>
         </AppBar>
         <DrawerMenu open={open} handleDrawerClose={handleDrawerClose} />
@@ -70,9 +71,9 @@ export default function PermanentDrawerLeft() {
             pt: {
               xs: 9,
               sm: 9,
-              md: 2,
-              lg: 2,
-              xl: 2,
+              md: 9,
+              lg: 9,
+              xl: 9,
             },
             boxSizing: 'border-box',
             maxWidth: {

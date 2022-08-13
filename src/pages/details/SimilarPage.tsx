@@ -38,9 +38,8 @@ const SimilarPage = ({ urlPath }: IProps) => {
   );
   return (
     <Box sx={{ overflow: 'scroll' }} mt={3}>
-      {' '}
       <CssBaseline />
-      <Typography variant="h5" fontWeight={500}>
+      <Typography variant="h5" fontWeight={500} mb={2}>
         추천 컨텐츠
       </Typography>
       <Grid

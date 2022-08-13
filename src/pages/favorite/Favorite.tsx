@@ -6,8 +6,14 @@ import PageTitle from '../../components/Common/PageTitle';
 import Loader from '../../components/Common/Loader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-
+import { IMovieResult } from '../../types/movieType';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
+
+interface IFBMovieType {
+  id: string;
+  movie: IMovieResult;
+}
+
 const Favorite = () => {
   // const [movieDatas, setMovieDatas] = useState([]);
   const location = useLocation();
@@ -29,7 +35,7 @@ const Favorite = () => {
       <PageTitle url={location.pathname} />
       <Grid container spacing={2}>
         {movieDatas.length > 0 &&
-          movieDatas.map((movie: any) => (
+          movieDatas.map((movie: IFBMovieType) => (
             <Grid
               item
               xs={12}

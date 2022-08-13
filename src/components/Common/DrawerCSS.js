@@ -7,4 +7,5 @@ export const LogoDiv = styled.div`
   background: #8360c3;
   background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
   background: linear-gradient(to right, #2ebf91, #8360c3);
+  margin-right: 20px;
 `;

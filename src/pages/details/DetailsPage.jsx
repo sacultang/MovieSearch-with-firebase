@@ -137,12 +137,12 @@ const DetailsPage = () => {
                 </Box>
               </Grid>
             </Grid>
+            <Suspense fallback={<Loader />}>
+              <TrailerPage urlPath={urlPath} />
+            </Suspense>
           </BackDrop>
         </MainDetailImageBackdrop>
       )}
-      <Suspense fallback={<Loader />}>
-        <TrailerPage urlPath={urlPath} />
-      </Suspense>
       <Suspense fallback={<Loader />}>
         <CreditsPage urlPath={urlPath} />
       </Suspense>
@@ -157,10 +157,11 @@ export default DetailsPage;
 
 const MainDetailImageBackdrop = styled.div`
   position: relative;
-
+  background-size: cover;
   background: ${(props) => `url(${props.urlPath}) no-repeat center center`};
 `;
 const BackDrop = styled.div`
+  padding: 40px;
   background-image: linear-gradient(
     to right,
     rgb(208 208 208) 150px,
