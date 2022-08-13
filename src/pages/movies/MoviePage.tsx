@@ -24,10 +24,12 @@ const MoviePage = () => {
   const fetch = useCallback(async () => {
     try {
       const res = await getData(location.pathname, page);
-
+      if (res === undefined || res === null) {
+        navigate('/error');
+      }
       setMovieDatas(res);
     } catch (e) {
-      console.log(e);
+      console.log(e, 'error');
     } finally {
       setIsLoading(false);
     }

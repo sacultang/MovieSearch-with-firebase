@@ -7,11 +7,13 @@ export const getData = async (url: string, page: number) => {
       method: 'GET',
       params: { page },
     });
+
     if (res.status === 200) {
       return res.data;
     } else {
       const errData = await res.data;
-      throw errData;
+
+      return errData;
     }
   } catch (e) {
     console.error(e);

@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   favorite: [],
@@ -9,11 +9,6 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     setFavoriteAction: (state, action) => {
-      // console.log('payload', action.payload.id);
-      // const favoriteList = Array.from(current(state.favorite));
-      // console.log('favoriteList', favoriteList);
-      // const result = favoriteList.filter((item) => item.id);
-      // console.log('results', result);
       state.favorite = action.payload;
     },
     removeFavoriteAction: (state, action) => {

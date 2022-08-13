@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, MouseEvent } from 'react';
 import styled from '@emotion/styled';
 import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
@@ -8,12 +8,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import '../firebase';
 import { getAuth, signOut } from 'firebase/auth';
-
+import { RootState } from '../store/store';
 const RegisterGroup = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<
+    (EventTarget & HTMLButtonElement) | null
+  >(null);
   const open = Boolean(anchorEl);
-  const user = useSelector((state) => state.user.user);
-  const handleOpenMenu = useCallback((e) => {
+  const user = useSelector((state: RootState) => state.user.user);
+  const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
   const handleCloseMenu = useCallback(() => {
@@ -27,7 +29,7 @@ const RegisterGroup = () => {
     <RegisterGroupDiv>
       {user?.uid && (
         <Typography
-          variant="body"
+          variant="body1"
           sx={{
             fontSize: '0.8rem',
             mb: 0,
@@ -35,20 +37,7 @@ const RegisterGroup = () => {
             color: 'var(--main-text-color)',
           }}
         >
-          <Typography
-            variant="body"
-            sx={{
-              fontSize: '0.8rem',
-              mb: 0,
-              fontWeight: 500,
-              color: 'var(--main-text-color)',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-            }}
-          >
-            {user.email}
-          </Typography>
-          님 안녕하세요.
+          {user.email}님 안녕하세요.
         </Typography>
       )}
       <IconButton
@@ -72,7 +61,7 @@ const RegisterGroup = () => {
           <MenuItem onClick={handleLogOut}>
             <Typography
               gutterBottom
-              variant="body"
+              variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
             >
               &nbsp;로그아웃
@@ -81,7 +70,7 @@ const RegisterGroup = () => {
           <MenuItem>
             <Typography
               gutterBottom
-              variant="body"
+              variant="body1"
               component={Link}
               to="/profile"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
@@ -103,7 +92,7 @@ const RegisterGroup = () => {
               component={Link}
               to="/login"
               gutterBottom
-              variant="body"
+              variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
             >
               &nbsp;로그인
@@ -114,7 +103,7 @@ const RegisterGroup = () => {
               component={Link}
               to="/join"
               gutterBottom
-              variant="body"
+              variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
             >
               &nbsp;회원가입
@@ -128,4 +117,7 @@ const RegisterGroup = () => {
 
 export default RegisterGroup;
 
-const RegisterGroupDiv = styled.div``;
+const RegisterGroupDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;

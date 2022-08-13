@@ -25,6 +25,9 @@ const TvPage = () => {
     setIsLoading(true);
     try {
       const res = await getData(location.pathname, page);
+      if (res === undefined || res === null) {
+        navigate('/error');
+      }
       setTvDatas(res);
     } catch (e) {
       console.log(e);

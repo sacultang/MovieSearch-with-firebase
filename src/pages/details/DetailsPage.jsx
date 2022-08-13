@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import DetailPosterSkeleton from '../../components/Skeleton/DetailPosterSkeleton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useNavigate } from 'react-router-dom';
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
 const SimilarPage = lazy(() => import('./SimilarPage'));
@@ -15,27 +16,41 @@ const SimilarPage = lazy(() => import('./SimilarPage'));
 const DetailsPage = () => {
   const { pathname, state } = useLocation();
   const urlPath = pathname.split('/').slice(2, 4).join('/');
-
+  const navigate = useNavigate();
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const fetch = useCallback(async (id, type) => {
-    setLoading(true);
-    try {
-      const detailRes = await getDetails(`${type}/${id}`);
-
-      setDetails(detailRes);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (state === undefined || state === null) {
+      navigate('/error');
     }
-  }, []);
+  }, [navigate, state]);
+
+  const fetch = useCallback(
+    async (id, type) => {
+      setLoading(true);
+      try {
+        const detailRes = await getDetails(`${type}/${id}`);
+        if (detailRes === undefined || detailRes === null) {
+          navigate('/error');
+        }
+        setDetails(detailRes);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate]
+  );
 
   useEffect(() => {
-    fetch(state.id, state.type);
+    if (state === null && state === undefined) return;
+    else {
+      fetch(state?.id, state?.type);
+    }
     return () => {
-      fetch(state.id, state.type);
+      fetch(state?.id, state?.type);
     };
   }, [state]);
   if (loading) {
@@ -45,7 +60,7 @@ const DetailsPage = () => {
     <Box component="section">
       {details?.poster_path && (
         <MainDetailImageBackdrop
-          urlPath={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
+          imgPath={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
         >
           <BackDrop>
             <Grid
@@ -158,7 +173,7 @@ export default DetailsPage;
 const MainDetailImageBackdrop = styled.div`
   position: relative;
   background-size: cover;
-  background: ${(props) => `url(${props.urlPath}) no-repeat center center`};
+  background: ${(props) => `url(${props.imgPath}) no-repeat center center`};
 `;
 const BackDrop = styled.div`
   padding: 40px;

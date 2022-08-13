@@ -61,12 +61,10 @@ const MovieCard = ({ movie, handleClick }) => {
           await setDoc(doc(favoriteRef, movie.id.toString()), {
             movie,
           }).then((res) => console.log(res));
-          // dispatch(setFavoriteAction(movie));
 
           dispatch(setToastAction(true));
         } else {
           await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
-          // dispatch(removeFavoriteAction(movie));
         }
       }
       user?.uid

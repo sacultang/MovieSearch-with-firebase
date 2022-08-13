@@ -17,18 +17,15 @@ import SearchResults from './pages/search/SearchResults';
 import DetailsPage from './pages/details/DetailsPage';
 import { RootState } from './store/store';
 import { db } from './firebase';
-import { doc, getDocs, onSnapshot, collection } from 'firebase/firestore';
+import { doc, onSnapshot, collection } from 'firebase/firestore';
 import { setFavoriteAction } from './store/favoriteListSlice';
 import Favorite from './pages/favorite/Favorite';
-
+import PageNotFound from './pages/Error/PageNotFound';
 function App() {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.user.user);
   const loading = useSelector((state: RootState) => state.user.loading);
-  const favoriteList = useSelector(
-    (state: RootState) => state.favorite.favorite
-  );
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
@@ -73,7 +70,7 @@ function App() {
           id: doc.id,
           movie: doc.data()?.movie,
         }));
-        // console.log(res);
+
         dispatch(setFavoriteAction(res));
       });
       return () => {
@@ -92,8 +89,10 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/movie/:query" element={<MoviePage />} />
+
         <Route path="/tv" element={<TvPage />} />
         <Route path="/tv/:query" element={<TvPage />} />
+
         <Route path="/search" element={<SearchMain />}>
           <Route path=":query" element={<SearchResults />} />
         </Route>
@@ -114,6 +113,8 @@ function App() {
           path="/favorite"
           element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
         />
+        <Route path="/error" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
   );

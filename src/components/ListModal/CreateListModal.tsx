@@ -33,7 +33,11 @@ const CreateListModal = () => {
     (e: ChangeEvent<HTMLInputElement>) => setListDetail(e.target.value),
     []
   );
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if (user?.uid) {
+      const docRef = doc(db, 'users', user.email!);
+    }
+  };
   return (
     <Dialog open={modalOpen} onClose={handleClose}>
       <DialogTitle>목록 생성</DialogTitle>
