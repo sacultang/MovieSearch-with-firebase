@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import React, { useState, useCallback, ChangeEvent, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -11,7 +11,7 @@ import {
 import { setListModalAction } from '../../store/toastSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, collection, setDoc, deleteDoc, addDoc } from 'firebase/firestore';
 import '../../firebase';
 import { db } from '../../firebase';
 const CreateListModal = () => {
@@ -33,9 +33,18 @@ const CreateListModal = () => {
     (e: ChangeEvent<HTMLInputElement>) => setListDetail(e.target.value),
     []
   );
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (user?.uid) {
       const docRef = doc(db, 'users', user.email!);
+      const favoriteRef = collection(docRef, 'list');
+      try {
+        await addDoc(collection(docRef, 'list'), {
+          //list collection 안에 자동 아이디로 문서 생성
+          listName, //필드
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
   return (

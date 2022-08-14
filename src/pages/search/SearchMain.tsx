@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMovieAction } from '../../store/movieSlice';
 import { Container, Box } from '@mui/material';
-
+import SearchInput from '../home/SearchInput';
 const SearchResults = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -21,21 +21,10 @@ const SearchResults = () => {
   useEffect(() => {
     fetch();
   }, [params]);
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const data = new FormData(e.currentTarget);
-      const search = data.get('search');
-      if (search === '' || search === null || search === undefined) return;
-      navigate(`/search/${search}`);
-    },
-    [navigate]
-  );
+
   return (
     <Container>
-      <Box component="form" onSubmit={handleSubmit}>
-        <input placeholder={`${query}`} name="search" />
-      </Box>
+      <SearchInput query={query} border={'main'} />
       <Outlet />
     </Container>
   );

@@ -172,8 +172,8 @@ export default DetailsPage;
 
 const MainDetailImageBackdrop = styled.div`
   position: relative;
+  background: ${(props) => `url(${props.imgPath}) no-repeat top center`};
   background-size: cover;
-  background: ${(props) => `url(${props.imgPath}) no-repeat center center`};
 `;
 const BackDrop = styled.div`
   padding: 40px;

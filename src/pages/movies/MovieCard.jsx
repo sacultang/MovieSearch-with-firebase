@@ -60,7 +60,7 @@ const MovieCard = ({ movie, handleClick }) => {
         if (!checkClip(movie.id, userFavorite)) {
           await setDoc(doc(favoriteRef, movie.id.toString()), {
             movie,
-          }).then((res) => console.log(res));
+          });
 
           dispatch(setToastAction(true));
         } else {
