@@ -8,10 +8,10 @@
 
 ```bash
 # Clone repository
-$ git clone https://github.com/sacultang/react-movie-with-firebase
+$ git clone https://github.com/sacultang/MovieSearch-with-firebase
 
 # Access Directory
-$ cd react-movie-with-firebase
+$ cd MovieSearch-with-firebase
 
 # Install dependencies
 $ npm install
