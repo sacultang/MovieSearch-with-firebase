@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, memo, lazy, Suspense } from 'react';
+import { useState, useCallback, useEffect, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setToastAction } from '../../store/toastSlice';

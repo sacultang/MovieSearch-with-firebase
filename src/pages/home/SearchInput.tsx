@@ -29,9 +29,11 @@ const SearchInput = ({ query, border }: IProps) => {
         placeholder={query ? query : '영화,TV 프로그램 검색..'}
         name="search"
       />
-      <div>
-        <button>검색</button>
-      </div>
+      {border === 'drawer' ? null : (
+        <div>
+          <button>검색</button>
+        </div>
+      )}
     </InputWrap>
   );
 };
@@ -39,7 +41,7 @@ const SearchInput = ({ query, border }: IProps) => {
 export default SearchInput;
 const InputWrap = styled.form<borderProps>`
   display: flex;
-  border-radius: 20px;
+  border-radius: ${(props) => (props.border === 'drawer' ? 0 : '20px')};
   overflow: hidden;
   width: 100%;
   border: ${(props) => (props.border ? '1px solid #c9c9c9' : 'none')};
