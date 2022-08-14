@@ -63,7 +63,9 @@ const DrawerMenu = ({ open }) => {
         }}
       >
         <Link to="/">
-          <LogoDiv />
+          <LogoDiv>
+            <div aria-hidden={true}>메인</div>
+          </LogoDiv>
         </Link>
         <Link to="/">
           <Typography
@@ -84,16 +86,17 @@ const DrawerMenu = ({ open }) => {
       </List>
       <Divider />
       <List>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          fontSize={'1.2rem'}
-          p={1}
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <MovieIcon sx={{ mr: 1 }} /> Movie
-        </Typography>
-
+        <ListItem disablePadding>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            fontSize={'1.2rem'}
+            p={1}
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
+            <MovieIcon sx={{ mr: 1 }} /> Movie
+          </Typography>
+        </ListItem>
         {moviePath.map((list, index) => (
           <ListItem key={list.text} disablePadding>
             <NavLink to={`${list.path}`} style={buttonHandler}>
@@ -109,16 +112,17 @@ const DrawerMenu = ({ open }) => {
       </List>
       <Divider />
       <List>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          fontSize={'1.2rem'}
-          p={1}
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <LiveTvIcon sx={{ mr: 1 }} /> TV
-        </Typography>
-
+        <ListItem disablePadding>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            fontSize={'1.2rem'}
+            p={1}
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
+            <LiveTvIcon sx={{ mr: 1 }} /> TV
+          </Typography>
+        </ListItem>
         {tvPath.map((list, index) => (
           <ListItem key={list.text} disablePadding>
             <NavLink to={`${list.path}`} style={buttonHandler}>
@@ -134,16 +138,17 @@ const DrawerMenu = ({ open }) => {
       </List>
       <Divider />
       <List>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          fontSize={'1.2rem'}
-          p={1}
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <AccountCircleIcon sx={{ mr: 1 }} /> My Page
-        </Typography>
-
+        <ListItem disablePadding>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            fontSize={'1.2rem'}
+            p={1}
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
+            <AccountCircleIcon sx={{ mr: 1 }} /> My Page
+          </Typography>
+        </ListItem>
         {myPage.map((list, index) => (
           <ListItem key={list.text} disablePadding>
             <NavLink to={`${list.path}`} style={buttonHandler}>

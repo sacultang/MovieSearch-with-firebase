@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, memo } from 'react';
+import { useState, useCallback, useEffect, memo, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setToastAction } from '../../store/toastSlice';
@@ -27,20 +27,32 @@ import { db } from '../../firebase';
 
 // component
 import MoviePosterImg from './MoviePosterImg';
+import { IMovieResult } from '../../types/movieType';
+import { RootState } from '../../store/store';
+import { Root2 } from '../../types/similarType';
 
-const MovieCard = ({ movie, handleClick }) => {
+interface IProps {
+  movie: IMovieResult | Root2;
+  handleClick: any;
+}
+
+const MovieCard = ({ movie, handleClick }: IProps) => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const userFavorite = useSelector((state) => state.favorite.favorite);
+  const user = useSelector((state: RootState) => state.user.user);
+  const userFavorite = useSelector(
+    (state: RootState) => state.favorite.favorite
+  );
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<
+    Element | ((element: Element) => Element) | null | undefined
+  >(null);
 
   const open = Boolean(anchorEl);
 
   const detailType = location.pathname.split('/')[1];
 
-  const handleOpenMenu = useCallback((e) => {
+  const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
   const handleCloseMenu = useCallback(() => {
@@ -50,10 +62,10 @@ const MovieCard = ({ movie, handleClick }) => {
   // firebase 업데이트 함수
 
   const handleFavorite = useCallback(
-    async (e, movie) => {
+    async (e: MouseEvent<HTMLButtonElement>, movie: IMovieResult | Root2) => {
       e.preventDefault();
       if (user?.uid) {
-        const docRef = doc(db, 'users', user.email);
+        const docRef = doc(db, 'users', user.email!);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
         // console.log(favoriteDocRef.path);
@@ -176,7 +188,7 @@ const MovieCard = ({ movie, handleClick }) => {
             <ListIcon sx={{ width: '1rem' }} />
             <Typography
               gutterBottom
-              variant="body"
+              variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0 }}
             >
               &nbsp;목록에 추가
@@ -192,7 +204,7 @@ const MovieCard = ({ movie, handleClick }) => {
             />
             <Typography
               gutterBottom
-              variant="body"
+              variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0 }}
             >
               &nbsp;리뷰 쓰기
@@ -210,14 +222,14 @@ const MovieCard = ({ movie, handleClick }) => {
         >
           <Typography
             gutterBottom
-            variant="body"
+            variant="body1"
             sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
           >
             {movie?.release_date || movie?.first_air_date}
           </Typography>
           <Typography
             gutterBottom
-            variant="body"
+            variant="body1"
             sx={{
               fontSize: '0.8rem',
               fontWeight: 600,

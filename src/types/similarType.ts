@@ -16,4 +16,7 @@ export interface Root2 {
   vote_average: number;
   vote_count: number;
   original_name?: string;
+  profile_path?: any;
+  media_type?: string;
+  first_air_date?: string;
 }

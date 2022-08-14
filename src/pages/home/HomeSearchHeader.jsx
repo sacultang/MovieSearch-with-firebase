@@ -39,7 +39,7 @@ const HomeSearchHeader = () => {
               <Typography variant="h3" sx={{ fontWeight: 600, color: '#fff' }}>
                 Welcome.
               </Typography>
-              <Typography variant="h5" sx={{ fontWeight: 500, color: '#fff' }}>
+              <Typography variant="h4" sx={{ fontWeight: 500, color: '#fff' }}>
                 Millions of movies, TV shows and people to discover. Explore
                 now.
               </Typography>

@@ -47,6 +47,7 @@ const RegisterGroup = () => {
           borderRadius: '50%',
         }}
         onClick={handleOpenMenu}
+        aria-label="person"
       >
         <PersonIcon />
       </IconButton>
