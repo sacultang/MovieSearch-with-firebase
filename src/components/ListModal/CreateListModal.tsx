@@ -1,30 +1,37 @@
-import React, { useState, useCallback, ChangeEvent, useEffect } from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  TextField,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import React, {
+  useState,
+  useCallback,
+  ChangeEvent,
+  useEffect,
+  lazy,
+} from 'react';
+import { Dialog, DialogActions, Button } from '@mui/material';
+
 import { setListModalAction } from '../../store/toastSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { doc, collection, setDoc, deleteDoc, addDoc } from 'firebase/firestore';
 import '../../firebase';
 import { db } from '../../firebase';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import CreateListInput from './CreateListInput';
+const ListSelectBox = lazy(() => import('./ListSelectBox'));
+
 const CreateListModal = () => {
   const modalOpen = useSelector((state: RootState) => state.toast.listModal);
   const user = useSelector((state: RootState) => state.user.user);
   const listMovie = useSelector((state: RootState) => state.listMovie.movie);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const [selectList, setSelectList] = useState('');
+  const [openAddList, setOpenAddList] = useState(false);
   const [listName, setListName] = useState('');
   const [listDetail, setListDetail] = useState('');
 
   const handleClose = useCallback(() => {
     dispatch(setListModalAction(false));
+    setOpenAddList(false);
   }, [dispatch]);
   const handleChangeName = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setListName(e.target.value),
@@ -36,6 +43,10 @@ const CreateListModal = () => {
   );
   const handleSubmit = async () => {
     if (user?.uid) {
+      if (!listName) {
+        alert('목록 이름을 써주세요');
+        return;
+      }
       const docRef = doc(db, 'users', user.email!);
       const favoriteRef = collection(docRef, 'list');
       try {
@@ -53,39 +64,32 @@ const CreateListModal = () => {
       }
     }
   };
+
   return (
     <Dialog open={modalOpen} onClose={handleClose}>
-      <DialogTitle>목록 생성</DialogTitle>
-      <DialogContent>
-        <DialogContentText>목록 이름과 설명을 입력해주세요</DialogContentText>
-        <TextField
-          autoFocus
-          autoComplete="off"
-          margin="dense"
-          label="목록 이름"
-          type="text"
-          variant="standard"
-          fullWidth
-          onChange={handleChangeName}
-        />
-        <TextField
-          margin="dense"
-          label="설명"
-          type="text"
-          variant="standard"
-          fullWidth
-          onChange={handleChangeDetail}
-        />
-      </DialogContent>
+      <DialogTitle>목록에 추가</DialogTitle>
 
-      <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
-          취소
-        </Button>
-        <Button onClick={handleSubmit} variant="contained">
-          생성
-        </Button>
-      </DialogActions>
+      <ListSelectBox
+        setSelectList={setSelectList}
+        selectList={selectList}
+        setOpenAddList={setOpenAddList}
+      />
+      {openAddList && (
+        <CreateListInput
+          handleChangeName={handleChangeName}
+          handleChangeDetail={handleChangeDetail}
+        />
+      )}
+      <DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="outlined">
+            취소
+          </Button>
+          <Button onClick={handleSubmit} variant="contained">
+            추가
+          </Button>
+        </DialogActions>
+      </DialogContent>
     </Dialog>
   );
 };

@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react';
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
@@ -34,7 +33,7 @@ const TvPage = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [location, page]);
+  }, [location, page, navigate]);
   useEffect(() => {
     fetch();
     return () => {

@@ -186,16 +186,17 @@ const DrawerMenu = ({ open }: IProps) => {
             </NavLink>
           </ListItem>
         ))}
-        {myList.map((list) => (
-          <ListItem key={list.id} disablePadding>
-            <ListItemButton>
-              <ListItemText
-                primary={list.id}
-                sx={{ color: 'var(--main-bg-color)' }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {user.uid &&
+          myList.map((list) => (
+            <ListItem key={list.id} disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={list.id}
+                  sx={{ color: 'var(--main-bg-color)' }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Drawer>
   );
