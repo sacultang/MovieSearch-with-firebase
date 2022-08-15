@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setListAction } from '../../store/listMovieSlice';
 import { LogoDiv } from './DrawerCSS';
 
 import MovieIcon from '@mui/icons-material/Movie';
@@ -13,30 +17,51 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchInput from '../../pages/home/SearchInput';
-const drawerWidth = 200;
-const moviePath = [
-  { text: '인기', path: '/movie/popular' },
-  { text: '현재 상영중', path: '/movie/now_playing' },
-  { text: '개봉 예정', path: '/movie/upcoming' },
-  { text: '높은 평점', path: '/movie/top_rated' },
-];
+import { drawerWidth, moviePath, tvPath, myPage } from './DrawerMenuList';
+import { db } from '../../firebase';
+import { onSnapshot, doc, collection } from 'firebase/firestore';
 
-const tvPath = [
-  { text: '인기', path: '/tv/popular' },
-  { text: '오늘 방영', path: '/tv/airing_today' },
-  { text: 'TV 방영중', path: '/tv/on_the_air' },
-  { text: '높은 평점', path: '/tv/top_rated' },
-];
-const myPage = [{ text: '즐겨찾기', path: '/favorite' }];
-const buttonHandler = ({ isActive }) => {
+type NavStyleType = {
+  isActive: boolean;
+};
+const buttonHandler = ({ isActive }: NavStyleType) => {
   return {
     width: '100%',
     backgroundColor: isActive ? '#f3f3f3' : '',
     borderLeft: isActive ? '4px solid var(--yellow-text-color)' : '',
   };
 };
+interface IProps {
+  open: boolean;
+}
+type MyListType = {
+  id: string;
+  list: [];
+};
+const DrawerMenu = ({ open }: IProps) => {
+  const [myList, setMyList] = useState<MyListType[]>([]);
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.user);
+  useEffect(() => {
+    if (!!user.uid) {
+      // getFavoList();
+      const docRef = doc(db, 'users', user.email!);
+      const favoriteRef = collection(docRef, 'list');
 
-const DrawerMenu = ({ open }) => {
+      const unsubs = onSnapshot(favoriteRef, (snapshot) => {
+        const res = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          list: doc.data()?.list,
+        }));
+        dispatch(setListAction(res));
+        setMyList(res);
+      });
+      return () => {
+        unsubs();
+      };
+    }
+  }, [dispatch, user]);
+
   return (
     <Drawer
       sx={{
@@ -159,6 +184,16 @@ const DrawerMenu = ({ open }) => {
                 />
               </ListItemButton>
             </NavLink>
+          </ListItem>
+        ))}
+        {myList.map((list) => (
+          <ListItem key={list.id} disablePadding>
+            <ListItemButton>
+              <ListItemText
+                primary={list.id}
+                sx={{ color: 'var(--main-bg-color)' }}
+              />
+            </ListItemButton>
           </ListItem>
         ))}
       </List>

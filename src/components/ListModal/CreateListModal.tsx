@@ -17,6 +17,7 @@ import { db } from '../../firebase';
 const CreateListModal = () => {
   const modalOpen = useSelector((state: RootState) => state.toast.listModal);
   const user = useSelector((state: RootState) => state.user.user);
+  const listMovie = useSelector((state: RootState) => state.listMovie.movie);
   const dispatch = useDispatch();
 
   const [listName, setListName] = useState('');
@@ -42,10 +43,10 @@ const CreateListModal = () => {
         //   //list collection 안에 자동 아이디로 문서 생성
         //   listName, //필드
         // });
-        // const res = await setDoc(doc(favoriteRef, listName), {
-        //   //list collection 안에 listName으로 문서 생성
-        //   list: [listName], //필드
-        // });
+        await setDoc(doc(favoriteRef, listName), {
+          //list collection 안에 listName으로 문서 생성
+          list: listMovie, //필드
+        });
         // await deleteDoc(doc(favoriteRef, listName));
       } catch (e) {
         console.log(e);

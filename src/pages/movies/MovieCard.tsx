@@ -7,6 +7,7 @@ import {
   setListModalAction,
   setLoginAlertAction,
 } from '../../store/toastSlice';
+import { setListMovieAction } from '../../store/listMovieSlice';
 // mui
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -107,7 +108,10 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   }, [user, userFavorite, dispatch]);
 
   const handleAddList = () => {
-    if (user?.uid) dispatch(setListModalAction(true));
+    if (user?.uid) {
+      dispatch(setListModalAction(true));
+      dispatch(setListMovieAction(movie));
+    }
     user?.uid
       ? dispatch(setLoginAlertAction(false))
       : dispatch(setLoginAlertAction(true));

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import PersistentDrawerLeft from '../../../components/Common/Drawer';
+import AppBar from '../../../components/Common/AppBar';
 import Footer from '../../../components/Common/Footer';
 import ScrollToTop from '../../../components/Common/ScrollToTop';
 import Loader from '../../../components/Common/Loader';
@@ -21,7 +21,7 @@ const Layout = () => {
         <LoginAlertModal />
       </Suspense>
       <Wrapper>
-        <PersistentDrawerLeft />
+        <AppBar />
       </Wrapper>
       <ScrollToTop />
       <Footer />
