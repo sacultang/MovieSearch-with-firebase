@@ -37,35 +37,55 @@ const SimilarPage = ({ urlPath }: IProps) => {
     [navigate, type]
   );
   return (
-    <Box sx={{ overflow: 'scroll' }} mt={3}>
-      <CssBaseline />
+    <Box
+      sx={{
+        mt: 3,
+      }}
+    >
       <Typography variant="h5" fontWeight={500} mb={2}>
         추천 컨텐츠
       </Typography>
-      <Grid
-        container
-        spacing={2}
-        style={{ minHeight: '330px' }}
-        direction="row"
-        flexWrap="nowrap"
+      <Box
+        sx={{
+          overflow: 'scroll',
+          '&::-webkit-scrollbar': { width: 1, height: 8 },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'rgba(0,0,0,0.07)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'var( --main-bg-color)',
+            borderRadius: '5px',
+          },
+        }}
+        mt={3}
       >
-        {similar.map((movie) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={6}
-            lg={4}
-            xl={3}
-            key={movie.id}
-            sx={{ minWidth: 200 }}
-          >
-            <Suspense fallback={<Loader />}>
-              <MovieCard movie={movie} handleClick={handleClick} />
-            </Suspense>
-          </Grid>
-        ))}
-      </Grid>
+        <CssBaseline />
+
+        <Grid
+          container
+          spacing={2}
+          style={{ minHeight: '330px' }}
+          direction="row"
+          flexWrap="nowrap"
+        >
+          {similar.map((movie) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={4}
+              xl={3}
+              key={movie.id}
+              sx={{ minWidth: 200 }}
+            >
+              <Suspense fallback={<Loader />}>
+                <MovieCard movie={movie} handleClick={handleClick} />
+              </Suspense>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Box>
   );
 };

@@ -51,7 +51,19 @@ const Trending = () => {
         <Tab label="오늘"></Tab>
         <Tab label="이번주"></Tab>
       </Tabs>
-      <Box sx={{ overflowX: 'scroll' }}>
+      <Box
+        sx={{
+          overflowX: 'scroll',
+          '&::-webkit-scrollbar': { width: 1, height: 8 },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'rgba(0,0,0,0.07)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'var( --main-bg-color)',
+            borderRadius: '5px',
+          },
+        }}
+      >
         <TabPannel value={value} index={0}>
           <TodayTrending />
         </TabPannel>

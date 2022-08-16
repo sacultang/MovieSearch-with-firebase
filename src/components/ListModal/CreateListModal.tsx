@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  ChangeEvent,
-  useEffect,
-  lazy,
-} from 'react';
+import React, { useState, useCallback, ChangeEvent, lazy } from 'react';
 import { Dialog, DialogActions, Button } from '@mui/material';
 
 import { setListModalAction } from '../../store/toastSlice';
