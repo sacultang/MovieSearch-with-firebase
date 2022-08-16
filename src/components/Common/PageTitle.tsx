@@ -2,8 +2,10 @@ import { ReactElement } from 'react';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
+import { Params } from 'react-router-dom';
 interface ITitleProps {
   url: string;
+  params?: Readonly<Params<string>>;
 }
 interface ILaoutProps {
   children: ReactElement | string;
@@ -19,7 +21,9 @@ const PageTitleLaout = ({ children }: ILaoutProps) => {
   );
 };
 
-const PageTitle = ({ url }: ITitleProps) => {
+const PageTitle = ({ url, params }: ITitleProps) => {
+  const { query } = params!;
+
   switch (url) {
     case '/movie/popular':
       return <PageTitleLaout>인기 영화</PageTitleLaout>;
@@ -39,6 +43,8 @@ const PageTitle = ({ url }: ITitleProps) => {
       return <PageTitleLaout>높은 평점 프로그램</PageTitleLaout>;
     case '/favorite':
       return <PageTitleLaout>즐겨찾기 목록</PageTitleLaout>;
+    case `/list/${query}`:
+      return <PageTitleLaout>{query as string}</PageTitleLaout>;
     default:
       return <PageTitleLaout>페이지</PageTitleLaout>;
   }

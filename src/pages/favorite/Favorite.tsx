@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/Common/PageTitle';
@@ -17,6 +17,7 @@ interface IFBMovieType {
 const Favorite = () => {
   // const [movieDatas, setMovieDatas] = useState([]);
   const location = useLocation();
+  const params = useParams();
 
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
 
@@ -32,7 +33,7 @@ const Favorite = () => {
   };
   return (
     <Container sx={{ flexGrow: 1 }}>
-      <PageTitle url={location.pathname} />
+      <PageTitle url={location.pathname} params={params} />
       <Grid container spacing={2}>
         {movieDatas.length > 0 &&
           movieDatas.map((movie: IFBMovieType) => (

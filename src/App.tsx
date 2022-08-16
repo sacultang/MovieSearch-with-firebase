@@ -113,6 +113,10 @@ function App() {
           path="/favorite"
           element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
         />
+        <Route
+          path="/list/:query"
+          element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
+        />
         <Route path="/error" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>

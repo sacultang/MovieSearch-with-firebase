@@ -46,7 +46,9 @@ const ListSelectBox = ({
             onChange={handleChange}
           >
             {fireList.map((list) => (
-              <MenuItem value={list.id}>{list.id}</MenuItem>
+              <MenuItem value={list.id} key={list.id}>
+                {list.id}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
