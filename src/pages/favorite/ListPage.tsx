@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/Common/PageTitle';
 import Loader from '../../components/Common/Loader';
@@ -7,37 +7,15 @@ import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { IMovieResult } from '../../types/movieType';
+
 const MovieCard = lazy(() => import('../movies/MovieCard'));
-interface IFBMovieType {
-  id: string;
-  movie: IMovieResult;
-}
 
 const ListPage = () => {
   const location = useLocation();
   const params = useParams();
 
-  const user = useSelector((state: RootState) => state.user.user);
   const myList = useSelector((state: RootState) => state.listMovie.list);
-  useEffect(() => {
-    // if (!!user.uid) {
-    //   // getFavoList();
-    //   const docRef = doc(db, 'users', user.email!);
-    //   const favoriteRef = collection(docRef, params.query!);
-    //   const unsubs = onSnapshot(favoriteRef, (snapshot) => {
-    //     const res = snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       list: doc.data()?.list,
-    //     }));
-    //     console.log(res);
-    //     // dispatch(setFavoriteAction(res));
-    //   });
-    //   return () => {
-    //     unsubs();
-    //   };
-    // }
-  }, [user, params]);
+
   const handleClick = (id: string, type: string) => {
     if (type === 'favorite') return;
     // {

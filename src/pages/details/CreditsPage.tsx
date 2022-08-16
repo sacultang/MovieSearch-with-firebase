@@ -83,7 +83,13 @@ const CreditsPage = ({ urlPath }: IProps) => {
               </Box>
             ))
           : credits?.map((item) => (
-              <Box key={item.name + 1}>
+              <Box
+                key={item.name + 1}
+                mr={2}
+                borderRadius={2}
+                minWidth={180}
+                minHeight={276}
+              >
                 {!imgLoading ? (
                   <Grid item>
                     <Skeleton height={300} width={200} />
@@ -95,8 +101,9 @@ const CreditsPage = ({ urlPath }: IProps) => {
                         src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
                         alt={item.name}
                         onLoad={onLoad}
-                        width={200}
-                        height={'100%'}
+                        width="100%"
+                        height="100%"
+                        style={{ borderRadius: 20 }}
                       />
                     ) : (
                       <Skeleton height={300} width={200} />
