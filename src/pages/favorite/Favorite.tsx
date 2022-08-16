@@ -53,7 +53,6 @@ const Favorite = () => {
             </Grid>
           ))}
       </Grid>
-      {/* <PaginationComp setPage={setPage} /> */}
     </Container>
   );
 };

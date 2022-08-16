@@ -21,6 +21,7 @@ import { doc, onSnapshot, collection } from 'firebase/firestore';
 import { setFavoriteAction } from './store/favoriteListSlice';
 import Favorite from './pages/favorite/Favorite';
 import PageNotFound from './pages/Error/PageNotFound';
+import ListPage from './pages/favorite/ListPage';
 function App() {
   const dispatch = useDispatch();
 
@@ -115,7 +116,7 @@ function App() {
         />
         <Route
           path="/list/:query"
-          element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
+          element={!user?.uid ? <Navigate to="/login" /> : <ListPage />}
         />
         <Route path="/error" element={<PageNotFound />} />
         <Route path="*" element={<PageNotFound />} />

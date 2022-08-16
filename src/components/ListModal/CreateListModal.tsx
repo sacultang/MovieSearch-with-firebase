@@ -43,7 +43,7 @@ const CreateListModal = () => {
   );
   const handleSubmit = async () => {
     if (user?.uid) {
-      if (!listName) {
+      if (!listName && openAddList) {
         alert('목록 이름을 써주세요');
         return;
       }
@@ -67,6 +67,9 @@ const CreateListModal = () => {
         // await deleteDoc(doc(favoriteRef, listName));
       } catch (e) {
         console.log(e);
+      } finally {
+        dispatch(setListModalAction(false));
+        setOpenAddList(false);
       }
     }
   };
