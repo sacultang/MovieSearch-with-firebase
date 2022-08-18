@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
@@ -12,20 +12,24 @@ const MovieCard = lazy(() => import('./MovieCard'));
 
 const MoviePage = () => {
   const location = useLocation();
+  const { query } = useParams();
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
     results: [],
     total_pages: 0,
     total_results: 0,
   });
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
+    setIsLoading(true);
     try {
-      const res = await getData(location.pathname, page);
+      const res = await getData(`/movie/${query}`, page);
       if (res === undefined || res === null) {
         navigate('/error');
+        return;
       }
       setMovieDatas(res);
     } catch (e) {
@@ -33,13 +37,13 @@ const MoviePage = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [location, page]);
+  }, [query, page, navigate]);
   useEffect(() => {
     fetch();
     return () => {
       fetch();
     };
-  }, [location, page]);
+  }, [query, page]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });

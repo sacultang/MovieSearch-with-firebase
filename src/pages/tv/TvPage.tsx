@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -12,6 +12,7 @@ const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { query } = useParams();
   const [tvDatas, setTvDatas] = useState<IMovie>({
     page: 0,
     results: [],
@@ -23,7 +24,9 @@ const TvPage = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await getData(location.pathname, page);
+      console.log(query);
+      const res = await getData(`/tv/${query}`, page);
+      console.log(res);
       if (res === undefined || res === null) {
         navigate('/error');
       }
@@ -33,7 +36,7 @@ const TvPage = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [location, page, navigate]);
+  }, [page, navigate, query]);
   useEffect(() => {
     fetch();
     return () => {
