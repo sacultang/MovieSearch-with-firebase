@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 interface IProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
 }
-const PaginationComp = ({ setPage }: IProps) => {
+const PaginationComp = ({ setPage, page }: IProps) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-    console.log('pagination', value);
     e.preventDefault();
     setPage(value);
   };

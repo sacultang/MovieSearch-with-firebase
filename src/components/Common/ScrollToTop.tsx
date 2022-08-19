@@ -32,15 +32,15 @@ const ScrollToTop = () => {
     return () => {
       window.removeEventListener('scroll', handleFollow);
     };
-  }, []);
-  const handleTop = () => {
+  }, [handleFollow, watch]);
+  const handleTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
     setScrollY(0);
     setBtnStatus(false);
-  };
+  }, []);
   return (
     <ToTopDiv btnStatus={btnStatus} onClick={handleTop}>
       <ArrowUpwardIcon color="inherit" />

@@ -22,6 +22,7 @@ const Favorite = () => {
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
 
   const handleClick = (id: string, type: string) => {
+    console.log(id, type);
     if (type === 'favorite') return;
     // {
     //   movieDatas.forEach((item: any) =>

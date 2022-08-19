@@ -69,7 +69,7 @@ const MoviePage = () => {
           ))}
       </Grid>
 
-      <PaginationComp setPage={setPage} />
+      <PaginationComp setPage={setPage} page={page} />
     </Container>
   );
 };

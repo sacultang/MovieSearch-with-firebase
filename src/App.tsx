@@ -22,6 +22,7 @@ import { setFavoriteAction } from './store/favoriteListSlice';
 import Favorite from './pages/favorite/Favorite';
 import PageNotFound from './pages/Error/PageNotFound';
 import ListPage from './pages/favorite/ListPage';
+import LinkScrollToTop from './components/Common/LinkScrollToTop';
 function App() {
   const dispatch = useDispatch();
 
@@ -85,42 +86,45 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<Home />} />
+    <>
+      <LinkScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
 
-        <Route path="/movie/:query" element={<MoviePage />} />
+          <Route path="/movie/:query" element={<MoviePage />} />
 
-        <Route path="/tv/:query" element={<TvPage />} />
+          <Route path="/tv/:query" element={<TvPage />} />
 
-        <Route path="/search" element={<SearchMain />}>
-          <Route path=":query" element={<SearchResults />} />
+          <Route path="/search" element={<SearchMain />}>
+            <Route path=":query" element={<SearchResults />} />
+          </Route>
+          <Route path="/details/:type/:id" element={<DetailsPage />} />
+          <Route
+            path="/join"
+            element={user?.uid ? <Navigate to="/" /> : <Join />}
+          />
+          <Route
+            path="/login"
+            element={user?.uid ? <Navigate to="/" /> : <Login />}
+          />
+          <Route
+            path="/profile"
+            element={!user?.uid ? <Navigate to="/login" /> : <Profile />}
+          />
+          <Route
+            path="/favorite"
+            element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
+          />
+          <Route
+            path="/list/:query"
+            element={!user?.uid ? <Navigate to="/login" /> : <ListPage />}
+          />
+          <Route path="/error" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
-        <Route path="/details/:type/:id" element={<DetailsPage />} />
-        <Route
-          path="/join"
-          element={user?.uid ? <Navigate to="/" /> : <Join />}
-        />
-        <Route
-          path="/login"
-          element={user?.uid ? <Navigate to="/" /> : <Login />}
-        />
-        <Route
-          path="/profile"
-          element={!user?.uid ? <Navigate to="/login" /> : <Profile />}
-        />
-        <Route
-          path="/favorite"
-          element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
-        />
-        <Route
-          path="/list/:query"
-          element={!user?.uid ? <Navigate to="/login" /> : <ListPage />}
-        />
-        <Route path="/error" element={<PageNotFound />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

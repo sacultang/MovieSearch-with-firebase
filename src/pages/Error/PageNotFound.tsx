@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-// import { Link } from 'react-router-dom';
 import { Link } from '@mui/material';
 const PageNotFound = () => {
   const navigate = useNavigate();

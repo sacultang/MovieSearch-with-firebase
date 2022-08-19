@@ -55,7 +55,7 @@ const TvPage = () => {
             </Grid>
           ))}
       </Grid>
-      <PaginationComp setPage={setPage} />
+      <PaginationComp setPage={setPage} page={page} />
     </Container>
   );
 };
