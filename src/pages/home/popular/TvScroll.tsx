@@ -27,10 +27,7 @@ const TvScroll = () => {
   }, []);
   useEffect(() => {
     fetch();
-    return () => {
-      fetch();
-    };
-  }, []);
+  }, [fetch]);
   const handleClick = (id: string, type: string) => {
     navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };

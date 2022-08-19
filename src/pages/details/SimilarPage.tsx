@@ -28,7 +28,7 @@ const SimilarPage = ({ urlPath }: IProps) => {
   }, []);
   useEffect(() => {
     fetch(urlPath);
-  }, [urlPath]);
+  }, [urlPath, fetch]);
 
   const handleClick = useCallback(
     (id: string) => {

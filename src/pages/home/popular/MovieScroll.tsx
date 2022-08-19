@@ -28,10 +28,7 @@ const MovieScroll = () => {
   }, []);
   useEffect(() => {
     fetch();
-    return () => {
-      fetch();
-    };
-  }, []);
+  }, [fetch]);
   const handleClick = (id: string, type: string) => {
     navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };

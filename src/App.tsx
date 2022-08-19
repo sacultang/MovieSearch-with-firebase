@@ -4,24 +4,24 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { setUserAction, clearUserAction } from './store/userSlice';
+import Layout from './pages/home/common/Layout';
+import Home from './pages/home/Home';
+import MoviePage from './pages/movies/MoviePage';
+import TvPage from './pages/tv/TvPage';
+import Join from './pages/register/Join';
+import Login from './pages/register/Login';
+import Profile from './pages/profile/Profile';
+import Loader from './components/Common/Loader';
+import SearchMain from './pages/search/SearchMain';
+import SearchResults from './pages/search/SearchResults';
+import DetailsPage from './pages/details/DetailsPage';
 import { RootState } from './store/store';
 import { db } from './firebase';
 import { doc, onSnapshot, collection } from 'firebase/firestore';
 import { setFavoriteAction } from './store/favoriteListSlice';
-const Layout = lazy(() => import('./pages/home/common/Layout'));
-const Home = lazy(() => import('./pages/home/Home'));
-const MoviePage = lazy(() => import('./pages/movies/MoviePage'));
-const TvPage = lazy(() => import('./pages/tv/TvPage'));
-const Join = lazy(() => import('./pages/register/Join'));
-const Login = lazy(() => import('./pages/register/Login'));
-const Profile = lazy(() => import('./pages/profile/Profile'));
-const Loader = lazy(() => import('./components/Common/Loader'));
-const SearchMain = lazy(() => import('./pages/search/SearchMain'));
-const SearchResults = lazy(() => import('./pages/search/SearchResults'));
-const DetailsPage = lazy(() => import('./pages/details/DetailsPage'));
-const Favorite = lazy(() => import('./pages/favorite/Favorite'));
-const PageNotFound = lazy(() => import('./pages/Error/PageNotFound'));
-const ListPage = lazy(() => import('./pages/favorite/ListPage'));
+import Favorite from './pages/favorite/Favorite';
+import PageNotFound from './pages/Error/PageNotFound';
+import ListPage from './pages/favorite/ListPage';
 function App() {
   const dispatch = useDispatch();
 
@@ -85,44 +85,42 @@ function App() {
   }
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
 
-          <Route path="/movie/:query" element={<MoviePage />} />
+        <Route path="/movie/:query" element={<MoviePage />} />
 
-          <Route path="/tv/:query" element={<TvPage />} />
+        <Route path="/tv/:query" element={<TvPage />} />
 
-          <Route path="/search" element={<SearchMain />}>
-            <Route path=":query" element={<SearchResults />} />
-          </Route>
-          <Route path="/details/:type/:id" element={<DetailsPage />} />
-          <Route
-            path="/join"
-            element={user?.uid ? <Navigate to="/" /> : <Join />}
-          />
-          <Route
-            path="/login"
-            element={user?.uid ? <Navigate to="/" /> : <Login />}
-          />
-          <Route
-            path="/profile"
-            element={!user?.uid ? <Navigate to="/login" /> : <Profile />}
-          />
-          <Route
-            path="/favorite"
-            element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
-          />
-          <Route
-            path="/list/:query"
-            element={!user?.uid ? <Navigate to="/login" /> : <ListPage />}
-          />
-          <Route path="/error" element={<PageNotFound />} />
-          <Route path="*" element={<PageNotFound />} />
+        <Route path="/search" element={<SearchMain />}>
+          <Route path=":query" element={<SearchResults />} />
         </Route>
-      </Routes>
-    </Suspense>
+        <Route path="/details/:type/:id" element={<DetailsPage />} />
+        <Route
+          path="/join"
+          element={user?.uid ? <Navigate to="/" /> : <Join />}
+        />
+        <Route
+          path="/login"
+          element={user?.uid ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/profile"
+          element={!user?.uid ? <Navigate to="/login" /> : <Profile />}
+        />
+        <Route
+          path="/favorite"
+          element={!user?.uid ? <Navigate to="/login" /> : <Favorite />}
+        />
+        <Route
+          path="/list/:query"
+          element={!user?.uid ? <Navigate to="/login" /> : <ListPage />}
+        />
+        <Route path="/error" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

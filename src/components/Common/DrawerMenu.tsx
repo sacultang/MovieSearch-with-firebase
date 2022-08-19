@@ -39,6 +39,7 @@ type MyListType = {
   list: [];
 };
 const DrawerMenu = ({ open }: IProps) => {
+  console.log('drawer 레ㄴ더링');
   const [myList, setMyList] = useState<MyListType[]>([]);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);

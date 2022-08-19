@@ -29,10 +29,7 @@ const TodayTrending = () => {
   }, []);
   useEffect(() => {
     fetch();
-    return () => {
-      fetch();
-    };
-  }, []);
+  }, [fetch]);
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };

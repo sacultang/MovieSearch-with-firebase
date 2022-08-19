@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getCredit } from '../../api/TMDB/Details/getDetails';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -17,7 +17,7 @@ const CreditsPage = ({ urlPath }: IProps) => {
   function onLoad() {
     setImgLoading(true);
   }
-  const fetch = async () => {
+  const fetch = useCallback(async (urlPath: string) => {
     try {
       const res = await getCredit(urlPath);
       setCredits(res.cast);
@@ -26,10 +26,10 @@ const CreditsPage = ({ urlPath }: IProps) => {
     } finally {
       setImgLoading(true);
     }
-  };
+  }, []);
   useEffect(() => {
-    fetch();
-  }, [urlPath]);
+    fetch(urlPath);
+  }, [urlPath, fetch]);
 
   return (
     <Box

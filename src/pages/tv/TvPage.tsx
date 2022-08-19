@@ -26,7 +26,7 @@ const TvPage = () => {
     try {
       console.log(query);
       const res = await getData(`/tv/${query}`, page);
-      console.log(res);
+
       if (res === undefined || res === null) {
         navigate('/error');
       }
@@ -39,10 +39,7 @@ const TvPage = () => {
   }, [page, navigate, query]);
   useEffect(() => {
     fetch();
-    return () => {
-      fetch();
-    };
-  }, [location, page]);
+  }, [location, page, fetch]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });

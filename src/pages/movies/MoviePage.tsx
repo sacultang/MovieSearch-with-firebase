@@ -26,6 +26,7 @@ const MoviePage = () => {
   const fetch = useCallback(async () => {
     setIsLoading(true);
     try {
+      console.log(query);
       const res = await getData(`/movie/${query}`, page);
       if (res === undefined || res === null) {
         navigate('/error');
@@ -40,10 +41,7 @@ const MoviePage = () => {
   }, [query, page, navigate]);
   useEffect(() => {
     fetch();
-    return () => {
-      fetch();
-    };
-  }, [query, page]);
+  }, [query, page, fetch]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });

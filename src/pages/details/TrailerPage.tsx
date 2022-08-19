@@ -50,7 +50,7 @@ const TrailerPage = ({ urlPath }: IProps) => {
       fetch();
       clearTimeout(fetchTime);
     };
-  }, [urlPath]);
+  }, [urlPath, fetch]);
 
   return (
     <Swiper

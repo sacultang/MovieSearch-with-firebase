@@ -49,10 +49,7 @@ const DetailsPage = () => {
     else {
       fetch(state?.id, state?.type);
     }
-    return () => {
-      fetch(state?.id, state?.type);
-    };
-  }, [state]);
+  }, [state, fetch]);
   if (loading) {
     return <Loader />;
   }
