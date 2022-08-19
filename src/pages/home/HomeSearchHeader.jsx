@@ -19,6 +19,15 @@ const HomeSearchHeader = () => {
             data.results[getRandom()].backdrop_path
           }`}
         >
+          <img
+            src={`https://image.tmdb.org/t/p/original/${
+              data.results[getRandom()].backdrop_path
+            }`}
+            alt=""
+            width="0"
+            height="0"
+            style={{ display: 'none !important' }}
+          />
           <Container
             className="container"
             sx={{

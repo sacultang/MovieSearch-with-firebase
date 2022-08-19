@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';

@@ -27,7 +27,7 @@ const ListPage = () => {
     // navigate(`/details/${path}/${id}`, { state: { type, id } });
   };
   return (
-    <Container sx={{ flexGrow: 1 }}>
+    <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
       <Grid container spacing={2}>
         {myList.length > 0 &&

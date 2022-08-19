@@ -32,7 +32,7 @@ const Favorite = () => {
     // navigate(`/details/${path}/${id}`, { state: { type, id } });
   };
   return (
-    <Container sx={{ flexGrow: 1 }}>
+    <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
       <Grid container spacing={2}>
         {movieDatas.length > 0 &&
