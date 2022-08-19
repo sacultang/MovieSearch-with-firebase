@@ -12,7 +12,7 @@ import PageTitle from '../../components/Common/PageTitle';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const MoviePage = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
@@ -25,7 +25,7 @@ const MoviePage = () => {
 
   const fetch = useCallback(async () => {
     try {
-      const res = await getData(location.pathname, page);
+      const res = await getData(pathname, page);
       if (res === undefined || res === null) {
         navigate('/error');
         return;
@@ -35,10 +35,10 @@ const MoviePage = () => {
       console.log(e, 'error');
     } finally {
     }
-  }, [location, page, navigate]);
+  }, [pathname, page, navigate]);
   useEffect(() => {
     fetch();
-  }, [location, page, fetch]);
+  }, [pathname, page, fetch]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
@@ -48,7 +48,7 @@ const MoviePage = () => {
 
   return (
     <Container sx={{ flexGrow: 1 }}>
-      <PageTitle url={location.pathname} />
+      <PageTitle url={pathname} />
       <Grid container spacing={2}>
         {movieDatas.results &&
           movieDatas.results.map((movie) => (
@@ -69,7 +69,7 @@ const MoviePage = () => {
           ))}
       </Grid>
 
-      <PaginationComp setPage={setPage} page={page} />
+      <PaginationComp setPage={setPage} page={page} pathname={pathname} />
     </Container>
   );
 };

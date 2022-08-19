@@ -11,7 +11,7 @@ import PageTitle from '../../components/Common/PageTitle';
 
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [tvDatas, setTvDatas] = useState<IMovie>({
@@ -24,7 +24,7 @@ const TvPage = () => {
   const [page, setPage] = useState(1);
   const fetch = useCallback(async () => {
     try {
-      const res = await getData(location.pathname, page);
+      const res = await getData(pathname, page);
 
       if (res === undefined || res === null) {
         navigate('/error');
@@ -34,17 +34,17 @@ const TvPage = () => {
       console.log(e);
     } finally {
     }
-  }, [page, navigate, location]);
+  }, [page, navigate, pathname]);
   useEffect(() => {
     fetch();
-  }, [location, page, fetch]);
+  }, [pathname, page, fetch]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
     <Container sx={{ flexGrow: 1 }}>
-      <PageTitle url={location.pathname} />
+      <PageTitle url={pathname} />
       <Grid container spacing={2}>
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
@@ -55,7 +55,7 @@ const TvPage = () => {
             </Grid>
           ))}
       </Grid>
-      <PaginationComp setPage={setPage} page={page} />
+      <PaginationComp setPage={setPage} page={page} pathname={pathname} />
     </Container>
   );
 };
