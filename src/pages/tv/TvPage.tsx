@@ -1,31 +1,30 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import CardSkeleton from '../../components/Skeleton/CardSkeleton';
+
 import Loader from '../../components/Common/Loader';
 import PaginationComp from '../../components/Common/PaginationComp';
 import { IMovie } from '../../types/movieType';
 import PageTitle from '../../components/Common/PageTitle';
+
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { query } = useParams();
+
   const [tvDatas, setTvDatas] = useState<IMovie>({
     page: 0,
     results: [],
     total_pages: 0,
     total_results: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const [page, setPage] = useState(1);
   const fetch = useCallback(async () => {
-    setIsLoading(true);
     try {
-      console.log(query);
-      const res = await getData(`/tv/${query}`, page);
+      const res = await getData(location.pathname, page);
 
       if (res === undefined || res === null) {
         navigate('/error');
@@ -34,9 +33,8 @@ const TvPage = () => {
     } catch (e) {
       console.log(e);
     } finally {
-      setIsLoading(false);
     }
-  }, [page, navigate, query]);
+  }, [page, navigate, location]);
   useEffect(() => {
     fetch();
   }, [location, page, fetch]);
@@ -51,13 +49,9 @@ const TvPage = () => {
         {tvDatas.results &&
           tvDatas.results.map((tv) => (
             <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={tv.id}>
-              {isLoading ? (
-                <CardSkeleton />
-              ) : (
-                <Suspense fallback={<Loader />}>
-                  <MovieCard movie={tv} handleClick={handleClick} />
-                </Suspense>
-              )}
+              <Suspense fallback={<Loader />}>
+                <MovieCard movie={tv} handleClick={handleClick} />
+              </Suspense>
             </Grid>
           ))}
       </Grid>

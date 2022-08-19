@@ -19,7 +19,7 @@ const SearchResults = () => {
   }, [dispatch, query]);
   useEffect(() => {
     fetch();
-  }, [params]);
+  }, [params, fetch]);
 
   return (
     <Container>

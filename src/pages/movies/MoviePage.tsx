@@ -1,18 +1,21 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 
 import { getData } from '../../api/TMDB/Movies/getMovieAPI';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Loader from '../../components/Common/Loader';
 import { IMovie } from '../../types/movieType';
 import PaginationComp from '../../components/Common/PaginationComp';
 import PageTitle from '../../components/Common/PageTitle';
+
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const MoviePage = () => {
   const location = useLocation();
-  const { query } = useParams();
+  const navigate = useNavigate();
+
+  const [page, setPage] = useState(1);
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
     results: [],
@@ -20,14 +23,9 @@ const MoviePage = () => {
     total_results: 0,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    setIsLoading(true);
     try {
-      console.log(query);
-      const res = await getData(`/movie/${query}`, page);
+      const res = await getData(location.pathname, page);
       if (res === undefined || res === null) {
         navigate('/error');
         return;
@@ -36,21 +34,17 @@ const MoviePage = () => {
     } catch (e) {
       console.log(e, 'error');
     } finally {
-      setIsLoading(false);
     }
-  }, [query, page, navigate]);
+  }, [location, page, navigate]);
   useEffect(() => {
     fetch();
-  }, [query, page, fetch]);
+  }, [location, page, fetch]);
 
   const handleClick = (id: string, type: string) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 
   //  JSX
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <Container sx={{ flexGrow: 1 }}>
@@ -74,6 +68,7 @@ const MoviePage = () => {
             </Grid>
           ))}
       </Grid>
+
       <PaginationComp setPage={setPage} />
     </Container>
   );

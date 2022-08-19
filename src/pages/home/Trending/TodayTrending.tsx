@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import MovieCard from '../../movies/MovieCard';
-import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
+
 import { Grid } from '@mui/material';
 import { getTrending } from '../../../api/TMDB/Trending/trending';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +13,9 @@ const TodayTrending = () => {
     total_pages: 0,
     total_results: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    setIsLoading(true);
     try {
       const res = await getTrending('day');
 
@@ -24,7 +23,6 @@ const TodayTrending = () => {
     } catch (e) {
       console.log(e);
     } finally {
-      setIsLoading(false);
     }
   }, []);
   useEffect(() => {
@@ -44,11 +42,7 @@ const TodayTrending = () => {
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
           <Grid item key={movie.id} xs={3} sx={{ minWidth: 200 }}>
-            {isLoading ? (
-              <CardSkeleton />
-            ) : (
-              <MovieCard movie={movie} handleClick={handleClick} />
-            )}
+            <MovieCard movie={movie} handleClick={handleClick} />
           </Grid>
         ))}
     </Grid>

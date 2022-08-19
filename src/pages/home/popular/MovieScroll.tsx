@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestHome } from '../../../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
-import CardSkeleton from '../../../components/Skeleton/CardSkeleton';
+
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { IMovie } from '../../../types/movieType';
@@ -12,10 +12,9 @@ const MovieScroll = () => {
     total_pages: 0,
     total_results: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    setIsLoading(true);
     try {
       const res = await requestHome('movie/popular');
 
@@ -23,7 +22,6 @@ const MovieScroll = () => {
     } catch (e) {
       console.log(e);
     } finally {
-      setIsLoading(false);
     }
   }, []);
   useEffect(() => {
@@ -43,11 +41,7 @@ const MovieScroll = () => {
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
           <Grid item key={movie.id} xs={3} sx={{ minWidth: 200 }}>
-            {isLoading ? (
-              <CardSkeleton />
-            ) : (
-              <MovieCard movie={movie} handleClick={handleClick} />
-            )}
+            <MovieCard movie={movie} handleClick={handleClick} />
           </Grid>
         ))}
     </Grid>

@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useCallback } from 'react';
+import React, { lazy, Suspense, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Grid } from '@mui/material';
 import Loader from '../../components/Common/Loader';

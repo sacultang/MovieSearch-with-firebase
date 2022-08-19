@@ -6,6 +6,8 @@ interface IProps {
 }
 const PaginationComp = ({ setPage }: IProps) => {
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
+    console.log('pagination', value);
+    e.preventDefault();
     setPage(value);
   };
   return (
