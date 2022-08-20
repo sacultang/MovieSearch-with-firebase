@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-
+import Divider from '@mui/material/Divider';
+import { theme } from '../../theme';
 interface IProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
-  pathname: string;
+  totalPage: number;
 }
-const PaginationComp = ({ setPage, page, pathname }: IProps) => {
+const PaginationComp = ({ setPage, page, totalPage }: IProps) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page]);
-  useEffect(() => {
-    setPage(1);
-  }, [pathname]);
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<unknown>, value: number) => {
       e.preventDefault();
@@ -22,17 +21,20 @@ const PaginationComp = ({ setPage, page, pathname }: IProps) => {
     [setPage]
   );
   return (
-    <Stack alignItems={'center'}>
-      <Pagination
-        page={page}
-        count={40}
-        showFirstButton
-        showLastButton
-        onChange={handleChange}
-        color="primary"
-        sx={{ pt: 2, pb: 2 }}
-      />
-    </Stack>
+    <>
+      <Divider sx={{ pt: 4 }} />
+      <Stack alignItems={'center'}>
+        <Pagination
+          page={page}
+          count={totalPage > 40 ? 40 : totalPage}
+          showFirstButton
+          showLastButton
+          onChange={handleChange}
+          color={`${theme.palette.mode}` === 'dark' ? 'standard' : 'primary'}
+          sx={{ pt: 4, pb: 4 }}
+        />
+      </Stack>
+    </>
   );
 };
 

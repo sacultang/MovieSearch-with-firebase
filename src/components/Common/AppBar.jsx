@@ -10,6 +10,7 @@ import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import RegisterGroup from '../RegisterGroup';
+import { theme } from '../../theme/index';
 export default function PermanentDrawerLeft() {
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = useCallback(() => {
@@ -44,6 +45,7 @@ export default function PermanentDrawerLeft() {
           sx={{
             // display: { xs: 'block', sm: 'block', md: 'none' },
             zIndex: 1251,
+            backgroundColor: 'primary.main',
           }}
           position="fixed"
         >
@@ -66,7 +68,10 @@ export default function PermanentDrawerLeft() {
           component="main"
           sx={{
             flex: 1,
-            bgcolor: 'background.default',
+            bgcolor:
+              `${theme.palette.mode}` === 'dark'
+                ? 'primary.main'
+                : 'primary.light',
             p: 2,
             pt: {
               xs: 9,

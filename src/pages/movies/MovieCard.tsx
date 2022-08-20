@@ -222,6 +222,8 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             pt: 1,
+            pr: 1,
+            pl: 1,
           }}
         >
           <Typography
@@ -262,6 +264,8 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
             fontWeight: 700,
             pt: 1,
             pb: 1,
+            pr: 1,
+            pl: 1,
             cursor: 'pointer',
           }}
           onClick={() => handleClick(movie.id, detailType || movie.media_type)}

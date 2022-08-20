@@ -12,7 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -20,6 +20,7 @@ import SearchInput from '../../pages/home/SearchInput';
 import { drawerWidth, moviePath, tvPath, myPage } from './DrawerMenuList';
 import { db } from '../../firebase';
 import { onSnapshot, doc, collection } from 'firebase/firestore';
+import { theme } from '../../theme/index';
 
 type NavStyleType = {
   isActive: boolean;
@@ -28,9 +29,11 @@ const buttonHandler = ({ isActive }: NavStyleType) => {
   return {
     width: '100%',
     backgroundColor: isActive ? '#f3f3f3' : '',
-    borderLeft: isActive ? '4px solid var(--yellow-text-color)' : '',
+    borderLeft: isActive ? '5px solid var(--yellow-text-color)' : '',
+    color: '#000 ',
   };
 };
+
 interface IProps {
   open: boolean;
 }
@@ -40,6 +43,8 @@ type MyListType = {
 };
 const DrawerMenu = ({ open }: IProps) => {
   const [myList, setMyList] = useState<MyListType[]>([]);
+  const { pathname } = useLocation();
+  console.log(pathname);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
   useEffect(() => {
@@ -84,7 +89,7 @@ const DrawerMenu = ({ open }: IProps) => {
     >
       <Toolbar
         sx={{
-          backgroundColor: 'var(--main-bg-color)',
+          backgroundColor: 'primary.main',
         }}
       >
         <Link to="/">
@@ -128,7 +133,14 @@ const DrawerMenu = ({ open }: IProps) => {
               <ListItemButton>
                 <ListItemText
                   primary={list.text}
-                  sx={{ color: 'var(--main-bg-color)' }}
+                  sx={{
+                    color:
+                      `${theme.palette.mode}` === 'dark'
+                        ? `${pathname}` === `${list.path}`
+                          ? 'primary.main'
+                          : 'primary.light'
+                        : 'primary.main',
+                  }}
                 />
               </ListItemButton>
             </NavLink>
@@ -154,7 +166,14 @@ const DrawerMenu = ({ open }: IProps) => {
               <ListItemButton>
                 <ListItemText
                   primary={list.text}
-                  sx={{ color: 'var(--main-bg-color)' }}
+                  sx={{
+                    color:
+                      `${theme.palette.mode}` === 'dark'
+                        ? `${pathname}` === `${list.path}`
+                          ? 'primary.main'
+                          : 'primary.light'
+                        : 'primary.main',
+                  }}
                 />
               </ListItemButton>
             </NavLink>
@@ -180,7 +199,14 @@ const DrawerMenu = ({ open }: IProps) => {
               <ListItemButton>
                 <ListItemText
                   primary={list.text}
-                  sx={{ color: 'var(--main-bg-color)' }}
+                  sx={{
+                    color:
+                      `${theme.palette.mode}` === 'dark'
+                        ? `${pathname}` === `${list.path}`
+                          ? 'primary.main'
+                          : 'primary.light'
+                        : 'primary.main',
+                  }}
                 />
               </ListItemButton>
             </NavLink>
@@ -193,7 +219,14 @@ const DrawerMenu = ({ open }: IProps) => {
                 <ListItemButton>
                   <ListItemText
                     primary={list.id}
-                    sx={{ color: 'var(--main-bg-color)' }}
+                    sx={{
+                      color:
+                        `${theme.palette.mode}` === 'dark'
+                          ? `${pathname}` === `/list/${list.id}`
+                            ? 'primary.main'
+                            : 'primary.light'
+                          : 'primary.main',
+                    }}
                   />
                 </ListItemButton>
               </NavLink>
