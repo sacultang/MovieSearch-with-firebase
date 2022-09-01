@@ -7,7 +7,11 @@ interface Iprop {
   children?: ReactElement;
 }
 
-const AuthenticationRoute = ({ auth, uid }: Iprop): ReactElement | null => {
+const AuthenticationRoute = ({
+  auth,
+  uid,
+  children,
+}: Iprop): ReactElement | null => {
   if (auth) {
     return uid ? <Outlet /> : <Navigate to="/" replace />;
   } else {
