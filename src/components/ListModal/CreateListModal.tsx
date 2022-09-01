@@ -35,7 +35,7 @@ const CreateListModal = () => {
     (e: ChangeEvent<HTMLInputElement>) => setListDetail(e.target.value),
     []
   );
-  const handleSubmit = async () => {
+  const handleAddList = async () => {
     if (user?.uid) {
       if (!listName && openAddList) {
         alert('목록 이름을 써주세요');
@@ -89,7 +89,7 @@ const CreateListModal = () => {
           <Button onClick={handleClose} variant="outlined">
             취소
           </Button>
-          <Button onClick={handleSubmit} variant="contained">
+          <Button onClick={handleAddList} variant="contained">
             추가
           </Button>
         </DialogActions>

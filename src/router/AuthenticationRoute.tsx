@@ -1,17 +1,12 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 interface Iprop {
   auth: boolean;
   uid: string | null;
-  children?: ReactElement;
 }
 
-const AuthenticationRoute = ({
-  auth,
-  uid,
-  children,
-}: Iprop): ReactElement | null => {
+const AuthenticationRoute = ({ auth, uid }: Iprop) => {
   if (auth) {
     return uid ? <Outlet /> : <Navigate to="/" replace />;
   } else {

@@ -1,6 +1,6 @@
-export type CastType = Root2[];
+export type CastType = Similrar[];
 
-export interface Root2 {
+export interface Similrar {
   adult: boolean;
   gender: number;
   id: number;

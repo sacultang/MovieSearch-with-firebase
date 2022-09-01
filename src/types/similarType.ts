@@ -1,6 +1,6 @@
-export type SimilarType = Root2[];
+export type SimilarType = Similrar[];
 
-export interface Root2 {
+export interface Similrar {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];

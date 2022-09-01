@@ -30,10 +30,10 @@ import { db } from '../../firebase';
 import MoviePosterImg from './MoviePosterImg';
 import { IMovieResult } from '../../types/movieType';
 import { RootState } from '../../store/store';
-import { Root2 } from '../../types/similarType';
+import { Similrar } from '../../types/similarType';
 
 interface IProps {
-  movie: IMovieResult | Root2;
+  movie: IMovieResult | Similrar;
   handleClick: any;
 }
 
@@ -63,18 +63,19 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   // firebase 업데이트 함수
 
   const handleFavorite = useCallback(
-    async (e: MouseEvent<HTMLButtonElement>, movie: IMovieResult | Root2) => {
+    async (
+      e: MouseEvent<HTMLButtonElement>,
+      movie: IMovieResult | Similrar
+    ) => {
       e.preventDefault();
       if (user?.uid) {
         const docRef = doc(db, 'users', user.email!);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        // console.log(favoriteDocRef.path);
         if (!checkClip(movie.id, userFavorite)) {
           await setDoc(doc(favoriteRef, movie.id.toString()), {
             movie,
           });
-
           dispatch(setToastAction(true));
         } else {
           await deleteDoc(favoriteDocRef).then(() => console.log('delete'));

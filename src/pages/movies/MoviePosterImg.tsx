@@ -3,10 +3,10 @@ import { Box } from '@mui/material';
 import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/Skeleton/CardSkeleton';
-import { Root2 } from '../../types/similarType';
+import { Similrar } from '../../types/similarType';
 
 interface IProps {
-  movie: IMovieResult | Root2;
+  movie: IMovieResult | Similrar;
   handleNavi: (id: number, type: string) => void;
   detailType: string;
 }

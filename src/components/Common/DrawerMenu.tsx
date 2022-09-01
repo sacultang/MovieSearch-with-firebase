@@ -49,7 +49,6 @@ const DrawerMenu = ({ open }: IProps) => {
   const user = useSelector((state: RootState) => state.user.user);
   useEffect(() => {
     if (!!user.uid) {
-      // getFavoList();
       const docRef = doc(db, 'users', user.email!);
       const favoriteRef = collection(docRef, 'list');
 

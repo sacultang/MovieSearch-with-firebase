@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IMovieResult } from '../types/movieType';
-import { Root2 } from '../types/similarType';
+import { Similrar } from '../types/similarType';
 type ListType = {
   id: string;
   list: [];
 };
 interface IState {
-  movie: IMovieResult[] | Root2[];
+  movie: IMovieResult[] | Similrar[];
   list: ListType[];
 }
 const initialState: IState = {

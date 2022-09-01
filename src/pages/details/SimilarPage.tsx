@@ -3,7 +3,7 @@ import { getSimilar } from '../../api/TMDB/Details/getDetails';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { SimilarType, Root2 } from '../../types/similarType';
+import { SimilarType, Similrar } from '../../types/similarType';
 import Loader from '../../components/Common/Loader';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
