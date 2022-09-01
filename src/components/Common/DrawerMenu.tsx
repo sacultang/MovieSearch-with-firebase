@@ -181,39 +181,39 @@ const DrawerMenu = ({ open }: IProps) => {
         ))}
       </List>
       <Divider />
-      <List>
-        <ListItem disablePadding>
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            fontSize={'1.2rem'}
-            p={1}
-            sx={{ display: 'flex', alignItems: 'center' }}
-          >
-            <AccountCircleIcon sx={{ mr: 1 }} /> My Page
-          </Typography>
-        </ListItem>
-        {myPage.map((list, index) => (
-          <ListItem key={list.text} disablePadding>
-            <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton>
-                <ListItemText
-                  primary={list.text}
-                  sx={{
-                    color:
-                      `${theme.palette.mode}` === 'dark'
-                        ? `${pathname}` === `${list.path}`
-                          ? 'primary.main'
-                          : 'primary.light'
-                        : 'primary.main',
-                  }}
-                />
-              </ListItemButton>
-            </NavLink>
+      {user.uid && (
+        <List>
+          <ListItem disablePadding>
+            <Typography
+              variant="h6"
+              fontWeight={600}
+              fontSize={'1.2rem'}
+              p={1}
+              sx={{ display: 'flex', alignItems: 'center' }}
+            >
+              <AccountCircleIcon sx={{ mr: 1 }} /> My Page
+            </Typography>
           </ListItem>
-        ))}
-        {user.uid &&
-          myList.map((list) => (
+          {myPage.map((list, index) => (
+            <ListItem key={list.text} disablePadding>
+              <NavLink to={`${list.path}`} style={buttonHandler}>
+                <ListItemButton>
+                  <ListItemText
+                    primary={list.text}
+                    sx={{
+                      color:
+                        `${theme.palette.mode}` === 'dark'
+                          ? `${pathname}` === `${list.path}`
+                            ? 'primary.main'
+                            : 'primary.light'
+                          : 'primary.main',
+                    }}
+                  />
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+          ))}
+          {myList.map((list) => (
             <ListItem key={list.id} disablePadding>
               <NavLink to={`/list/${list.id}`} style={buttonHandler}>
                 <ListItemButton>
@@ -232,7 +232,8 @@ const DrawerMenu = ({ open }: IProps) => {
               </NavLink>
             </ListItem>
           ))}
-      </List>
+        </List>
+      )}
     </Drawer>
   );
 };

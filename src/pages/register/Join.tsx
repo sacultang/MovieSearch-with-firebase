@@ -7,7 +7,11 @@ import {
 } from 'react';
 import { Box, Typography, Grid, TextField } from '@mui/material';
 import '../../firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  AuthError,
+} from 'firebase/auth';
 import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
@@ -36,7 +40,8 @@ const Join = () => {
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
         // console.log(user.uid);
       } catch (e) {
-        console.log(e);
+        const err = e as AuthError;
+        throw new Error(err.code);
       } finally {
         setLoading(false);
       }
@@ -55,7 +60,14 @@ const Join = () => {
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      postUserData(joinValue.email, joinValue.password);
+      postUserData(joinValue.email, joinValue.password).catch(
+        (res: AuthError) => {
+          if (res.message === 'auth/email-already-in-use') {
+            alert('이미 가입된 아이디입니다');
+            return;
+          }
+        }
+      );
     },
     [joinValue.email, joinValue.password, postUserData]
   );
