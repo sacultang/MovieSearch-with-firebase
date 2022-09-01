@@ -20,7 +20,7 @@ import SearchInput from '../../pages/home/SearchInput';
 import { drawerWidth, moviePath, tvPath, myPage } from './DrawerMenuList';
 import { db } from '../../firebase';
 import { onSnapshot, doc, collection } from 'firebase/firestore';
-import { theme } from '../../theme/index';
+import { theme } from '../../theme';
 
 type NavStyleType = {
   isActive: boolean;
@@ -44,7 +44,7 @@ type MyListType = {
 const DrawerMenu = ({ open }: IProps) => {
   const [myList, setMyList] = useState<MyListType[]>([]);
   const { pathname } = useLocation();
-  console.log(pathname);
+
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
   useEffect(() => {

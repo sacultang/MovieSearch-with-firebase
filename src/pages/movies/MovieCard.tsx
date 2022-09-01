@@ -83,15 +83,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
       user?.uid
         ? dispatch(setLoginAlertAction(false))
         : dispatch(setLoginAlertAction(true));
-
-      // 즐겨찾기 추가 업데이트
-      // 뒤로 쌓여야 한다.
-
-      // console.log(newFavorite);
-      // await updateFavorite(newFavorite);
-      // setTimeout(() => {
-      //   updateFavorite(newFavorite);
-      // }, 300);
     },
 
     [user, userFavorite, dispatch]
@@ -111,14 +102,10 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     if (user?.uid) {
       dispatch(setListModalAction(true));
       dispatch(setListMovieAction(movie));
+      dispatch(setLoginAlertAction(false));
+    } else {
+      dispatch(setLoginAlertAction(true));
     }
-    user?.uid
-      ? dispatch(setLoginAlertAction(false))
-      : dispatch(setLoginAlertAction(true));
-
-    // if (favoriteList.length === 0) {
-    // }
-    // console.log(favoriteList);
   };
 
   return (

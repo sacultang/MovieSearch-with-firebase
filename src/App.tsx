@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect } from 'react';
 import './firebase';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,15 +32,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (!!user) {
-        // const docRef = doc(db, 'users', user.email!);
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
-        // const getData = async () => {
-        //   const docSnap = await getDoc(docRef);
-        //   const results = docSnap.data()?.favorite;
-        //   results.map((item: any) => setFavoriteAction(item));
-        // };
-
-        // getData();
       } else {
         dispatch(clearUserAction());
       }
@@ -50,20 +42,9 @@ function App() {
       unsubscribe();
     };
   }, [dispatch]);
-  // const getFavoList = async () => {
-  //   const docRef = doc(db, 'users', user.email!);
-  //   const favoriteRef = collection(docRef, 'favorite');
-  //   getDocs(favoriteRef).then(async (res) => {
-  //     const mov = res.docs.map((item) => ({
-  //       data: item.data()?.movie,
-  //       id: item.data()?.id,
-  //     }));
-  //     await dispatch(setFavoriteAction(mov));
-  //   });
-  // };
+
   useEffect(() => {
     if (!!user.uid) {
-      // getFavoList();
       const docRef = doc(db, 'users', user.email!);
       const favoriteRef = collection(docRef, 'favorite');
 

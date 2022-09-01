@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from '../../components/Common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
-
+import { AuthError } from 'firebase/auth';
 const Login = () => {
   const dispatch = useDispatch();
   const [joinValue, setJoinValue] = useState({
@@ -34,9 +34,11 @@ const Login = () => {
           email,
           password
         );
+
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
       } catch (e) {
-        console.log(e);
+        const err = e as AuthError;
+        throw new Error(err.code);
       } finally {
         setLoading(false);
       }
@@ -53,9 +55,17 @@ const Login = () => {
   );
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      loginUser(joinValue.email, joinValue.password);
+      loginUser(joinValue.email, joinValue.password).catch((res: AuthError) => {
+        if (res.message === 'auth/wrong-password') {
+          alert('패스워드를 확인해주세요');
+          return;
+        } else if (res.message === 'auth/user-not-found') {
+          alert('아이디를 찾을 수 없습니다');
+          return;
+        }
+      });
     },
     [joinValue.email, joinValue.password, loginUser]
   );

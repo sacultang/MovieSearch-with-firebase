@@ -10,7 +10,7 @@ import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import RegisterGroup from '../RegisterGroup';
-import { theme } from '../../theme/index';
+import { theme } from '../../theme';
 export default function PermanentDrawerLeft() {
   const [open, setOpen] = useState(false);
   const handleDrawerOpen = useCallback(() => {
