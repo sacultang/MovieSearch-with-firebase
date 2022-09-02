@@ -4,10 +4,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
-import Loader from '../../components/Common/Loader';
-import PaginationComp from '../../components/Common/PaginationComp';
+import Loader from '../../components/common/Loader';
+import PaginationComp from '../../components/common/PaginationComp';
 
-import PageTitle from '../../components/Common/PageTitle';
+import PageTitle from '../../components/common/PageTitle';
 import FetchHooks from '../../hooks/FetchHooks';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {

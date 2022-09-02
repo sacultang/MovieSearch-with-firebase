@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 const MovieScroll = lazy(() => import('./MovieScroll'));
 const TvScroll = lazy(() => import('./TvScroll'));
 const TabLayout = lazy(() => import('../common/TabLayout'));
-const Loader = lazy(() => import('../../../components/Common/Loader'));
+const Loader = lazy(() => import('../../../components/common/Loader'));
 interface ITabPannel {
   children?: React.ReactElement;
   value: number;

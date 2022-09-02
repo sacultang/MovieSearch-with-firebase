@@ -3,10 +3,10 @@ import { lazy, Suspense } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Loader from '../../components/Common/Loader';
+import Loader from '../../components/common/Loader';
 
-import PaginationComp from '../../components/Common/PaginationComp';
-import PageTitle from '../../components/Common/PageTitle';
+import PaginationComp from '../../components/common/PaginationComp';
+import PageTitle from '../../components/common/PageTitle';
 import FetchHooks from '../../hooks/FetchHooks';
 const MovieCard = lazy(() => import('./MovieCard'));
 

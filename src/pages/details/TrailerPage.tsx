@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
-import MovieSkeleton from '../../components/Skeleton/MovieSkeleton';
+import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
 
 interface IProps {
   urlPath: string;

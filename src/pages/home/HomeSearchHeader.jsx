@@ -15,19 +15,10 @@ const HomeSearchHeader = () => {
     <>
       {!!data && (
         <BoxEl
-          urlPath={`https://image.tmdb.org/t/p/original/${
+          urlPath={`https://image.tmdb.org/t/p/w1280/${
             data.results[getRandom()].backdrop_path
           }`}
         >
-          <img
-            src={`https://image.tmdb.org/t/p/original/${
-              data.results[getRandom()].backdrop_path
-            }`}
-            alt=""
-            width="0"
-            height="0"
-            style={{ display: 'none !important' }}
-          />
           <Container
             className="container"
             sx={{
@@ -70,7 +61,7 @@ const BoxEl = styled(Box)`
   &::before {
     content: '';
     background: ${(props) => `url(${props.urlPath}) no-repeat top center`};
-    background-size: cover;
+    background-size: 100%;
     opacity: 0.6;
     position: absolute;
     top: 0px;

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import PageTitle from '../../components/Common/PageTitle';
-import Loader from '../../components/Common/Loader';
+import PageTitle from '../../components/common/PageTitle';
+import Loader from '../../components/common/Loader';
 
 import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';

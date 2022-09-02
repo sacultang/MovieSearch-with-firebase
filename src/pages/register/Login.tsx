@@ -12,7 +12,7 @@ import { LoadingButton } from '@mui/lab';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
-import PaddingLayout from '../../components/Common/PaddingLayout';
+import PaddingLayout from '../../components/common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
 import { AuthError } from 'firebase/auth';
 const Login = () => {

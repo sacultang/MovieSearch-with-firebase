@@ -4,7 +4,7 @@ import { Dialog, DialogActions, Button } from '@mui/material';
 import { setListModalAction } from '../../store/toastSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import { doc, collection, setDoc, deleteDoc, addDoc } from 'firebase/firestore';
+import { doc, collection, setDoc } from 'firebase/firestore';
 import '../../firebase';
 import { db } from '../../firebase';
 import DialogContent from '@mui/material/DialogContent';
@@ -21,7 +21,6 @@ const CreateListModal = () => {
   const [selectList, setSelectList] = useState('');
   const [openAddList, setOpenAddList] = useState(false);
   const [listName, setListName] = useState('');
-  const [listDetail, setListDetail] = useState('');
 
   const handleClose = useCallback(() => {
     dispatch(setListModalAction(false));
@@ -31,10 +30,7 @@ const CreateListModal = () => {
     (e: ChangeEvent<HTMLInputElement>) => setListName(e.target.value),
     []
   );
-  const handleChangeDetail = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setListDetail(e.target.value),
-    []
-  );
+
   const handleAddList = async () => {
     if (user?.uid) {
       if (!listName && openAddList) {
@@ -73,10 +69,7 @@ const CreateListModal = () => {
       <DialogTitle>목록에 추가</DialogTitle>
 
       {openAddList ? (
-        <CreateListInput
-          handleChangeName={handleChangeName}
-          handleChangeDetail={handleChangeDetail}
-        />
+        <CreateListInput handleChangeName={handleChangeName} />
       ) : (
         <ListSelectBox
           setSelectList={setSelectList}

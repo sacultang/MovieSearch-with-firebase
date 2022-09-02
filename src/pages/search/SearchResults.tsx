@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Grid } from '@mui/material';
-import Loader from '../../components/Common/Loader';
+import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 const MovieCard = lazy(() => import('../movies/MovieCard'));

@@ -1,16 +1,16 @@
 import { lazy, Suspense } from 'react';
-import AppBar from '../../../components/Common/AppBar';
-import Footer from '../../../components/Common/Footer';
-import ScrollToTop from '../../../components/Common/ScrollToTop';
-import Loader from '../../../components/Common/Loader';
+import AppBar from '../../../components/common/AppBar';
+import Footer from '../../../components/common/Footer';
+import ScrollToTop from '../../../components/common/ScrollToTop';
+import Loader from '../../../components/common/Loader';
 
 import styled from '@emotion/styled';
-const ToastUi = lazy(() => import('../../../components/Common/ToastUi'));
+const ToastUi = lazy(() => import('../../../components/common/ToastUi'));
 const CreateListModal = lazy(
-  () => import('../../../components/ListModal/CreateListModal')
+  () => import('../../../components/listModal/CreateListModal')
 );
 const LoginAlertModal = lazy(
-  () => import('../../../components/LoginAlertModal/LoginAlertModal')
+  () => import('../../../components/loginAlertModal/LoginAlertModal')
 );
 const Layout = () => {
   return (

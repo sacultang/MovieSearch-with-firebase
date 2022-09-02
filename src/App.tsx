@@ -1,4 +1,4 @@
-import LinkScrollToTop from './components/Common/LinkScrollToTop';
+import LinkScrollToTop from './components/common/LinkScrollToTop';
 import Router from './router';
 function App() {
   return (

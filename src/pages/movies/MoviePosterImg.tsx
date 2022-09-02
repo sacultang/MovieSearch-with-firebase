@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import CardSkeleton from '../../components/Skeleton/CardSkeleton';
+import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
-
+import { theme } from '../../theme/index';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleNavi: (id: number, type: string) => void;
   detailType: string;
 }
-
+console.log(theme.breakpoints);
+const imgReturn = () => {
+  switch (theme) {
+  }
+};
 const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
@@ -24,7 +28,6 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
           borderRadius: '10px',
           minHeight: 248.99,
           maxWidth: '100%',
-          // maxHeight: 249,
           overflow: 'hidden',
         }}
       >
@@ -42,10 +45,11 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
               movie.media_type ? movie.media_type : detailType
             )
           }
-          width={'100%'}
           style={{
             objectFit: 'contain',
             cursor: 'pointer',
+            width: '100%',
+            height: '100%',
           }}
         />
       </Box>

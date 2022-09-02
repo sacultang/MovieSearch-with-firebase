@@ -67,7 +67,7 @@ const CreditsPage = ({ urlPath }: IProps) => {
                   key={item.name + 1}
                   mr={2}
                   borderRadius={2}
-                  minWidth={180}
+                  minWidth={185}
                   minHeight={276}
                 >
                   {!imgLoading ? (

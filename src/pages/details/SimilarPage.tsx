@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { SimilarType, Similrar } from '../../types/similarType';
-import Loader from '../../components/Common/Loader';
+import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { IMovieResult } from '../../types/movieType';

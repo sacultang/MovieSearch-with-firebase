@@ -11,7 +11,7 @@ import TvPage from '../pages/tv/TvPage';
 import Join from '../pages/register/Join';
 import Login from '../pages/register/Login';
 import Profile from '../pages/profile/Profile';
-import Loader from '../components/Common/Loader';
+import Loader from '../components/common/Loader';
 import SearchMain from '../pages/search/SearchMain';
 import SearchResults from '../pages/search/SearchResults';
 import DetailsPage from '../pages/details/DetailsPage';
