@@ -4,22 +4,19 @@ import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
-import { theme } from '../../theme/index';
+
 interface IProps {
   movie: IMovieResult | Similrar;
   handleNavi: (id: number, type: string) => void;
   detailType: string;
 }
-console.log(theme.breakpoints);
-const imgReturn = () => {
-  switch (theme) {
-  }
-};
+
 const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
   }
+
   return (
     <>
       {!imgLoading && <CardSkeleton />}

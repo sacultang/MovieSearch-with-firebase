@@ -9,7 +9,9 @@ const getRandom = () => {
   return num;
 };
 const HomeSearchHeader = () => {
-  const { data } = useGetDiscoverQuery();
+  const { data } = useGetDiscoverQuery(
+    '/discover/movie?with_network=123&language=en-US'
+  );
 
   return (
     <>
@@ -44,7 +46,7 @@ const HomeSearchHeader = () => {
                 now.
               </Typography>
             </Box>
-            <SearchInput />
+            <SearchInput query={''} border={''} />
           </Container>
         </BoxEl>
       )}
@@ -53,14 +55,16 @@ const HomeSearchHeader = () => {
 };
 
 export default memo(HomeSearchHeader);
-
-const BoxEl = styled(Box)`
+interface UrlPropType {
+  urlPath: string;
+}
+const BoxEl = styled(Box)<UrlPropType>`
   height: 300px;
   background-color: var(--yellow-bg-color);
   position: relative;
   &::before {
     content: '';
-    background: ${(props) => `url(${props.urlPath}) no-repeat top center`};
+    background: ${({ urlPath }) => `url(${urlPath}) no-repeat top center`};
     background-size: 100%;
     opacity: 0.6;
     position: absolute;

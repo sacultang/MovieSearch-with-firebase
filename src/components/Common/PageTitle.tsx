@@ -10,7 +10,7 @@ interface ITitleProps {
 interface ILaoutProps {
   children: ReactElement | string;
 }
-const PageTitleLaout = ({ children }: ILaoutProps) => {
+const PageTitleLayout = ({ children }: ILaoutProps) => {
   return (
     <Box pt={3} pb={3}>
       <Typography variant="h4" fontWeight={500}>
@@ -24,27 +24,27 @@ const PageTitleLaout = ({ children }: ILaoutProps) => {
 const PageTitle = ({ url, params }: ITitleProps) => {
   switch (url) {
     case '/movie/popular':
-      return <PageTitleLaout>인기 영화</PageTitleLaout>;
+      return <PageTitleLayout>인기 영화</PageTitleLayout>;
     case '/movie/now_playing':
-      return <PageTitleLaout>현재 상영 영화</PageTitleLaout>;
+      return <PageTitleLayout>현재 상영 영화</PageTitleLayout>;
     case '/movie/upcoming':
-      return <PageTitleLaout>개봉 예정 영화</PageTitleLaout>;
+      return <PageTitleLayout>개봉 예정 영화</PageTitleLayout>;
     case '/movie/top_rated':
-      return <PageTitleLaout>높은 평점 영화</PageTitleLaout>;
+      return <PageTitleLayout>높은 평점 영화</PageTitleLayout>;
     case '/tv/popular':
-      return <PageTitleLaout>인기 프로그램</PageTitleLaout>;
+      return <PageTitleLayout>인기 프로그램</PageTitleLayout>;
     case '/tv/airing_today':
-      return <PageTitleLaout>오늘 방영 프로그램</PageTitleLaout>;
+      return <PageTitleLayout>오늘 방영 프로그램</PageTitleLayout>;
     case '/tv/on_the_air':
-      return <PageTitleLaout>TV 방영 프로그램</PageTitleLaout>;
+      return <PageTitleLayout>TV 방영 프로그램</PageTitleLayout>;
     case '/tv/top_rated':
-      return <PageTitleLaout>높은 평점 프로그램</PageTitleLaout>;
+      return <PageTitleLayout>높은 평점 프로그램</PageTitleLayout>;
     case '/favorite':
-      return <PageTitleLaout>즐겨찾기 목록</PageTitleLaout>;
+      return <PageTitleLayout>즐겨찾기 목록</PageTitleLayout>;
     case `/list/${params?.query}`:
-      return <PageTitleLaout>{params?.query as string}</PageTitleLaout>;
+      return <PageTitleLayout>{params?.query as string}</PageTitleLayout>;
     default:
-      return <PageTitleLaout>페이지</PageTitleLaout>;
+      return <PageTitleLayout>페이지</PageTitleLayout>;
   }
 };
 
