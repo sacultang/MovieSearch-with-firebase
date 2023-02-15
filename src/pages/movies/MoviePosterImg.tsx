@@ -23,9 +23,7 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
       <Box
         sx={{
           borderRadius: '10px',
-          minHeight: 248.99,
-          maxHeight: 248.99,
-          maxWidth: '100%',
+          minHeight: 276,
           overflow: 'hidden',
         }}
       >
