@@ -17,7 +17,7 @@ const HomeSearchHeader = () => {
     <>
       {!!data && (
         <BoxEl
-          urlPath={`https://image.tmdb.org/t/p/w1280/${
+          urlpath={`https://image.tmdb.org/t/p/w1280/${
             data.results[getRandom()].backdrop_path
           }`}
         >
@@ -56,7 +56,7 @@ const HomeSearchHeader = () => {
 
 export default memo(HomeSearchHeader);
 interface UrlPropType {
-  urlPath: string;
+  urlpath: string;
 }
 const BoxEl = styled(Box)<UrlPropType>`
   height: 300px;
@@ -64,7 +64,7 @@ const BoxEl = styled(Box)<UrlPropType>`
   position: relative;
   &::before {
     content: '';
-    background: ${({ urlPath }) => `url(${urlPath}) no-repeat top center`};
+    background: ${({ urlpath }) => `url(${urlpath}) no-repeat top center`};
     background-size: 100%;
     opacity: 0.6;
     position: absolute;

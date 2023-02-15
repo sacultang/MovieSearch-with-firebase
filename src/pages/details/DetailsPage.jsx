@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import DetailPosterSkeleton from '../../components/skeleton/DetailPosterSkeleton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
+
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
 const SimilarPage = lazy(() => import('./SimilarPage'));

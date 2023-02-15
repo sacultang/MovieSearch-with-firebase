@@ -12,7 +12,7 @@ const FetchHooks = (url: string) => {
   });
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  console.log(page);
+
   const fetch = useCallback(async () => {
     try {
       const res = await getData(url, page);

@@ -24,6 +24,7 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
         sx={{
           borderRadius: '10px',
           minHeight: 248.99,
+          maxHeight: 248.99,
           maxWidth: '100%',
           overflow: 'hidden',
         }}
@@ -32,7 +33,7 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
           src={
             movie?.poster_path
               ? `https://image.tmdb.org/t/p/w400/${movie?.poster_path}`
-              : 'null'
+              : 'https://media.discordapp.net/attachments/1014088216132988928/1016987090208182293/Vector.png?width=456&height=684'
           }
           alt={movie?.original_title || movie?.original_name || 'default Img'}
           onLoad={onLoad}
