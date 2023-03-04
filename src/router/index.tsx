@@ -30,7 +30,7 @@ const Router = () => {
   const loading = useSelector((state: RootState) => state.user.loading);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
-      if (!!user) {
+      if (user !== null) {
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
       } else {
         dispatch(clearUserAction());
@@ -42,14 +42,14 @@ const Router = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!!user.uid) {
+    if (user.uid) {
       const docRef = doc(db, 'users', user.email!);
       const favoriteRef = collection(docRef, 'favorite');
 
       const unsubs = onSnapshot(favoriteRef, (snapshot) => {
         const res = snapshot.docs.map((doc) => ({
           id: doc.id,
-          movie: doc.data()?.movie,
+          movie: doc.data().movie,
         }));
 
         dispatch(setFavoriteAction(res));

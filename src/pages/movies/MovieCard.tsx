@@ -114,7 +114,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
       <CardItem
         sx={{
           minWidth: '100%',
-          minHeight: 250,
+          minHeight: 300,
           boxShadow: 'none',
           position: 'relative',
           mt: 1,

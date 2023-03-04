@@ -23,7 +23,14 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
       <Box
         sx={{
           borderRadius: '10px',
-          minHeight: 276,
+          // minHeight: 300,
+          height: {
+            xs: 650,
+            sm: 650,
+            md: 550,
+            lg: 550,
+            xl: 450,
+          },
           overflow: 'hidden',
         }}
       >
@@ -42,9 +49,9 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
             )
           }
           style={{
-            objectFit: 'contain',
+            // objectFit: 'contain',
             cursor: 'pointer',
-            width: '100%',
+            // width: '100%',
             height: '100%',
           }}
         />

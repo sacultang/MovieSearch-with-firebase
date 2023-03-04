@@ -5,7 +5,7 @@ import movieSlice from './movieSlice';
 import favoriteListSlice from './favoriteListSlice';
 import toastSlice from './toastSlice';
 import listMovieSlice from './listMovieSlice';
-import loadingSlice from './loadingSlice';
+// import loadingSlice from './loadingSlice';
 export const store = configureStore({
   reducer: {
     user: userSlice,
@@ -14,7 +14,7 @@ export const store = configureStore({
     favorite: favoriteListSlice,
     toast: toastSlice,
     listMovie: listMovieSlice,
-    loadingSlice,
+    // loadingSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
