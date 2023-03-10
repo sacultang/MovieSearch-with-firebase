@@ -27,6 +27,10 @@ export const request = async <T extends string | undefined, P>(
 };
 
 export const requestData: requestFuncType = async (url, method, params?) => {
-  const res = await request(url, method, params);
-  return res.data;
+  try {
+    const res = await request(url, method, params);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
 };
