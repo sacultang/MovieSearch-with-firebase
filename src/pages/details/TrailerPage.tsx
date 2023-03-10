@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { getTrailer } from '../../api/TMDB/Details/getDetails';
 import { Navigation } from 'swiper';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
+import { requestData } from '../../api/TMDB/baseUrl';
 
 interface IProps {
   urlPath: string;
@@ -36,7 +37,8 @@ const TrailerPage = ({ urlPath }: IProps) => {
   const [loading, setLoading] = useState(false);
   const fetch = useCallback(async () => {
     setLoading(true);
-    const trailerRes = await getTrailer(urlPath);
+    const url = `${urlPath}/videos`;
+    const trailerRes = await requestData(url, 'GET');
     setTrailers(trailerRes);
   }, [urlPath]);
 

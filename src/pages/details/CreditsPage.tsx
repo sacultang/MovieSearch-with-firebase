@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getCredit } from '../../api/TMDB/Details/getDetails';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { CastType } from '../../types/creditType';
-
+import { requestData } from '../../api/TMDB/baseUrl';
 import Skeleton from '@mui/material/Skeleton';
 interface IProps {
   urlPath: string;
@@ -18,8 +17,9 @@ const CreditsPage = ({ urlPath }: IProps) => {
     setImgLoading(true);
   }
   const fetch = useCallback(async (urlPath: string) => {
+    const url = `${urlPath}/credits`;
     try {
-      const res = await getCredit(urlPath);
+      const res = await requestData(url, 'GET');
       setCredits(res.cast);
     } catch (error) {
       console.log(error);

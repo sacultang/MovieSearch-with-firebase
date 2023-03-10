@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getDetails } from '../../api/TMDB/Details/getDetails';
+// import { getDetails } from '../../api/TMDB/Details/getDetails';
 import styled from '@emotion/styled';
 import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import DetailPosterSkeleton from '../../components/skeleton/DetailPosterSkeleton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
+import { requestData } from '../../api/TMDB/baseUrl';
 
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
@@ -31,7 +32,7 @@ const DetailsPage = () => {
     async (id, type) => {
       setLoading(true);
       try {
-        const detailRes = await getDetails(`${type}/${id}`);
+        const detailRes = await requestData(`${type}/${id}`, 'GET');
         if (detailRes === undefined || detailRes === null) {
           navigate('/error');
         }

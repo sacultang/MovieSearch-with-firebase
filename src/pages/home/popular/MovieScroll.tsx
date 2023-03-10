@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { requestHome } from '../../../api/TMDB/baseUrl';
+import { requestData } from '../../../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
 
 import { Grid } from '@mui/material';
@@ -15,14 +15,8 @@ const MovieScroll = () => {
 
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    try {
-      const res = await requestHome('movie/popular');
-
-      setMovieDatas(res);
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
+    const res = await requestData('movie/popular', 'GET');
+    setMovieDatas(res);
   }, []);
   useEffect(() => {
     fetch();

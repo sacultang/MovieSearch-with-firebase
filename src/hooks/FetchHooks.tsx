@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { IMovie } from '../types/movieType';
-import { getData } from '../api/TMDB/Movies/getMovieAPI';
+import { requestData } from '../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
 const FetchHooks = (url: string) => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const FetchHooks = (url: string) => {
 
   const fetch = useCallback(async () => {
     try {
-      const res = await getData(url, page);
+      const res = await requestData(url, 'GET', page);
       if (res === undefined || res === null) {
         navigate('/error', { replace: true });
       }

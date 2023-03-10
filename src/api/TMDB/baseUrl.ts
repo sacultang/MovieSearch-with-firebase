@@ -1,25 +1,32 @@
-import axios from 'axios';
-
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { MethodType, BASE_URL, requestFuncType } from './constant';
 const TMDB_API = process.env.REACT_APP_TMDB_API;
 
-const TMDBServer = axios.create({
-  baseURL: `https://api.themoviedb.org/3/`,
-  params: {
-    api_key: `${TMDB_API}`,
-    language: 'ko-KR',
-  },
-});
+const config: AxiosRequestConfig = {
+  baseURL: BASE_URL,
+  params: { api_key: `${TMDB_API}`, language: 'ko-KR' },
+};
+const TMDBServer = axios.create(config);
 export default TMDBServer;
 
-export const requestHome = async (url: string) => {
+export const request = async <T extends string | undefined, P>(
+  url: T,
+  method: MethodType,
+  params?: P
+): Promise<AxiosResponse> => {
   try {
-    const res = await TMDBServer({
+    const response = await TMDBServer.request({
       url,
+      method,
+      params,
     });
-    if (res.status === 200) {
-      return res.data;
-    }
-  } catch (e) {
-    console.log(e);
+    return response;
+  } catch (error) {
+    throw error;
   }
+};
+
+export const requestData: requestFuncType = async (url, method, params?) => {
+  const res = await request(url, method, params);
+  return res.data;
 };

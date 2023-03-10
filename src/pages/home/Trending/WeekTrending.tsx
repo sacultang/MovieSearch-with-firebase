@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { getTrending } from '../../../api/TMDB/Trending/trending';
 import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
+import { requestData } from '../../../api/TMDB/baseUrl';
 const WeekTrending = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -14,13 +14,10 @@ const WeekTrending = () => {
 
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    try {
-      const res = await getTrending('week');
-      setMovieDatas(res);
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
+    const url = `trending/all/week`;
+    const res = await requestData(url, 'GET');
+
+    setMovieDatas(res);
   }, []);
   useEffect(() => {
     fetch();

@@ -2,9 +2,8 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 import MovieCard from '../../movies/MovieCard';
 
 import { Grid } from '@mui/material';
-import { getTrending } from '../../../api/TMDB/Trending/trending';
 import { useNavigate } from 'react-router-dom';
-
+import { requestData } from '../../../api/TMDB/baseUrl';
 import { IMovie } from '../../../types/movieType';
 const TodayTrending = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
@@ -16,14 +15,9 @@ const TodayTrending = () => {
 
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    try {
-      const res = await getTrending('day');
-
-      setMovieDatas(res);
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
+    const url = `trending/all/day`;
+    const res = await requestData(url, 'GET');
+    setMovieDatas(res);
   }, []);
   useEffect(() => {
     fetch();

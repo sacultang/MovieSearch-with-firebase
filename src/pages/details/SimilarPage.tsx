@@ -1,5 +1,4 @@
 import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
-import { getSimilar } from '../../api/TMDB/Details/getDetails';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -7,6 +6,7 @@ import { SimilarType } from '../../types/similarType';
 import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
+import { requestData } from '../../api/TMDB/baseUrl';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface IProps {
   urlPath: string;
@@ -18,12 +18,9 @@ const SimilarPage = ({ urlPath }: IProps) => {
   const type = urlPath.split('/')[0];
 
   const fetch = useCallback(async (urlPath: string) => {
-    try {
-      const res = await getSimilar(urlPath);
-      setSimilar(res.results);
-    } catch (e) {
-      console.log(e);
-    }
+    const url = `${urlPath}/similar`;
+    const res = await requestData(url, 'GET');
+    setSimilar(res.results);
   }, []);
   useEffect(() => {
     fetch(urlPath);
