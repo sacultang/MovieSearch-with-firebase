@@ -4,6 +4,7 @@ import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
 import { requestData } from '../../../api/TMDB/baseUrl';
+import { METHOD_CONS } from '../../../api/TMDB/constant';
 const WeekTrending = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -14,10 +15,9 @@ const WeekTrending = () => {
 
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    const url = `trending/all/week`;
-    const res = await requestData(url, 'GET');
+    const res = await requestData(`trending/all/week`, METHOD_CONS.get);
 
-    setMovieDatas(res);
+    setMovieDatas(res.data);
   }, []);
   useEffect(() => {
     fetch();

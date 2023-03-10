@@ -7,16 +7,17 @@ import { setMovieAction } from '../../store/movieSlice';
 import { Container } from '@mui/material';
 import SearchInput from '../home/SearchInput';
 import { requestData } from '../../api/TMDB/baseUrl';
+import { METHOD_CONS } from '../../api/TMDB/constant';
 const SearchResults = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const query = params.query;
 
   const fetch = useCallback(async () => {
-    const url = 'search/multi';
-    const params = { query };
-    const res = await requestData(url, 'GET', params);
-    dispatch(setMovieAction(res));
+    const res = await requestData('search/multi', METHOD_CONS.get, {
+      query,
+    });
+    dispatch(setMovieAction(res.data));
   }, [dispatch, query]);
   useEffect(() => {
     fetch();

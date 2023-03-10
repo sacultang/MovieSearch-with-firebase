@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
 import { requestData } from '../../api/TMDB/baseUrl';
-
+import { METHOD_CONS } from '../../api/TMDB/constant';
 interface IProps {
   urlPath: string;
 }
@@ -38,8 +38,8 @@ const TrailerPage = ({ urlPath }: IProps) => {
   const fetch = useCallback(async () => {
     setLoading(true);
     const url = `${urlPath}/videos`;
-    const trailerRes = await requestData(url, 'GET');
-    setTrailers(trailerRes);
+    const trailerRes = await requestData(url, METHOD_CONS.get);
+    setTrailers(trailerRes.data);
   }, [urlPath]);
 
   useEffect(() => {

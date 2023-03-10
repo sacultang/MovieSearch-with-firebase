@@ -1,6 +1,5 @@
 import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-// import { getDetails } from '../../api/TMDB/Details/getDetails';
 import styled from '@emotion/styled';
 import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
@@ -10,33 +9,33 @@ import DetailPosterSkeleton from '../../components/skeleton/DetailPosterSkeleton
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/baseUrl';
-
+import { METHOD_CONS } from '../../api/TMDB/constant';
+import { MediaDetailsType } from '../../types/mediaType';
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
 const SimilarPage = lazy(() => import('./SimilarPage'));
-
+interface CustomizedState {
+  id: number | string;
+  type: string;
+}
 const DetailsPage = () => {
   const { pathname, state } = useLocation();
+  const myState = state as CustomizedState;
   const urlPath = pathname.split('/').slice(2, 4).join('/');
   const navigate = useNavigate();
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState<MediaDetailsType>();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (state === undefined || state === null) {
-      navigate('/error');
-    }
-  }, [navigate, state]);
-
   const fetch = useCallback(
-    async (id, type) => {
+    async (id: number | string, type: string) => {
       setLoading(true);
       try {
-        const detailRes = await requestData(`${type}/${id}`, 'GET');
-        if (detailRes === undefined || detailRes === null) {
+        const detailRes = await requestData(`${type}/${id}`, METHOD_CONS.get);
+        if (!detailRes.data) {
           navigate('/error');
         }
-        setDetails(detailRes);
+
+        setDetails(detailRes.data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -47,11 +46,13 @@ const DetailsPage = () => {
   );
 
   useEffect(() => {
-    if (state === null && state === undefined) return;
-    else {
-      fetch(state?.id, state?.type);
+    if (state === undefined || state === null) {
+      navigate('/error');
+    } else {
+      fetch(myState.id, myState?.type);
     }
-  }, [state, fetch]);
+  }, [navigate, state, fetch, myState]);
+
   if (loading) {
     return <Loader />;
   }
@@ -119,7 +120,7 @@ const DetailsPage = () => {
                   개요
                 </Typography>
                 <Typography
-                  variant="body"
+                  variant="body1"
                   lineHeight={1.3}
                   fontSize={'1rem'}
                   mt={1}
@@ -169,7 +170,7 @@ const DetailsPage = () => {
 
 export default DetailsPage;
 
-const MainDetailImageBackdrop = styled.div`
+const MainDetailImageBackdrop = styled.div<{ imgPath: string }>`
   position: relative;
   background: ${(props) => `url(${props.imgPath}) no-repeat top center`};
   background-size: cover;

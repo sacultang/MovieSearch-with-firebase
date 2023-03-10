@@ -7,6 +7,7 @@ import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { requestData } from '../../api/TMDB/baseUrl';
+import { METHOD_CONS } from '../../api/TMDB/constant';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface IProps {
   urlPath: string;
@@ -19,8 +20,8 @@ const SimilarPage = ({ urlPath }: IProps) => {
 
   const fetch = useCallback(async (urlPath: string) => {
     const url = `${urlPath}/similar`;
-    const res = await requestData(url, 'GET');
-    setSimilar(res.results);
+    const res = await requestData(url, METHOD_CONS.get);
+    setSimilar(res.data.results);
   }, []);
   useEffect(() => {
     fetch(urlPath);

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { MethodType, BASE_URL, requestFuncType } from './constant';
+import { BASE_URL, requestFuncType } from './constant';
 const TMDB_API = process.env.REACT_APP_TMDB_API;
 
 const config: AxiosRequestConfig = {
@@ -11,7 +11,7 @@ export default TMDBServer;
 
 export const request = async <T extends string | undefined, P>(
   url: T,
-  method: MethodType,
+  method: string,
   params?: P
 ): Promise<AxiosResponse> => {
   try {
@@ -29,7 +29,7 @@ export const request = async <T extends string | undefined, P>(
 export const requestData: requestFuncType = async (url, method, params?) => {
   try {
     const res = await request(url, method, params);
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }

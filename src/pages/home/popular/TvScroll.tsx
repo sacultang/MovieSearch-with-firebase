@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
+import { METHOD_CONS } from '../../../api/TMDB/constant';
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -14,8 +15,8 @@ const TvScroll = () => {
 
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
-    const res = await requestData('tv/popular', 'GET');
-    setMovieDatas(res);
+    const res = await requestData('tv/popular', METHOD_CONS.get);
+    setMovieDatas(res.data);
   }, []);
   useEffect(() => {
     fetch();

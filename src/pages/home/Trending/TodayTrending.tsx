@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../../api/TMDB/baseUrl';
 import { IMovie } from '../../../types/movieType';
+import { METHOD_CONS } from '../../../api/TMDB/constant';
 const TodayTrending = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -16,8 +17,8 @@ const TodayTrending = () => {
   const navigate = useNavigate();
   const fetch = useCallback(async () => {
     const url = `trending/all/day`;
-    const res = await requestData(url, 'GET');
-    setMovieDatas(res);
+    const res = await requestData(url, METHOD_CONS.get);
+    setMovieDatas(res.data);
   }, []);
   useEffect(() => {
     fetch();

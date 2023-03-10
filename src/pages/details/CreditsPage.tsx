@@ -6,6 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { CastType } from '../../types/creditType';
 import { requestData } from '../../api/TMDB/baseUrl';
 import Skeleton from '@mui/material/Skeleton';
+import { METHOD_CONS } from '../../api/TMDB/constant';
 interface IProps {
   urlPath: string;
 }
@@ -17,15 +18,9 @@ const CreditsPage = ({ urlPath }: IProps) => {
     setImgLoading(true);
   }
   const fetch = useCallback(async (urlPath: string) => {
-    const url = `${urlPath}/credits`;
-    try {
-      const res = await requestData(url, 'GET');
-      setCredits(res.cast);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setImgLoading(true);
-    }
+    const res = await requestData(`${urlPath}/credits`, METHOD_CONS.get);
+    setCredits(res.data.cast);
+    setImgLoading(true);
   }, []);
   useEffect(() => {
     fetch(urlPath);

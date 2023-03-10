@@ -29,9 +29,10 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
             sm: 650,
             md: 550,
             lg: 550,
-            xl: 450,
           },
+          maxHeight: { xl: 300 },
           overflow: 'hidden',
+          width: '100%',
         }}
       >
         <LazyLoadImage

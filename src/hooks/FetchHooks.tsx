@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { IMovie } from '../types/movieType';
 import { requestData } from '../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
+import { METHOD_CONS } from '../api/TMDB/constant';
 const FetchHooks = (url: string) => {
   const navigate = useNavigate();
   const [datas, setDatas] = useState<IMovie>({
@@ -15,12 +16,12 @@ const FetchHooks = (url: string) => {
 
   const fetch = useCallback(async () => {
     try {
-      const res = await requestData(url, 'GET', page);
-      if (res === undefined || res === null) {
+      const res = await requestData(url, METHOD_CONS.get, { page });
+      if (!res.data) {
         navigate('/error', { replace: true });
       }
-      setDatas(res);
-      setTotalPage(res.total_pages);
+      setDatas(res.data);
+      setTotalPage(res.data.total_pages);
     } catch (e) {
       console.log(e);
     } finally {
