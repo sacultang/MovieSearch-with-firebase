@@ -40,21 +40,13 @@ const CreateListModal = () => {
       const docRef = doc(db, 'users', user.email!);
       const favoriteRef = collection(docRef, 'list');
       try {
-        // const res = await setDoc(collection(docRef, 'list'), {
-        //   //list collection 안에 자동 아이디로 문서 생성
-        //   listName, //필드
-        // });
         openAddList
           ? await setDoc(doc(favoriteRef, listName), {
-              //list collection 안에 listName으로 문서 생성
               list: listMovie, //필드
             })
           : await setDoc(doc(favoriteRef, selectList), {
-              //list collection 안에 listName으로 문서 생성
               list: listMovie, //필드
             });
-
-        // await deleteDoc(doc(favoriteRef, listName));
       } catch (e) {
         console.log(e);
       } finally {

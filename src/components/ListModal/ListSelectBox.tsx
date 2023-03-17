@@ -27,7 +27,6 @@ const ListSelectBox = ({
   const fireList = useSelector((state: RootState) => state.listMovie.list);
   const handleChange = useCallback(
     (event: SelectChangeEvent) => {
-      console.log(event.target.value);
       setSelectList(event.target.value as string);
     },
     [setSelectList]
