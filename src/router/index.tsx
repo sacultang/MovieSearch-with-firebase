@@ -18,6 +18,7 @@ import { RootState } from '../store/store';
 import { db } from '../firebase';
 import { doc, onSnapshot, collection } from 'firebase/firestore';
 import { setFavoriteAction } from '../store/favoriteListSlice';
+import { setListAction } from '../store/listMovieSlice';
 import Favorite from '../pages/favorite/Favorite';
 import PageNotFound from '../pages/Error/PageNotFound';
 import ListPage from '../pages/favorite/ListPage';
@@ -43,19 +44,26 @@ const Router = () => {
 
   useEffect(() => {
     if (user.uid) {
-      const docRef = doc(db, 'users', user.email!);
+      const docRef = doc(db, 'users', user.email as string);
       const favoriteRef = collection(docRef, 'favorite');
-
-      const unsubs = onSnapshot(favoriteRef, (snapshot) => {
-        const res = snapshot.docs.map((doc) => ({
+      const myListRef = collection(docRef, 'list');
+      const unsubsFavorite = onSnapshot(favoriteRef, (snapshot) => {
+        const myFavoriteRes = snapshot.docs.map((doc) => ({
           id: doc.id,
           movie: doc.data().movie as IMovieResult,
         }));
-
-        dispatch(setFavoriteAction(res));
+        dispatch(setFavoriteAction(myFavoriteRes));
+      });
+      const unSubsList = onSnapshot(myListRef, (snapshot) => {
+        const myListRes = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          list: doc.data()?.list as IMovieResult[],
+        }));
+        dispatch(setListAction(myListRes));
       });
       return () => {
-        unsubs();
+        unsubsFavorite();
+        unSubsList();
       };
     }
   }, [dispatch, user]);

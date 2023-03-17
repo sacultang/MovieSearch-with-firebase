@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { setListAction } from '../../store/listMovieSlice';
 import { LogoDiv } from './DrawerCSS';
-
 import MovieIcon from '@mui/icons-material/Movie';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -17,9 +14,12 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchInput from '../../pages/home/SearchInput';
-import { drawerWidth, moviePath, tvPath, myPage } from './DrawerMenuList';
-import { db } from '../../firebase';
-import { onSnapshot, doc, collection } from 'firebase/firestore';
+import {
+  drawerWidth,
+  moviePath,
+  tvPath,
+  myFavoritePage,
+} from './DrawerMenuList';
 import { theme } from '../../theme';
 
 type NavStyleType = {
@@ -34,37 +34,14 @@ const buttonHandler = ({ isActive }: NavStyleType) => {
   };
 };
 
-interface IProps {
+interface DrawerMenuProp {
   open: boolean;
 }
-type MyListType = {
-  id: string;
-  list: [];
-};
-const DrawerMenu = ({ open }: IProps) => {
-  const [myList, setMyList] = useState<MyListType[]>([]);
+
+const DrawerMenu = ({ open }: DrawerMenuProp) => {
   const { pathname } = useLocation();
-
-  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
-  useEffect(() => {
-    if (!!user.uid) {
-      const docRef = doc(db, 'users', user.email!);
-      const favoriteRef = collection(docRef, 'list');
-
-      const unsubs = onSnapshot(favoriteRef, (snapshot) => {
-        const res = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          list: doc.data()?.list,
-        }));
-        dispatch(setListAction(res));
-        setMyList(res);
-      });
-      return () => {
-        unsubs();
-      };
-    }
-  }, [dispatch, user]);
+  const myListPage = useSelector((state: RootState) => state.listMovie.list);
 
   return (
     <Drawer
@@ -126,7 +103,7 @@ const DrawerMenu = ({ open }: IProps) => {
             <MovieIcon sx={{ mr: 1 }} /> Movie
           </Typography>
         </ListItem>
-        {moviePath.map((list, index) => (
+        {moviePath.map((list) => (
           <ListItem key={list.text} disablePadding>
             <NavLink to={`${list.path}`} style={buttonHandler}>
               <ListItemButton>
@@ -159,7 +136,7 @@ const DrawerMenu = ({ open }: IProps) => {
             <LiveTvIcon sx={{ mr: 1 }} /> TV
           </Typography>
         </ListItem>
-        {tvPath.map((list, index) => (
+        {tvPath.map((list) => (
           <ListItem key={list.text} disablePadding>
             <NavLink to={`${list.path}`} style={buttonHandler}>
               <ListItemButton>
@@ -193,7 +170,7 @@ const DrawerMenu = ({ open }: IProps) => {
               <AccountCircleIcon sx={{ mr: 1 }} /> My Page
             </Typography>
           </ListItem>
-          {myPage.map((list, index) => (
+          {myFavoritePage.map((list) => (
             <ListItem key={list.text} disablePadding>
               <NavLink to={`${list.path}`} style={buttonHandler}>
                 <ListItemButton>
@@ -212,25 +189,26 @@ const DrawerMenu = ({ open }: IProps) => {
               </NavLink>
             </ListItem>
           ))}
-          {myList.map((list) => (
-            <ListItem key={list.id} disablePadding>
-              <NavLink to={`/list/${list.id}`} style={buttonHandler}>
-                <ListItemButton>
-                  <ListItemText
-                    primary={decodeURIComponent(list.id)}
-                    sx={{
-                      color:
-                        `${theme.palette.mode}` === 'dark'
-                          ? `${pathname}` === `/list/${list.id}`
-                            ? 'primary.main'
-                            : 'primary.light'
-                          : 'primary.main',
-                    }}
-                  />
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-          ))}
+          {myListPage.length &&
+            myListPage.map((list) => (
+              <ListItem key={list.id} disablePadding>
+                <NavLink to={`/list/${list.id}`} style={buttonHandler}>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={decodeURIComponent(list.id)}
+                      sx={{
+                        color:
+                          `${theme.palette.mode}` === 'dark'
+                            ? `${pathname}` === `/list/${list.id}`
+                              ? 'primary.main'
+                              : 'primary.light'
+                            : 'primary.main',
+                      }}
+                    />
+                  </ListItemButton>
+                </NavLink>
+              </ListItem>
+            ))}
         </List>
       )}
     </Drawer>

@@ -12,4 +12,4 @@ export const tvPath = [
   { text: 'TV 방영중', path: '/tv/on_the_air' },
   { text: '높은 평점', path: '/tv/top_rated' },
 ];
-export const myPage = [{ text: '즐겨찾기', path: '/favorite' }];
+export const myFavoritePage = [{ text: '즐겨찾기', path: '/favorite' }];
