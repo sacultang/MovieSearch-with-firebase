@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-
+import { HandleClick } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 const ListPage = () => {
@@ -16,9 +16,13 @@ const ListPage = () => {
 
   const myList = useSelector((state: RootState) => state.listMovie.list);
 
-  const handleClick = (id: string, type: string) => {
+  const handleClick: HandleClick = (_, type) => {
     if (type === 'favorite') return;
   };
+  console.log(encodeURIComponent(location.pathname));
+  console.log(encodeURIComponent(location.pathname));
+  console.log(decodeURIComponent(location.pathname));
+  console.log(params);
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />

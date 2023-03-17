@@ -8,6 +8,7 @@ import GridItemProvider from '../../components/common/GridItemProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { IMovieResult } from '../../types/movieType';
+import { HandleClick } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 interface IFBMovieType {
@@ -21,7 +22,7 @@ const Favorite = () => {
 
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
 
-  const handleClick = (id: string, type: string) => {
+  const handleClick: HandleClick = (id, type) => {
     if (type === 'favorite') return;
   };
   return (

@@ -6,6 +6,7 @@ import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
+import { HandleClick } from '../../../types/Types';
 const MovieScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -22,7 +23,7 @@ const MovieScroll = () => {
   useEffect(() => {
     fetch();
   }, [fetch]);
-  const handleClick = (id: string, type: string) => {
+  const handleClick: HandleClick = (id, type) => {
     navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };
   return (

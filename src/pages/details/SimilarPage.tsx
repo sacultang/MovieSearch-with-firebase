@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../api/TMDB/constant';
+import { HandleClick } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface IProps {
   urlPath: string;
@@ -27,8 +28,8 @@ const SimilarPage = ({ urlPath }: IProps) => {
     fetch(urlPath);
   }, [urlPath, fetch]);
 
-  const handleClick = useCallback(
-    (id: string) => {
+  const handleClick: HandleClick = useCallback(
+    (id, _) => {
       navigate(`/details/${type}/${id}`, { state: { type, id } });
     },
     [navigate, type]

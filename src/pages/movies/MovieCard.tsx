@@ -20,7 +20,6 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-import CreateIcon from '@mui/icons-material/Create';
 // firebase
 import '../../firebase';
 import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore';
@@ -31,10 +30,11 @@ import MoviePosterImg from './MoviePosterImg';
 import { IMovieResult } from '../../types/movieType';
 import { RootState } from '../../store/store';
 import { Similrar } from '../../types/similarType';
+import { HandleClick } from '../../types/Types';
 
 interface IProps {
   movie: IMovieResult | Similrar;
-  handleClick: any;
+  handleClick: HandleClick;
 }
 
 const MovieCard = ({ movie, handleClick }: IProps) => {
@@ -52,7 +52,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   const open = Boolean(anchorEl);
 
   const detailType = location.pathname.split('/')[1];
-
   const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
@@ -69,6 +68,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     ) => {
       e.preventDefault();
       if (user?.uid) {
+        dispatch(setLoginAlertAction(false));
         const docRef = doc(db, 'users', user.email!);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
@@ -80,12 +80,10 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
         } else {
           await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
         }
+      } else {
+        dispatch(setLoginAlertAction(true));
       }
-      user?.uid
-        ? dispatch(setLoginAlertAction(false))
-        : dispatch(setLoginAlertAction(true));
     },
-
     [user, userFavorite, dispatch]
   );
 
@@ -184,22 +182,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
               sx={{ fontSize: '0.8rem', mb: 0 }}
             >
               &nbsp;목록에 추가
-            </Typography>
-          </MenuItem>
-
-          <MenuItem onClick={handleCloseMenu}>
-            <CreateIcon
-              sx={{
-                width: '1rem',
-                height: '1rem',
-              }}
-            />
-            <Typography
-              gutterBottom
-              variant="body1"
-              sx={{ fontSize: '0.8rem', mb: 0 }}
-            >
-              &nbsp;리뷰 쓰기
             </Typography>
           </MenuItem>
         </Menu>

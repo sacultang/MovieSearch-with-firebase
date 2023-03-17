@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
 import { requestData } from '../../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
+import { HandleClick } from '../../../types/Types';
 const WeekTrending = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -22,7 +23,7 @@ const WeekTrending = () => {
   useEffect(() => {
     fetch();
   }, [fetch]);
-  const handleClick = (id: string, type: string) => {
+  const handleClick: HandleClick = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
