@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from '../../components/common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
-
+import { responseMsg } from './constants';
 const Join = () => {
   const [joinValue, setJoinValue] = useState({
     email: '',
@@ -38,7 +38,6 @@ const Join = () => {
           password
         );
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
-        // console.log(user.uid);
       } catch (e) {
         const err = e as AuthError;
         throw new Error(err.code);
@@ -62,7 +61,7 @@ const Join = () => {
       e.preventDefault();
       postUserData(joinValue.email, joinValue.password).catch(
         (res: AuthError) => {
-          if (res.message === 'auth/email-already-in-use') {
+          if (res.message === responseMsg.ALREADY_USER) {
             alert('이미 가입된 아이디입니다');
             return;
           }
