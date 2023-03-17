@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Grid } from '@mui/material';
 import Loader from '../../components/common/Loader';
+import GridItemProvider from '../../components/common/GridItemProvider';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
@@ -19,7 +20,7 @@ const SearchResults = () => {
       <Grid container spacing={2} mt={0}>
         {movieData.results &&
           movieData.results.map((movie) => (
-            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={movie.id}>
+            <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard
                   movie={movie}
@@ -28,7 +29,7 @@ const SearchResults = () => {
                   }}
                 />
               </Suspense>
-            </Grid>
+            </GridItemProvider>
           ))}
       </Grid>
     </Container>

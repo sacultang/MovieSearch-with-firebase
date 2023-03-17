@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/common/PageTitle';
 import Loader from '../../components/common/Loader';
+import GridItemProvider from '../../components/common/GridItemProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { IMovieResult } from '../../types/movieType';
@@ -29,20 +30,11 @@ const Favorite = () => {
       <Grid container spacing={2}>
         {movieDatas.length > 0 &&
           movieDatas.map((movie: IFBMovieType) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={4}
-              xl={3}
-              key={movie.id}
-              position="relative"
-            >
+            <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard movie={movie.movie} handleClick={handleClick} />
               </Suspense>
-            </Grid>
+            </GridItemProvider>
           ))}
       </Grid>
     </Container>

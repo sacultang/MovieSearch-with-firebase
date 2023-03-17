@@ -18,7 +18,6 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
   return (
     <>
       {!imgLoading && <CardSkeleton />}
-
       <LazyLoadImage
         src={
           movie?.poster_path

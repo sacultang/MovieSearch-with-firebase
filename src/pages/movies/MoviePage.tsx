@@ -8,6 +8,7 @@ import Loader from '../../components/common/Loader';
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import FetchHooks from '../../hooks/FetchHooks';
+import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const MoviePage = () => {
@@ -28,20 +29,11 @@ const MoviePage = () => {
       <Grid container spacing={2}>
         {datas.results &&
           datas.results.map((movie) => (
-            <Grid
-              item
-              xs={12}
-              sm={10}
-              md={4}
-              lg={4}
-              xl={3}
-              key={movie.id}
-              position="relative"
-            >
+            <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard movie={movie} handleClick={handleClick} />
               </Suspense>
-            </Grid>
+            </GridItemProvider>
           ))}
       </Grid>
 
