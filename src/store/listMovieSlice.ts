@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { IMovieResult } from '../types/movieType';
 import { Similrar } from '../types/similarType';
 type ListType = {
   id: string;
-  list: [];
+  list: IMovieResult[];
 };
-interface IState {
+interface InitialState {
   movie: IMovieResult[] | Similrar[];
   list: ListType[];
 }
-const initialState: IState = {
+const initialState: InitialState = {
   movie: [],
   list: [],
 };
@@ -19,9 +19,11 @@ export const listMovieSlice = createSlice({
   initialState,
   reducers: {
     setListMovieAction: (state, action) => {
+      console.log(current(state.movie));
+      console.log(action.payload);
       state.movie = [...state.movie, action.payload];
     },
-    setListAction: (state, action) => {
+    setListAction: (state: InitialState, action: PayloadAction<ListType[]>) => {
       state.list = action.payload;
     },
   },

@@ -39,17 +39,13 @@ interface IProps {
 const MovieCard = ({ movie, handleClick }: IProps) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
-
   const userFavorite = useSelector(
     (state: RootState) => state.favorite.favoriteMovie
   );
-  console.log(userFavorite);
   const [anchorEl, setAnchorEl] = useState<
     Element | ((element: Element) => Element) | null | undefined
   >(null);
-
   const open = Boolean(anchorEl);
-
   const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   DialogActions,
   Button,
@@ -24,16 +24,14 @@ const ListSelectBox = ({
   selectList,
   setOpenAddList,
 }: IProps) => {
-  const fireList = useSelector((state: RootState) => state.listMovie.list);
-  const handleChange = useCallback(
-    (event: SelectChangeEvent) => {
-      setSelectList(event.target.value as string);
-    },
-    [setSelectList]
-  );
+  const myList = useSelector((state: RootState) => state.listMovie.list);
+  const selectChangeList = (e: SelectChangeEvent) => {
+    setSelectList(e.target.value);
+  };
+  console.log(myList);
   return (
     <DialogContent sx={{ overflowY: 'visible' }}>
-      {fireList ? (
+      {myList ? (
         <FormControl fullWidth>
           <InputLabel id="select-label">List</InputLabel>
           <Select
@@ -42,11 +40,11 @@ const ListSelectBox = ({
             id="select"
             value={selectList}
             label="list"
-            onChange={handleChange}
+            onChange={selectChangeList}
           >
-            {fireList.map((list) => (
-              <MenuItem value={list.id} key={list.id}>
-                {list.id}
+            {myList.map((list) => (
+              <MenuItem value={decodeURIComponent(list.id)} key={list.id}>
+                {decodeURIComponent(list.id)}
               </MenuItem>
             ))}
           </Select>
