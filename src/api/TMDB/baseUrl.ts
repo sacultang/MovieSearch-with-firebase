@@ -9,10 +9,10 @@ const config: AxiosRequestConfig = {
 const TMDBServer = axios.create(config);
 export default TMDBServer;
 
-export const request = async <T extends string | undefined, P>(
-  url: T,
+export const request = async <T>(
+  url: string,
   method: string,
-  params?: P
+  params?: T
 ): Promise<AxiosResponse> => {
   try {
     const response = await TMDBServer.request({
