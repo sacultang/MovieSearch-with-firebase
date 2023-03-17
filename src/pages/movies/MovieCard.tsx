@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, memo, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { setToastAction } from '../../store/toastSlice';
 import { checkClip } from '../../utils/checkSome';
 import {
@@ -38,9 +37,9 @@ interface IProps {
 }
 
 const MovieCard = ({ movie, handleClick }: IProps) => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
+
   const userFavorite = useSelector(
     (state: RootState) => state.favorite.favorite
   );
@@ -51,7 +50,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
 
   const open = Boolean(anchorEl);
 
-  const detailType = location.pathname.split('/')[1];
   const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
@@ -108,146 +106,137 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   };
 
   return (
-    <>
-      <CardItem
+    <CardItem
+      sx={{
+        minWidth: '100%',
+        minHeight: 300,
+        boxShadow: 'none',
+        position: 'relative',
+        mt: 1,
+      }}
+    >
+      {/* IMG */}
+      <MoviePosterImg movie={movie} handleClick={handleClick} />
+
+      {/* 좋아요 버튼 */}
+      <IconButton
+        aria-label="favorite"
         sx={{
-          minWidth: '100%',
-          minHeight: 300,
-          boxShadow: 'none',
-          position: 'relative',
-          mt: 1,
+          position: 'absolute',
+          top: 5,
+          right: 5,
+          backgroundColor: 'rgba(221,221,221,0.57)',
+          borderRadius: '50%',
+        }}
+        onClick={(e) => handleFavorite(e, movie)}
+      >
+        {checkClip(movie.id, userFavorite) && user.uid ? (
+          <FavoriteIcon
+            id="likeBtn"
+            sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+          />
+        ) : (
+          <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
+        )}
+      </IconButton>
+
+      {/* 리스트 만들기 버튼 */}
+      <IconButton
+        aria-label="settings"
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        sx={{
+          position: 'absolute',
+          top: 42,
+          right: 5,
+          backgroundColor: 'rgba(221,221,221,0.57)',
+          borderRadius: '50%',
+        }}
+        onClick={handleOpenMenu}
+      >
+        <MoreVertIcon id="listBtn" sx={{ width: '1rem', height: '1rem' }} />
+      </IconButton>
+      <Menu
+        id="list-positioned-menu"
+        aria-labelledby="list-positioned-button"
+        open={open}
+        onClose={handleCloseMenu}
+        anchorEl={anchorEl}
+      >
+        <MenuItem onClick={handleAddList}>
+          <ListIcon sx={{ width: '1rem' }} />
+          <Typography
+            gutterBottom
+            variant="body1"
+            sx={{ fontSize: '0.8rem', mb: 0 }}
+          >
+            &nbsp;목록에 추가
+          </Typography>
+        </MenuItem>
+      </Menu>
+
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          pt: 1,
+          pr: 1,
+          pl: 1,
         }}
       >
-        {/* IMG */}
-        <MoviePosterImg
-          movie={movie}
-          detailType={detailType}
-          handleNavi={handleClick}
-        />
-
-        {/* 좋아요 버튼 */}
-        <IconButton
-          aria-label="favorite"
-          sx={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            backgroundColor: 'rgba(221,221,221,0.57)',
-            borderRadius: '50%',
-          }}
-          onClick={(e) => handleFavorite(e, movie)}
-        >
-          {checkClip(movie.id, userFavorite) && user.uid ? (
-            <FavoriteIcon
-              id="likeBtn"
-              sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
-            />
-          ) : (
-            <FavoriteBorder
-              id="likeBtn"
-              sx={{ width: '1rem', height: '1rem' }}
-            />
-          )}
-        </IconButton>
-
-        {/* 리스트 만들기 버튼 */}
-        <IconButton
-          aria-label="settings"
-          aria-controls={open ? 'demo-positioned-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          sx={{
-            position: 'absolute',
-            top: 42,
-            right: 5,
-            backgroundColor: 'rgba(221,221,221,0.57)',
-            borderRadius: '50%',
-          }}
-          onClick={handleOpenMenu}
-        >
-          <MoreVertIcon id="listBtn" sx={{ width: '1rem', height: '1rem' }} />
-        </IconButton>
-        <Menu
-          id="list-positioned-menu"
-          aria-labelledby="list-positioned-button"
-          open={open}
-          onClose={handleCloseMenu}
-          anchorEl={anchorEl}
-        >
-          <MenuItem onClick={handleAddList}>
-            <ListIcon sx={{ width: '1rem' }} />
-            <Typography
-              gutterBottom
-              variant="body1"
-              sx={{ fontSize: '0.8rem', mb: 0 }}
-            >
-              &nbsp;목록에 추가
-            </Typography>
-          </MenuItem>
-        </Menu>
-
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            pt: 1,
-            pr: 1,
-            pl: 1,
-          }}
-        >
-          <Typography
-            gutterBottom
-            variant="body1"
-            sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
-          >
-            {movie?.release_date || movie?.first_air_date}
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="body1"
-            sx={{
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              mb: 0,
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <StarIcon
-              sx={{
-                width: '1rem',
-                height: '1rem',
-                color: 'var(--yellow-text-color)',
-                mb: 0,
-              }}
-            />
-            {movie?.vote_average}
-          </Typography>
-        </Box>
         <Typography
           gutterBottom
-          variant="h2"
-          component="h2"
-          sx={{
-            fontSize: '1rem',
-            fontWeight: 700,
-            pt: 1,
-            pb: 1,
-            pr: 1,
-            pl: 1,
-            cursor: 'pointer',
-          }}
-          onClick={() => handleClick(movie.id, detailType || movie.media_type)}
+          variant="body1"
+          sx={{ fontSize: '0.8rem', mr: 1, mb: 0 }}
         >
-          {movie?.original_title
-            ? movie?.original_title.length > 15
-              ? movie?.original_title.slice(0, 17) + ' ...'
-              : movie?.original_title
-            : movie?.original_name}
+          {movie?.release_date || movie?.first_air_date}
         </Typography>
-      </CardItem>
-    </>
+        <Typography
+          gutterBottom
+          variant="body1"
+          sx={{
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            mb: 0,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <StarIcon
+            sx={{
+              width: '1rem',
+              height: '1rem',
+              color: 'var(--yellow-text-color)',
+              mb: 0,
+            }}
+          />
+          {movie?.vote_average}
+        </Typography>
+      </Box>
+      <Typography
+        gutterBottom
+        variant="h2"
+        component="h2"
+        sx={{
+          fontSize: '1rem',
+          fontWeight: 700,
+          pt: 1,
+          pb: 1,
+          pr: 1,
+          pl: 1,
+          cursor: 'pointer',
+        }}
+        onClick={() => handleClick(movie.id, movie.media_type)}
+      >
+        {movie?.original_title
+          ? movie?.original_title.length > 15
+            ? movie?.original_title.slice(0, 17) + ' ...'
+            : movie?.original_title
+          : movie?.original_name}
+      </Typography>
+    </CardItem>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/common/PageTitle';
@@ -19,11 +19,11 @@ interface IFBMovieType {
 const Favorite = () => {
   const location = useLocation();
   const params = useParams();
-
+  const navigate = useNavigate();
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
 
   const handleClick: HandleClick = (id, type) => {
-    if (type === 'favorite') return;
+    navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>

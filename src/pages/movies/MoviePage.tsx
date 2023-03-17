@@ -21,9 +21,7 @@ const MoviePage = () => {
   const handleClick: HandleClick = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
-
   //  JSX
-
   return (
     <Container sx={{ flexGrow: 1 }}>
       <PageTitle url={pathname} />

@@ -3,13 +3,13 @@ import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
+import { HandleClick } from '../../types/Types';
 interface IProps {
   movie: IMovieResult | Similrar;
-  handleNavi: (id: number, type: string) => void;
-  detailType: string;
+  handleClick: HandleClick;
 }
 
-const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
+const MoviePosterImg = ({ movie, handleClick }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
@@ -26,9 +26,7 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
         }
         alt={movie?.original_title || movie?.original_name || 'default Img'}
         onLoad={onLoad}
-        onClick={() =>
-          handleNavi(movie.id, movie.media_type ? movie.media_type : detailType)
-        }
+        onClick={() => handleClick(movie.id, movie.media_type)}
         style={{
           cursor: 'pointer',
           width: '100%',

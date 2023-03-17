@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import { IMovie } from '../types/movieType';
+import { IMovie, IMovieResult } from '../types/movieType';
 import { requestData } from '../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
 import { METHOD_CONS } from '../api/TMDB/constant';
 const FetchHooks = (url: string) => {
+  const MEDIA_TYPE = url.split('/')[1];
+
   const navigate = useNavigate();
+
   const [datas, setDatas] = useState<IMovie>({
     page: 0,
     results: [],
@@ -17,16 +20,21 @@ const FetchHooks = (url: string) => {
   const fetch = useCallback(async () => {
     try {
       const res = await requestData(url, METHOD_CONS.get, { page });
+
       if (!res.data) {
         navigate('/error', { replace: true });
       }
-      setDatas(res.data);
+      const { results }: { results: IMovieResult[] } = res.data;
+      const newResults = results.map((item) => {
+        return { ...item, media_type: MEDIA_TYPE };
+      });
+      setDatas({ ...res.data, results: newResults });
       setTotalPage(res.data.total_pages);
     } catch (e) {
       console.log(e);
     } finally {
     }
-  }, [page, navigate, url]);
+  }, [page, navigate, url, MEDIA_TYPE]);
 
   useEffect(() => {
     fetch();
