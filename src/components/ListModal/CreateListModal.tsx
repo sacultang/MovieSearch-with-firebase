@@ -26,8 +26,10 @@ const CreateListModal = () => {
     dispatch(setListModalAction(false));
     setOpenAddList(false);
   }, [dispatch]);
-  const handleChangeName = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setListName(e.target.value),
+  const handleListNameChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setListName(e.target.value);
+    },
     []
   );
 
@@ -41,7 +43,7 @@ const CreateListModal = () => {
       const favoriteRef = collection(docRef, 'list');
       try {
         openAddList
-          ? await setDoc(doc(favoriteRef, listName), {
+          ? await setDoc(doc(favoriteRef, encodeURIComponent(listName)), {
               list: listMovie, //필드
             })
           : await setDoc(doc(favoriteRef, selectList), {
@@ -61,7 +63,7 @@ const CreateListModal = () => {
       <DialogTitle>목록에 추가</DialogTitle>
 
       {openAddList ? (
-        <CreateListInput handleChangeName={handleChangeName} />
+        <CreateListInput handleListNameChange={handleListNameChange} />
       ) : (
         <ListSelectBox
           setSelectList={setSelectList}

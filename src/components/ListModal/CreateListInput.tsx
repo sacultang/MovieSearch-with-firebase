@@ -4,10 +4,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 interface IProps {
-  handleChangeName: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleListNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CreateListInput = ({ handleChangeName }: IProps) => {
+const CreateListInput = ({ handleListNameChange }: IProps) => {
   return (
     <Box>
       <DialogTitle>목록 생성</DialogTitle>
@@ -20,7 +20,7 @@ const CreateListInput = ({ handleChangeName }: IProps) => {
           type="text"
           variant="standard"
           fullWidth
-          onChange={handleChangeName}
+          onChange={handleListNameChange}
         />
       </DialogContent>
     </Box>

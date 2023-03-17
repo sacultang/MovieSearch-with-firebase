@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { METHOD_CONS } from '../api/TMDB/constant';
 const FetchHooks = (url: string) => {
   const MEDIA_TYPE = url.split('/')[1];
-
   const navigate = useNavigate();
-
   const [datas, setDatas] = useState<IMovie>({
     page: 0,
     results: [],

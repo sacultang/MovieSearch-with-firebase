@@ -15,7 +15,6 @@ const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
   const { totalPage, setPage, page, datas } = FetchHooks(pathname);
 
   const handleClick: HandleClick = (id, type) => {
