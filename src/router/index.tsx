@@ -10,7 +10,6 @@ import MoviePage from '../pages/movies/MoviePage';
 import TvPage from '../pages/tv/TvPage';
 import Join from '../pages/register/Join';
 import Login from '../pages/register/Login';
-import Profile from '../pages/profile/Profile';
 import Loader from '../components/common/Loader';
 import SearchMain from '../pages/search/SearchMain';
 import SearchResults from '../pages/search/SearchResults';
@@ -73,13 +72,11 @@ const Router = () => {
           <Route path=":query" element={<SearchResults />} />
         </Route>
         <Route path="/details/:type/:id" element={<DetailsPage />} />
-
         <Route element={<AuthenticationRoute auth={false} uid={user.uid} />}>
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<AuthenticationRoute auth={true} uid={user.uid} />}>
-          <Route path="/profile" element={<Profile />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/list/:query" element={<ListPage />} />
         </Route>

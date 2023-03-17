@@ -43,7 +43,6 @@ export default function PermanentDrawerLeft() {
         <CssBaseline />
         <AppBar
           sx={{
-            // display: { xs: 'block', sm: 'block', md: 'none' },
             zIndex: 1251,
             backgroundColor: 'primary.main',
           }}

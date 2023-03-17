@@ -32,6 +32,7 @@ const MoviePosterImg = ({ movie, detailType, handleNavi }: IProps) => {
         style={{
           cursor: 'pointer',
           width: '100%',
+          height: '100%',
         }}
       />
     </>
