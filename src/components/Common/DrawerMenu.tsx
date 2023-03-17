@@ -217,7 +217,7 @@ const DrawerMenu = ({ open }: IProps) => {
               <NavLink to={`/list/${list.id}`} style={buttonHandler}>
                 <ListItemButton>
                   <ListItemText
-                    primary={list.id}
+                    primary={decodeURIComponent(list.id)}
                     sx={{
                       color:
                         `${theme.palette.mode}` === 'dark'

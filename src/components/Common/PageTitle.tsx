@@ -22,7 +22,7 @@ const PageTitleLayout = ({ children }: ILaoutProps) => {
 };
 
 const PageTitle = ({ url, params }: ITitleProps) => {
-  switch (url) {
+  switch (decodeURIComponent(url)) {
     case '/movie/popular':
       return <PageTitleLayout>인기 영화</PageTitleLayout>;
     case '/movie/now_playing':
@@ -41,7 +41,7 @@ const PageTitle = ({ url, params }: ITitleProps) => {
       return <PageTitleLayout>높은 평점 프로그램</PageTitleLayout>;
     case '/favorite':
       return <PageTitleLayout>즐겨찾기 목록</PageTitleLayout>;
-    case `/list/${params?.query}`:
+    case `/list/${params?.query as string}`:
       return <PageTitleLayout>{params?.query as string}</PageTitleLayout>;
     default:
       return <PageTitleLayout>페이지</PageTitleLayout>;

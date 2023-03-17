@@ -15,7 +15,6 @@ const ListPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const myList = useSelector((state: RootState) => state.listMovie.list);
-
   const handleClick: HandleClick = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
@@ -27,7 +26,7 @@ const ListPage = () => {
         {myList.length > 0 &&
           myList.map(
             (item) =>
-              item.id === params.query &&
+              decodeURIComponent(item.id) === params.query &&
               item.list.map((list, idx) => (
                 <GridItemProvider key={idx}>
                   <Suspense fallback={<Loader />}>
