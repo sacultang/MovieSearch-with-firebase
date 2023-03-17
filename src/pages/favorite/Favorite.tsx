@@ -15,22 +15,13 @@ interface IFBMovieType {
 }
 
 const Favorite = () => {
-  // const [movieDatas, setMovieDatas] = useState([]);
   const location = useLocation();
   const params = useParams();
 
   const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
 
   const handleClick = (id: string, type: string) => {
-    console.log(id, type);
     if (type === 'favorite') return;
-    // {
-    //   movieDatas.forEach((item: any) =>
-    //     item.first_air_date ? (path = 'tv') : (path = 'movie')
-    //   );
-    // }
-
-    // navigate(`/details/${path}/${id}`, { state: { type, id } });
   };
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
