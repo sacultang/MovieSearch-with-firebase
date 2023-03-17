@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, memo, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setToastAction } from '../../store/toastSlice';
-import { checkClip } from '../../utils/checkSome';
+import { checkFavoriteMovieId } from '../../utils/checkFavoriteMovieId';
 import {
   setListModalAction,
   setLoginAlertAction,
@@ -41,9 +41,9 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   const user = useSelector((state: RootState) => state.user.user);
 
   const userFavorite = useSelector(
-    (state: RootState) => state.favorite.favorite
+    (state: RootState) => state.favorite.favoriteMovie
   );
-
+  console.log(userFavorite);
   const [anchorEl, setAnchorEl] = useState<
     Element | ((element: Element) => Element) | null | undefined
   >(null);
@@ -70,7 +70,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
         const docRef = doc(db, 'users', user.email!);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        if (!checkClip(movie.id, userFavorite)) {
+        if (!checkFavoriteMovieId(movie.id, userFavorite)) {
           await setDoc(doc(favoriteRef, movie.id.toString()), {
             movie,
           });
@@ -103,6 +103,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     } else {
       dispatch(setLoginAlertAction(true));
     }
+    setAnchorEl(null);
   };
 
   return (
@@ -130,7 +131,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
         }}
         onClick={(e) => handleFavorite(e, movie)}
       >
-        {checkClip(movie.id, userFavorite) && user.uid ? (
+        {checkFavoriteMovieId(movie.id, userFavorite) && user.uid ? (
           <FavoriteIcon
             id="likeBtn"
             sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}

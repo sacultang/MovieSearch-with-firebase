@@ -7,21 +7,17 @@ import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { IMovieResult } from '../../types/movieType';
 import { HandleClick } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
-
-interface IFBMovieType {
-  id: string;
-  movie: IMovieResult;
-}
 
 const Favorite = () => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
-  const movieDatas = useSelector((state: RootState) => state.favorite.favorite);
-
+  const movieDatas = useSelector(
+    (state: RootState) => state.favorite.favoriteMovie
+  );
+  console.log(movieDatas);
   const handleClick: HandleClick = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
@@ -30,7 +26,7 @@ const Favorite = () => {
       <PageTitle url={location.pathname} params={params} />
       <Grid container spacing={2}>
         {movieDatas.length > 0 &&
-          movieDatas.map((movie: IFBMovieType) => (
+          movieDatas.map((movie) => (
             <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard movie={movie.movie} handleClick={handleClick} />

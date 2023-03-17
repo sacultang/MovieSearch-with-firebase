@@ -22,6 +22,7 @@ import Favorite from '../pages/favorite/Favorite';
 import PageNotFound from '../pages/Error/PageNotFound';
 import ListPage from '../pages/favorite/ListPage';
 import AuthenticationRoute from '../router/AuthenticationRoute';
+import { IMovieResult } from '../types/movieType';
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Router = () => {
       const unsubs = onSnapshot(favoriteRef, (snapshot) => {
         const res = snapshot.docs.map((doc) => ({
           id: doc.id,
-          movie: doc.data().movie,
+          movie: doc.data().movie as IMovieResult,
         }));
 
         dispatch(setFavoriteAction(res));

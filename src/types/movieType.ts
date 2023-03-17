@@ -4,7 +4,10 @@ export interface IMovie {
   total_pages: number;
   total_results: number;
 }
-
+export interface FavoriteWithId {
+  id: string;
+  movie: IMovieResult;
+}
 export interface IMovieResult {
   adult?: boolean;
   backdrop_path?: string;
