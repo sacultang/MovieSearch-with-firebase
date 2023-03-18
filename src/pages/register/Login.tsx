@@ -135,14 +135,9 @@ const Login = () => {
           로그인
         </LoadingButton>
         <Grid container justifyContent="flex-end" mt={3}>
-          <Grid item>
-            <Link
-              to="/join"
-              style={{ textDecoration: 'none', color: '#5d5d5d' }}
-            >
-              계정이 없나요? 회원가입으로 이동
-            </Link>
-          </Grid>
+          <Link to="/join" style={{ textDecoration: 'none', color: '#5d5d5d' }}>
+            계정이 없나요? 회원가입으로 이동
+          </Link>
         </Grid>
       </Box>
     </PaddingLayout>

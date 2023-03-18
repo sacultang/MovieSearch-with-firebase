@@ -18,6 +18,7 @@ import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from './common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
 import { responseMsg } from './constants';
+import { Link } from 'react-router-dom';
 const Join = () => {
   const [joinValue, setJoinValue] = useState({
     email: '',
@@ -153,6 +154,14 @@ const Join = () => {
         >
           회원가입
         </LoadingButton>
+        <Grid container justifyContent="flex-end" mt={3}>
+          <Link
+            to="/login"
+            style={{ textDecoration: 'none', color: '#5d5d5d' }}
+          >
+            이미 회원이신가요? 로그인으로 이동
+          </Link>
+        </Grid>
       </Box>
     </PaddingLayout>
   );
