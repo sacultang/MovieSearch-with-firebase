@@ -58,15 +58,10 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 ### Commit prefix
 
-- prefix: 파일명
-  - (줄바꿈 아래) 아래 코드 수정한 부분 설명
-- feat: 기능 개발 관련
-- fix: 오류 개선 / 버그 패치
-- refactor: feat에 코드 수정
-- docs: 문서화 작업
-  - ex) docs: UPDATE README.md
-- style: css style 작업
-- test: test 관련 (테스트코드, 리펙토링 테스트 코드 추가)
-- conf: 환경설정 관련, 빌드 업무 수정, 패키지 매니저, 폴더트리, 파일이름 변경
-- build: 빌드 관련
-- ci: Continuous Integration 관련
+- `ADD`: When you add new functional codes (기능 추가)
+- `FIX`: When you fix some errors (오류 수정)
+- `DEL`: When you remove functional codes (기능 코드 제거)
+- `RFT`: When you refactor codes (코드 리팩토링)
+- `CHO`: When you do chore such as moving some files (파일 옮기거나, 이미지 교체하거나 잡일)
+- `DOC`: When you write docs (문서 작성 ex. readme)
+- `SET`: 세팅
