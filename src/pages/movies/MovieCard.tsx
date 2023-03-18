@@ -39,9 +39,13 @@ const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
   const open = Boolean(anchorEl);
 
   return (
-    <CardItem>
+    <CardItem scrollCard={scrollCard}>
       {/* IMG */}
-      <MoviePosterImg movie={movie} handleClick={handleClick} />
+      <MoviePosterImg
+        movie={movie}
+        handleClick={handleClick}
+        scrollCard={scrollCard}
+      />
 
       {/* 좋아요 버튼 */}
       <Box
@@ -175,9 +179,10 @@ const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
 
 export default memo(MovieCard);
 
-const CardItem = styled(Card)`
+const CardItem = styled(Card)<{ scrollCard: boolean | undefined }>`
   margin: 5px;
   position: relative;
+  width: ${({ scrollCard }) => scrollCard && '200px'};
   &:hover {
     h2 {
       color: var(--yellow-text-color);

@@ -8,9 +8,10 @@ import Box from '@mui/material/Box';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
+  scrollCard?: boolean;
 }
 
-const MoviePosterImg = ({ movie, handleClick }: IProps) => {
+const MoviePosterImg = ({ movie, handleClick, scrollCard }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
@@ -19,7 +20,7 @@ const MoviePosterImg = ({ movie, handleClick }: IProps) => {
   return (
     <Box
       sx={{
-        height: { lg: '460px', xl: '410px' },
+        height: { lg: scrollCard ? '280px' : '460px' },
         overflow: 'hidden',
       }}
     >
