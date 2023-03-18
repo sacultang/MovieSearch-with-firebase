@@ -3,7 +3,7 @@ interface IState {
   user: user;
   loading: boolean;
 }
-type user = {
+export type user = {
   uid: string | null;
   email: string | null;
 };

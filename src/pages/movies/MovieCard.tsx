@@ -1,11 +1,6 @@
-import { useState, useCallback, useEffect, memo, MouseEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, memo } from 'react';
+import { useDispatch } from 'react-redux';
 import { setToastAction } from '../../store/toastSlice';
-import { checkFavoriteMovieId } from '../../utils/checkFavoriteMovieId';
-import {
-  setListModalAction,
-  setLoginAlertAction,
-} from '../../store/toastSlice';
 
 // mui
 import { styled } from '@mui/material/styles';
@@ -19,18 +14,13 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-// firebase
-import '../../firebase';
-import { doc, collection, setDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
 
 // component
 import MoviePosterImg from './MoviePosterImg';
 import { IMovieResult } from '../../types/movieType';
-import { RootState } from '../../store/store';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/Types';
-import { setListMovieAction } from '../../store/listMovieSlice';
+import useFavorite from './hooks/useFavorite';
 
 interface IProps {
   movie: IMovieResult | Similrar;
@@ -39,48 +29,17 @@ interface IProps {
 
 const MovieCard = ({ movie, handleClick }: IProps) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user.user);
-  const userFavorite = useSelector(
-    (state: RootState) => state.favorite.favoriteMovie
-  );
-  const [anchorEl, setAnchorEl] = useState<
-    Element | ((element: Element) => Element) | null | undefined
-  >(null);
+  const {
+    handleFavorite,
+    user,
+    userFavorite,
+    isFavoriteChecked,
+    handleOpenAddList,
+    anchorEl,
+    handleOpenMenu,
+    handleCloseMenu,
+  } = useFavorite(movie);
   const open = Boolean(anchorEl);
-  const isFavoriteChecked = checkFavoriteMovieId(movie.id, userFavorite);
-  const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(e.currentTarget);
-  }, []);
-  const handleCloseMenu = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
-
-  // firebase 업데이트 함수
-  const handleFavorite = useCallback(
-    async (
-      e: MouseEvent<HTMLButtonElement>,
-      movie: IMovieResult | Similrar
-    ) => {
-      e.preventDefault();
-      if (user?.uid) {
-        dispatch(setLoginAlertAction(false));
-        const docRef = doc(db, 'users', user.email as string);
-        const favoriteRef = collection(docRef, 'favorite');
-        const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        if (isFavoriteChecked) {
-          await deleteDoc(favoriteDocRef);
-        } else {
-          await setDoc(doc(favoriteRef, movie.id.toString()), {
-            movie,
-          });
-          dispatch(setToastAction(true));
-        }
-      } else {
-        dispatch(setLoginAlertAction(true));
-      }
-    },
-    [user, dispatch, isFavoriteChecked]
-  );
 
   useEffect(() => {
     if (!user.uid) return;
@@ -91,17 +50,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
       clearTimeout(toastTime);
     };
   }, [user, userFavorite, dispatch]);
-
-  const handleOpenAddList = () => {
-    if (user?.uid) {
-      dispatch(setListMovieAction(movie));
-      dispatch(setListModalAction(true));
-      dispatch(setLoginAlertAction(false));
-    } else {
-      dispatch(setLoginAlertAction(true));
-    }
-    setAnchorEl(null);
-  };
 
   return (
     <CardItem
