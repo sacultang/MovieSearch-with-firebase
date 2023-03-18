@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { LogoDiv } from './DrawerCSS';
+import styled from '@emotion/styled';
 import MovieIcon from '@mui/icons-material/Movie';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -88,12 +88,16 @@ const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
           backgroundColor: 'primary.main',
         }}
       >
-        <Link to="/" aria-label="go to mainpage">
-          <LogoDiv>
-            <div aria-hidden={true}>메인</div>
+        <Link
+          to="/"
+          aria-label="go to main-page"
+          onClick={() => setOpen(false)}
+        >
+          <LogoDiv aria-hidden={true}>
+            <div>메인</div>
           </LogoDiv>
         </Link>
-        <Link to="/">
+        <Link to="/" onClick={() => setOpen(false)}>
           <Typography
             variant="h6"
             fontWeight={600}
@@ -210,3 +214,16 @@ const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
 };
 
 export default DrawerMenu;
+
+export const LogoDiv = styled.div`
+  width: 50px;
+  height: 30px;
+  border-radius: 20px;
+  background: #8360c3;
+  background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
+  background: linear-gradient(to right, #2ebf91, #8360c3);
+  margin-right: 20px;
+  div {
+    visibility: hidden;
+  }
+`;

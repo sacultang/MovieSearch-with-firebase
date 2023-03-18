@@ -15,7 +15,7 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
-import PaddingLayout from '../../components/common/PaddingLayout';
+import PaddingLayout from './common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
 import { responseMsg } from './constants';
 const Join = () => {
