@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import { Outlet } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
@@ -17,13 +17,9 @@ export default function PermanentDrawerLeft() {
     setOpen((prev) => !prev);
   }, []);
 
-  const handleDrawerClose = useCallback(() => {
-    setOpen(false);
-  }, []);
-
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
+  })(({ theme, open }: { theme: Theme; open: boolean }) => ({
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -47,6 +43,8 @@ export default function PermanentDrawerLeft() {
             backgroundColor: 'primary.main',
           }}
           position="fixed"
+          open={open}
+          theme={theme}
         >
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <IconButton
@@ -54,14 +52,14 @@ export default function PermanentDrawerLeft() {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              sx={{ mr: 2, ml: open && '200px' }}
+              sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
             <RegisterGroup />
           </Toolbar>
         </AppBar>
-        <DrawerMenu open={open} handleDrawerClose={handleDrawerClose} />
+        <DrawerMenu open={open} setOpen={setOpen} />
 
         <Container
           component="main"

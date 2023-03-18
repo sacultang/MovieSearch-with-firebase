@@ -36,13 +36,17 @@ const buttonHandler = ({ isActive }: NavStyleType) => {
 
 interface DrawerMenuProp {
   open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DrawerMenu = ({ open }: DrawerMenuProp) => {
+const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
   const { pathname } = useLocation();
   const user = useSelector((state: RootState) => state.user.user);
   const myListPage = useSelector((state: RootState) => state.listMovie.list);
 
+  const handlMenuOpenClose = () => {
+    setOpen(false);
+  };
   return (
     <Drawer
       sx={{
@@ -104,7 +108,7 @@ const DrawerMenu = ({ open }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {moviePath.map((list) => (
-          <ListItem key={list.text} disablePadding>
+          <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
             <NavLink to={`${list.path}`} style={buttonHandler}>
               <ListItemButton>
                 <ListItemText
@@ -137,7 +141,7 @@ const DrawerMenu = ({ open }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {tvPath.map((list) => (
-          <ListItem key={list.text} disablePadding>
+          <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
             <NavLink to={`${list.path}`} style={buttonHandler}>
               <ListItemButton>
                 <ListItemText
@@ -171,7 +175,11 @@ const DrawerMenu = ({ open }: DrawerMenuProp) => {
             </Typography>
           </ListItem>
           {myFavoritePage.map((list) => (
-            <ListItem key={list.text} disablePadding>
+            <ListItem
+              key={list.text}
+              disablePadding
+              onClick={handlMenuOpenClose}
+            >
               <NavLink to={`${list.path}`} style={buttonHandler}>
                 <ListItemButton>
                   <ListItemText
@@ -191,7 +199,11 @@ const DrawerMenu = ({ open }: DrawerMenuProp) => {
           ))}
           {myListPage.length &&
             myListPage.map((list) => (
-              <ListItem key={list.id} disablePadding>
+              <ListItem
+                key={list.id}
+                disablePadding
+                onClick={handlMenuOpenClose}
+              >
                 <NavLink to={`/list/${list.id}`} style={buttonHandler}>
                   <ListItemButton>
                     <ListItemText
