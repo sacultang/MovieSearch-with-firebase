@@ -2,12 +2,12 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 import { requestData } from '../../../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
 
-import { Grid } from '@mui/material';
 import MovieCard from '../../movies/MovieCard';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
 import { HandleClickNaviType } from '../../../types/Types';
 import GridItemProvider from '../../../components/common/GridItemProvider';
+import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
 const MovieScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -28,14 +28,14 @@ const MovieScroll = () => {
     navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };
   return (
-    <Grid container direction="row" flexWrap="nowrap">
+    <ScrollGridContainer>
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
           <GridItemProvider key={movie.id}>
-            <MovieCard movie={movie} handleClick={handleClick} />
+            <MovieCard movie={movie} handleClick={handleClick} scrollCard />
           </GridItemProvider>
         ))}
-    </Grid>
+    </ScrollGridContainer>
   );
 };
 

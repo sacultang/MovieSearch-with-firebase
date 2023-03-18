@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import { SimilarType } from '../../types/similarType';
 import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../api/TMDB/constant';
 import { HandleClickNaviType } from '../../types/Types';
@@ -41,7 +40,7 @@ const SimilarPage = ({ urlPath }: IProps) => {
         mt: 3,
       }}
     >
-      <Typography variant="h5" fontWeight={500} mb={2}>
+      <Typography variant="h5" fontWeight={500}>
         추천 컨텐츠
       </Typography>
       <Box
@@ -56,11 +55,8 @@ const SimilarPage = ({ urlPath }: IProps) => {
             borderRadius: '5px',
           },
         }}
-        mt={3}
       >
-        <CssBaseline />
-
-        <Grid container direction="row" flexWrap="nowrap">
+        <Grid container direction="row" flexWrap="nowrap" mb={3} mt={3}>
           {similar.map((movie) => (
             <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>

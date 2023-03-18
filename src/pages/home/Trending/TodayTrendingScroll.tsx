@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import MovieCard from '../../movies/MovieCard';
 
-import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../../api/TMDB/baseUrl';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
 import { HandleClickNaviType } from '../../../types/Types';
 import GridItemProvider from '../../../components/common/GridItemProvider';
+import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
 const TodayTrendingScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -29,14 +29,14 @@ const TodayTrendingScroll = () => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
-    <Grid container direction="row" flexWrap="nowrap">
+    <ScrollGridContainer>
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
           <GridItemProvider key={movie.id}>
-            <MovieCard movie={movie} handleClick={handleClick} />
+            <MovieCard movie={movie} handleClick={handleClick} scrollCard />
           </GridItemProvider>
         ))}
-    </Grid>
+    </ScrollGridContainer>
   );
 };
 
