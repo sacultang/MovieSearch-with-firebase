@@ -60,7 +60,11 @@ const SimilarPage = ({ urlPath }: IProps) => {
           {similar.map((movie) => (
             <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
-                <MovieCard movie={movie} handleClick={handleClick} scrollCard />
+                <MovieCard
+                  movie={movie}
+                  handleClick={handleClick}
+                  scrollcard="true"
+                />
               </Suspense>
             </GridItemProvider>
           ))}

@@ -31,7 +31,11 @@ const TvScroll = () => {
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
           <GridItemProvider key={movie.id}>
-            <MovieCard movie={movie} handleClick={handleClick} scrollCard />
+            <MovieCard
+              movie={movie}
+              handleClick={handleClick}
+              scrollcard="true"
+            />
           </GridItemProvider>
         ))}
     </ScrollGridContainer>

@@ -23,10 +23,10 @@ import useFavorite from './hooks/useFavorite';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
-  scrollCard?: boolean;
+  scrollcard?: string | undefined;
 }
 
-const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
+const MovieCard = ({ movie, handleClick, scrollcard }: IProps) => {
   const {
     handleFavorite,
     user,
@@ -39,12 +39,12 @@ const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
   const open = Boolean(anchorEl);
 
   return (
-    <CardItem scrollCard={scrollCard}>
+    <CardItem scrollcard={scrollcard}>
       {/* IMG */}
       <MoviePosterImg
         movie={movie}
         handleClick={handleClick}
-        scrollCard={scrollCard}
+        scrollcard={scrollcard}
       />
 
       {/* 좋아요 버튼 */}
@@ -179,10 +179,10 @@ const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
 
 export default memo(MovieCard);
 
-const CardItem = styled(Card)<{ scrollCard: boolean | undefined }>`
+const CardItem = styled(Card)<{ scrollcard: string | undefined }>`
   margin: 5px;
   position: relative;
-  width: ${({ scrollCard }) => scrollCard && '200px'};
+  width: ${({ scrollcard }) => scrollcard && '200px'};
   &:hover {
     h2 {
       color: var(--yellow-text-color);
