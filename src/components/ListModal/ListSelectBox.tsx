@@ -13,18 +13,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-interface IProps {
+interface ListSelectBoxProps {
+  setOpenAddList: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectList: React.Dispatch<React.SetStateAction<string>>;
   selectList: string;
-  setOpenAddList: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 const ListSelectBox = ({
+  setOpenAddList,
   setSelectList,
   selectList,
-  setOpenAddList,
-}: IProps) => {
+}: ListSelectBoxProps) => {
   const myList = useSelector((state: RootState) => state.listMovie.list);
+
   const selectChangeList = (e: SelectChangeEvent) => {
     setSelectList(e.target.value);
   };

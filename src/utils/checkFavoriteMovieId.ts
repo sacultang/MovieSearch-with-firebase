@@ -13,7 +13,5 @@ export const checkListMovieId = (
   selectMovieList: IMovieResult[] | Similrar[]
 ) => {
   const result = selectMovieList.some((item) => item.id === movieId);
-
-  console.log(result);
   return result;
 };
