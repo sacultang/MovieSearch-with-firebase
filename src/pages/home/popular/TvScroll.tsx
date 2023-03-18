@@ -5,7 +5,7 @@ import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
-import { HandleClick } from '../../../types/Types';
+import { HandleClickNaviType } from '../../../types/Types';
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -22,7 +22,7 @@ const TvScroll = () => {
   useEffect(() => {
     fetch();
   }, [fetch]);
-  const handleClick: HandleClick = (id, type) => {
+  const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };
   return (

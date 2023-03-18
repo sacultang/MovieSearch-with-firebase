@@ -9,7 +9,7 @@ import PaginationComp from '../../components/common/PaginationComp';
 
 import PageTitle from '../../components/common/PageTitle';
 import FetchHooks from '../../hooks/FetchHooks';
-import { HandleClick } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ const TvPage = () => {
 
   const { totalPage, setPage, page, datas } = FetchHooks(pathname);
 
-  const handleClick: HandleClick = (id, type) => {
+  const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 

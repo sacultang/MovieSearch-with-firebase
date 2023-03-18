@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { HandleClick } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 const ListPage = () => {
@@ -15,7 +15,7 @@ const ListPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const myList = useSelector((state: RootState) => state.listMovie.list);
-  const handleClick: HandleClick = (id, type) => {
+  const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 

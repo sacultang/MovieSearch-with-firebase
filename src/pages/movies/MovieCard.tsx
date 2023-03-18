@@ -29,19 +29,17 @@ import MoviePosterImg from './MoviePosterImg';
 import { IMovieResult } from '../../types/movieType';
 import { RootState } from '../../store/store';
 import { Similrar } from '../../types/similarType';
-import { HandleClick } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/Types';
 import { setListMovieAction } from '../../store/listMovieSlice';
 
 interface IProps {
   movie: IMovieResult | Similrar;
-  handleClick: HandleClick;
+  handleClick: HandleClickNaviType;
 }
 
 const MovieCard = ({ movie, handleClick }: IProps) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
-  // console.log(myList);
-  // console.log(movie.id);
   const userFavorite = useSelector(
     (state: RootState) => state.favorite.favoriteMovie
   );
@@ -49,6 +47,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     Element | ((element: Element) => Element) | null | undefined
   >(null);
   const open = Boolean(anchorEl);
+  const isFavoriteChecked = checkFavoriteMovieId(movie.id, userFavorite);
   const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
@@ -57,7 +56,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   }, []);
 
   // firebase 업데이트 함수
-
   const handleFavorite = useCallback(
     async (
       e: MouseEvent<HTMLButtonElement>,
@@ -66,22 +64,22 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
       e.preventDefault();
       if (user?.uid) {
         dispatch(setLoginAlertAction(false));
-        const docRef = doc(db, 'users', user.email!);
+        const docRef = doc(db, 'users', user.email as string);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        if (!checkFavoriteMovieId(movie.id, userFavorite)) {
+        if (isFavoriteChecked) {
+          await deleteDoc(favoriteDocRef);
+        } else {
           await setDoc(doc(favoriteRef, movie.id.toString()), {
             movie,
           });
           dispatch(setToastAction(true));
-        } else {
-          await deleteDoc(favoriteDocRef).then(() => console.log('delete'));
         }
       } else {
         dispatch(setLoginAlertAction(true));
       }
     },
-    [user, userFavorite, dispatch]
+    [user, dispatch, isFavoriteChecked]
   );
 
   useEffect(() => {
@@ -130,7 +128,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
         }}
         onClick={(e) => handleFavorite(e, movie)}
       >
-        {checkFavoriteMovieId(movie.id, userFavorite) && user.uid ? (
+        {isFavoriteChecked && user.uid ? (
           <FavoriteIcon
             id="likeBtn"
             sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}

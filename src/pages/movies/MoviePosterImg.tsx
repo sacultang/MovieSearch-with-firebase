@@ -3,10 +3,10 @@ import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
-import { HandleClick } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/Types';
 interface IProps {
   movie: IMovieResult | Similrar;
-  handleClick: HandleClick;
+  handleClick: HandleClickNaviType;
 }
 
 const MoviePosterImg = ({ movie, handleClick }: IProps) => {

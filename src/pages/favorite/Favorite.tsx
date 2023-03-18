@@ -7,7 +7,7 @@ import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { HandleClick } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/Types';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 const Favorite = () => {
@@ -17,7 +17,7 @@ const Favorite = () => {
   const movieDatas = useSelector(
     (state: RootState) => state.favorite.favoriteMovie
   );
-  const handleClick: HandleClick = (id, type) => {
+  const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
