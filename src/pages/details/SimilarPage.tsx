@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../api/TMDB/constant';
 import { HandleClickNaviType } from '../../types/Types';
+import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface IProps {
   urlPath: string;
@@ -59,28 +60,13 @@ const SimilarPage = ({ urlPath }: IProps) => {
       >
         <CssBaseline />
 
-        <Grid
-          container
-          spacing={2}
-          style={{ minHeight: '330px' }}
-          direction="row"
-          flexWrap="nowrap"
-        >
+        <Grid container direction="row" flexWrap="nowrap">
           {similar.map((movie) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={4}
-              xl={3}
-              key={movie.id}
-              sx={{ minWidth: 200 }}
-            >
+            <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
-                <MovieCard movie={movie} handleClick={handleClick} />
+                <MovieCard movie={movie} handleClick={handleClick} scrollCard />
               </Suspense>
-            </Grid>
+            </GridItemProvider>
           ))}
         </Grid>
       </Box>

@@ -24,7 +24,7 @@ const MoviePage = () => {
   return (
     <Container sx={{ flexGrow: 1 }}>
       <PageTitle url={pathname} />
-      <Grid container spacing={2}>
+      <Grid container>
         {datas.results &&
           datas.results.map((movie) => (
             <GridItemProvider key={movie.id}>

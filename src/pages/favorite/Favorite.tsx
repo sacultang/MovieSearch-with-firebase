@@ -23,7 +23,7 @@ const Favorite = () => {
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
-      <Grid container spacing={2}>
+      <Grid container>
         {movieDatas.length > 0 &&
           movieDatas.map((movie) => (
             <GridItemProvider key={movie.id}>

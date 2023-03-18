@@ -10,6 +10,7 @@ import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import FetchHooks from '../../hooks/FetchHooks';
 import { HandleClickNaviType } from '../../types/Types';
+import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const TvPage = () => {
   const { pathname } = useLocation();
@@ -24,14 +25,14 @@ const TvPage = () => {
   return (
     <Container sx={{ flexGrow: 1 }}>
       <PageTitle url={pathname} />
-      <Grid container spacing={2}>
+      <Grid container>
         {datas.results &&
           datas.results.map((tv) => (
-            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={tv.id}>
+            <GridItemProvider key={tv.id}>
               <Suspense fallback={<Loader />}>
                 <MovieCard movie={tv} handleClick={handleClick} />
               </Suspense>
-            </Grid>
+            </GridItemProvider>
           ))}
       </Grid>
 

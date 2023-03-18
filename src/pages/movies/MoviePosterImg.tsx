@@ -4,6 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/Types';
+import Box from '@mui/material/Box';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
@@ -16,7 +17,12 @@ const MoviePosterImg = ({ movie, handleClick }: IProps) => {
   }
 
   return (
-    <>
+    <Box
+      sx={{
+        height: { lg: '460px', xl: '410px' },
+        overflow: 'hidden',
+      }}
+    >
       {!imgLoading && <CardSkeleton />}
       <LazyLoadImage
         src={
@@ -33,7 +39,7 @@ const MoviePosterImg = ({ movie, handleClick }: IProps) => {
           height: '100%',
         }}
       />
-    </>
+    </Box>
   );
 };
 

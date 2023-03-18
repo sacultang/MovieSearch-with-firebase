@@ -23,9 +23,10 @@ import useFavorite from './hooks/useFavorite';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
+  scrollCard?: boolean;
 }
 
-const MovieCard = ({ movie, handleClick }: IProps) => {
+const MovieCard = ({ movie, handleClick, scrollCard }: IProps) => {
   const {
     handleFavorite,
     user,
@@ -38,76 +39,76 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
   const open = Boolean(anchorEl);
 
   return (
-    <CardItem
-      sx={{
-        minWidth: '100%',
-        minHeight: 300,
-        boxShadow: 'none',
-        position: 'relative',
-        mt: 1,
-      }}
-    >
+    <CardItem>
       {/* IMG */}
       <MoviePosterImg movie={movie} handleClick={handleClick} />
 
       {/* 좋아요 버튼 */}
-      <IconButton
-        aria-label="favorite"
+      <Box
         sx={{
           position: 'absolute',
           top: 5,
           right: 5,
-          backgroundColor: 'rgba(221,221,221,0.57)',
-          borderRadius: '50%',
+          height: 70,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
-        onClick={(e) => handleFavorite(e, movie)}
       >
-        {isFavoriteChecked && user.uid ? (
-          <FavoriteIcon
-            id="likeBtn"
-            sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
-          />
-        ) : (
-          <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
-        )}
-      </IconButton>
+        <IconButton
+          aria-label="favorite"
+          sx={{
+            backgroundColor: 'rgba(221,221,221,0.57)',
+            borderRadius: '50%',
+          }}
+          onClick={(e) => handleFavorite(e, movie)}
+        >
+          {isFavoriteChecked && user.uid ? (
+            <FavoriteIcon
+              id="likeBtn"
+              sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+            />
+          ) : (
+            <FavoriteBorder
+              id="likeBtn"
+              sx={{ width: '1rem', height: '1rem' }}
+            />
+          )}
+        </IconButton>
 
-      {/* 리스트 만들기 버튼 */}
-      <IconButton
-        aria-label="settings"
-        aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        sx={{
-          position: 'absolute',
-          top: 42,
-          right: 5,
-          backgroundColor: 'rgba(221,221,221,0.57)',
-          borderRadius: '50%',
-        }}
-        onClick={handleOpenMenu}
-      >
-        <MoreVertIcon id="listBtn" sx={{ width: '1rem', height: '1rem' }} />
-      </IconButton>
-      <Menu
-        id="list-positioned-menu"
-        aria-labelledby="list-positioned-button"
-        open={open}
-        onClose={handleCloseMenu}
-        anchorEl={anchorEl}
-      >
-        <MenuItem onClick={handleOpenAddList}>
-          <ListIcon sx={{ width: '1rem' }} />
-          <Typography
-            gutterBottom
-            variant="body1"
-            sx={{ fontSize: '0.8rem', mb: 0 }}
-          >
-            &nbsp;목록에 추가
-          </Typography>
-        </MenuItem>
-      </Menu>
-
+        {/* 리스트 만들기 버튼 */}
+        <IconButton
+          aria-label="settings"
+          aria-controls={open ? 'demo-positioned-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          sx={{
+            backgroundColor: 'rgba(221,221,221,0.57)',
+            borderRadius: '50%',
+          }}
+          onClick={handleOpenMenu}
+        >
+          <MoreVertIcon id="listBtn" sx={{ width: '1rem', height: '1rem' }} />
+        </IconButton>
+        <Menu
+          id="list-positioned-menu"
+          aria-labelledby="list-positioned-button"
+          open={open}
+          onClose={handleCloseMenu}
+          anchorEl={anchorEl}
+        >
+          <MenuItem onClick={handleOpenAddList}>
+            <ListIcon sx={{ width: '1rem' }} />
+            <Typography
+              gutterBottom
+              variant="body1"
+              sx={{ fontSize: '0.8rem', mb: 0 }}
+            >
+              &nbsp;목록에 추가
+            </Typography>
+          </MenuItem>
+        </Menu>
+      </Box>
       <Box
         sx={{
           display: 'flex',
@@ -175,6 +176,8 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
 export default memo(MovieCard);
 
 const CardItem = styled(Card)`
+  margin: 5px;
+  position: relative;
   &:hover {
     h2 {
       color: var(--yellow-text-color);

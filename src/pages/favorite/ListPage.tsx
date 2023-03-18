@@ -22,7 +22,7 @@ const ListPage = () => {
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
-      <Grid container spacing={2}>
+      <Grid container>
         {myList.length > 0 &&
           myList.map(
             (item) =>

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
 import { HandleClickNaviType } from '../../../types/Types';
+import GridItemProvider from '../../../components/common/GridItemProvider';
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -26,18 +27,12 @@ const TvScroll = () => {
     navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };
   return (
-    <Grid
-      container
-      spacing={2}
-      style={{ minHeight: '330px' }}
-      direction="row"
-      flexWrap="nowrap"
-    >
+    <Grid container direction="row" flexWrap="nowrap">
       {movieDatas.results &&
         movieDatas.results.map((movie) => (
-          <Grid item key={movie.id} xs={3} sx={{ minWidth: 200 }}>
-            <MovieCard movie={movie} handleClick={handleClick} />
-          </Grid>
+          <GridItemProvider key={movie.id}>
+            <MovieCard movie={movie} handleClick={handleClick} scrollCard />
+          </GridItemProvider>
         ))}
     </Grid>
   );
