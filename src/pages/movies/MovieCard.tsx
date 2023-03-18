@@ -6,7 +6,7 @@ import {
   setListModalAction,
   setLoginAlertAction,
 } from '../../store/toastSlice';
-import { setListMovieAction } from '../../store/listMovieSlice';
+
 // mui
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -30,6 +30,7 @@ import { IMovieResult } from '../../types/movieType';
 import { RootState } from '../../store/store';
 import { Similrar } from '../../types/similarType';
 import { HandleClick } from '../../types/Types';
+import { setListMovieAction } from '../../store/listMovieSlice';
 
 interface IProps {
   movie: IMovieResult | Similrar;
@@ -39,6 +40,8 @@ interface IProps {
 const MovieCard = ({ movie, handleClick }: IProps) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
+  // console.log(myList);
+  // console.log(movie.id);
   const userFavorite = useSelector(
     (state: RootState) => state.favorite.favoriteMovie
   );
@@ -91,10 +94,10 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     };
   }, [user, userFavorite, dispatch]);
 
-  const handleAddList = () => {
+  const handleOpenAddList = () => {
     if (user?.uid) {
-      dispatch(setListModalAction(true));
       dispatch(setListMovieAction(movie));
+      dispatch(setListModalAction(true));
       dispatch(setLoginAlertAction(false));
     } else {
       dispatch(setLoginAlertAction(true));
@@ -161,7 +164,7 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
         onClose={handleCloseMenu}
         anchorEl={anchorEl}
       >
-        <MenuItem onClick={handleAddList}>
+        <MenuItem onClick={handleOpenAddList}>
           <ListIcon sx={{ width: '1rem' }} />
           <Typography
             gutterBottom

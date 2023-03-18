@@ -17,7 +17,6 @@ const Favorite = () => {
   const movieDatas = useSelector(
     (state: RootState) => state.favorite.favoriteMovie
   );
-  console.log(movieDatas);
   const handleClick: HandleClick = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };

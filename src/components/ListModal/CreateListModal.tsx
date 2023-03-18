@@ -1,25 +1,27 @@
 import React, { useState, useCallback, ChangeEvent, lazy } from 'react';
-import { Dialog, DialogActions, Button } from '@mui/material';
-
 import { setListModalAction } from '../../store/toastSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import { doc, collection, setDoc } from 'firebase/firestore';
-import '../../firebase';
+import { checkListMovieId } from '../../utils/checkFavoriteMovieId';
 import { db } from '../../firebase';
+import { doc, collection, setDoc, getDoc } from 'firebase/firestore';
+import '../../firebase';
+import { Dialog, DialogActions, Button } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import CreateListInput from './CreateListInput';
+import DeleteListModal from './DeleteListModal';
+import { IMovieResult } from '../../types/movieType';
 const ListSelectBox = lazy(() => import('./ListSelectBox'));
 
 const CreateListModal = () => {
   const modalOpen = useSelector((state: RootState) => state.toast.listModal);
   const user = useSelector((state: RootState) => state.user.user);
-  const listMovie = useSelector((state: RootState) => state.listMovie.movie);
-
+  const selectMovie = useSelector((state: RootState) => state.listMovie.movie);
   const dispatch = useDispatch();
   const [selectList, setSelectList] = useState('');
   const [openAddList, setOpenAddList] = useState(false);
+  const [openDeleteList, setOpenDeleteList] = useState(false);
   const [listName, setListName] = useState('');
 
   const handleClose = useCallback(() => {
@@ -39,21 +41,37 @@ const CreateListModal = () => {
         alert('목록 이름을 써주세요');
         return;
       }
-      const docRef = doc(db, 'users', user.email!);
-      const favoriteRef = collection(docRef, 'list');
-      try {
-        openAddList
-          ? await setDoc(doc(favoriteRef, encodeURIComponent(listName)), {
-              list: listMovie, //필드
-            })
-          : await setDoc(doc(favoriteRef, selectList), {
-              list: listMovie, //필드
-            });
-      } catch (e) {
-        console.log(e);
-      } finally {
-        dispatch(setListModalAction(false));
-        setOpenAddList(false);
+      const docRef = doc(db, 'users', user.email as string);
+      const myListRef = collection(docRef, 'list');
+      if (openAddList) {
+        try {
+          await setDoc(doc(myListRef, encodeURIComponent(listName)), {
+            list: [selectMovie],
+          });
+        } catch (e) {
+          throw new Error(`error ${e}`);
+        } finally {
+          dispatch(setListModalAction(false));
+          setOpenAddList(false);
+        }
+      } else {
+        const listDocRef = doc(myListRef, encodeURIComponent(selectList));
+        const listDoc = await getDoc(listDocRef);
+        const existingList: IMovieResult[] = listDoc.data()?.list;
+        if (checkListMovieId(selectMovie.id, existingList)) {
+          alert('이미 해당 영화/TV가 리스트에 있습니다.');
+          return;
+        }
+        try {
+          await setDoc(listDocRef, {
+            list: [selectMovie, ...existingList],
+          });
+        } catch (e) {
+          throw new Error(`error ${e}`);
+        } finally {
+          dispatch(setListModalAction(false));
+          setOpenAddList(false);
+        }
       }
     }
   };
@@ -69,6 +87,7 @@ const CreateListModal = () => {
           setSelectList={setSelectList}
           selectList={selectList}
           setOpenAddList={setOpenAddList}
+          setOpenDeleteList={setOpenDeleteList}
         />
       )}
       <DialogContent>
