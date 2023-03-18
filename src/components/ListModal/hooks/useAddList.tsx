@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../../../firebase';
 import { RootState } from '../../../store/store';
-import { setListModalAction } from '../../../store/toastSlice';
+import { setListModalAction, setToastAction } from '../../../store/toastSlice';
 import { IMovieResult } from '../../../types/movieType';
 import { SimilarType } from '../../../types/similarType';
 import { checkListMovieId } from '../../../utils/checkFavoriteMovieId';
@@ -43,12 +43,22 @@ const useAddList = (
         try {
           await setDoc(doc(myListRef, encodeURIComponent(listName)), {
             list: [selectMovie],
+          }).then(() => {
+            dispatch(
+              setToastAction({
+                isOpen: true,
+                text: '목록이 생성되었습니다.',
+              })
+            );
           });
         } catch (e) {
           throw new Error(`error ${e}`);
         } finally {
           dispatch(setListModalAction(false));
           setOpenAddList(false);
+          setTimeout(() => {
+            dispatch(setToastAction({ isOpen: false }));
+          }, 3000);
         }
       } else {
         const listDocRef = doc(myListRef, encodeURIComponent(selectList));
@@ -61,12 +71,22 @@ const useAddList = (
         try {
           await setDoc(listDocRef, {
             list: [selectMovie, ...existingList],
+          }).then(() => {
+            dispatch(
+              setToastAction({
+                isOpen: true,
+                text: '목록에 추가되었습니다.',
+              })
+            );
           });
         } catch (e) {
           throw new Error(`error ${e}`);
         } finally {
           dispatch(setListModalAction(false));
           setOpenAddList(false);
+          setTimeout(() => {
+            dispatch(setToastAction({ isOpen: false }));
+          }, 3000);
         }
       }
     }

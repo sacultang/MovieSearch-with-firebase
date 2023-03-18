@@ -1,6 +1,4 @@
-import { useEffect, memo } from 'react';
-import { useDispatch } from 'react-redux';
-import { setToastAction } from '../../store/toastSlice';
+import { memo } from 'react';
 
 // mui
 import { styled } from '@mui/material/styles';
@@ -28,11 +26,9 @@ interface IProps {
 }
 
 const MovieCard = ({ movie, handleClick }: IProps) => {
-  const dispatch = useDispatch();
   const {
     handleFavorite,
     user,
-    userFavorite,
     isFavoriteChecked,
     handleOpenAddList,
     anchorEl,
@@ -40,16 +36,6 @@ const MovieCard = ({ movie, handleClick }: IProps) => {
     handleCloseMenu,
   } = useFavorite(movie);
   const open = Boolean(anchorEl);
-
-  useEffect(() => {
-    if (!user.uid) return;
-    const toastTime = setTimeout(() => {
-      dispatch(setToastAction(false));
-    }, 2000);
-    return () => {
-      clearTimeout(toastTime);
-    };
-  }, [user, userFavorite, dispatch]);
 
   return (
     <CardItem

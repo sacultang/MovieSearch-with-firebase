@@ -1,12 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface Toast {
+  isOpen: boolean;
+  text?: string;
+}
 interface IState {
-  toast: boolean;
+  toast: Toast;
   listModal: boolean;
   loginAlert: boolean;
 }
 const initialState: IState = {
-  toast: false,
+  toast: {
+    isOpen: false,
+    text: undefined,
+  },
   listModal: false,
   loginAlert: false,
 };
@@ -15,7 +22,7 @@ export const toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    setToastAction: (state: IState, action: PayloadAction<boolean>) => {
+    setToastAction: (state: IState, action: PayloadAction<Toast>) => {
       state.toast = action.payload;
     },
     setListModalAction: (state: IState, action: PayloadAction<boolean>) => {

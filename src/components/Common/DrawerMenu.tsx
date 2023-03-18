@@ -88,7 +88,7 @@ const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
           backgroundColor: 'primary.main',
         }}
       >
-        <Link to="/">
+        <Link to="/" aria-label="go to mainpage">
           <LogoDiv>
             <div aria-hidden={true}>메인</div>
           </LogoDiv>

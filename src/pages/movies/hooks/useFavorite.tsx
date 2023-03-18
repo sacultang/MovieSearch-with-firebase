@@ -36,13 +36,34 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
         const docRef = doc(db, 'users', user.email as string);
         const favoriteRef = collection(docRef, 'favorite');
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        if (isFavoriteChecked) {
-          await deleteDoc(favoriteDocRef);
-        } else {
-          await setDoc(doc(favoriteRef, movie.id.toString()), {
-            movie,
-          });
-          dispatch(setToastAction(true));
+        try {
+          if (isFavoriteChecked) {
+            await deleteDoc(favoriteDocRef).then(() => {
+              dispatch(
+                setToastAction({
+                  isOpen: true,
+                  text: '즐겨찾기에서 삭제되었습니다.',
+                })
+              );
+            });
+          } else {
+            await setDoc(doc(favoriteRef, movie.id.toString()), {
+              movie,
+            }).then(() => {
+              dispatch(
+                setToastAction({
+                  isOpen: true,
+                  text: '즐겨찾기에 추가되었습니다.',
+                })
+              );
+            });
+          }
+        } catch (e) {
+          throw new Error(`${e}`);
+        } finally {
+          setTimeout(() => {
+            dispatch(setToastAction({ isOpen: false }));
+          }, 3000);
         }
       } else {
         dispatch(setLoginAlertAction(true));
@@ -72,7 +93,6 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
   return {
     handleFavorite,
     user,
-    userFavorite,
     isFavoriteChecked,
     handleOpenAddList,
     anchorEl,
