@@ -4,6 +4,10 @@
 ![firebase](https://img.shields.io/badge/firebase-FFCA28?style=flat&logo=firebase&logoColor=white)
 ![TMDB](https://img.shields.io/badge/TMDB-01B4E4?style=flat&logo=TheMovieDatabase&logoColor=white)
 
+<p align="center">
+    <a href="https://movies-multiverse.netlify.app/"><img src="https://github.com/sacultang/MovieSearch-with-firebase/blob/main/movies_1.png" alt="Logo" width="100%"></a>
+</p>
+
 ## Start project
 
 ```bash
@@ -35,16 +39,16 @@ To use TMDB API and firebase, create `.env`
 ```env
 // your key
 
-REACT_APP_TMDB_API=[your key]
+REACT_APP_TMDB_API="YOUR KEY"
 
 
-REACT_APP_APIKEY=[your key]
-REACT_APP_AUTH_DOMAIN=[your key]
-REACT_APP_PROJECT_ID=[your key]
-REACT_APP_STORAGE_BUCKET=[your key]
-REACT_APP_MESSAGING_SENDER_ID=[your key]
-REACT_APP_APP_ID=[your key]
-REACT_APP_MEASURE_MENT_ID=[your key]
+REACT_APP_APIKEY="YOUR KEY"
+REACT_APP_AUTH_DOMAIN="YOUR KEY"
+REACT_APP_PROJECT_ID="YOUR KEY"
+REACT_APP_STORAGE_BUCKET="YOUR KEY"
+REACT_APP_MESSAGING_SENDER_ID="YOUR KEY"
+REACT_APP_APP_ID="YOUR KEY"
+REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 ```
 
