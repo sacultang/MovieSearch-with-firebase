@@ -28,7 +28,6 @@ const ListSelectBox = ({
   const selectChangeList = (e: SelectChangeEvent) => {
     setSelectList(e.target.value);
   };
-  console.log(myList);
   return (
     <DialogContent sx={{ overflowY: 'visible' }}>
       {myList ? (

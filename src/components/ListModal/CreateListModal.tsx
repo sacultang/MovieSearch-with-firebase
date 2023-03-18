@@ -10,8 +10,8 @@ import { Dialog, DialogActions, Button } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import CreateListInput from './CreateListInput';
-import DeleteListModal from './DeleteListModal';
 import { IMovieResult } from '../../types/movieType';
+import { SimilarType } from '../../types/similarType';
 const ListSelectBox = lazy(() => import('./ListSelectBox'));
 
 const CreateListModal = () => {
@@ -21,7 +21,6 @@ const CreateListModal = () => {
   const dispatch = useDispatch();
   const [selectList, setSelectList] = useState('');
   const [openAddList, setOpenAddList] = useState(false);
-  const [openDeleteList, setOpenDeleteList] = useState(false);
   const [listName, setListName] = useState('');
 
   const handleClose = useCallback(() => {
@@ -57,7 +56,7 @@ const CreateListModal = () => {
       } else {
         const listDocRef = doc(myListRef, encodeURIComponent(selectList));
         const listDoc = await getDoc(listDocRef);
-        const existingList: IMovieResult[] = listDoc.data()?.list;
+        const existingList: IMovieResult[] | SimilarType = listDoc.data()?.list;
         if (checkListMovieId(selectMovie.id, existingList)) {
           alert('이미 해당 영화/TV가 리스트에 있습니다.');
           return;
@@ -87,7 +86,6 @@ const CreateListModal = () => {
           setSelectList={setSelectList}
           selectList={selectList}
           setOpenAddList={setOpenAddList}
-          setOpenDeleteList={setOpenDeleteList}
         />
       )}
       <DialogContent>
