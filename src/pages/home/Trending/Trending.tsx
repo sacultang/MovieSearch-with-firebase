@@ -3,8 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import TodayTrending from './TodayTrending';
-import WeekTrending from './WeekTrending';
+import TodayTrendingScroll from './TodayTrendingScroll';
+import WeekTrendingScroll from './WeekTrendingScroll';
 import TabLayout from '../common/TabLayout';
 import styled from '@emotion/styled';
 interface ITabPannel {
@@ -61,10 +61,10 @@ const Trending = () => {
         }}
       >
         <TabPannel value={value} index={0}>
-          <TodayTrending />
+          <TodayTrendingScroll />
         </TabPannel>
         <TabPannel value={value} index={1}>
-          <WeekTrending />
+          <WeekTrendingScroll />
         </TabPannel>
       </Box>
     </TabLayout>
