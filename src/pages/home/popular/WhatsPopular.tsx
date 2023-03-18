@@ -15,11 +15,7 @@ interface ITabPannel {
   index: number;
 }
 const TabPannel = ({ children, value, index }: ITabPannel) => {
-  return (
-    <Box hidden={value !== index}>
-      {value === index && <Box>{children}</Box>}
-    </Box>
-  );
+  return <>{value === index && <>{children}</>}</>;
 };
 
 const WhatsPopular = () => {

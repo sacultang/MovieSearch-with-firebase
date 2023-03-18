@@ -13,11 +13,7 @@ interface ITabPannel {
   index: number;
 }
 const TabPannel = ({ children, value, index }: ITabPannel) => {
-  return (
-    <div hidden={value !== index}>
-      {value === index && <Box>{children}</Box>}
-    </div>
-  );
+  return <>{value === index && <>{children}</>}</>;
 };
 
 const TitleTypo = styled(Typography)`
