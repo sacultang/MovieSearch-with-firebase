@@ -9,15 +9,6 @@ export const moviesApi = createApi({
   endpoints: (builder) => {
     const TMDB_API = process.env.REACT_APP_TMDB_API;
     return {
-      getMovie: builder.query({
-        query: (url: string) => ({
-          url: `movie/${url}`,
-          method: 'GET',
-          params: {
-            api_key: TMDB_API,
-          },
-        }),
-      }),
       getDiscover: builder.query({
         query: (url: string) => ({
           url,
@@ -31,4 +22,4 @@ export const moviesApi = createApi({
   },
 });
 
-export const { useGetMovieQuery, useGetDiscoverQuery } = moviesApi;
+export const { useGetDiscoverQuery } = moviesApi;

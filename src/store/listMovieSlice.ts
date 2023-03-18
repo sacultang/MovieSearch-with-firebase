@@ -40,7 +40,10 @@ export const listMovieSlice = createSlice({
   name: 'listMovie',
   initialState,
   reducers: {
-    setListMovieAction: (state, action) => {
+    setListMovieAction: (
+      state: InitialState,
+      action: PayloadAction<IMovieResult | Similrar>
+    ) => {
       state.movie = action.payload;
     },
     setListAction: (state: InitialState, action: PayloadAction<ListType[]>) => {
