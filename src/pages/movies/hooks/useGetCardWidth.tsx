@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const useGetCardWidth = () => {
   const cardBoxRef = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(400);
+  const [cardWidth, setCardWidth] = useState(200);
 
   useLayoutEffect(() => {
     const handleWindowResize = () => {
