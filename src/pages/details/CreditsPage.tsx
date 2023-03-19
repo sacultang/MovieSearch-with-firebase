@@ -7,11 +7,11 @@ import { CastType } from '../../types/creditType';
 import { requestData } from '../../api/TMDB/baseUrl';
 import Skeleton from '@mui/material/Skeleton';
 import { METHOD_CONS } from '../../constants/fetchMethod';
-interface IProps {
+interface CreditsPageProps {
   urlPath: string;
 }
 
-const CreditsPage = ({ urlPath }: IProps) => {
+const CreditsPage = ({ urlPath }: CreditsPageProps) => {
   const [credits, setCredits] = useState<CastType>([]);
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {

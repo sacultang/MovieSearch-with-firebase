@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Box } from '@mui/material';
-interface IProps {
+interface PaddingLayoutProps {
   children: [React.ReactElement, React.ReactElement];
 }
-const PaddingLayout = ({ children }: IProps) => {
+const PaddingLayout = ({ children }: PaddingLayoutProps) => {
   return (
     <Container
       component="main"

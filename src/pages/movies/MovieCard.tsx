@@ -20,13 +20,13 @@ import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
-interface IProps {
+interface MovieCardProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
   scrollcard?: string;
 }
 
-const MovieCard = ({ movie, handleClick, scrollcard }: IProps) => {
+const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   const {
     handleFavorite,
     user,

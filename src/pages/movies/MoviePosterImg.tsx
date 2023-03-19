@@ -5,14 +5,18 @@ import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import Box from '@mui/material/Box';
-interface IProps {
+interface MoviePosterImgProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
   scrollcard?: string | undefined;
   cardWidth: number | null;
 }
 
-const MoviePosterImg = ({ movie, handleClick, cardWidth }: IProps) => {
+const MoviePosterImg = ({
+  movie,
+  handleClick,
+  cardWidth,
+}: MoviePosterImgProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);

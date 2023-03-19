@@ -2,14 +2,12 @@ import React, { FormEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
-interface IProps {
+interface SearchInputProps {
   query?: string | undefined;
   border: string;
 }
-type borderProps = {
-  border: string;
-};
-const SearchInput = ({ query, border }: IProps) => {
+
+const SearchInput = ({ query, border }: SearchInputProps) => {
   const navigate = useNavigate();
 
   const getMovieList = useCallback(
@@ -39,7 +37,7 @@ const SearchInput = ({ query, border }: IProps) => {
 };
 
 export default SearchInput;
-const InputWrap = styled.form<borderProps>`
+const InputWrap = styled.form<{ border: string }>`
   display: flex;
   border-radius: ${(props) => (props.border === 'drawer' ? 0 : '20px')};
   overflow: hidden;
@@ -72,7 +70,6 @@ const InputWrap = styled.form<borderProps>`
     background: var(--main-bg-color);
     border: none;
     outline: none;
-    /* border: 5px solid var(--main-bg-color); */
     border-radius: 0 19px 19px 0;
     color: #fff;
   }

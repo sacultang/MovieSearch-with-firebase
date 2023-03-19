@@ -3,11 +3,11 @@ import { TextField, Box } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-interface IProps {
+interface CreateListInputProps {
   handleListNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CreateListInput = ({ handleListNameChange }: IProps) => {
+const CreateListInput = ({ handleListNameChange }: CreateListInputProps) => {
   return (
     <Box>
       <DialogTitle>목록 생성</DialogTitle>

@@ -10,10 +10,10 @@ import { METHOD_CONS } from '../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
-interface IProps {
+interface SimilarPageProps {
   urlPath: string;
 }
-const SimilarPage = ({ urlPath }: IProps) => {
+const SimilarPage = ({ urlPath }: SimilarPageProps) => {
   const [similar, setSimilar] = useState<SimilarType>([]);
   const navigate = useNavigate();
   const type = urlPath.split('/')[0];

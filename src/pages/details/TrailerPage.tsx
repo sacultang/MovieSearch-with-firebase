@@ -12,28 +12,14 @@ import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../constants/fetchMethod';
-interface IProps {
+import { TrailerRoot } from '../../types/trailerType';
+
+interface TrailerPageProps {
   urlPath: string;
 }
-interface Root {
-  id: number;
-  results: Result[];
-}
 
-interface Result {
-  iso_639_1: string;
-  iso_3166_1: string;
-  name: string;
-  key: string;
-  site: string;
-  size: number;
-  type: string;
-  official: boolean;
-  published_at: string;
-  id: string;
-}
-const TrailerPage = ({ urlPath }: IProps) => {
-  const [trailers, setTrailers] = useState<Root>({ id: 0, results: [] });
+const TrailerPage = ({ urlPath }: TrailerPageProps) => {
+  const [trailers, setTrailers] = useState<TrailerRoot>({ id: 0, results: [] });
   const [loading, setLoading] = useState(false);
   const fetch = useCallback(async () => {
     setLoading(true);
@@ -79,7 +65,6 @@ const TrailerPage = ({ urlPath }: IProps) => {
                   ) : (
                     <iframe
                       src={`https://youtube.com/embed/${item.key}`}
-                      frameBorder="0"
                       title={item.name}
                       width="100%"
                       height="100%"

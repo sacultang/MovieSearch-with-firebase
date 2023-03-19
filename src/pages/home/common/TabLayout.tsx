@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import Box from '@mui/material/Box';
-interface IProps {
+interface TabLayoutProps {
   children?: ReactNode;
 }
-const TabLayout = ({ children }: IProps) => {
+const TabLayout = ({ children }: TabLayoutProps) => {
   return <Box mt={5}>{children}</Box>;
 };
 

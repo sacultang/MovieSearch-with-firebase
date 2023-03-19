@@ -3,12 +3,12 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { theme } from '../../theme';
-interface IProps {
+interface PaginationProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
   totalPage: number;
 }
-const PaginationComp = ({ setPage, page, totalPage }: IProps) => {
+const PaginationComp = ({ setPage, page, totalPage }: PaginationProps) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page]);
