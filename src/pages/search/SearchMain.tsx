@@ -7,7 +7,7 @@ import { setMovieAction } from '../../store/movieSlice';
 import { Container } from '@mui/material';
 import SearchInput from '../home/SearchInput';
 import { requestData } from '../../api/TMDB/baseUrl';
-import { METHOD_CONS } from '../../api/TMDB/constant';
+import { METHOD_CONS } from '../../constants/fetchMethod';
 const SearchResults = () => {
   const dispatch = useDispatch();
   const params = useParams();

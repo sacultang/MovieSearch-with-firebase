@@ -3,7 +3,7 @@ import { requestData } from '../../../api/TMDB/baseUrl';
 import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
-import { METHOD_CONS } from '../../../api/TMDB/constant';
+import { METHOD_CONS } from '../../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
 import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';

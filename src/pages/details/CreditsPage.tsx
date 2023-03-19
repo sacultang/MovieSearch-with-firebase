@@ -6,7 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { CastType } from '../../types/creditType';
 import { requestData } from '../../api/TMDB/baseUrl';
 import Skeleton from '@mui/material/Skeleton';
-import { METHOD_CONS } from '../../api/TMDB/constant';
+import { METHOD_CONS } from '../../constants/fetchMethod';
 interface IProps {
   urlPath: string;
 }

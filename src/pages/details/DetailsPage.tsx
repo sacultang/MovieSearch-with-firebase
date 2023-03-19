@@ -9,7 +9,7 @@ import DetailPosterSkeleton from '../../components/skeleton/DetailPosterSkeleton
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/baseUrl';
-import { METHOD_CONS } from '../../api/TMDB/constant';
+import { METHOD_CONS } from '../../constants/fetchMethod';
 import { MediaDetailsType } from '../../types/mediaType';
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));

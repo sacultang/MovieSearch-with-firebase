@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
 import { requestData } from '../../api/TMDB/baseUrl';
-import { METHOD_CONS } from '../../api/TMDB/constant';
+import { METHOD_CONS } from '../../constants/fetchMethod';
 interface IProps {
   urlPath: string;
 }
