@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,12 +10,16 @@ import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import RegisterGroup from '../RegisterGroup';
+import { useSelector, useDispatch } from 'react-redux';
+import { setBarOpen } from '../../store/barOpenCloseSlice';
 import { theme } from '../../theme';
+import { RootState } from '../../store/store';
 export default function PermanentDrawerLeft() {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const barOpen = useSelector((state: RootState) => state.barOpen.barOpen);
   const handleDrawerOpen = useCallback(() => {
-    setOpen((prev) => !prev);
-  }, []);
+    dispatch(setBarOpen(!barOpen));
+  }, [barOpen, dispatch]);
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -43,7 +47,7 @@ export default function PermanentDrawerLeft() {
             backgroundColor: 'primary.main',
           }}
           position="fixed"
-          open={open}
+          open={barOpen}
           theme={theme}
         >
           <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -59,7 +63,7 @@ export default function PermanentDrawerLeft() {
             <RegisterGroup />
           </Toolbar>
         </AppBar>
-        <DrawerMenu open={open} setOpen={setOpen} />
+        <DrawerMenu barOpen={barOpen} />
 
         <Container
           component="main"
@@ -79,8 +83,8 @@ export default function PermanentDrawerLeft() {
             },
             boxSizing: 'border-box',
             maxWidth: {
-              xs: open ? 'calc(100% - 200px)' : 'xs',
-              sm: open ? 'calc(100% - 200px)' : 'sm',
+              xs: barOpen ? 'calc(100% - 200px)' : 'xs',
+              sm: barOpen ? 'calc(100% - 200px)' : 'sm',
               md: 'md',
               lg: 'lg',
               xl: 'calc(100% - 200px)',

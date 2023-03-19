@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import styled from '@emotion/styled';
 import MovieIcon from '@mui/icons-material/Movie';
@@ -24,6 +24,7 @@ import {
 import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { setBarOpen } from '../../store/barOpenCloseSlice';
 
 type NavStyleType = {
   isActive: boolean;
@@ -39,16 +40,16 @@ const buttonHandler = ({ isActive }: NavStyleType) => {
 };
 
 interface DrawerMenuProp {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  barOpen: boolean;
 }
 
-const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
+const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
   const myListPage = useSelector((state: RootState) => state.listMovie.list);
   const navigate = useNavigate();
   const handlMenuOpenClose = () => {
-    setOpen(false);
+    dispatch(setBarOpen(false));
   };
   const handleDeleteMyList = async (
     e: React.MouseEvent<HTMLDivElement>,
@@ -74,31 +75,27 @@ const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
           boxSizing: 'border-box',
         },
         display: {
-          xs: open ? 'block' : 'none',
-          sm: open ? 'block' : 'none',
+          xs: barOpen ? 'block' : 'none',
+          sm: barOpen ? 'block' : 'none',
           md: 'block',
         },
         zIndex: 1252,
       }}
       variant="permanent"
       anchor="left"
-      open={open}
+      open={barOpen}
     >
       <Toolbar
         sx={{
           backgroundColor: 'primary.main',
         }}
       >
-        <Link
-          to="/"
-          aria-label="go to main-page"
-          onClick={() => setOpen(false)}
-        >
+        <Link to="/" aria-label="go to main-page" onClick={handlMenuOpenClose}>
           <LogoDiv aria-hidden={true}>
             <div>메인</div>
           </LogoDiv>
         </Link>
-        <Link to="/" onClick={() => setOpen(false)}>
+        <Link to="/" onClick={handlMenuOpenClose}>
           <Typography
             variant="h6"
             fontWeight={600}
