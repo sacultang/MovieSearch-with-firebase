@@ -17,14 +17,13 @@ const TodayTrendingScroll = () => {
   });
 
   const navigate = useNavigate();
-  const fetch = useCallback(async () => {
-    const url = `trending/all/day`;
-    const res = await requestData(url, METHOD_CONS.get);
+  const trendingTodayFetch = useCallback(async () => {
+    const res = await requestData(`trending/all/day`, METHOD_CONS.get);
     setMovieDatas(res.data);
   }, []);
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    trendingTodayFetch();
+  }, [trendingTodayFetch]);
   const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };

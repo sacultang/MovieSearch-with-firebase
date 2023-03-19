@@ -14,7 +14,7 @@ const useFetchHooks = (url: string) => {
   });
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const fetch = useCallback(async () => {
+  const getMovieAndTvFetch = useCallback(async () => {
     try {
       const res = await requestData(url, METHOD_CONS.get, { page });
       if (!res.data) {
@@ -32,8 +32,8 @@ const useFetchHooks = (url: string) => {
   }, [page, navigate, url, MEDIA_TYPE]);
 
   useEffect(() => {
-    fetch();
-  }, [url, page, fetch]);
+    getMovieAndTvFetch();
+  }, [url, page, getMovieAndTvFetch]);
   useEffect(() => {
     setPage(1);
   }, [url]);

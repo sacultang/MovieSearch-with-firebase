@@ -17,13 +17,13 @@ const MovieScroll = () => {
   });
 
   const navigate = useNavigate();
-  const fetch = useCallback(async () => {
+  const popularMovieFetch = useCallback(async () => {
     const res = await requestData('movie/popular', METHOD_CONS.get);
     setMovieDatas(res.data);
   }, []);
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    popularMovieFetch();
+  }, [popularMovieFetch]);
   const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/movie/${id}`, { state: { type: 'movie', id } });
   };

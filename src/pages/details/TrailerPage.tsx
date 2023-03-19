@@ -21,7 +21,7 @@ interface TrailerPageProps {
 const TrailerPage = ({ urlPath }: TrailerPageProps) => {
   const [trailers, setTrailers] = useState<TrailerRoot>({ id: 0, results: [] });
   const [loading, setLoading] = useState(false);
-  const fetch = useCallback(async () => {
+  const trailerFetch = useCallback(async () => {
     setLoading(true);
     const url = `${urlPath}/videos`;
     const trailerRes = await requestData(url, METHOD_CONS.get);
@@ -30,15 +30,15 @@ const TrailerPage = ({ urlPath }: TrailerPageProps) => {
 
   useEffect(() => {
     const fetchTime = setTimeout(async () => {
-      await fetch();
+      await trailerFetch();
       setLoading(false);
     }, 1000);
 
     return () => {
-      fetch();
+      trailerFetch();
       clearTimeout(fetchTime);
     };
-  }, [urlPath, fetch]);
+  }, [urlPath, trailerFetch]);
 
   return (
     <Swiper

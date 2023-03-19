@@ -13,15 +13,15 @@ const SearchResults = () => {
   const params = useParams();
   const query = params.query;
 
-  const fetch = useCallback(async () => {
+  const searchFetch = useCallback(async () => {
     const res = await requestData('search/multi', METHOD_CONS.get, {
       query,
     });
     dispatch(setMovieAction(res.data));
   }, [dispatch, query]);
   useEffect(() => {
-    fetch();
-  }, [params, fetch]);
+    searchFetch();
+  }, [params, searchFetch]);
 
   return (
     <Container>

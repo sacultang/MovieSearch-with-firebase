@@ -10,7 +10,7 @@ interface SearchInputProps {
 const SearchInput = ({ query, border }: SearchInputProps) => {
   const navigate = useNavigate();
 
-  const getMovieList = useCallback(
+  const goSearchResultPage = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const data = new FormData(e.currentTarget);
@@ -21,22 +21,23 @@ const SearchInput = ({ query, border }: SearchInputProps) => {
     [navigate]
   );
   return (
-    <InputWrap onSubmit={getMovieList} border={border}>
-      <input
+    <InputWrap onSubmit={goSearchResultPage} border={border}>
+      <InputField
         type="text"
         placeholder={query ? query : '영화,TV 프로그램 검색..'}
         name="search"
       />
       {border === 'drawer' ? null : (
-        <div>
-          <button>검색</button>
-        </div>
+        <ButtonWrap>
+          <SearchButton>검색</SearchButton>
+        </ButtonWrap>
       )}
     </InputWrap>
   );
 };
 
 export default SearchInput;
+
 const InputWrap = styled.form<{ border: string }>`
   display: flex;
   border-radius: ${(props) => (props.border === 'drawer' ? 0 : '20px')};
@@ -45,32 +46,32 @@ const InputWrap = styled.form<{ border: string }>`
   border: ${(props) => (props.border ? '1px solid #c9c9c9' : 'none')};
   background-color: #fff;
   box-sizing: border-box;
-  input {
-    border-radius: 20px;
-    flex: 1;
-    height: 40px;
-    border: none;
-    margin-left: 10px;
-    overflow: hidden;
-    &:focus {
-      outline-width: 0;
-    }
+`;
+const InputField = styled.input`
+  border-radius: 20px;
+  flex: 1;
+  height: 40px;
+  border: none;
+  margin-left: 10px;
+  overflow: hidden;
+  &:focus {
+    outline-width: 0;
   }
-  div {
-    border: 0.1px solid #c9c9c9;
-    border-radius: 0 19px 19px 0;
-    overflow: hidden;
-    min-width: 50px;
-    max-width: 100px;
-  }
-  button {
-    height: 100%;
-    min-width: 50px;
-    max-width: 100px;
-    background: var(--main-bg-color);
-    border: none;
-    outline: none;
-    border-radius: 0 19px 19px 0;
-    color: #fff;
-  }
+`;
+const ButtonWrap = styled.div`
+  border: 0.1px solid #c9c9c9;
+  border-radius: 0 19px 19px 0;
+  overflow: hidden;
+  min-width: 50px;
+  max-width: 100px;
+`;
+const SearchButton = styled.button`
+  height: 100%;
+  min-width: 50px;
+  max-width: 100px;
+  background: var(--main-bg-color);
+  border: none;
+  outline: none;
+  border-radius: 0 19px 19px 0;
+  color: #fff;
 `;

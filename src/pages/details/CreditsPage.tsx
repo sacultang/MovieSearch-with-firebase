@@ -17,14 +17,14 @@ const CreditsPage = ({ urlPath }: CreditsPageProps) => {
   function onLoad() {
     setImgLoading(true);
   }
-  const fetch = useCallback(async (urlPath: string) => {
+  const creditsFetch = useCallback(async (urlPath: string) => {
     const res = await requestData(`${urlPath}/credits`, METHOD_CONS.get);
     setCredits(res.data.cast);
     setImgLoading(true);
   }, []);
   useEffect(() => {
-    fetch(urlPath);
-  }, [urlPath, fetch]);
+    creditsFetch(urlPath);
+  }, [urlPath, creditsFetch]);
 
   return (
     <Box

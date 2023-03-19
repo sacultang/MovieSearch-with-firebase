@@ -16,13 +16,13 @@ const TvScroll = () => {
   });
 
   const navigate = useNavigate();
-  const fetch = useCallback(async () => {
+  const popularTvFetch = useCallback(async () => {
     const res = await requestData('tv/popular', METHOD_CONS.get);
     setMovieDatas(res.data);
   }, []);
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    popularTvFetch();
+  }, [popularTvFetch]);
   const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/tv/${id}`, { state: { type: 'tv', id } });
   };

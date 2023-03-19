@@ -17,14 +17,14 @@ const SimilarPage = ({ urlPath }: SimilarPageProps) => {
   const [similar, setSimilar] = useState<SimilarType>([]);
   const navigate = useNavigate();
   const type = urlPath.split('/')[0];
-  const fetch = useCallback(async (urlPath: string) => {
+  const similarFetch = useCallback(async (urlPath: string) => {
     const url = `${urlPath}/similar`;
     const res = await requestData(url, METHOD_CONS.get);
     setSimilar(res.data.results);
   }, []);
   useEffect(() => {
-    fetch(urlPath);
-  }, [urlPath, fetch]);
+    similarFetch(urlPath);
+  }, [urlPath, similarFetch]);
 
   const handleClick: HandleClickNaviType = useCallback(
     (id, _) => {

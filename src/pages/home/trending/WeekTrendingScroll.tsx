@@ -17,14 +17,14 @@ const WeekTrendingScroll = () => {
   });
 
   const navigate = useNavigate();
-  const fetch = useCallback(async () => {
+  const trendingWeekFetch = useCallback(async () => {
     const res = await requestData(`trending/all/week`, METHOD_CONS.get);
 
     setMovieDatas(res.data);
   }, []);
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    trendingWeekFetch();
+  }, [trendingWeekFetch]);
   const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };

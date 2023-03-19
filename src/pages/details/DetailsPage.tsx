@@ -5,7 +5,6 @@ import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import DetailPosterSkeleton from '../../components/skeleton/DetailPosterSkeleton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/baseUrl';
@@ -26,7 +25,7 @@ const DetailsPage = () => {
   const [details, setDetails] = useState<MediaDetailsType>();
   const [loading, setLoading] = useState(false);
 
-  const fetch = useCallback(
+  const detailsFetch = useCallback(
     async (id: number | string, type: string) => {
       setLoading(true);
       try {
@@ -49,9 +48,9 @@ const DetailsPage = () => {
     if (state === undefined || state === null) {
       navigate('/error');
     } else {
-      fetch(myState.id, myState?.type);
+      detailsFetch(myState.id, myState?.type);
     }
-  }, [navigate, state, fetch, myState]);
+  }, [navigate, state, detailsFetch, myState]);
 
   if (loading) {
     return <Loader />;
@@ -78,18 +77,14 @@ const DetailsPage = () => {
               }}
             >
               <Grid item>
-                {loading ? (
-                  <DetailPosterSkeleton />
-                ) : (
-                  <LazyLoadImage
-                    src={`https://image.tmdb.org/t/p/w300/${details?.poster_path}`}
-                    width={'300px'}
-                    alt={details?.title || details?.name}
-                    style={{
-                      borderRadius: '20px',
-                    }}
-                  />
-                )}
+                <LazyLoadImage
+                  src={`https://image.tmdb.org/t/p/w300/${details?.poster_path}`}
+                  width={'300px'}
+                  alt={details?.title || details?.name}
+                  style={{
+                    borderRadius: '20px',
+                  }}
+                />
               </Grid>
               <Grid item ml={2} maxWidth={1200}>
                 <Typography variant="h4" fontWeight={600}>
