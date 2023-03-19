@@ -7,7 +7,7 @@ import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 const Favorite = () => {

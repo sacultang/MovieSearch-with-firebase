@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 
 const ListPage = () => {

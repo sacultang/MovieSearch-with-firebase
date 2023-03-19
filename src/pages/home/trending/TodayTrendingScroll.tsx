@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../../api/TMDB/baseUrl';
 import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../api/TMDB/constant';
-import { HandleClickNaviType } from '../../../types/Types';
+import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
 import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
 const TodayTrendingScroll = () => {

@@ -5,7 +5,7 @@ import { IMovieResult } from '../../types/movieType';
 import { setFavoriteAction } from '../../store/favoriteListSlice';
 import { useDispatch } from 'react-redux';
 import { setListAction } from '../../store/listMovieSlice';
-import { UserType } from '../../types/Types';
+import { UserType } from '../../types/userType';
 
 const useFirebaseRef = (user: UserType) => {
   const dispatch = useDispatch();

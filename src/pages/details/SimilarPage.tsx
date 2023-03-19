@@ -7,7 +7,7 @@ import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../api/TMDB/constant';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface IProps {

@@ -3,7 +3,7 @@ import { IMovieResult } from '../../types/movieType';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import Box from '@mui/material/Box';
 interface IProps {
   movie: IMovieResult | Similrar;

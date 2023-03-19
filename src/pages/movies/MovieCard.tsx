@@ -17,7 +17,7 @@ import ListIcon from '@mui/icons-material/List';
 import MoviePosterImg from './MoviePosterImg';
 import { IMovieResult } from '../../types/movieType';
 import { Similrar } from '../../types/similarType';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
 interface IProps {

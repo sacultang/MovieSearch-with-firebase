@@ -5,7 +5,7 @@ import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 const SearchResults = () => {
   const movieData = useSelector((state: RootState) => state.movie.movie);

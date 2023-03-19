@@ -9,7 +9,7 @@ import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import useFetchHooks from '../hooks/useFetchHooks';
 import GridItemProvider from '../../components/common/GridItemProvider';
-import { HandleClickNaviType } from '../../types/Types';
+import { HandleClickNaviType } from '../../types/handleClickNaviType';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const MoviePage = () => {
