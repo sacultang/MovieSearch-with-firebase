@@ -40,7 +40,7 @@ const WhatsPopular = () => {
     <Suspense fallback={<Loader />}>
       <TabLayout>
         <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
-          잘되나?
+          WhatsPopular
         </TitleTypo>
 
         <Tabs value={value} onChange={handleChange}>

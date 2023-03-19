@@ -103,3 +103,4 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 - `CHO`: When you do chore such as moving some files (파일 옮기거나, 이미지 교체하거나 잡일)
 - `DOC`: When you write docs (문서 작성 ex. readme)
 - `SET`: 세팅
+- `TEST`: Test
