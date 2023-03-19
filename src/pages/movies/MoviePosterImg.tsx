@@ -9,9 +9,10 @@ interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
   scrollcard?: string | undefined;
+  cardWidth: number | null;
 }
 
-const MoviePosterImg = ({ movie, handleClick, scrollcard }: IProps) => {
+const MoviePosterImg = ({ movie, handleClick, cardWidth }: IProps) => {
   const [imgLoading, setImgLoading] = useState(false);
   function onLoad() {
     setImgLoading(true);
@@ -20,11 +21,11 @@ const MoviePosterImg = ({ movie, handleClick, scrollcard }: IProps) => {
   return (
     <Box
       sx={{
-        height: { lg: scrollcard ? '280px' : '460px' },
+        height: `${cardWidth && (cardWidth * 3) / 2}px`,
         overflow: 'hidden',
       }}
     >
-      {!imgLoading && <CardSkeleton />}
+      {!imgLoading && <CardSkeleton cardWidth={cardWidth} />}
       <LazyLoadImage
         src={
           movie?.poster_path

@@ -19,11 +19,11 @@ import { IMovieResult } from '../../types/movieType';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/Types';
 import useFavorite from './hooks/useFavorite';
-
+import useGetCardWidth from './hooks/useGetCardWidth';
 interface IProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
-  scrollcard?: string | undefined;
+  scrollcard?: string;
 }
 
 const MovieCard = ({ movie, handleClick, scrollcard }: IProps) => {
@@ -37,14 +37,17 @@ const MovieCard = ({ movie, handleClick, scrollcard }: IProps) => {
     handleCloseMenu,
   } = useFavorite(movie);
   const open = Boolean(anchorEl);
+  const { cardBoxRef, cardWidth } = useGetCardWidth();
 
   return (
-    <CardItem scrollcard={scrollcard}>
+    <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
       {/* IMG */}
+
       <MoviePosterImg
         movie={movie}
         handleClick={handleClick}
         scrollcard={scrollcard}
+        cardWidth={cardWidth}
       />
 
       {/* 좋아요 버튼 */}
