@@ -16,9 +16,7 @@ interface IProps {
 const SimilarPage = ({ urlPath }: IProps) => {
   const [similar, setSimilar] = useState<SimilarType>([]);
   const navigate = useNavigate();
-
   const type = urlPath.split('/')[0];
-
   const fetch = useCallback(async (urlPath: string) => {
     const url = `${urlPath}/similar`;
     const res = await requestData(url, METHOD_CONS.get);

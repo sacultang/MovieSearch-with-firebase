@@ -37,7 +37,7 @@ const DetailsPage = () => {
 
         setDetails(detailRes.data);
       } catch (e) {
-        console.log(e);
+        throw new Error(`${e}`);
       } finally {
         setLoading(false);
       }
