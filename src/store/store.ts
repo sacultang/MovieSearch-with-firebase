@@ -5,6 +5,7 @@ import movieSlice from './movieSlice';
 import favoriteListSlice from './favoriteListSlice';
 import toastSlice from './toastSlice';
 import listMovieSlice from './listMovieSlice';
+import barOpenCloseSlice from './barOpenCloseSlice';
 export const store = configureStore({
   reducer: {
     user: userSlice,
@@ -13,6 +14,7 @@ export const store = configureStore({
     favorite: favoriteListSlice,
     toast: toastSlice,
     listMovie: listMovieSlice,
+    barOpen: barOpenCloseSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
