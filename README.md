@@ -64,12 +64,15 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 ```
 - src
     ├─ api
+    │   └─ TMDB
     ├─ components
     │   ├─ common
     │   ├─ listModal
+    │   │   └─ hooks
     │   ├─ loginAlertModal
     │   ├─ scrollGrid
     │   └─ skeleton
+    ├─ constants
     ├─ firebase
     ├─ pages
     │   ├─ detials
@@ -86,6 +89,7 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
     │   ├─ search
     │   └─ tv
     ├─ router
+    │   └─ hooks
     ├─ store
     ├─ theme
     ├─ types
