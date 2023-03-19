@@ -8,7 +8,7 @@ import Loader from '../../components/common/Loader';
 import PaginationComp from '../../components/common/PaginationComp';
 
 import PageTitle from '../../components/common/PageTitle';
-import FetchHooks from '../../hooks/FetchHooks';
+import useFetchHooks from '../hooks/useFetchHooks';
 import { HandleClickNaviType } from '../../types/Types';
 import GridItemProvider from '../../components/common/GridItemProvider';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
@@ -16,7 +16,7 @@ const TvPage = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { totalPage, setPage, page, datas } = FetchHooks(pathname);
+  const { totalPage, setPage, page, datas } = useFetchHooks(pathname);
 
   const handleClick: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
