@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserType } from '../types/Types';
 interface IState {
-  user: user;
+  user: UserType;
   loading: boolean;
 }
-export type user = {
-  uid: string | null;
-  email: string | null;
-};
+
 const initialState: IState = {
   user: {
     uid: '',
@@ -19,7 +17,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserAction: (state: IState, action: PayloadAction<user>) => {
+    setUserAction: (state: IState, action: PayloadAction<UserType>) => {
       state.user.uid = action.payload.uid;
       state.user.email = action.payload.email;
       state.loading = false;
