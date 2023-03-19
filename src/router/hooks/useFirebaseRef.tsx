@@ -6,14 +6,15 @@ import { setFavoriteAction } from '../../store/favoriteListSlice';
 import { useDispatch } from 'react-redux';
 import { setListAction } from '../../store/listMovieSlice';
 import { UserType } from '../../types/userType';
+import { FIREBASE_REF } from '../../constants/firebaseRef';
 
 const useFirebaseRef = (user: UserType) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (user.uid) {
-      const docRef = doc(db, 'users', user.email as string);
-      const favoriteRef = collection(docRef, 'favorite');
-      const myListRef = collection(docRef, 'list');
+      const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+      const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
+      const myListRef = collection(docRef, FIREBASE_REF.LIST);
       const unsubsFavorite = onSnapshot(favoriteRef, (snapshot) => {
         const myFavoriteRes = snapshot.docs.map((doc) => ({
           id: doc.id,

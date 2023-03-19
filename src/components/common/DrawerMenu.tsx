@@ -21,6 +21,7 @@ import {
   tvPath,
   myFavoritePage,
 } from './DrawerMenuList';
+import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
@@ -56,8 +57,8 @@ const DrawerMenu = ({ open, setOpen }: DrawerMenuProp) => {
     e.preventDefault();
     const confirmResult = window.confirm('삭제 하시겠습니까?');
     if (confirmResult) {
-      const docRef = doc(db, 'users', user.email as string);
-      const myListRef = collection(docRef, 'list');
+      const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+      const myListRef = collection(docRef, FIREBASE_REF.LIST);
       const listDocRef = doc(myListRef, listId);
       await deleteDoc(listDocRef);
       navigate('/');

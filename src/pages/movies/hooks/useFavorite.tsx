@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { checkFavoriteMovieId } from '../../../utils/checkFavoriteMovieId';
 import { setListMovieAction } from '../../../store/listMovieSlice';
+import { FIREBASE_REF } from '../../../constants/firebaseRef';
 
 const useFavorite = (movie: IMovieResult | Similrar) => {
   const [anchorEl, setAnchorEl] = useState<
@@ -33,8 +34,8 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
       e.preventDefault();
       if (user?.uid) {
         dispatch(setLoginAlertAction(false));
-        const docRef = doc(db, 'users', user.email as string);
-        const favoriteRef = collection(docRef, 'favorite');
+        const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+        const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
         const favoriteDocRef = doc(favoriteRef, movie.id.toString());
         try {
           if (isFavoriteChecked) {

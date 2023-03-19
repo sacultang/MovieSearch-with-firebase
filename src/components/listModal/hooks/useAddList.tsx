@@ -2,6 +2,7 @@ import { collection, setDoc, getDoc, doc } from 'firebase/firestore';
 
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FIREBASE_REF } from '../../../constants/firebaseRef';
 import { db } from '../../../firebase';
 import { RootState } from '../../../store/store';
 import { setListModalAction, setToastAction } from '../../../store/toastSlice';
@@ -37,8 +38,8 @@ const useAddList = (
         alert('목록 이름을 써주세요');
         return;
       }
-      const docRef = doc(db, 'users', user.email as string);
-      const myListRef = collection(docRef, 'list');
+      const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+      const myListRef = collection(docRef, FIREBASE_REF.LIST);
       if (openAddList) {
         try {
           await setDoc(doc(myListRef, encodeURIComponent(listName)), {
