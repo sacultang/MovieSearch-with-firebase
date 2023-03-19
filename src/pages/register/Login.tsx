@@ -24,10 +24,10 @@ const Login = () => {
     password: '',
     confirmPassword: '',
   });
-
   const [errorData, setErrorData] = useState(true);
   const [loading, setLoading] = useState(false);
-  const loginUser = useCallback(
+
+  const loginWidthEmail = useCallback(
     async (email: string, password: string) => {
       setLoading(true);
       try {
@@ -36,7 +36,6 @@ const Login = () => {
           email,
           password
         );
-
         dispatch(setUserAction({ uid: user.uid, email: user.email }));
       } catch (e) {
         const err = e as AuthError;
@@ -56,20 +55,22 @@ const Login = () => {
     [joinValue]
   );
 
-  const handleSubmit = useCallback(
+  const handleLoginSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      loginUser(joinValue.email, joinValue.password).catch((res: AuthError) => {
-        if (res.message === responseMsg.WRONG_PW) {
-          alert('패스워드를 확인해주세요');
-          return;
-        } else if (res.message === responseMsg.NOT_FOUND_USER) {
-          alert('아이디를 찾을 수 없습니다');
-          return;
+      loginWidthEmail(joinValue.email, joinValue.password).catch(
+        (res: AuthError) => {
+          if (res.message === responseMsg.WRONG_PW) {
+            alert('패스워드를 확인해주세요');
+            return;
+          } else if (res.message === responseMsg.NOT_FOUND_USER) {
+            alert('아이디를 찾을 수 없습니다');
+            return;
+          }
         }
-      });
+      );
     },
-    [joinValue.email, joinValue.password, loginUser]
+    [joinValue.email, joinValue.password, loginWidthEmail]
   );
   useEffect(() => {
     if (
@@ -86,7 +87,7 @@ const Login = () => {
       <Typography component="h1" variant="h5" mb={5}>
         로그인
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <Box component="form" noValidate onSubmit={handleLoginSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField

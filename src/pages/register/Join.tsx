@@ -29,7 +29,7 @@ const Join = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const postUserData = useCallback(
+  const joinWidthEmail = useCallback(
     async (email: string, password: string) => {
       setLoading(true);
       try {
@@ -57,10 +57,10 @@ const Join = () => {
     [joinValue]
   );
 
-  const handleSubmit = useCallback(
+  const handleJoinSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      postUserData(joinValue.email, joinValue.password).catch(
+      joinWidthEmail(joinValue.email, joinValue.password).catch(
         (res: AuthError) => {
           if (res.message === responseMsg.ALREADY_USER) {
             alert('이미 가입된 아이디입니다');
@@ -69,7 +69,7 @@ const Join = () => {
         }
       );
     },
-    [joinValue.email, joinValue.password, postUserData]
+    [joinValue.email, joinValue.password, joinWidthEmail]
   );
   useEffect(() => {
     if (
@@ -87,7 +87,7 @@ const Join = () => {
       <Typography component="h1" variant="h5" mb={5}>
         회원가입
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <Box component="form" noValidate onSubmit={handleJoinSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
