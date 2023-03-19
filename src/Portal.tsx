@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useEffect } from 'react';
+import { ReactNode, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 interface IProps {
   children: ReactNode;
