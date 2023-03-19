@@ -65,7 +65,7 @@ const BoxEl = styled(Box)<UrlPropType>`
   &::before {
     content: '';
     background: ${({ urlpath }) => `url(${urlpath}) no-repeat top center`};
-    background-size: 100%;
+    background-size: cover;
     opacity: 0.6;
     position: absolute;
     top: 0px;
