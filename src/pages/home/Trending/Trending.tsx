@@ -35,11 +35,7 @@ const Trending = () => {
   );
   return (
     <TabLayout>
-      <TitleTypo
-        variant="subtitle1"
-        fontSize={'1.2rem'}
-        sx={{ fontWeight: 600 }}
-      >
+      <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         Trending
       </TitleTypo>
 
