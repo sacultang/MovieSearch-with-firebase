@@ -1,16 +1,21 @@
 # TMDB Movie Search Web Application
 
+## 기술 스택
+
 ![React](https://img.shields.io/badge/react-%2320232a?style=flat&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/Redux-764ABC?style=flat&logo=redux&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white)
 ![firebase](https://img.shields.io/badge/firebase-FFCA28?style=flat&logo=firebase&logoColor=white)
 ![TMDB](https://img.shields.io/badge/TMDB-01B4E4?style=flat&logo=TheMovieDatabase&logoColor=white)
+![MUI](https://img.shields.io/badge/mui-007FFF?style=flat&logo=mui&logoColor=white)
 
-## Demo
+## 데모 바로가기
 
 <p align="center">
     <a href="https://fir-chat-app-b793f.web.app/"><img src="https://github.com/sacultang/MovieSearch-with-firebase/blob/main/movies_1.png" alt="Logo" width="100%"></a>
 </p>
 
-## Start project
+## 설치 및 실행
 
 ```bash
 # Clone repository
@@ -34,7 +39,7 @@ or
 $ yarn start
 ```
 
-## Observation
+## 환경변수 설정
 
 To use TMDB API and firebase, create `.env`
 
@@ -54,7 +59,40 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 ```
 
-## Git Convention
+## 파일구조
+
+```
+- src
+    ├─ api
+    ├─ components
+    │   ├─ common
+    │   ├─ listModal
+    │   ├─ loginAlertModal
+    │   ├─ scrollGrid
+    │   └─ skeleton
+    ├─ firebase
+    ├─ pages
+    │   ├─ detials
+    │   ├─ Error
+    │   ├─ favorite
+    │   ├─ home
+    │   │   ├─ common
+    │   │   ├─ popular
+    │   │   └─ trending
+    │   ├─ hooks
+    │   ├─ movies
+    │   │   └─ hooks
+    │   ├─ register
+    │   ├─ search
+    │   └─ tv
+    ├─ router
+    ├─ store
+    ├─ theme
+    ├─ types
+    ├─ utils
+    ├─ App.tsx
+    └─ index.tsx
+```
 
 ### Commit prefix
 
