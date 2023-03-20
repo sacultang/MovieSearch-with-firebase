@@ -4,7 +4,9 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
+import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
+import { IMAGE_PATH } from '../../constants/imagePath';
 interface MoviePosterImgProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
@@ -33,8 +35,8 @@ const MoviePosterImg = ({
       <LazyLoadImage
         src={
           movie?.poster_path
-            ? `https://image.tmdb.org/t/p/w400/${movie?.poster_path}`
-            : 'https://media.discordapp.net/attachments/1014088216132988928/1016987090208182293/Vector.png?width=456&height=684'
+            ? `${IMAGE_PATH.w400}/${movie?.poster_path}`
+            : DefaultImage
         }
         alt={movie?.original_title || movie?.original_name || 'default Img'}
         onLoad={onLoad}

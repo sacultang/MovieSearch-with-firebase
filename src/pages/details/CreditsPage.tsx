@@ -7,6 +7,7 @@ import { CastType } from '../../types/creditType';
 import { requestData } from '../../api/TMDB/baseUrl';
 import Skeleton from '@mui/material/Skeleton';
 import { METHOD_CONS } from '../../constants/fetchMethod';
+import { IMAGE_PATH } from '../../constants/imagePath';
 interface CreditsPageProps {
   urlPath: string;
 }
@@ -75,7 +76,7 @@ const CreditsPage = ({ urlPath }: CreditsPageProps) => {
                         <Skeleton height={300} width={200} />
                       ) : (
                         <LazyLoadImage
-                          src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
+                          src={`${IMAGE_PATH.w200}/${item.profile_path}`}
                           alt={item.name}
                           onLoad={onLoad}
                           width="100%"
@@ -111,7 +112,7 @@ const CreditsPage = ({ urlPath }: CreditsPageProps) => {
                     <Grid item key={item.name}>
                       {item.profile_path ? (
                         <LazyLoadImage
-                          src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
+                          src={`${IMAGE_PATH.w200}/${item.profile_path}`}
                           alt={item.name}
                           onLoad={onLoad}
                           width="100%"

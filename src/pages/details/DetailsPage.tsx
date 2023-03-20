@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import { MediaDetailsType } from '../../types/mediaType';
+import { IMAGE_PATH } from '../../constants/imagePath';
 const CreditsPage = lazy(() => import('./CreditsPage'));
 const TrailerPage = lazy(() => import('./TrailerPage'));
 const SimilarPage = lazy(() => import('./SimilarPage'));
@@ -59,7 +60,7 @@ const DetailsPage = () => {
     <Box component="section">
       {details?.poster_path && (
         <MainDetailImageBackdrop
-          imgPath={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
+          imgPath={`${IMAGE_PATH.original}/${details?.backdrop_path}`}
         >
           <BackDrop>
             <Grid
@@ -78,7 +79,7 @@ const DetailsPage = () => {
             >
               <Grid item>
                 <LazyLoadImage
-                  src={`https://image.tmdb.org/t/p/w300/${details?.poster_path}`}
+                  src={`${IMAGE_PATH.w300}/${details?.poster_path}`}
                   width={'300px'}
                   alt={details?.title || details?.name}
                   style={{
@@ -106,11 +107,8 @@ const DetailsPage = () => {
                   minutes
                 </Typography>
                 {details.genres.map((item) => (
-                  <SpanTag key={item.id}>{item.name}</SpanTag>
+                  <GenereSpanTag key={item.id}>{item.name}</GenereSpanTag>
                 ))}
-                <Typography fontStyle={'italic'} variant="h5" lineHeight={3}>
-                  "{details?.tagline && details?.tagline}"
-                </Typography>
                 <Typography variant="h6" fontWeight={600} fontSize={'0.9rem'}>
                   개요
                 </Typography>
@@ -132,7 +130,7 @@ const DetailsPage = () => {
                       <div key={item.id || idx}>
                         {item.logo_path && (
                           <img
-                            src={`https://image.tmdb.org/t/p/w200/${item.logo_path}`}
+                            src={`${IMAGE_PATH.w200}/${item.logo_path}`}
                             alt={item.name}
                             style={{
                               width: '60px',
@@ -179,7 +177,7 @@ const BackDrop = styled.div`
   );
 `;
 
-const SpanTag = styled.span`
+const GenereSpanTag = styled.span`
   border: 2px solid var(--orange-border-color);
   color: var(--orange-border-color);
   padding: 2px;
@@ -187,4 +185,5 @@ const SpanTag = styled.span`
   margin: 10px 5px;
   margin-left: 0;
   display: inline-block;
+  cursor: default;
 `;

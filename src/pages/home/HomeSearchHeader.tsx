@@ -4,6 +4,7 @@ import { useGetDiscoverQuery } from '../../store/moviesApi';
 import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
 import SearchInput from './SearchInput';
+import { IMAGE_PATH } from '../../constants/imagePath';
 const getRandom = () => {
   const num = Math.floor(Math.random() * 20);
   return num;
@@ -17,7 +18,7 @@ const HomeSearchHeader = () => {
     <>
       {!!data && (
         <BoxEl
-          urlpath={`https://image.tmdb.org/t/p/w1280/${
+          urlpath={`${IMAGE_PATH.w1200}/${
             data.results[getRandom()].backdrop_path
           }`}
         >
