@@ -19,7 +19,9 @@ const useAddList = (
   const user = useSelector((state: RootState) => state.user.user);
   const selectMovie = useSelector((state: RootState) => state.listMovie.movie);
   const dispatch = useDispatch();
-
+  const toastMessage = openAddList
+    ? '목록이 생성되었습니다.'
+    : '목록에 추가되었습니다.';
   const handleClose = useCallback(() => {
     dispatch(setListModalAction(false));
     setOpenAddList(false);
@@ -31,67 +33,49 @@ const useAddList = (
     },
     []
   );
+  const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+  const myListRef = collection(docRef, FIREBASE_REF.LIST);
 
   const handleAddList = async () => {
-    if (user?.uid) {
-      if (!listName && openAddList) {
-        alert('목록 이름을 써주세요');
+    if (!user?.uid) return;
+    if (!listName && openAddList) {
+      alert('목록 이름을 써주세요');
+      return;
+    }
+    const listDocRef = openAddList
+      ? doc(myListRef, encodeURIComponent(listName))
+      : doc(myListRef, encodeURIComponent(selectList));
+    const listDoc = await getDoc(listDocRef);
+    const existingList: IMovieResult[] | SimilarType = listDoc.data()?.list;
+
+    try {
+      if (!openAddList && checkListMovieId(selectMovie.id, existingList)) {
+        alert('이미 해당 영화/TV가 리스트에 있습니다.');
         return;
       }
-      const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
-      const myListRef = collection(docRef, FIREBASE_REF.LIST);
-      if (openAddList) {
-        try {
-          await setDoc(doc(myListRef, encodeURIComponent(listName)), {
-            list: [selectMovie],
-          }).then(() => {
-            dispatch(
-              setToastAction({
-                isOpen: true,
-                text: '목록이 생성되었습니다.',
-              })
-            );
-          });
-        } catch (e) {
-          throw new Error(`error ${e}`);
-        } finally {
-          dispatch(setListModalAction(false));
-          setOpenAddList(false);
-          setTimeout(() => {
-            dispatch(setToastAction({ isOpen: false }));
-          }, 3000);
-        }
-      } else {
-        const listDocRef = doc(myListRef, encodeURIComponent(selectList));
-        const listDoc = await getDoc(listDocRef);
-        const existingList: IMovieResult[] | SimilarType = listDoc.data()?.list;
-        if (checkListMovieId(selectMovie.id, existingList)) {
-          alert('이미 해당 영화/TV가 리스트에 있습니다.');
-          return;
-        }
-        try {
-          await setDoc(listDocRef, {
-            list: [selectMovie, ...existingList],
-          }).then(() => {
-            dispatch(
-              setToastAction({
-                isOpen: true,
-                text: '목록에 추가되었습니다.',
-              })
-            );
-          });
-        } catch (e) {
-          throw new Error(`error ${e}`);
-        } finally {
-          dispatch(setListModalAction(false));
-          setOpenAddList(false);
-          setTimeout(() => {
-            dispatch(setToastAction({ isOpen: false }));
-          }, 3000);
-        }
-      }
+
+      await setDoc(listDocRef, {
+        list: openAddList ? [selectMovie] : [selectMovie, ...existingList],
+      });
+
+      dispatch(
+        setToastAction({
+          isOpen: true,
+          text: toastMessage,
+        })
+      );
+
+      setTimeout(() => {
+        dispatch(setToastAction({ isOpen: false }));
+      }, 3000);
+    } catch (e) {
+      throw new Error(`error ${e}`);
+    } finally {
+      dispatch(setListModalAction(false));
+      setOpenAddList(false);
     }
   };
+
   return {
     handleAddList,
     handleListNameChange,
