@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { collection, deleteDoc, setDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import {
@@ -24,10 +24,10 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
     (state: RootState) => state.favorite.favoriteMovie
   );
 
-  const isFavoriteChecked = checkFavoriteMovieId(movie.id, userFavorite);
-  const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
-  const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
-  const favoriteDocRef = doc(favoriteRef, movie.id.toString());
+  const isFavoriteChecked = useMemo(
+    () => checkFavoriteMovieId(movie.id, userFavorite),
+    [movie.id, userFavorite]
+  );
 
   const handleFavorite = useCallback(
     async (
@@ -39,7 +39,9 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
         dispatch(setLoginAlertAction(true));
         return;
       }
-
+      const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+      const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
+      const favoriteDocRef = doc(favoriteRef, movie.id.toString());
       try {
         if (isFavoriteChecked) {
           await deleteDoc(favoriteDocRef);
@@ -66,7 +68,7 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
         }, 3000);
       }
     },
-    [user, dispatch, isFavoriteChecked, favoriteDocRef]
+    [user, dispatch, isFavoriteChecked]
   );
 
   const handleOpenAddList = () => {

@@ -33,8 +33,6 @@ const useAddList = (
     },
     []
   );
-  const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
-  const myListRef = collection(docRef, FIREBASE_REF.LIST);
 
   const handleAddList = async () => {
     if (!user?.uid) return;
@@ -42,6 +40,8 @@ const useAddList = (
       alert('목록 이름을 써주세요');
       return;
     }
+    const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+    const myListRef = collection(docRef, FIREBASE_REF.LIST);
     const listDocRef = openAddList
       ? doc(myListRef, encodeURIComponent(listName))
       : doc(myListRef, encodeURIComponent(selectList));
