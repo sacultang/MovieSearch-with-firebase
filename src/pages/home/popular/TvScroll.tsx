@@ -6,7 +6,7 @@ import { IMovie } from '../../../types/movieType';
 import { METHOD_CONS } from '../../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
-import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
+import ScrollGridContainer from '../components/ScrollGridContainer';
 const TvScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,

@@ -7,7 +7,7 @@ import { requestData } from '../../../api/TMDB/baseUrl';
 import { METHOD_CONS } from '../../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
-import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
+import ScrollGridContainer from '../components/ScrollGridContainer';
 const WeekTrendingScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
