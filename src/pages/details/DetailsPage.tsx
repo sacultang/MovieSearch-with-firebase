@@ -5,7 +5,6 @@ import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
@@ -78,7 +77,7 @@ const DetailsPage = () => {
               }}
             >
               <Grid item>
-                <LazyLoadImage
+                <img
                   src={`${IMAGE_PATH.w300}/${details?.poster_path}`}
                   width={'300px'}
                   alt={details?.title || details?.name}
