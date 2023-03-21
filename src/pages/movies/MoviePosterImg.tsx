@@ -6,7 +6,7 @@ import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
 import { IMAGE_PATH } from '../../constants/imagePath';
-import { useIsImgLoaded } from './hooks/useIsImageLoad';
+import { useIsImgLoaded } from '../hooks/useIsImageLoad';
 interface MoviePosterImgProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
