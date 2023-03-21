@@ -33,7 +33,9 @@ const MoviePosterImg = ({
     >
       {!loaded && <CardSkeleton cardWidth={cardWidth} />}
       <img
-        src={`${IMAGE_PATH.w400}/${movie?.poster_path}`}
+        src={`${cardWidth > 200 ? IMAGE_PATH.w400 : IMAGE_PATH.w200}/${
+          movie?.poster_path
+        }`}
         alt={movie?.original_title || movie?.original_name || 'default Img'}
         ref={imgRef}
         style={{
