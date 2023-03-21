@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Container from '@mui/material/Container';
 import MovieSkeleton from '../../components/skeleton/MovieSkeleton';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import { TrailerRoot } from '../../types/trailerType';
 

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setMovieAction } from '../../store/movieSlice';
 import { Container } from '@mui/material';
 import SearchInput from '../home/SearchInput';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 const SearchResults = () => {
   const dispatch = useDispatch();

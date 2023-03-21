@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { IMovie, IMovieResult } from '../../types/movieType';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { useNavigate } from 'react-router-dom';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 const useFetchHooks = (url: string) => {

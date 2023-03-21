@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import { MediaDetailsType } from '../../types/mediaType';
 import { IMAGE_PATH } from '../../constants/imagePath';

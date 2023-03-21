@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { CastType } from '../../types/creditType';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import CreditsCard from './components/CreditsCard';
 

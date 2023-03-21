@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 import MovieCard from '../../movies/MovieCard';
 import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
-import { requestData } from '../../../api/TMDB/baseUrl';
+import { requestData } from '../../../api/TMDB/request';
 import { METHOD_CONS } from '../../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';

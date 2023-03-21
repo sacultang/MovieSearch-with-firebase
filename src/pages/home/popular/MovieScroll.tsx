@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { requestData } from '../../../api/TMDB/baseUrl';
+import { requestData } from '../../../api/TMDB/request';
 import { useNavigate } from 'react-router-dom';
 
 import MovieCard from '../../movies/MovieCard';

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { SimilarType } from '../../types/similarType';
 import Loader from '../../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
-import { requestData } from '../../api/TMDB/baseUrl';
+import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import GridItemProvider from '../../components/common/GridItemProvider';
