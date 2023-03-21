@@ -19,5 +19,5 @@ export const useIsImgLoaded = () => {
       observer.unobserve(imgRefCopy);
     };
   }, []);
-  return { imgRef, loaded };
+  return { imgRef, loaded, setLoaded };
 };

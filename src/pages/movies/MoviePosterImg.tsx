@@ -20,21 +20,20 @@ const MoviePosterImg = ({
   cardWidth,
 }: MoviePosterImgProps) => {
   const { imgRef, loaded } = useIsImgLoaded();
-
+  const handleImageError = () => {
+    if (imgRef.current) imgRef.current.src = DefaultImage;
+  };
   return (
     <Box
       sx={{
         height: `${cardWidth && (cardWidth * 3) / 2}px`,
         overflow: 'hidden',
+        position: 'relative',
       }}
     >
       {!loaded && <CardSkeleton cardWidth={cardWidth} />}
       <img
-        src={
-          movie?.poster_path
-            ? `${IMAGE_PATH.w400}/${movie?.poster_path}`
-            : DefaultImage
-        }
+        src={`${IMAGE_PATH.w400}/${movie?.poster_path}`}
         alt={movie?.original_title || movie?.original_name || 'default Img'}
         ref={imgRef}
         style={{
@@ -45,6 +44,7 @@ const MoviePosterImg = ({
           transition: 'opacity 0.3s ease-in-out',
         }}
         onClick={() => handleClick(movie.id, movie.media_type)}
+        onError={handleImageError}
       />
     </Box>
   );
