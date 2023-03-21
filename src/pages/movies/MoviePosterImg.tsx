@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IMovieResult } from '../../types/movieType';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
 import { IMAGE_PATH } from '../../constants/imagePath';
+import { useIsImgLoaded } from './hooks/useIsImageLoad';
 interface MoviePosterImgProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
   scrollcard?: string | undefined;
-  cardWidth: number | null;
+  cardWidth: number;
 }
 
 const MoviePosterImg = ({
@@ -19,10 +19,7 @@ const MoviePosterImg = ({
   handleClick,
   cardWidth,
 }: MoviePosterImgProps) => {
-  const [imgLoading, setImgLoading] = useState(false);
-  function onLoad() {
-    setImgLoading(true);
-  }
+  const { imgRef, loaded } = useIsImgLoaded();
 
   return (
     <Box
@@ -31,21 +28,23 @@ const MoviePosterImg = ({
         overflow: 'hidden',
       }}
     >
-      {!imgLoading && <CardSkeleton cardWidth={cardWidth} />}
-      <LazyLoadImage
+      {!loaded && <CardSkeleton cardWidth={cardWidth} />}
+      <img
         src={
           movie?.poster_path
             ? `${IMAGE_PATH.w400}/${movie?.poster_path}`
             : DefaultImage
         }
         alt={movie?.original_title || movie?.original_name || 'default Img'}
-        onLoad={onLoad}
-        onClick={() => handleClick(movie.id, movie.media_type)}
+        ref={imgRef}
         style={{
           cursor: 'pointer',
           width: '100%',
           height: '100%',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.3s ease-in-out',
         }}
+        onClick={() => handleClick(movie.id, movie.media_type)}
       />
     </Box>
   );
