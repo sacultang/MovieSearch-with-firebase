@@ -25,6 +25,9 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
   );
 
   const isFavoriteChecked = checkFavoriteMovieId(movie.id, userFavorite);
+  const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
+  const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
+  const favoriteDocRef = doc(favoriteRef, movie.id.toString());
 
   const handleFavorite = useCallback(
     async (
@@ -32,46 +35,40 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
       movie: IMovieResult | Similrar
     ) => {
       e.preventDefault();
-      if (user?.uid) {
-        dispatch(setLoginAlertAction(false));
-        const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
-        const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
-        const favoriteDocRef = doc(favoriteRef, movie.id.toString());
-        try {
-          if (isFavoriteChecked) {
-            await deleteDoc(favoriteDocRef).then(() => {
-              dispatch(
-                setToastAction({
-                  isOpen: true,
-                  text: '즐겨찾기에서 삭제되었습니다.',
-                })
-              );
-            });
-          } else {
-            await setDoc(doc(favoriteRef, movie.id.toString()), {
-              movie,
-            }).then(() => {
-              dispatch(
-                setToastAction({
-                  isOpen: true,
-                  text: '즐겨찾기에 추가되었습니다.',
-                })
-              );
-            });
-          }
-        } catch (e) {
-          throw new Error(`${e}`);
-        } finally {
-          setTimeout(() => {
-            dispatch(setToastAction({ isOpen: false }));
-          }, 3000);
-        }
-      } else {
+      if (!user?.uid) {
         dispatch(setLoginAlertAction(true));
+        return;
+      }
+
+      try {
+        if (isFavoriteChecked) {
+          await deleteDoc(favoriteDocRef);
+          dispatch(
+            setToastAction({
+              isOpen: true,
+              text: '즐겨찾기에서 삭제되었습니다.',
+            })
+          );
+        } else {
+          await setDoc(favoriteDocRef, { movie });
+          dispatch(
+            setToastAction({
+              isOpen: true,
+              text: '즐겨찾기에 추가되었습니다.',
+            })
+          );
+        }
+      } catch (e) {
+        throw new Error(`${e}`);
+      } finally {
+        setTimeout(() => {
+          dispatch(setToastAction({ isOpen: false }));
+        }, 3000);
       }
     },
-    [user, dispatch, isFavoriteChecked]
+    [user, dispatch, isFavoriteChecked, favoriteDocRef]
   );
+
   const handleOpenAddList = () => {
     if (user?.uid) {
       dispatch(setListMovieAction(movie));
