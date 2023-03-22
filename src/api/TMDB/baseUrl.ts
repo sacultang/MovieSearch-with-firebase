@@ -8,8 +8,10 @@ const config: AxiosRequestConfig = {
 };
 const TMDBServer = axios.create(config);
 
-const cache: { [key: string]: any } = {};
-
+let cache: { [key: string]: any } = {};
+export const clearCache = () => {
+  cache = {};
+};
 TMDBServer.interceptors.request.use(
   async (request) => {
     if (request.url) {

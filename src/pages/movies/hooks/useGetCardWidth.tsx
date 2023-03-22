@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 const useGetCardWidth = () => {
   const cardBoxRef = useRef<HTMLDivElement>(null);
@@ -13,7 +13,7 @@ const useGetCardWidth = () => {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
-  useEffect(() => {
+  useLayoutEffect(() => {
     cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
   }, []);
   return { cardBoxRef, cardWidth };
