@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { IMovie, IMovieResult } from '../../types/movieType';
 import { requestData } from '../../api/TMDB/request';
 import { useNavigate } from 'react-router-dom';
@@ -15,29 +15,37 @@ const useFetchHooks = (url: string) => {
   });
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const getMovieAndTvFetch = useCallback(async () => {
-    try {
-      const res = await requestData(url, METHOD_CONS.get, { page });
-      if (!res.data) {
-        navigate('/error', { replace: true });
-      }
-      const { results }: { results: IMovieResult[] } = res.data;
-      const newResults = results.map((item) => {
-        return { ...item, media_type: MEDIA_TYPE };
-      });
-      setDatas({ ...res.data, results: newResults });
-      setTotalPage(res.data.total_pages);
-    } catch (e) {
-      throw new Error(`${e}`);
-    }
-  }, [page, navigate, url, MEDIA_TYPE]);
+  const prevUrl = useRef('');
 
+  const getMovieAndTvFetch = useCallback(
+    async (page: number) => {
+      try {
+        const res = await requestData(url, METHOD_CONS.get, { page });
+        if (!res.data) {
+          navigate('/error', { replace: true });
+        }
+        const { results }: { results: IMovieResult[] } = res.data;
+        const newResults = results.map((item) => {
+          return { ...item, media_type: MEDIA_TYPE };
+        });
+        setDatas({ ...res.data, results: newResults });
+        setTotalPage(res.data.total_pages);
+      } catch (e) {
+        throw new Error(`${e}`);
+      }
+    },
+    [url, navigate, MEDIA_TYPE]
+  );
   useEffect(() => {
-    getMovieAndTvFetch();
-  }, [url, page, getMovieAndTvFetch]);
-  useEffect(() => {
-    setPage(1);
-  }, [url]);
+    if (prevUrl.current !== url) {
+      setPage(1);
+      getMovieAndTvFetch(1);
+    } else if (page !== 1) {
+      getMovieAndTvFetch(page);
+    }
+    prevUrl.current = url;
+  }, [url, page, getMovieAndTvFetch, setPage]);
+
   return { totalPage, setPage, page, datas };
 };
 
