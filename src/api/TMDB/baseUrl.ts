@@ -5,20 +5,31 @@ const TMDB_API = process.env.REACT_APP_TMDB_API;
 const config: AxiosRequestConfig = {
   baseURL: BASE_URL,
   params: { api_key: `${TMDB_API}`, language: 'ko-KR' },
+  headers: {
+    'Cache-Control': 'public, max-age=600',
+  },
 };
 const TMDBServer = axios.create(config);
 
-let cache: { [key: string]: any } = {};
-export const clearCache = () => {
-  cache = {};
-};
+const cache: { [key: string]: any } = {};
+
 TMDBServer.interceptors.request.use(
   async (request) => {
     if (request.url) {
-      if (cache[request.url]) {
-        return Promise.resolve(cache[request.url]);
+      const queryString = Object.entries(request.params)
+        .map(
+          ([key, value]) =>
+            (typeof value === 'string' ||
+              typeof value === 'number' ||
+              typeof value === 'boolean') &&
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join('&');
+      const cacheKey = `${request.url}?${queryString}`;
+      if (cache[cacheKey]) {
+        return Promise.resolve(cache[cacheKey]);
       }
-      cache[request.url] = request;
+      cache[cacheKey] = request;
       return Promise.resolve(request);
     }
     return Promise.resolve(request);

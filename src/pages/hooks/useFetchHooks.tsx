@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { IMovie, IMovieResult } from '../../types/movieType';
 import { requestData } from '../../api/TMDB/request';
-import { clearCache } from '../../api/TMDB/baseUrl';
 import { useNavigate } from 'react-router-dom';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 
@@ -18,7 +17,6 @@ const useFetchHooks = (url: string) => {
   const [totalPage, setTotalPage] = useState(0);
   const getMovieAndTvFetch = useCallback(async () => {
     try {
-      clearCache();
       const res = await requestData(url, METHOD_CONS.get, { page });
       if (!res.data) {
         navigate('/error', { replace: true });
