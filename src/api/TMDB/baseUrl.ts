@@ -5,9 +5,6 @@ const TMDB_API = process.env.REACT_APP_TMDB_API;
 const config: AxiosRequestConfig = {
   baseURL: BASE_URL,
   params: { api_key: `${TMDB_API}`, language: 'ko-KR' },
-  headers: {
-    'Cache-Control': 'no-cache',
-  },
 };
 const TMDBServer = axios.create(config);
 
