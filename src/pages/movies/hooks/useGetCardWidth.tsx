@@ -5,17 +5,18 @@ const useGetCardWidth = () => {
   const [cardWidth, setCardWidth] = useState(200);
 
   useLayoutEffect(() => {
+    cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
     const handleWindowResize = () => {
-      cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
+      setTimeout(() => {
+        cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
+      }, 700);
     };
     window.addEventListener('resize', handleWindowResize);
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
-  useLayoutEffect(() => {
-    cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
-  }, []);
+
   return { cardBoxRef, cardWidth };
 };
 
