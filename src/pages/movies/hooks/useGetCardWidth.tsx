@@ -9,7 +9,7 @@ const useGetCardWidth = () => {
     const handleWindowResize = () => {
       setTimeout(() => {
         cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
-      }, 700);
+      }, 300);
     };
     window.addEventListener('resize', handleWindowResize);
     return () => {
