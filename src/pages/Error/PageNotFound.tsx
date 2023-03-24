@@ -20,11 +20,11 @@ const PageNotFound = () => {
   }, [timer, navigate]);
   return (
     <Box
-      display={'flex'}
-      justifyContent={'center'}
-      flexDirection={'column'}
-      minHeight={800}
-      alignItems={'center'}
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+      minHeight="800px"
+      alignItems="center"
     >
       <Typography variant="h4">잘못된 접근입니다.</Typography> <br />
       <Typography variant="h5">

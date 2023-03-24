@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ interface ITitleProps {
   params?: Readonly<Params<string>>;
 }
 interface ILaoutProps {
-  children: ReactElement | string;
+  children: React.ReactNode;
 }
 const PageTitleLayout = ({ children }: ILaoutProps) => {
   return (

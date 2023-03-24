@@ -56,10 +56,8 @@ const HomeSearchHeader = () => {
 };
 
 export default memo(HomeSearchHeader);
-interface UrlPropType {
-  urlpath: string;
-}
-const BoxEl = styled(Box)<UrlPropType>`
+
+const BoxEl = styled(Box)<{ urlpath: string }>`
   height: 300px;
   background-color: var(--yellow-bg-color);
   position: relative;

@@ -20,6 +20,7 @@ import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
+
 interface MovieCardProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;

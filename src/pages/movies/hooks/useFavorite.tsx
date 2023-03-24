@@ -35,10 +35,8 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
       movie: IMovieResult | Similrar
     ) => {
       e.preventDefault();
-      if (!user?.uid) {
-        dispatch(setLoginAlertAction(true));
-        return;
-      }
+      if (!user?.uid) return dispatch(setLoginAlertAction(true));
+
       const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
       const favoriteRef = collection(docRef, FIREBASE_REF.FAVORITE);
       const favoriteDocRef = doc(favoriteRef, movie.id.toString());

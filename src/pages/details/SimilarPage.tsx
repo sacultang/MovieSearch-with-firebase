@@ -34,11 +34,7 @@ const SimilarPage = ({ urlPath }: SimilarPageProps) => {
     [navigate, type]
   );
   return (
-    <Box
-      sx={{
-        mt: 3,
-      }}
-    >
+    <Box sx={{ mt: 3 }}>
       <Typography variant="h5" fontWeight={500}>
         추천 컨텐츠
       </Typography>
