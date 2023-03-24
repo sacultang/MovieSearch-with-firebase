@@ -2,9 +2,8 @@ import React, { useState, useCallback, lazy, Suspense } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
-
+import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 const MovieScroll = lazy(() => import('./MovieScroll'));
 const TvScroll = lazy(() => import('./TvScroll'));
 const TabLayout = lazy(() => import('../common/TabLayout'));
@@ -47,26 +46,14 @@ const WhatsPopular = () => {
           <Tab label="영화"></Tab>
           <Tab label="TV"></Tab>
         </Tabs>
-        <Box
-          sx={{
-            overflowX: 'scroll',
-            '&::-webkit-scrollbar': { width: 1, height: 8 },
-            '&::-webkit-scrollbar-track': {
-              backgroundColor: 'rgba(0,0,0,0.07)',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: 'var( --main-bg-color)',
-              borderRadius: '5px',
-            },
-          }}
-        >
+        <ScrollWrapBox>
           <TabPannel value={value} index={0}>
             <MovieScroll />
           </TabPannel>
           <TabPannel value={value} index={1}>
             <TvScroll />
           </TabPannel>
-        </Box>
+        </ScrollWrapBox>
       </TabLayout>
     </Suspense>
   );

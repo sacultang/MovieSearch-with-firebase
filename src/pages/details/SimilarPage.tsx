@@ -9,6 +9,7 @@ import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import GridItemProvider from '../../components/common/GridItemProvider';
+import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
 const MovieCard = lazy(() => import('../movies/MovieCard'));
 interface SimilarPageProps {
   urlPath: string;
@@ -41,19 +42,7 @@ const SimilarPage = ({ urlPath }: SimilarPageProps) => {
       <Typography variant="h5" fontWeight={500}>
         추천 컨텐츠
       </Typography>
-      <Box
-        sx={{
-          overflow: 'scroll',
-          '&::-webkit-scrollbar': { width: 1, height: 8 },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: 'rgba(0,0,0,0.07)',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'var( --main-bg-color)',
-            borderRadius: '5px',
-          },
-        }}
-      >
+      <ScrollWrapBox>
         <Grid container direction="row" flexWrap="nowrap" mb={3} mt={3}>
           {similar.map((movie) => (
             <GridItemProvider key={movie.id}>
@@ -67,7 +56,7 @@ const SimilarPage = ({ urlPath }: SimilarPageProps) => {
             </GridItemProvider>
           ))}
         </Grid>
-      </Box>
+      </ScrollWrapBox>
     </Box>
   );
 };

@@ -6,6 +6,7 @@ import { CastType } from '../../types/creditType';
 import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import CreditsCard from './components/CreditsCard';
+import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
 
 interface CreditsPageProps {
   urlPath: string;
@@ -28,20 +29,7 @@ const CreditsPage = ({ urlPath }: CreditsPageProps) => {
       <Typography variant="h5" fontWeight={500} mb={3}>
         출연진
       </Typography>
-      <Box
-        sx={{
-          overflowX: 'scroll',
-          '&::-webkit-scrollbar': { width: 1, height: 8 },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: 'rgba(0,0,0,0.07)',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'var( --main-bg-color)',
-            borderRadius: '2px',
-          },
-          height: '370px',
-        }}
-      >
+      <ScrollWrapBox height={370}>
         <Grid container direction="row" flexWrap="nowrap">
           {credits.length &&
             credits
@@ -50,7 +38,7 @@ const CreditsPage = ({ urlPath }: CreditsPageProps) => {
                 <CreditsCard key={creditItem.name} creditItem={creditItem} />
               ))}
         </Grid>
-      </Box>
+      </ScrollWrapBox>
     </Box>
   );
 };
