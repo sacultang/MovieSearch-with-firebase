@@ -11,6 +11,8 @@
 
 ## 데모 바로가기
 
+<a href="https://fir-chat-app-b793f.web.app/">데모 바로가기</a>
+
 <p align="center">
     <a href="https://fir-chat-app-b793f.web.app/"><img src="https://github.com/sacultang/MovieSearch-with-firebase/blob/main/movies_1.png" alt="Logo" width="100%"></a>
 </p>
