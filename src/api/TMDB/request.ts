@@ -1,12 +1,7 @@
-import { AxiosResponse } from 'axios';
 import TMDBServer from './baseUrl';
 import { requestFuncType } from './constant';
 
-export const request = async <T>(
-  url: string,
-  method: string,
-  params?: T
-): Promise<AxiosResponse> => {
+export const request: requestFuncType = async (url, method, params) => {
   try {
     const response = await TMDBServer.request({
       url,
@@ -19,7 +14,7 @@ export const request = async <T>(
   }
 };
 
-export const requestData: requestFuncType = async (url, method, params?) => {
+export const requestData: requestFuncType = async (url, method, params) => {
   try {
     const res = await request(url, method, params);
     return res;
