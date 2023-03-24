@@ -36,10 +36,9 @@ const useAddList = (
 
   const handleAddList = async () => {
     if (!user?.uid) return;
-    if (!listName && openAddList) {
-      alert('목록 이름을 써주세요');
-      return;
-    }
+    if (!selectList) return alert('목록을 생성 또는 선택 해주세요');
+    if (!listName && openAddList) return alert('목록 이름을 써주세요');
+
     const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
     const myListRef = collection(docRef, FIREBASE_REF.LIST);
     const listDocRef = openAddList
