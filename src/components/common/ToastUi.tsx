@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
-import { Alert, Collapse } from '@mui/material';
+
 import Portal from '../../Portal';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
+import Collapse from '@mui/material/Collapse/Collapse';
+import Alert from '@mui/material/Alert/Alert';
 const ToastUi = () => {
   const { isOpen, text } = useSelector((state: RootState) => state.toast.toast);
   return (

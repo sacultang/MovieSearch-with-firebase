@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container/Container';
 interface PaddingLayoutProps {
   children: [React.ReactElement, React.ReactElement];
 }

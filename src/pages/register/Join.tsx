@@ -5,14 +5,17 @@ import {
   FormEvent,
   ChangeEvent,
 } from 'react';
-import { Box, Typography, Grid, TextField } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography/Typography';
+import Grid from '@mui/material/Grid/Grid';
+import TextField from '@mui/material/TextField/TextField';
+import LoadingButton from '@mui/lab/LoadingButton';
 import '../../firebase';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   AuthError,
 } from 'firebase/auth';
-import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from './common/PaddingLayout';

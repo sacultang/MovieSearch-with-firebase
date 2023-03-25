@@ -1,7 +1,9 @@
 import React, { ChangeEvent } from 'react';
-import { TextField, Box } from '@mui/material';
+
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Box from '@mui/material/Box/Box';
+import TextField from '@mui/material/TextField/TextField';
 
 interface CreateListInputProps {
   handleListNameChange: (e: ChangeEvent<HTMLInputElement>) => void;

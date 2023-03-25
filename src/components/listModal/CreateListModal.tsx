@@ -1,4 +1,4 @@
-import React, { lazy, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import '../../firebase';
@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import CreateListInput from './CreateListInput';
 import useAddList from './hooks/useAddList';
-const ListSelectBox = lazy(() => import('./ListSelectBox'));
+import ListSelectBox from './ListSelectBox';
 
 const CreateListModal = () => {
   const [openAddList, setOpenAddList] = useState(false);

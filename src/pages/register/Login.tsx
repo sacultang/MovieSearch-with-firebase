@@ -5,17 +5,19 @@ import {
   FormEvent,
   ChangeEvent,
 } from 'react';
-import { Box, Typography, Grid, TextField } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography/Typography';
+import Grid from '@mui/material/Grid/Grid';
+import TextField from '@mui/material/TextField/TextField';
+import LoadingButton from '@mui/lab/LoadingButton';
 import '../../firebase';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { LoadingButton } from '@mui/lab';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '../../store/userSlice';
 import PaddingLayout from './common/PaddingLayout';
 import { EMAIL_REGEX, PW_REGEX } from './regex';
 import { responseMsg } from './constants';
-import { AuthError } from 'firebase/auth';
+import { AuthError, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
   const dispatch = useDispatch();

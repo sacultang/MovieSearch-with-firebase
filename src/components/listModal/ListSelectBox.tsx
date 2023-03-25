@@ -1,17 +1,15 @@
 import React from 'react';
-import {
-  DialogActions,
-  Button,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-} from '@mui/material';
+
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DialogContent from '@mui/material/DialogContent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { SelectChangeEvent } from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl/FormControl';
+import InputLabel from '@mui/material/InputLabel/InputLabel';
+import MenuItem from '@mui/material/MenuItem/MenuItem';
+import DialogActions from '@mui/material/DialogActions/DialogActions';
+import Button from '@mui/material/Button/Button';
 
 interface ListSelectBoxProps {
   setOpenAddList: React.Dispatch<React.SetStateAction<boolean>>;

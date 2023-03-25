@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import { Outlet } from 'react-router-dom';
-import { styled, Theme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
@@ -14,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setBarOpen } from '../../store/barOpenCloseSlice';
 import { theme } from '../../theme';
 import { RootState } from '../../store/store';
+import styled from '@emotion/styled';
+import { Theme } from '@mui/material/styles';
 export default function PermanentDrawerLeft() {
   const dispatch = useDispatch();
   const barOpen = useSelector((state: RootState) => state.barOpen.barOpen);

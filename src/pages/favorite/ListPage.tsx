@@ -4,7 +4,7 @@ import PageTitle from '../../components/common/PageTitle';
 import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import Container from '@mui/material/Container';
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';

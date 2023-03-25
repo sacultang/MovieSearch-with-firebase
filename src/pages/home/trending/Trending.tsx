@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs/Tabs';
+import Tab from '@mui/material/Tab/Tab';
 import Typography from '@mui/material/Typography';
 import TodayTrendingScroll from './TodayTrendingScroll';
 import WeekTrendingScroll from './WeekTrendingScroll';

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 // mui
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,8 +10,9 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Menu, MenuItem } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 // component
 import MoviePosterImg from './MoviePosterImg';
