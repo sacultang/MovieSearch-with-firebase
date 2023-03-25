@@ -114,7 +114,7 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
         {moviePath.map((list) => (
           <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
             <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton>
+              <ListItemButton aria-label="MOVIE 링크">
                 <ListItemText primary={list.text} />
               </ListItemButton>
             </NavLink>
@@ -137,7 +137,7 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
         {tvPath.map((list) => (
           <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
             <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton>
+              <ListItemButton aria-label="TV 링크">
                 <ListItemText primary={list.text} />
               </ListItemButton>
             </NavLink>
@@ -165,7 +165,7 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
               onClick={handlMenuOpenClose}
             >
               <NavLink to={`${list.path}`} style={buttonHandler}>
-                <ListItemButton>
+                <ListItemButton aria-label="즐겨 찾기">
                   <ListItemText primary={list.text} />
                 </ListItemButton>
               </NavLink>
@@ -179,10 +179,11 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
                   style={buttonHandler}
                   onClick={handlMenuOpenClose}
                 >
-                  <ListItemButton sx={{ flex: 3 }}>
+                  <ListItemButton sx={{ flex: 3 }} aria-label="목록 이름">
                     <ListItemText primary={decodeURIComponent(list.id)} />
                   </ListItemButton>
                   <ListItemButton
+                    aria-label="delete-button"
                     sx={{ flex: 1 }}
                     onClick={(e) => handleDeleteMyList(e, list.id)}
                   >
