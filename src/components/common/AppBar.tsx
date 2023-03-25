@@ -1,20 +1,22 @@
-import { useCallback } from 'react';
+import { useCallback, lazy, Suspense } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setBarOpen } from '../../store/barOpenCloseSlice';
+import { Outlet } from 'react-router-dom';
+import MuiAppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import { Outlet } from 'react-router-dom';
-import MuiAppBar from '@mui/material/AppBar';
-import DrawerMenu from './DrawerMenu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import RegisterGroup from '../RegisterGroup';
-import { useSelector, useDispatch } from 'react-redux';
-import { setBarOpen } from '../../store/barOpenCloseSlice';
-import { theme } from '../../theme';
-import { RootState } from '../../store/store';
 import styled from '@emotion/styled';
 import { Theme } from '@mui/material/styles';
+import { theme } from '../../theme';
+import Loader from './Loader';
+
+const DrawerMenu = lazy(() => import('./DrawerMenu'));
+const RegisterGroup = lazy(() => import('../RegisterGroup'));
 export default function PermanentDrawerLeft() {
   const dispatch = useDispatch();
   const barOpen = useSelector((state: RootState) => state.barOpen.barOpen);
@@ -22,24 +24,8 @@ export default function PermanentDrawerLeft() {
     dispatch(setBarOpen(!barOpen));
   }, [barOpen, dispatch]);
 
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }: { theme: Theme; open: boolean }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - 200px)`,
-      marginLeft: `200px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar
@@ -64,6 +50,7 @@ export default function PermanentDrawerLeft() {
             <RegisterGroup />
           </Toolbar>
         </AppBar>
+
         <DrawerMenu barOpen={barOpen} />
 
         <Container
@@ -95,6 +82,22 @@ export default function PermanentDrawerLeft() {
           <Outlet />
         </Container>
       </Box>
-    </>
+    </Suspense>
   );
 }
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }: { theme: Theme; open: boolean }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - 200px)`,
+    marginLeft: `200px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import styled from '@emotion/styled';
@@ -14,30 +15,13 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
-import SearchInput from '../../pages/home/SearchInput';
-import {
-  drawerWidth,
-  moviePath,
-  tvPath,
-  myFavoritePage,
-} from './DrawerMenuList';
+import Loader from './Loader';
+import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
 import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { setBarOpen } from '../../store/barOpenCloseSlice';
-
-type NavStyleType = {
-  isActive: boolean;
-};
-const buttonHandler = ({ isActive }: NavStyleType) => {
-  return {
-    width: '100%',
-    backgroundColor: isActive ? '#f3f3f3' : '',
-    borderLeft: isActive ? '5px solid var(--yellow-text-color)' : '',
-    color: '#000 ',
-    display: 'flex',
-  };
-};
+const SearchInput = lazy(() => import('../../pages/home/SearchInput'));
 
 interface DrawerMenuProp {
   barOpen: boolean;
@@ -68,10 +52,10 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
   return (
     <Drawer
       sx={{
-        width: drawerWidth,
+        width: 200,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: drawerWidth,
+          width: 200,
           boxSizing: 'border-box',
         },
         display: {
@@ -109,7 +93,9 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
       <Divider />
       <List>
         <ListItem>
-          <SearchInput border="drawer" />
+          <Suspense fallback={<Loader />}>
+            <SearchInput border="drawer" />
+          </Suspense>
         </ListItem>
       </List>
       <Divider />
@@ -225,3 +211,15 @@ export const LogoDiv = styled.div`
     visibility: hidden;
   }
 `;
+type NavStyleType = {
+  isActive: boolean;
+};
+const buttonHandler = ({ isActive }: NavStyleType) => {
+  return {
+    width: '100%',
+    backgroundColor: isActive ? '#f3f3f3' : '',
+    borderLeft: isActive ? '5px solid var(--yellow-text-color)' : '',
+    color: '#000 ',
+    display: 'flex',
+  };
+};

@@ -1,10 +1,8 @@
 import { lazy, Suspense } from 'react';
 
-import Footer from '../../../components/common/Footer';
-import ScrollToTop from '../../../components/common/ScrollToTop';
 import Loader from '../../../components/common/Loader';
-
 import styled from '@emotion/styled';
+
 const AppBar = lazy(() => import('../../../components/common/AppBar'));
 const ToastUi = lazy(() => import('../../../components/common/ToastUi'));
 const CreateListModal = lazy(
@@ -13,13 +11,17 @@ const CreateListModal = lazy(
 const LoginAlertModal = lazy(
   () => import('../../../components/loginAlertModal/LoginAlertModal')
 );
+const Footer = lazy(() => import('../../../components/common/Footer'));
+const ScrollToTop = lazy(
+  () => import('../../../components/common/ScrollToTop')
+);
+
 const Layout = () => {
   return (
     <Suspense fallback={<Loader />}>
       <ToastUi />
       <CreateListModal />
       <LoginAlertModal />
-
       <Wrapper>
         <AppBar />
       </Wrapper>

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, lazy, Suspense } from 'react';
 
 // mui
 import styled from '@emotion/styled';
@@ -15,13 +15,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 // component
-import MoviePosterImg from './MoviePosterImg';
+
 import { IMovieResult } from '../../types/movieType';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
-
+import CardSkeleton from '../../components/skeleton/CardSkeleton';
+const MoviePosterImg = lazy(() => import('./MoviePosterImg'));
 interface MovieCardProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
@@ -44,14 +45,14 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   return (
     <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
       {/* IMG */}
-
-      <MoviePosterImg
-        movie={movie}
-        handleClick={handleClick}
-        scrollcard={scrollcard}
-        cardWidth={cardWidth}
-      />
-
+      <Suspense fallback={<CardSkeleton cardWidth={cardWidth} />}>
+        <MoviePosterImg
+          movie={movie}
+          handleClick={handleClick}
+          scrollcard={scrollcard}
+          cardWidth={cardWidth}
+        />
+      </Suspense>
       {/* 좋아요 버튼 */}
       <Box
         sx={{

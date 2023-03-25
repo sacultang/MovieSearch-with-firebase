@@ -2,13 +2,15 @@ import React, { useState, useCallback, MouseEvent } from 'react';
 import styled from '@emotion/styled';
 import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
-import { Menu, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import '../firebase';
 import { getAuth, signOut } from 'firebase/auth';
 import { RootState } from '../store/store';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import '../firebase';
+
 const RegisterGroup = () => {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
@@ -25,6 +27,7 @@ const RegisterGroup = () => {
     await signOut(getAuth());
     setAnchorEl(null);
   }, []);
+
   return (
     <RegisterGroupDiv>
       {user?.uid && (

@@ -1,12 +1,12 @@
 import React from 'react';
 import { IMovieResult } from '../../types/movieType';
-import CardSkeleton from '../../components/skeleton/CardSkeleton';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
 import { IMAGE_PATH } from '../../constants/imagePath';
 import { useIsImgLoaded } from '../hooks/useIsImageLoad';
+
 interface MoviePosterImgProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
@@ -31,7 +31,6 @@ const MoviePosterImg = ({
         position: 'relative',
       }}
     >
-      {!loaded && <CardSkeleton cardWidth={cardWidth} />}
       <img
         src={`${cardWidth > 200 ? IMAGE_PATH.w400 : IMAGE_PATH.w200}/${
           movie?.poster_path

@@ -1,4 +1,3 @@
-export const drawerWidth = 200;
 export const moviePath = [
   { text: '인기', path: '/movie/popular' },
   { text: '현재 상영중', path: '/movie/now_playing' },

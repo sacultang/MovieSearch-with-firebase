@@ -2,32 +2,30 @@ import React from 'react';
 import '../firebase';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Layout from '../pages/home/common/Layout';
-import Home from '../pages/home/Home';
-import MoviePage from '../pages/movies/MoviePage';
-import TvPage from '../pages/tv/TvPage';
-import Join from '../pages/register/Join';
-import Login from '../pages/register/Login';
-import Loader from '../components/common/Loader';
-import SearchMain from '../pages/search/SearchMain';
-import SearchResults from '../pages/search/SearchResults';
-import DetailsPage from '../pages/details/DetailsPage';
 import { RootState } from '../store/store';
 
+import useFirebaseRef from './hooks/useFirebaseRef';
+import useFirebaseAuthStateChanged from './hooks/useFirebaseAuthStateChanged';
+
+import MoviePage from '../pages/movies/MoviePage';
+import TvPage from '../pages/tv/TvPage';
+import SearchMain from '../pages/search/SearchMain';
+import SearchResults from '../pages/search/SearchMain';
+import DetailsPage from '../pages/details/DetailsPage';
+import Join from '../pages/register/Join';
+import Login from '../pages/register/Login';
+import Layout from '../pages/home/common/Layout';
+import Home from '../pages/home/Home';
 import Favorite from '../pages/favorite/Favorite';
 import PageNotFound from '../pages/Error/PageNotFound';
 import ListPage from '../pages/favorite/ListPage';
 import AuthenticationRoute from '../router/AuthenticationRoute';
-import useFirebaseRef from './hooks/useFirebaseRef';
-import useFirebaseAuthStateChanged from './hooks/useFirebaseAuthStateChanged';
+
 const Router = () => {
   const user = useSelector((state: RootState) => state.user.user);
-  const loading = useSelector((state: RootState) => state.user.loading);
   useFirebaseRef(user);
   useFirebaseAuthStateChanged();
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <Routes>
       <Route element={<Layout />}>

@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserType } from '../types/userType';
 interface IState {
   user: UserType;
-  loading: boolean;
 }
 
 const initialState: IState = {
@@ -10,7 +9,6 @@ const initialState: IState = {
     uid: '',
     email: '',
   },
-  loading: true,
 };
 
 export const userSlice = createSlice({
@@ -20,12 +18,10 @@ export const userSlice = createSlice({
     setUserAction: (state: IState, action: PayloadAction<UserType>) => {
       state.user.uid = action.payload.uid;
       state.user.email = action.payload.email;
-      state.loading = false;
     },
     clearUserAction: (state: IState) => {
       state.user.uid = null;
       state.user.email = null;
-      state.loading = false;
     },
   },
 });
