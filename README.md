@@ -98,11 +98,12 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 ### ☑️ LazyLoadImage
 
-- `IntersectionObserver` 를 사용하여 이미지를 화면에 보이는 부분만 렌더링 하여 초기 렌더링 성능 수치를 올렸습니다.
+- `IntersectionObserver` 를 사용하여 이미지를 화면에 보이는 부분만 렌더링 하여 초기 렌더링 성능 수치 약 20%정도 상승하였습니다.
 
   [참고 파일\_hooks/useIsImageLoad](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/hooks/useIsImageLoad.tsx)
   ![스크린샷 2022-09-01 오후 4 42 44](https://user-images.githubusercontent.com/85508157/227698822-04b6955a-1918-42f7-a8dc-59a8c5e6a01f.png)
-  ![스크린샷 2023-03-21 오후 3 33 05](https://user-images.githubusercontent.com/85508157/227698775-e85fde77-e857-4ed6-b798-2aefb6038eca.png)
+  ![스크린샷 2023-03-26 오전 12 35 04](https://user-images.githubusercontent.com/85508157/227733244-3c423364-fa34-4bbe-ba6f-7495daa774ea.png)
+
 
 - Image resize
   화면 사이즈 조절시 포스터이미지의 사이즈를 조절하여 2:3비율에 맞게 출력하도록 하였습니다.
