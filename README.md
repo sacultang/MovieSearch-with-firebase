@@ -52,7 +52,9 @@ $ yarn start
 
 ## 환경변수 설정
 
-To use TMDB API and firebase, create `.env`
+TMDB API KEY와 FIREBASE KEY를 `.env`파일을 생성하여 작성해주세요.
+
+[👉 firebase 키 발급 방법 ](https://sacultang.github.io/2022/08/01/React-firebase/)
 
 ```env
 // your key
