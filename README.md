@@ -110,6 +110,62 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
   [참고 파일\_hooks/useGetCardWidth](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/movies/hooks/useGetCardWidth.tsx)  
   [참고 파일\_movies/MoviePosterImg](https://github.com/sacultang/MovieSearch-with-firebase/blob/bfb6190a1c0602d1e2a6286df936d2e01406a604/src/pages/movies/MoviePosterImg.tsx)
 
+### ☑️ Axios Interceptor를 이용한 API 캐시
+
+- axis interceptor를 이용해 동일한 resquest와 response에 대한 API 캐시를 구현하였습니다.  
+  [참고 파일\_TMDB/baseURL](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/api/TMDB/baseUrl.ts)
+
+```js
+const cache: { [key: string]: any } = {};
+
+TMDBServer.interceptors.request.use(
+  async (request) => {
+    if (request.url) {
+      if (cache[request.url]) {
+        return Promise.resolve(cache[request.url]);
+      }
+      cache[request.url] = request;
+      return Promise.resolve(request);
+    }
+    return Promise.resolve(request);
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+```
+
+- request에서의 문제점 인식 `cache key`로 `request.url`을 사용할 경우 `page param`이 변경 되어도 요청 URL이 변경 되지 않아 계속 1페이지의 데이터만 불러와지는 이슈.
+- 이를 해결하기 위해서 `params`를 문자열로 변환하여 `request.url`과 함께 `cache key`로 사용하였습니다.
+
+```js
+TMDBServer.interceptors.request.use(
+  async (request) => {
+    if (request.url) {
+      const queryString = Object.entries(request.params)
+        .map(
+          ([key, value]) =>
+            (typeof value === 'string' ||
+              typeof value === 'number' ||
+              typeof value === 'boolean') &&
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join('&');
+      const cacheKey = `${request.url}?${queryString}`;
+      if (cache[cacheKey]) {
+        return Promise.resolve(cache[cacheKey]);
+      }
+      cache[cacheKey] = request;
+      return Promise.resolve(request);
+    }
+    return Promise.resolve(request);
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+```
+
 ### ☑️ Route
 
 - react-router-dom의 중첩라우팅 기능을 통해  
@@ -124,9 +180,7 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 처음 접하는 기술이다 보니 공식 문서를 자주 참고해야 했고, 이에 따른 어려움도 있었습니다. 하지만 이를 해결하면서 새로운 기술을 배우는 재미와 성취감을 느낄 수 있었습니다.
 
-또한 애플리케이션의 성능을 끌어 올리기 위해서 API 캐싱전략과 Image 로딩에 대한 구현은 앞으로 실무에서도
-
-웹성능을 향상시키는데 있어 많은 도움을 줄 수 있는 계기가 된것 같습니다.
+또한 애플리케이션의 성능을 끌어 올리기 위해서 API 캐싱전략과 Image 로딩에 대한 구현은 앞으로 실무에서도 웹성능을 향상시키는데 있어 많은 도움을 줄 수 있는 계기가 된것 같습니다.
 
 리팩토링 과정에서는 코드 가독성에 대한 고민이 필요하다는 것을 느꼈습니다. 직접 작성한 코드임에도 시간이 지난 후에는 코드가 어떤 기능을 하는지 파악하기 어려웠던 적이 있었습니다. 따라서 더욱 깔끔하고 명확한 코드를 작성하는 습관을 기를 필요성을 느꼈습니다.
 
