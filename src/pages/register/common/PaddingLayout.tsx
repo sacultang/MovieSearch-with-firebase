@@ -6,11 +6,7 @@ interface PaddingLayoutProps {
 }
 const PaddingLayout = ({ children }: PaddingLayoutProps) => {
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{ minHeight: '80vh', display: 'flex' }}
-    >
+    <Container component="main" maxWidth="xs" sx={{ padding: '100px 0;' }}>
       <Box
         sx={{
           display: 'flex',

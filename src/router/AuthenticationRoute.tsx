@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 interface AuthRouteProps {
   auth: boolean;
-  uid: string | null;
+  uid?: string | null;
 }
 
 const AuthenticationRoute = ({ auth, uid }: AuthRouteProps) => {
