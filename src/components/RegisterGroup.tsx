@@ -1,4 +1,4 @@
-import React, { useState, useCallback, MouseEvent } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import styled from '@emotion/styled';
 import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
@@ -17,16 +17,16 @@ const RegisterGroup = () => {
   >(null);
   const open = Boolean(anchorEl);
   const user = useSelector((state: RootState) => state.user.user);
-  const handleOpenMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+  const handleOpenMenu = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
-  }, []);
-  const handleCloseMenu = useCallback(() => {
+  };
+  const handleCloseMenu = () => {
     setAnchorEl(null);
-  }, []);
-  const handleLogOut = useCallback(async () => {
+  };
+  const handleLogOut = async () => {
     await signOut(getAuth());
     setAnchorEl(null);
-  }, []);
+  };
 
   return (
     <RegisterGroupDiv>
@@ -80,10 +80,8 @@ const RegisterGroup = () => {
           onClose={handleCloseMenu}
           anchorEl={anchorEl}
         >
-          <MenuItem onClick={handleCloseMenu}>
+          <MenuItem component={Link} to="/login" onClick={handleCloseMenu}>
             <Typography
-              component={Link}
-              to="/login"
               gutterBottom
               variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
@@ -91,10 +89,8 @@ const RegisterGroup = () => {
               &nbsp;로그인
             </Typography>
           </MenuItem>
-          <MenuItem onClick={handleCloseMenu}>
+          <MenuItem component={Link} to="/join" onClick={handleCloseMenu}>
             <Typography
-              component={Link}
-              to="/join"
               gutterBottom
               variant="body1"
               sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
