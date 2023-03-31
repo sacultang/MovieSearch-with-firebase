@@ -1,4 +1,4 @@
-import { useCallback, lazy, Suspense } from 'react';
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { setBarOpen } from '../../store/barOpenCloseSlice';
@@ -13,10 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import styled from '@emotion/styled';
 import { Theme } from '@mui/material/styles';
 import { theme } from '../../theme';
-import Loader from './Loader';
+import DrawerMenu from './DrawerMenu';
+import RegisterGroup from '../RegisterGroup';
 
-const DrawerMenu = lazy(() => import('./DrawerMenu'));
-const RegisterGroup = lazy(() => import('../RegisterGroup'));
 export default function PermanentDrawerLeft() {
   const dispatch = useDispatch();
   const barOpen = useSelector((state: RootState) => state.barOpen.barOpen);
@@ -25,64 +24,62 @@ export default function PermanentDrawerLeft() {
   }, [barOpen, dispatch]);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar
-          sx={{
-            zIndex: 1251,
-            backgroundColor: 'primary.main',
-          }}
-          position="fixed"
-          open={barOpen}
-          theme={theme}
-        >
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <RegisterGroup />
-          </Toolbar>
-        </AppBar>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        sx={{
+          zIndex: 1251,
+          backgroundColor: 'primary.main',
+        }}
+        position="fixed"
+        open={barOpen}
+        theme={theme}
+      >
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <RegisterGroup />
+        </Toolbar>
+      </AppBar>
 
-        <DrawerMenu barOpen={barOpen} />
+      <DrawerMenu barOpen={barOpen} />
 
-        <Container
-          component="main"
-          sx={{
-            flex: 1,
-            bgcolor:
-              `${theme.palette.mode}` === 'dark'
-                ? 'primary.main'
-                : 'primary.light',
-            p: 2,
-            pt: {
-              xs: 9,
-              sm: 9,
-              md: 9,
-              lg: 9,
-              xl: 9,
-            },
-            boxSizing: 'border-box',
-            maxWidth: {
-              xs: barOpen ? 'calc(100% - 200px)' : 'xs',
-              sm: barOpen ? 'calc(100% - 200px)' : 'sm',
-              md: 'md',
-              lg: 'lg',
-              xl: 'calc(100% - 200px)',
-            },
-          }}
-        >
-          <Outlet />
-        </Container>
-      </Box>
-    </Suspense>
+      <Container
+        component="main"
+        sx={{
+          flex: 1,
+          bgcolor:
+            `${theme.palette.mode}` === 'dark'
+              ? 'primary.main'
+              : 'primary.light',
+          p: 2,
+          pt: {
+            xs: 9,
+            sm: 9,
+            md: 9,
+            lg: 9,
+            xl: 9,
+          },
+          boxSizing: 'border-box',
+          maxWidth: {
+            xs: barOpen ? 'calc(100% - 200px)' : 'xs',
+            sm: barOpen ? 'calc(100% - 200px)' : 'sm',
+            md: 'md',
+            lg: 'lg',
+            xl: 'calc(100% - 200px)',
+          },
+        }}
+      >
+        <Outlet />
+      </Container>
+    </Box>
   );
 }
 const AppBar = styled(MuiAppBar, {
