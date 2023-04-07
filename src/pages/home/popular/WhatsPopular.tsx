@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import Tabs from '@mui/material/Tabs/Tabs';
-import Tab from '@mui/material/Tab/Tab';
-import Typography from '@mui/material/Typography/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography/';
 import styled from '@emotion/styled';
 import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 import TabLayout from '../common/TabLayout';
