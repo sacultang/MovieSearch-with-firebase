@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
 import SearchInput from './SearchInput';
 import { IMAGE_PATH } from '../../constants/imagePath';
-import Box from '@mui/material/Box/Box';
-import Typography from '@mui/material/Typography/Typography';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 const getRandom = () => {
   const num = Math.floor(Math.random() * 20);
   return num;
