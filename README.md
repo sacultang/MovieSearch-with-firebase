@@ -22,7 +22,7 @@
 
 ## 데모 바로가기
 
-<a href="https://fir-chat-app-b793f.web.app/">데모 바로가기</a>
+<a href="https://fir-chat-app-b793f.web.app/" target="_blank">데모 바로가기</a>
 
 <img width="1414" alt="스크린샷 2023-03-21 오전 11 31 34" src="https://user-images.githubusercontent.com/85508157/227699235-d328adc2-d0d4-45fd-ac37-ac3d35103b83.png">
 
@@ -103,7 +103,6 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
   [참고 파일\_hooks/useIsImageLoad](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/hooks/useIsImageLoad.tsx)
   ![스크린샷 2022-09-01 오후 4 42 44](https://user-images.githubusercontent.com/85508157/227698822-04b6955a-1918-42f7-a8dc-59a8c5e6a01f.png)
   ![스크린샷 2023-03-26 오전 12 35 04](https://user-images.githubusercontent.com/85508157/227733244-3c423364-fa34-4bbe-ba6f-7495daa774ea.png)
-
 
 - Image resize
   화면 사이즈 조절시 포스터이미지의 사이즈를 조절하여 2:3비율에 맞게 출력하도록 하였습니다.
