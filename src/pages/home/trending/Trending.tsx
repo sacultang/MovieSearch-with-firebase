@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import Tabs from '@mui/material/Tabs/Tabs';
 import Tab from '@mui/material/Tab/Tab';
 import Typography from '@mui/material/Typography';
-import TodayTrendingScroll from './TodayTrendingScroll';
-import WeekTrendingScroll from './WeekTrendingScroll';
 import TabLayout from '../common/TabLayout';
 import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 import styled from '@emotion/styled';
+import useTrendingFetch from './hooks/useTrendingFetch';
+import TrendingScroll from './TrendingScroll';
 interface ITabPannel {
   children?: React.ReactElement;
   value: number;
@@ -25,30 +25,24 @@ const TitleTypo = styled(Typography)`
 `;
 
 const Trending = () => {
-  const [value, setValue] = useState<number>(0);
+  const { value, trendingDatas, handleChangeTap } = useTrendingFetch();
 
-  const handleChange = useCallback(
-    async (e: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
-    },
-    []
-  );
   return (
     <TabLayout>
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         Trending
       </TitleTypo>
 
-      <Tabs value={value} onChange={handleChange}>
-        <Tab label="오늘"></Tab>
-        <Tab label="이번주"></Tab>
+      <Tabs value={value} onChange={handleChangeTap}>
+        <Tab label="오늘" id="day"></Tab>
+        <Tab label="이번주" id="week"></Tab>
       </Tabs>
       <ScrollWrapBox>
         <TabPannel value={value} index={0}>
-          <TodayTrendingScroll />
+          <TrendingScroll trendingDatas={trendingDatas} />
         </TabPannel>
         <TabPannel value={value} index={1}>
-          <WeekTrendingScroll />
+          <TrendingScroll trendingDatas={trendingDatas} />
         </TabPannel>
       </ScrollWrapBox>
     </TabLayout>
