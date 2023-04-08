@@ -16,7 +16,7 @@ const useMovieFetch = () => {
     setMovieAndTvDatas(newResults);
   }, []);
 
-  const handleChange = useCallback(
+  const handleChangeTap = useCallback(
     async (e: React.SyntheticEvent, newValue: number) => {
       const mediaType = e.currentTarget.id;
       setValue(newValue);
@@ -29,7 +29,7 @@ const useMovieFetch = () => {
     popularMovieAndTvFetch('movie');
   }, [popularMovieAndTvFetch]);
 
-  return { value, handleChange, movieAndTvDatas };
+  return { value, handleChangeTap, movieAndTvDatas };
 };
 
 export default useMovieFetch;

@@ -18,14 +18,14 @@ const TabPannel = ({ children, value, index }: ITabPannel) => {
 };
 
 const WhatsPopular = () => {
-  const { value, handleChange, movieAndTvDatas } = useMovieFetch();
+  const { value, handleChangeTap, movieAndTvDatas } = useMovieFetch();
 
   return (
     <TabLayout>
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         WhatsPopular
       </TitleTypo>
-      <Tabs value={value} onChange={handleChange}>
+      <Tabs value={value} onChange={handleChangeTap}>
         <Tab label="영화" id="movie" />
         <Tab label="TV" id="tv" />
       </Tabs>
