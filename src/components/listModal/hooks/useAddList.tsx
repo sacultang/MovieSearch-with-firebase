@@ -1,6 +1,6 @@
 import { collection, setDoc, getDoc, doc } from 'firebase/firestore';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FIREBASE_REF } from '../../../constants/firebaseRef';
 import { db } from '../../../firebase';
@@ -75,9 +75,7 @@ const useAddList = (
       setOpenAddList(false);
     }
   };
-  useEffect(() => {
-    console.log(listName);
-  }, [listName]);
+
   return {
     handleAddList,
     handleListNameChange,
