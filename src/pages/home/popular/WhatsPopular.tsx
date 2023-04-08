@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography/';
 import styled from '@emotion/styled';
 import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 import TabLayout from '../common/TabLayout';
-import MovieScroll from './MovieScroll';
-import TvScroll from './TvScroll';
+import ScrollComponent from './ScrollComponent';
+import useMovieFetch from './hooks/useMovieFetch';
 
 interface ITabPannel {
   children?: React.ReactElement;
@@ -18,22 +18,7 @@ const TabPannel = ({ children, value, index }: ITabPannel) => {
 };
 
 const WhatsPopular = () => {
-  const [value, setValue] = useState(0);
-
-  const handleChange = useCallback(
-    async (e: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
-    },
-    []
-  );
-
-  const TitleTypo = styled(Typography)`
-    &::before {
-      content: '';
-      border-left: 4px solid var(--yellow-text-color);
-      margin-right: 5px;
-    }
-  `;
+  const { value, handleChange, movieDatas } = useMovieFetch();
 
   return (
     <TabLayout>
@@ -41,15 +26,15 @@ const WhatsPopular = () => {
         WhatsPopular
       </TitleTypo>
       <Tabs value={value} onChange={handleChange}>
-        <Tab label="영화"></Tab>
-        <Tab label="TV"></Tab>
+        <Tab label="영화" id="movie" />
+        <Tab label="TV" id="tv" />
       </Tabs>
       <ScrollWrapBox>
         <TabPannel value={value} index={0}>
-          <MovieScroll />
+          <ScrollComponent movieDatas={movieDatas} />
         </TabPannel>
         <TabPannel value={value} index={1}>
-          <TvScroll />
+          <ScrollComponent movieDatas={movieDatas} />
         </TabPannel>
       </ScrollWrapBox>
     </TabLayout>
@@ -57,3 +42,11 @@ const WhatsPopular = () => {
 };
 
 export default WhatsPopular;
+
+const TitleTypo = styled(Typography)`
+  &::before {
+    content: '';
+    border-left: 4px solid var(--yellow-text-color);
+    margin-right: 5px;
+  }
+`;
