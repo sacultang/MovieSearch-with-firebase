@@ -5,10 +5,10 @@ import { IMovieResult } from '../../../types/movieType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
 import ScrollGridContainer from '../components/ScrollGridContainer';
 import useHandleNavigate from '../../hooks/useHandleNavigate';
-interface ScrollComponentProp {
+interface PopularScrollProp {
   movieAndTvDatas: IMovieResult[];
 }
-const ScrollComponent = ({ movieAndTvDatas }: ScrollComponentProp) => {
+const PopularScroll = ({ movieAndTvDatas }: PopularScrollProp) => {
   const handleClick = useHandleNavigate();
 
   return (
@@ -27,4 +27,4 @@ const ScrollComponent = ({ movieAndTvDatas }: ScrollComponentProp) => {
   );
 };
 
-export default memo(ScrollComponent);
+export default memo(PopularScroll);

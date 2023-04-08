@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography/';
 import styled from '@emotion/styled';
 import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 import TabLayout from '../common/TabLayout';
-import ScrollComponent from './ScrollComponent';
+import PopularScroll from './PopularScroll';
 import useMovieFetch from './hooks/useMovieFetch';
 
 interface ITabPannel {
@@ -31,10 +31,10 @@ const WhatsPopular = () => {
       </Tabs>
       <ScrollWrapBox>
         <TabPannel value={value} index={0}>
-          <ScrollComponent movieAndTvDatas={movieAndTvDatas} />
+          <PopularScroll movieAndTvDatas={movieAndTvDatas} />
         </TabPannel>
         <TabPannel value={value} index={1}>
-          <ScrollComponent movieAndTvDatas={movieAndTvDatas} />
+          <PopularScroll movieAndTvDatas={movieAndTvDatas} />
         </TabPannel>
       </ScrollWrapBox>
     </TabLayout>
