@@ -90,7 +90,6 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
   }, []);
   return {
     handleFavorite,
-    user,
     isFavoriteChecked,
     handleOpenAddList,
     anchorEl,

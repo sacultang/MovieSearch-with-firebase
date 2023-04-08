@@ -15,7 +15,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 // component
-
 import { IMovieResult } from '../../types/movieType';
 import { Similrar } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
@@ -23,6 +22,7 @@ import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
 import CardSkeleton from '../../components/skeleton/CardSkeleton';
 const MoviePosterImg = lazy(() => import('./MoviePosterImg'));
+
 interface MovieCardProps {
   movie: IMovieResult | Similrar;
   handleClick: HandleClickNaviType;
@@ -37,7 +37,6 @@ const getMovieTitle = (movie: IMovieResult | Similrar) => {
 const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   const {
     handleFavorite,
-    user,
     isFavoriteChecked,
     handleOpenAddList,
     anchorEl,
@@ -49,6 +48,18 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   const sliceTitle = useMemo(() => {
     return getMovieTitle(movie);
   }, [movie]);
+
+  const useFavoriteIcon = useMemo(() => {
+    return isFavoriteChecked ? (
+      <FavoriteIcon
+        id="likeBtn"
+        sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+      />
+    ) : (
+      <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
+    );
+  }, [isFavoriteChecked]);
+
   return (
     <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
       {/* IMG */}
@@ -80,17 +91,7 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
           }}
           onClick={(e) => handleFavorite(e, movie)}
         >
-          {isFavoriteChecked && user.uid ? (
-            <FavoriteIcon
-              id="likeBtn"
-              sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
-            />
-          ) : (
-            <FavoriteBorder
-              id="likeBtn"
-              sx={{ width: '1rem', height: '1rem' }}
-            />
-          )}
+          {useFavoriteIcon}
         </IconButton>
 
         {/* 리스트 만들기 버튼 */}
