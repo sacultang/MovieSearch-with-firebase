@@ -6,15 +6,15 @@ import GridItemProvider from '../../../components/common/GridItemProvider';
 import ScrollGridContainer from '../components/ScrollGridContainer';
 import useHandleNavigate from '../../hooks/useHandleNavigate';
 interface ScrollComponentProp {
-  movieDatas: IMovieResult[];
+  movieAndTvDatas: IMovieResult[];
 }
-const ScrollComponent = ({ movieDatas }: ScrollComponentProp) => {
+const ScrollComponent = ({ movieAndTvDatas }: ScrollComponentProp) => {
   const handleClick = useHandleNavigate();
 
   return (
     <ScrollGridContainer>
-      {movieDatas &&
-        movieDatas.map((movie) => (
+      {movieAndTvDatas &&
+        movieAndTvDatas.map((movie) => (
           <GridItemProvider key={movie.id}>
             <MovieCard
               movie={movie}

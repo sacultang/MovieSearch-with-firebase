@@ -18,7 +18,7 @@ const TabPannel = ({ children, value, index }: ITabPannel) => {
 };
 
 const WhatsPopular = () => {
-  const { value, handleChange, movieDatas } = useMovieFetch();
+  const { value, handleChange, movieAndTvDatas } = useMovieFetch();
 
   return (
     <TabLayout>
@@ -31,10 +31,10 @@ const WhatsPopular = () => {
       </Tabs>
       <ScrollWrapBox>
         <TabPannel value={value} index={0}>
-          <ScrollComponent movieDatas={movieDatas} />
+          <ScrollComponent movieAndTvDatas={movieAndTvDatas} />
         </TabPannel>
         <TabPannel value={value} index={1}>
-          <ScrollComponent movieDatas={movieDatas} />
+          <ScrollComponent movieAndTvDatas={movieAndTvDatas} />
         </TabPannel>
       </ScrollWrapBox>
     </TabLayout>

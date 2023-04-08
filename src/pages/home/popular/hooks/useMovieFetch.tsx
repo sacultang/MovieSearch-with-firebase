@@ -5,31 +5,31 @@ import { IMovieResult } from '../../../../types/movieType';
 
 const useMovieFetch = () => {
   const [value, setValue] = useState(0);
-  const [movieDatas, setMovieDatas] = useState<IMovieResult[]>([]);
+  const [movieAndTvDatas, setMovieAndTvDatas] = useState<IMovieResult[]>([]);
 
-  const popularMovieFetch = useCallback(async (media_type: string) => {
+  const popularMovieAndTvFetch = useCallback(async (media_type: string) => {
     const res = await requestData(`${media_type}/popular`, METHOD_CONS.get);
     const { results }: { results: IMovieResult[] } = res.data;
     const newResults = results.map((item) => {
       return { ...item, media_type };
     });
-    setMovieDatas(newResults);
+    setMovieAndTvDatas(newResults);
   }, []);
 
   const handleChange = useCallback(
     async (e: React.SyntheticEvent, newValue: number) => {
       const mediaType = e.currentTarget.id;
       setValue(newValue);
-      popularMovieFetch(mediaType);
+      popularMovieAndTvFetch(mediaType);
     },
-    [popularMovieFetch]
+    [popularMovieAndTvFetch]
   );
 
   useEffect(() => {
-    popularMovieFetch('movie');
-  }, [popularMovieFetch]);
+    popularMovieAndTvFetch('movie');
+  }, [popularMovieAndTvFetch]);
 
-  return { value, handleChange, movieDatas };
+  return { value, handleChange, movieAndTvDatas };
 };
 
 export default useMovieFetch;
