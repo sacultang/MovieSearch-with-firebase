@@ -1,6 +1,6 @@
 import { collection, setDoc, getDoc, doc } from 'firebase/firestore';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FIREBASE_REF } from '../../../constants/firebaseRef';
 import { db } from '../../../firebase';
@@ -36,7 +36,8 @@ const useAddList = (
 
   const handleAddList = async () => {
     if (!user?.uid) return;
-    if (!selectList) return alert('목록을 생성 또는 선택 해주세요');
+    if (!selectList && !listName)
+      return alert('목록을 생성 또는 선택 해주세요');
     if (!listName && openAddList) return alert('목록 이름을 써주세요');
 
     const docRef = doc(db, FIREBASE_REF.USERS, user.email as string);
@@ -74,7 +75,9 @@ const useAddList = (
       setOpenAddList(false);
     }
   };
-
+  useEffect(() => {
+    console.log(listName);
+  }, [listName]);
   return {
     handleAddList,
     handleListNameChange,
