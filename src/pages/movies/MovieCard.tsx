@@ -48,17 +48,18 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   const sliceTitle = useMemo(() => {
     return getMovieTitle(movie);
   }, [movie]);
-
-  const useFavoriteIcon = useMemo(() => {
-    return isFavoriteChecked ? (
-      <FavoriteIcon
-        id="likeBtn"
-        sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
-      />
-    ) : (
-      <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
-    );
-  }, [isFavoriteChecked]);
+  const useFavoriteIcon = useMemo(
+    () =>
+      isFavoriteChecked ? (
+        <FavoriteIcon
+          id="likeBtn"
+          sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+        />
+      ) : (
+        <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
+      ),
+    [isFavoriteChecked]
+  );
 
   return (
     <CardItem scrollcard={scrollcard} ref={cardBoxRef}>

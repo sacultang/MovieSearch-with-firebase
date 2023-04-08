@@ -1,6 +1,6 @@
 import { collection, setDoc, getDoc, doc } from 'firebase/firestore';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FIREBASE_REF } from '../../../constants/firebaseRef';
 import { db } from '../../../firebase';
@@ -19,20 +19,20 @@ const useAddList = (
   const user = useSelector((state: RootState) => state.user.user);
   const selectMovie = useSelector((state: RootState) => state.listMovie.movie);
   const dispatch = useDispatch();
-  const toastMessage = openAddList
-    ? '목록이 생성되었습니다.'
-    : '목록에 추가되었습니다.';
+
+  const toastMessage = useMemo(
+    () => (openAddList ? '목록이 생성되었습니다.' : '목록에 추가되었습니다.'),
+    [openAddList]
+  );
+
   const handleClose = useCallback(() => {
     dispatch(setListModalAction(false));
     setOpenAddList(false);
   }, [dispatch, setOpenAddList]);
 
-  const handleListNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setListName(e.target.value);
-    },
-    []
-  );
+  const handleListNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setListName(e.target.value);
+  };
 
   const handleAddList = async () => {
     if (!user?.uid) return;
