@@ -1,4 +1,4 @@
-import { memo, lazy, Suspense } from 'react';
+import { useMemo, memo, lazy, Suspense } from 'react';
 
 // mui
 import styled from '@emotion/styled';
@@ -28,7 +28,12 @@ interface MovieCardProps {
   handleClick: HandleClickNaviType;
   scrollcard?: string;
 }
-
+const getMovieTitle = (movie: IMovieResult | Similrar) => {
+  const originalTitle = movie.original_title || movie.original_name || '';
+  return originalTitle.length > 15
+    ? originalTitle.slice(0, 17) + ' ...'
+    : originalTitle;
+};
 const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   const {
     handleFavorite,
@@ -41,7 +46,9 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
   } = useFavorite(movie);
   const open = Boolean(anchorEl);
   const { cardBoxRef, cardWidth } = useGetCardWidth();
-
+  const sliceTitle = useMemo(() => {
+    return getMovieTitle(movie);
+  }, [movie]);
   return (
     <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
       {/* IMG */}
@@ -173,11 +180,7 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
         }}
         onClick={() => handleClick(movie.id, movie.media_type)}
       >
-        {movie?.original_title
-          ? movie?.original_title.length > 15
-            ? movie?.original_title.slice(0, 17) + ' ...'
-            : movie?.original_title
-          : movie?.original_name}
+        {sliceTitle}
       </Typography>
     </CardItem>
   );
