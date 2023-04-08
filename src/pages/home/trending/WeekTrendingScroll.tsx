@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-
 import MovieCard from '../../movies/MovieCard';
-import { useNavigate } from 'react-router-dom';
 import { IMovie } from '../../../types/movieType';
 import { requestData } from '../../../api/TMDB/request';
 import { METHOD_CONS } from '../../../constants/fetchMethod';
-import { HandleClickNaviType } from '../../../types/handleClickNaviType';
 import GridItemProvider from '../../../components/common/GridItemProvider';
 import ScrollGridContainer from '../components/ScrollGridContainer';
+import useHandleNavigate from '../../hooks/useHandleNavigate';
+
 const WeekTrendingScroll = () => {
   const [movieDatas, setMovieDatas] = useState<IMovie>({
     page: 0,
@@ -16,18 +15,17 @@ const WeekTrendingScroll = () => {
     total_results: 0,
   });
 
-  const navigate = useNavigate();
   const trendingWeekFetch = useCallback(async () => {
     const res = await requestData(`trending/all/week`, METHOD_CONS.get);
-
     setMovieDatas(res.data);
   }, []);
+
   useEffect(() => {
     trendingWeekFetch();
   }, [trendingWeekFetch]);
-  const handleClick: HandleClickNaviType = (id, type) => {
-    navigate(`/details/${type}/${id}`, { state: { type, id } });
-  };
+
+  const handleClick = useHandleNavigate();
+
   return (
     <ScrollGridContainer>
       {movieDatas.results &&
