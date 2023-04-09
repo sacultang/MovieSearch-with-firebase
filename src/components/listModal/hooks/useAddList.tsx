@@ -46,7 +46,7 @@ const useAddList = (
       ? doc(myListRef, encodeURIComponent(listName))
       : doc(myListRef, encodeURIComponent(selectList));
     const listDoc = await getDoc(listDocRef);
-    const existingList: IMovieResult[] | SimilarType = listDoc.data()?.list;
+    const existingList: IMovieResult[] | SimilarType[] = listDoc.data()?.list;
 
     try {
       if (!openAddList && checkListMovieId(selectMovie.id, existingList)) {
