@@ -7,14 +7,14 @@ import {
   setToastAction,
 } from '../../../store/toastSlice';
 import { IMovieResult } from '../../../types/movieType';
-import { Similrar } from '../../../types/similarType';
+import { SimilarType } from '../../../types/similarType';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { checkFavoriteMovieId } from '../../../utils/checkFavoriteMovieId';
 import { setListMovieAction } from '../../../store/listMovieSlice';
 import { FIREBASE_REF } from '../../../constants/firebaseRef';
 
-const useFavorite = (movie: IMovieResult | Similrar) => {
+const useFavorite = (movie: IMovieResult | SimilarType) => {
   const [anchorEl, setAnchorEl] = useState<
     Element | ((element: Element) => Element) | null | undefined
   >(null);
@@ -32,7 +32,7 @@ const useFavorite = (movie: IMovieResult | Similrar) => {
   const handleFavorite = useCallback(
     async (
       e: React.MouseEvent<HTMLButtonElement>,
-      movie: IMovieResult | Similrar
+      movie: IMovieResult | SimilarType
     ) => {
       e.preventDefault();
       if (!user?.uid) return dispatch(setLoginAlertAction(true));

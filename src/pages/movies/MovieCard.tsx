@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 // component
 import { IMovieResult } from '../../types/movieType';
-import { Similrar } from '../../types/similarType';
+import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
@@ -24,11 +24,11 @@ import CardSkeleton from '../../components/skeleton/CardSkeleton';
 const MoviePosterImg = lazy(() => import('./MoviePosterImg'));
 
 interface MovieCardProps {
-  movie: IMovieResult | Similrar;
+  movie: IMovieResult | SimilarType;
   handleClick: HandleClickNaviType;
   scrollcard?: string;
 }
-const getMovieTitle = (movie: IMovieResult | Similrar) => {
+const getMovieTitle = (movie: IMovieResult | SimilarType) => {
   const originalTitle = movie.original_title || movie.original_name || '';
   return originalTitle.length > 15
     ? originalTitle.slice(0, 17) + ' ...'

@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Grid';
-import { Similrar } from '../../../types/creditType';
+import { CreditType } from '../../../types/creditType';
 import { IMAGE_PATH } from '../../../constants/imagePath';
 import Typography from '@mui/material/Typography';
 import DefaultImage from '../../../assets/defaultImage.png';
@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import { useIsImgLoaded } from '../../hooks/useIsImageLoad';
 
 interface CreditsCardProps {
-  creditItem: Similrar;
+  creditItem: CreditType;
 }
 
 const CreditsCard = ({ creditItem }: CreditsCardProps) => {

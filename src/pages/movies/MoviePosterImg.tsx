@@ -1,6 +1,6 @@
 import React from 'react';
 import { IMovieResult } from '../../types/movieType';
-import { Similrar } from '../../types/similarType';
+import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import { IMAGE_PATH } from '../../constants/imagePath';
 import { useIsImgLoaded } from '../hooks/useIsImageLoad';
 
 interface MoviePosterImgProps {
-  movie: IMovieResult | Similrar;
+  movie: IMovieResult | SimilarType;
   handleClick: HandleClickNaviType;
   scrollcard?: string | undefined;
   cardWidth: number;

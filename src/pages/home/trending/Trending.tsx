@@ -16,14 +16,6 @@ const TabPannel = ({ children, value, index }: ITabPannel) => {
   return <>{value === index && <>{children}</>}</>;
 };
 
-const TitleTypo = styled(Typography)`
-  &::before {
-    content: '';
-    border-left: 4px solid var(--yellow-text-color);
-    margin-right: 5px;
-  }
-`;
-
 const Trending = () => {
   const { value, trendingDatas, handleChangeTap } = useTrendingFetch();
 
@@ -32,7 +24,6 @@ const Trending = () => {
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         Trending
       </TitleTypo>
-
       <Tabs value={value} onChange={handleChangeTap}>
         <Tab label="오늘" id="day"></Tab>
         <Tab label="이번주" id="week"></Tab>
@@ -50,3 +41,11 @@ const Trending = () => {
 };
 
 export default Trending;
+
+const TitleTypo = styled(Typography)`
+  &::before {
+    content: '';
+    border-left: 4px solid var(--yellow-text-color);
+    margin-right: 5px;
+  }
+`;

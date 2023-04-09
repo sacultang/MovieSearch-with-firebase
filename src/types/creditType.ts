@@ -1,6 +1,4 @@
-export type CastType = Similrar[];
-
-export interface Similrar {
+export interface CreditType {
   adult: boolean;
   gender: number;
   id: number;

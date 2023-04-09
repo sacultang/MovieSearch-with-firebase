@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IMovieResult } from '../types/movieType';
-import { Similrar } from '../types/similarType';
+import { SimilarType } from '../types/similarType';
 export type ListType = {
   id: string;
   list: IMovieResult[];
 };
 interface InitialState {
-  movie: IMovieResult | Similrar;
+  movie: IMovieResult | SimilarType;
   list: ListType[];
 }
 const initialState: InitialState = {
@@ -42,7 +42,7 @@ export const listMovieSlice = createSlice({
   reducers: {
     setListMovieAction: (
       state: InitialState,
-      action: PayloadAction<IMovieResult | Similrar>
+      action: PayloadAction<IMovieResult | SimilarType>
     ) => {
       state.movie = action.payload;
     },

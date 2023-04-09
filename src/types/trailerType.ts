@@ -1,9 +1,4 @@
-export interface TrailerRoot {
-  id: number;
-  results: TrailerResult[];
-}
-
-interface TrailerResult {
+export interface TrailerResult {
   iso_639_1: string;
   iso_3166_1: string;
   name: string;

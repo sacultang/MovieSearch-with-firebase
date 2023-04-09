@@ -1,6 +1,4 @@
-export type SimilarType = Similrar[];
-
-export interface Similrar {
+export interface SimilarType {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];

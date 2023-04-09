@@ -1,4 +1,4 @@
-import { Similrar } from './../types/similarType';
+import { SimilarType } from './../types/similarType';
 import { FavoriteWithId, IMovieResult } from '../types/movieType';
 export const checkFavoriteMovieId = (
   movieId: number | string,
@@ -10,7 +10,7 @@ export const checkFavoriteMovieId = (
 
 export const checkListMovieId = (
   movieId: string | number,
-  selectMovieList: IMovieResult[] | Similrar[]
+  selectMovieList: IMovieResult[] | SimilarType[]
 ) => {
   const result = selectMovieList.some((item) => item.id === movieId);
   return result;
