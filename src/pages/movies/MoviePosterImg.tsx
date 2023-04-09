@@ -4,9 +4,9 @@ import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import { IMAGE_PATH } from '../../constants/imagePath';
 import { useIsImgLoaded } from '../hooks/useIsImageLoad';
-
 interface MoviePosterImgProps {
   movie: IMovieResult | SimilarType;
   handleClickNavigate: HandleClickNaviType;
@@ -19,10 +19,12 @@ const MoviePosterImg = ({
   handleClickNavigate,
   cardWidth,
 }: MoviePosterImgProps) => {
-  const { imgRef, loaded } = useIsImgLoaded();
+  const { imgRef, loaded, setLoaded } = useIsImgLoaded();
   const handleImageError = () => {
     if (imgRef.current) imgRef.current.src = DefaultImage;
+    setLoaded(true);
   };
+
   return (
     <Box
       sx={{
@@ -31,6 +33,7 @@ const MoviePosterImg = ({
         position: 'relative',
       }}
     >
+      {!loaded && <Skeleton variant="rectangular" width="100%" height="100%" />}
       <img
         src={`${cardWidth > 200 ? IMAGE_PATH.w400 : IMAGE_PATH.w200}/${
           movie?.poster_path
