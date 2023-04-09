@@ -6,9 +6,9 @@ import {
   ChangeEvent,
 } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography/Typography';
-import Grid from '@mui/material/Grid/Grid';
-import TextField from '@mui/material/TextField/TextField';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import '../../firebase';
 import {

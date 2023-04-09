@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/common/PageTitle';
 import GridItemProvider from '../../components/common/GridItemProvider';

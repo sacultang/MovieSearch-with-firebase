@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';

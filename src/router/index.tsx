@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import '../firebase';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';

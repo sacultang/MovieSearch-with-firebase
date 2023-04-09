@@ -1,4 +1,3 @@
-import React from 'react';
 import { IMovieResult } from '../../types/movieType';
 import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';

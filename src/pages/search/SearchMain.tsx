@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Outlet } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMovieAction } from '../../store/movieSlice';
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
 import SearchInput from '../home/SearchInput';
 import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';

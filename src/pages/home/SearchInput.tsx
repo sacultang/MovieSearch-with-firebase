@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback } from 'react';
+import { FormEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

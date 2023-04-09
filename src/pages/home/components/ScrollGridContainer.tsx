@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Grid from '@mui/material/Grid';
 interface ScrollGridContainerProps {
   children: React.ReactNode;

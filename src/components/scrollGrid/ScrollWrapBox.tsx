@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
-import React from 'react';
 
 interface ScrollWarpBoxProps {
   children: React.ReactNode;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Loader from '../../components/common/Loader';
