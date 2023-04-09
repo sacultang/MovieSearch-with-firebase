@@ -1,10 +1,11 @@
 import LinkScrollToTop from './components/common/LinkScrollToTop';
-import Router from './router';
+import IndexRouter from './router';
+
 function App() {
   return (
     <>
       <LinkScrollToTop />
-      <Router />
+      <IndexRouter />
     </>
   );
 }

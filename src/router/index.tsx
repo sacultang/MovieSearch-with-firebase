@@ -22,7 +22,7 @@ const Favorite = lazy(() => import('../pages/favorite/Favorite'));
 const PageNotFound = lazy(() => import('../pages/Error/PageNotFound'));
 const ListPage = lazy(() => import('../pages/favorite/ListPage'));
 
-const Router = () => {
+const IndexRouter = () => {
   const user = useSelector((state: RootState) => state.user.user);
   useFirebaseRef(user);
   useFirebaseAuthStateChanged();
@@ -54,4 +54,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default IndexRouter;
