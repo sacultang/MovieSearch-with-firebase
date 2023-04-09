@@ -1,17 +1,14 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 
-import Loader from '../../components/common/Loader';
 import HomeSearchHeader from './HomeSearchHeader';
-const WhatsPopular = lazy(() => import('./popular/WhatsPopular'));
-const Trending = lazy(() => import('./trending/Trending'));
+import WhatsPopular from './popular/WhatsPopular';
+import Trending from './trending/Trending';
 const Home = () => {
   return (
     <>
       <HomeSearchHeader />
-      <Suspense fallback={<Loader />}>
-        <WhatsPopular />
-        <Trending />
-      </Suspense>
+      <WhatsPopular />
+      <Trending />
     </>
   );
 };

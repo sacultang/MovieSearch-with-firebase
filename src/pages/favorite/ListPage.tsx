@@ -1,14 +1,13 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/common/PageTitle';
-import Loader from '../../components/common/Loader';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import useHandleNavigate from '../hooks/useHandleNavigate';
-const MovieCard = lazy(() => import('../movies/MovieCard'));
+import MovieCard from '../movies/MovieCard';
 
 const ListPage = () => {
   const location = useLocation();
@@ -26,12 +25,10 @@ const ListPage = () => {
               decodeURIComponent(item.id) === params.query &&
               item.list.map((list, idx) => (
                 <GridItemProvider key={idx}>
-                  <Suspense fallback={<Loader />}>
-                    <MovieCard
-                      movie={list}
-                      handleClickNavigate={handleClickNavigate}
-                    />
-                  </Suspense>
+                  <MovieCard
+                    movie={list}
+                    handleClickNavigate={handleClickNavigate}
+                  />
                 </GridItemProvider>
               ))
           )}

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import styled from '@emotion/styled';
@@ -15,13 +15,13 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
-import Loader from './Loader';
+
 import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
 import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { setBarOpen } from '../../store/barOpenCloseSlice';
-const SearchInput = lazy(() => import('../../pages/home/SearchInput'));
+import SearchInput from '../../pages/home/SearchInput';
 
 interface DrawerMenuProp {
   barOpen: boolean;
@@ -93,9 +93,7 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
       <Divider />
       <List>
         <ListItem>
-          <Suspense fallback={<Loader />}>
-            <SearchInput border="drawer" />
-          </Suspense>
+          <SearchInput border="drawer" />
         </ListItem>
       </List>
       <Divider />

@@ -1,16 +1,14 @@
-import { lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
-import Loader from '../../components/common/Loader';
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import useFetchHooks from '../hooks/useFetchHooks';
 import useHandleNavigate from '../hooks/useHandleNavigate';
-const MovieCard = lazy(() => import('../movies/MovieCard'));
+import MovieCard from '../movies/MovieCard';
 const TvPage = () => {
   const { pathname } = useLocation();
   const { totalPage, setPage, page, datas } = useFetchHooks(pathname);
@@ -23,12 +21,7 @@ const TvPage = () => {
         {datas.results &&
           datas.results.map((tv) => (
             <GridItemProvider key={tv.id}>
-              <Suspense fallback={<Loader />}>
-                <MovieCard
-                  movie={tv}
-                  handleClickNavigate={handleClickNavigate}
-                />
-              </Suspense>
+              <MovieCard movie={tv} handleClickNavigate={handleClickNavigate} />
             </GridItemProvider>
           ))}
       </Grid>

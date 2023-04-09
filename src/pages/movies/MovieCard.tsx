@@ -1,4 +1,4 @@
-import { useMemo, memo, lazy, Suspense } from 'react';
+import { useMemo, memo } from 'react';
 
 // mui
 import styled from '@emotion/styled';
@@ -20,8 +20,7 @@ import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useGetCardWidth from './hooks/useGetCardWidth';
-import CardSkeleton from '../../components/skeleton/CardSkeleton';
-const MoviePosterImg = lazy(() => import('./MoviePosterImg'));
+import MoviePosterImg from './MoviePosterImg';
 
 interface MovieCardProps {
   movie: IMovieResult | SimilarType;
@@ -68,14 +67,12 @@ const MovieCard = ({
   return (
     <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
       {/* IMG */}
-      <Suspense fallback={<CardSkeleton cardWidth={cardWidth} />}>
-        <MoviePosterImg
-          movie={movie}
-          handleClickNavigate={handleClickNavigate}
-          scrollcard={scrollcard}
-          cardWidth={cardWidth}
-        />
-      </Suspense>
+      <MoviePosterImg
+        movie={movie}
+        handleClickNavigate={handleClickNavigate}
+        scrollcard={scrollcard}
+        cardWidth={cardWidth}
+      />
       {/* 좋아요 버튼 */}
       <Box
         sx={{
