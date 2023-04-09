@@ -1,56 +1,22 @@
-import React, { lazy, useEffect, useState, Suspense, useCallback } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
-import { requestData } from '../../api/TMDB/request';
-import { METHOD_CONS } from '../../constants/fetchMethod';
-import { MediaDetailsType } from '../../types/mediaType';
+
 import { IMAGE_PATH } from '../../constants/imagePath';
-const CreditsPage = lazy(() => import('./CreditsPage'));
-const TrailerPage = lazy(() => import('./TrailerPage'));
-const SimilarPage = lazy(() => import('./SimilarPage'));
-interface CustomizedState {
-  id: number | string;
-  type: string;
-}
+import TrailerPage from './TrailerPage';
+import CreditsPage from './CreditsPage';
+import SimilarPage from './SimilarPage';
+import useDeatilsFetch from './hooks/useDeatilsFetch';
+
 const DetailsPage = () => {
-  const { pathname, state } = useLocation();
-  const myState = state as CustomizedState;
-  const urlPath = pathname.split('/').slice(2, 4).join('/');
-  const navigate = useNavigate();
-  const [details, setDetails] = useState<MediaDetailsType>();
-  const [loading, setLoading] = useState(false);
-
-  const detailsFetch = useCallback(
-    async (id: number | string, type: string) => {
-      setLoading(true);
-      try {
-        const detailRes = await requestData(`${type}/${id}`, METHOD_CONS.get);
-        if (!detailRes.data) {
-          navigate('/error');
-        }
-
-        setDetails(detailRes.data);
-      } catch (e) {
-        throw new Error(`${e}`);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [navigate]
-  );
-
-  useEffect(() => {
-    if (state === undefined || state === null) {
-      navigate('/error');
-    } else {
-      detailsFetch(myState.id, myState?.type);
-    }
-  }, [navigate, state, detailsFetch, myState]);
+  const { pathname } = useLocation();
+  const urlPath = pathname.replace('/details', '');
+  const { similarData, trailers, credits, details, loading } =
+    useDeatilsFetch(urlPath);
 
   if (loading) {
     return <Loader />;
@@ -99,9 +65,8 @@ const DetailsPage = () => {
                   <em style={{ fontWeight: 500 }}>
                     {details?.original_name || details?.original_title}
                   </em>
-                  {'∙'}
                   <em style={{ fontWeight: 500 }}>
-                    {details?.episode_run_time || details?.runtime}{' '}
+                    {details?.episode_run_time || details?.runtime}
                   </em>
                   minutes
                 </Typography>
@@ -144,18 +109,12 @@ const DetailsPage = () => {
                 </Box>
               </Grid>
             </Grid>
-            <Suspense fallback={<Loader />}>
-              <TrailerPage urlPath={urlPath} />
-            </Suspense>
+            <TrailerPage trailers={trailers} />
           </BackDrop>
         </MainDetailImageBackdrop>
       )}
-      <Suspense fallback={<Loader />}>
-        <CreditsPage urlPath={urlPath} />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <SimilarPage urlPath={urlPath} />
-      </Suspense>
+      <CreditsPage credits={credits} />
+      <SimilarPage similarData={similarData} />
     </Box>
   );
 };

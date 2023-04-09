@@ -8,8 +8,15 @@ const useTrendingFetch = () => {
   const [trendingDatas, setTrendingDatas] = useState<IMovieResult[]>([]);
 
   const trendingTodayFetch = useCallback(async (days: string) => {
-    const { data } = await requestData(`trending/all/${days}`, METHOD_CONS.get);
-    setTrendingDatas(data.results);
+    try {
+      const { data } = await requestData(
+        `trending/all/${days}`,
+        METHOD_CONS.get
+      );
+      setTrendingDatas(data.results);
+    } catch (e) {
+      throw new Error(`${e}`);
+    }
   }, []);
 
   const handleChangeTap = useCallback(
