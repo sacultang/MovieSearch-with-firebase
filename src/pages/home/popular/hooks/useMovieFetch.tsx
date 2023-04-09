@@ -8,12 +8,16 @@ const useMovieFetch = () => {
   const [movieAndTvDatas, setMovieAndTvDatas] = useState<IMovieResult[]>([]);
 
   const popularMovieAndTvFetch = useCallback(async (media_type: string) => {
-    const res = await requestData(`${media_type}/popular`, METHOD_CONS.get);
-    const { results }: { results: IMovieResult[] } = res.data;
-    const newResults = results.map((item) => {
-      return { ...item, media_type };
-    });
-    setMovieAndTvDatas(newResults);
+    try {
+      const res = await requestData(`${media_type}/popular`, METHOD_CONS.get);
+      const { results }: { results: IMovieResult[] } = res.data;
+      const newResults = results.map((item) => {
+        return { ...item, media_type };
+      });
+      setMovieAndTvDatas(newResults);
+    } catch (e) {
+      throw new Error(`${e}`);
+    }
   }, []);
 
   const handleChangeTap = useCallback(

@@ -14,10 +14,14 @@ const SearchResults = () => {
   const query = params.query;
 
   const searchFetch = useCallback(async () => {
-    const res = await requestData('search/multi', METHOD_CONS.get, {
-      query,
-    });
-    dispatch(setMovieAction(res.data));
+    try {
+      const res = await requestData('search/multi', METHOD_CONS.get, {
+        query,
+      });
+      dispatch(setMovieAction(res.data));
+    } catch (e) {
+      throw new Error(`${e}`);
+    }
   }, [dispatch, query]);
   useEffect(() => {
     searchFetch();
