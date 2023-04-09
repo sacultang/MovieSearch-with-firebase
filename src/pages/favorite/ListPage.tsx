@@ -15,7 +15,7 @@ const ListPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const myList = useSelector((state: RootState) => state.listMovie.list);
-  const handleClick: HandleClickNaviType = (id, type) => {
+  const handleClickNavigate: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
 
@@ -30,7 +30,10 @@ const ListPage = () => {
               item.list.map((list, idx) => (
                 <GridItemProvider key={idx}>
                   <Suspense fallback={<Loader />}>
-                    <MovieCard movie={list} handleClick={handleClick} />
+                    <MovieCard
+                      movie={list}
+                      handleClickNavigate={handleClickNavigate}
+                    />
                   </Suspense>
                 </GridItemProvider>
               ))

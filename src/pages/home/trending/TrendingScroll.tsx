@@ -10,7 +10,7 @@ interface TrendingScollProp {
   trendingDatas: IMovieResult[];
 }
 const TrendingScroll = ({ trendingDatas }: TrendingScollProp) => {
-  const handleClick = useHandleNavigate();
+  const handleClickNavigate = useHandleNavigate();
 
   return (
     <ScrollGridContainer>
@@ -19,7 +19,7 @@ const TrendingScroll = ({ trendingDatas }: TrendingScollProp) => {
           <GridItemProvider key={movie.id}>
             <MovieCard
               movie={movie}
-              handleClick={handleClick}
+              handleClickNavigate={handleClickNavigate}
               scrollcard="true"
             />
           </GridItemProvider>

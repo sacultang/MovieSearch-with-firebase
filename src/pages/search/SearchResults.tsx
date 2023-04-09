@@ -11,7 +11,7 @@ const SearchResults = () => {
   const movieData = useSelector((state: RootState) => state.movie.movie);
   const navigate = useNavigate();
 
-  const handleClick: HandleClickNaviType = (id, type) => {
+  const handleClickNavigate: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
@@ -20,7 +20,10 @@ const SearchResults = () => {
         movieData.results.map((movie) => (
           <GridItemProvider key={movie.id}>
             <Suspense fallback={<Loader />}>
-              <MovieCard movie={movie} handleClick={handleClick} />
+              <MovieCard
+                movie={movie}
+                handleClickNavigate={handleClickNavigate}
+              />
             </Suspense>
           </GridItemProvider>
         ))}

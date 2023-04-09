@@ -9,7 +9,7 @@ interface PopularScrollProp {
   movieAndTvDatas: IMovieResult[];
 }
 const PopularScroll = ({ movieAndTvDatas }: PopularScrollProp) => {
-  const handleClick = useHandleNavigate();
+  const handleClickNavigate = useHandleNavigate();
 
   return (
     <ScrollGridContainer>
@@ -18,7 +18,7 @@ const PopularScroll = ({ movieAndTvDatas }: PopularScrollProp) => {
           <GridItemProvider key={movie.id}>
             <MovieCard
               movie={movie}
-              handleClick={handleClick}
+              handleClickNavigate={handleClickNavigate}
               scrollcard="true"
             />
           </GridItemProvider>

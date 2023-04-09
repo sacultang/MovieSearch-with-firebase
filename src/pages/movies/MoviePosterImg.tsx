@@ -9,14 +9,14 @@ import { useIsImgLoaded } from '../hooks/useIsImageLoad';
 
 interface MoviePosterImgProps {
   movie: IMovieResult | SimilarType;
-  handleClick: HandleClickNaviType;
+  handleClickNavigate: HandleClickNaviType;
   scrollcard?: string | undefined;
   cardWidth: number;
 }
 
 const MoviePosterImg = ({
   movie,
-  handleClick,
+  handleClickNavigate,
   cardWidth,
 }: MoviePosterImgProps) => {
   const { imgRef, loaded } = useIsImgLoaded();
@@ -44,7 +44,7 @@ const MoviePosterImg = ({
           opacity: loaded ? 1 : 0,
           transition: 'opacity 0.3s ease-in-out',
         }}
-        onClick={() => handleClick(movie.id, movie.media_type)}
+        onClick={() => handleClickNavigate(movie.id, movie.media_type)}
         onError={handleImageError}
       />
     </Box>

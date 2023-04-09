@@ -15,7 +15,7 @@ const MovieCard = lazy(() => import('./MovieCard'));
 const MoviePage = () => {
   const { pathname } = useLocation();
   const { totalPage, setPage, page, datas } = useFetchHooks(pathname);
-  const handleClick = useHandleNavigate();
+  const handleClickNavigate = useHandleNavigate();
 
   return (
     <Container sx={{ flexGrow: 1 }}>
@@ -25,7 +25,10 @@ const MoviePage = () => {
           datas.results.map((movie) => (
             <GridItemProvider key={movie.id}>
               <Suspense fallback={<Loader />}>
-                <MovieCard movie={movie} handleClick={handleClick} />
+                <MovieCard
+                  movie={movie}
+                  handleClickNavigate={handleClickNavigate}
+                />
               </Suspense>
             </GridItemProvider>
           ))}

@@ -25,7 +25,7 @@ const MoviePosterImg = lazy(() => import('./MoviePosterImg'));
 
 interface MovieCardProps {
   movie: IMovieResult | SimilarType;
-  handleClick: HandleClickNaviType;
+  handleClickNavigate: HandleClickNaviType;
   scrollcard?: string;
 }
 const getMovieTitle = (movie: IMovieResult | SimilarType) => {
@@ -34,7 +34,11 @@ const getMovieTitle = (movie: IMovieResult | SimilarType) => {
     ? originalTitle.slice(0, 17) + ' ...'
     : originalTitle;
 };
-const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
+const MovieCard = ({
+  movie,
+  handleClickNavigate,
+  scrollcard,
+}: MovieCardProps) => {
   const {
     handleFavorite,
     isFavoriteChecked,
@@ -67,7 +71,7 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
       <Suspense fallback={<CardSkeleton cardWidth={cardWidth} />}>
         <MoviePosterImg
           movie={movie}
-          handleClick={handleClick}
+          handleClickNavigate={handleClickNavigate}
           scrollcard={scrollcard}
           cardWidth={cardWidth}
         />
@@ -180,7 +184,7 @@ const MovieCard = ({ movie, handleClick, scrollcard }: MovieCardProps) => {
           pl: 1,
           cursor: 'pointer',
         }}
-        onClick={() => handleClick(movie.id, movie.media_type)}
+        onClick={() => handleClickNavigate(movie.id, movie.media_type)}
       >
         {sliceTitle}
       </Typography>
