@@ -10,7 +10,7 @@ const ScrollWrapBox = ({ children, height }: ScrollWarpBoxProps) => {
 };
 
 export default ScrollWrapBox;
-const ScrollBox = styled(Box)<{ height: number | undefined }>`
+const ScrollBox = styled(Box)`
   overflow-x: scroll;
   &::-webkit-scrollbar {
     width: 1px;

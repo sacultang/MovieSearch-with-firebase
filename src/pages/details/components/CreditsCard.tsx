@@ -5,7 +5,7 @@ import { IMAGE_PATH } from '../../../constants/imagePath';
 import Typography from '@mui/material/Typography';
 import DefaultImage from '../../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
-import { useIsImgLoaded } from '../../hooks/useIsImageLoad';
+import useIsImgLoaded from '../../hooks/useIsImageLoad';
 
 interface CreditsCardProps {
   creditItem: CreditType;
@@ -17,7 +17,7 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
     if (imgRef.current) imgRef.current.src = DefaultImage;
   };
   return (
-    <Grid item minWidth={200} width={200} height={300} mr={2}>
+    <Grid item minWidth={200} width={200} height={300} margin={'5px'}>
       <Box
         borderRadius={1}
         overflow="hidden"
