@@ -1,23 +1,26 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
-const useGetCardWidth = () => {
-  const cardBoxRef = useRef<HTMLDivElement>(null);
+const useIsVisibleGetCardWidth = <T extends HTMLDivElement>(
+  ref: React.RefObject<T>
+) => {
   const [cardWidth, setCardWidth] = useState(200);
   const [isVisible, setIsVisible] = useState(false);
   useLayoutEffect(() => {
-    cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
+    ref.current && setCardWidth(ref.current.offsetWidth);
     const handleWindowResize = () => {
       setTimeout(() => {
-        cardBoxRef.current && setCardWidth(cardBoxRef.current.offsetWidth);
+        ref.current && setCardWidth(ref.current.offsetWidth);
       }, 300);
     };
     window.addEventListener('resize', handleWindowResize);
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  }, []);
+  }, [ref]);
+
   useEffect(() => {
-    const cardBoxRefCopy = cardBoxRef.current as HTMLDivElement;
+    const cardBoxRefCopy = ref.current as HTMLDivElement;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -30,14 +33,14 @@ const useGetCardWidth = () => {
     if (cardBoxRefCopy) {
       observer.observe(cardBoxRefCopy);
     }
-
     return () => {
       if (cardBoxRefCopy) {
         observer.unobserve(cardBoxRefCopy);
       }
     };
-  }, []);
-  return { isVisible, cardBoxRef, cardWidth };
+  }, [ref]);
+
+  return { isVisible, cardWidth };
 };
 
-export default useGetCardWidth;
+export default useIsVisibleGetCardWidth;

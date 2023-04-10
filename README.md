@@ -107,7 +107,7 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 - Image resize
   화면 사이즈 조절시 포스터이미지의 사이즈를 조절하여 2:3비율에 맞게 출력하도록 하였습니다.
 
-  [참고 파일\_hooks/useGetCardWidth](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/movies/hooks/useGetCardWidth.tsx)  
+  [참고 파일\_hooks/useIsVisibleGetCardWidth](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/movies/hooks/useIsVisibleGetCardWidth.tsx)  
   [참고 파일\_movies/MoviePosterImg](https://github.com/sacultang/MovieSearch-with-firebase/blob/bfb6190a1c0602d1e2a6286df936d2e01406a604/src/pages/movies/MoviePosterImg.tsx)
 
 ### ☑️ Axios Interceptor를 이용한 API 캐시

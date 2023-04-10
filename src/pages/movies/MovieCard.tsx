@@ -1,4 +1,4 @@
-import { useMemo, memo } from 'react';
+import { useMemo, memo, useRef } from 'react';
 
 // mui
 import styled from '@emotion/styled';
@@ -19,7 +19,7 @@ import { IMovieResult } from '../../types/movieType';
 import { SimilarType } from '../../types/similarType';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
-import useGetCardWidth from './hooks/useGetCardWidth';
+import useIsVisibleGetCardWidth from './hooks/useIsVisibleGetCardWidth';
 import MoviePosterImg from './MoviePosterImg';
 
 interface MovieCardProps {
@@ -47,7 +47,8 @@ const MovieCard = ({
     handleCloseMenu,
   } = useFavorite(movie);
   const open = Boolean(anchorEl);
-  const { isVisible, cardBoxRef, cardWidth } = useGetCardWidth();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { isVisible, cardWidth } = useIsVisibleGetCardWidth(cardRef);
   const sliceTitle = useMemo(() => {
     return getMovieTitle(movie);
   }, [movie]);
@@ -65,7 +66,7 @@ const MovieCard = ({
   );
 
   return (
-    <CardItem scrollcard={scrollcard} ref={cardBoxRef}>
+    <CardItem scrollcard={scrollcard} ref={cardRef}>
       {/* IMG */}
       {isVisible ? (
         <>
@@ -73,7 +74,7 @@ const MovieCard = ({
             movie={movie}
             handleClickNavigate={handleClickNavigate}
             scrollcard={scrollcard}
-            cardBoxRef={cardBoxRef}
+            cardRef={cardRef}
             cardWidth={cardWidth}
           />
           {/* 좋아요 버튼 */}
