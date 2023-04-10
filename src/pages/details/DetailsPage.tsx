@@ -53,17 +53,19 @@ const DetailsPage = () => {
               </Grid>
               <Grid item ml={2} maxWidth={1200}>
                 <Typography variant="h4" fontWeight={600}>
-                  {details?.title || details?.name}(
-                  {(details?.release_date &&
-                    details?.release_date.split('-')[0]) ||
-                    (details?.first_air_date &&
-                      details?.first_air_date.split('-')[0])}
+                  {details?.title ?? details?.name} (
+                  {
+                    (details?.release_date ?? details?.first_air_date)?.split(
+                      '-'
+                    )[0]
+                  }
                   )
                 </Typography>
                 <Typography>
                   <em style={{ fontWeight: 500 }}>
                     {details?.original_name || details?.original_title}
                   </em>
+                  {'  '}
                   <em style={{ fontWeight: 500 }}>
                     {details?.episode_run_time || details?.runtime}
                   </em>

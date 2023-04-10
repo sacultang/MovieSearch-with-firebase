@@ -55,18 +55,8 @@ export default function PermanentDrawerLeft() {
         component="main"
         sx={{
           flex: 1,
-          bgcolor:
-            `${theme.palette.mode}` === 'dark'
-              ? 'primary.main'
-              : 'primary.light',
           p: 2,
-          pt: {
-            xs: 9,
-            sm: 9,
-            md: 9,
-            lg: 9,
-            xl: 9,
-          },
+          pt: 9,
           boxSizing: 'border-box',
           maxWidth: {
             xs: barOpen ? 'calc(100% - 200px)' : 'xs',
