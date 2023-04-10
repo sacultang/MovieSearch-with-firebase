@@ -58,13 +58,14 @@ export default function PermanentDrawerLeft() {
           p: 2,
           pt: 9,
           boxSizing: 'border-box',
-          maxWidth: {
+          width: {
             xs: barOpen ? 'calc(100% - 200px)' : 'xs',
             sm: barOpen ? 'calc(100% - 200px)' : 'sm',
             md: 'md',
             lg: 'lg',
             xl: 'calc(100% - 200px)',
           },
+          height: 'auto',
         }}
       >
         <Outlet />

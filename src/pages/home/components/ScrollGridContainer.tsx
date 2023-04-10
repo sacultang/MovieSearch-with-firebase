@@ -4,7 +4,14 @@ interface ScrollGridContainerProps {
 }
 const ScrollGridContainer = ({ children }: ScrollGridContainerProps) => {
   return (
-    <Grid container direction="row" flexWrap="nowrap" mb={3} mt={3}>
+    <Grid
+      container
+      direction="row"
+      flexWrap="nowrap"
+      mb={3}
+      mt={3}
+      height={400}
+    >
       {children}
     </Grid>
   );
