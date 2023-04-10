@@ -11,14 +11,16 @@ interface MoviePosterImgProps {
   handleClickNavigate: HandleClickNaviType;
   scrollcard?: string | undefined;
   cardWidth: number;
+  cardBoxRef: React.RefObject<HTMLDivElement>;
 }
 
 const MoviePosterImg = ({
   movie,
   handleClickNavigate,
   cardWidth,
+  cardBoxRef,
 }: MoviePosterImgProps) => {
-  const { imgRef, loaded, setLoaded } = useIsImgLoaded();
+  const { imgRef, loaded, setLoaded } = useIsImgLoaded(cardBoxRef);
   const handleImageError = () => {
     if (imgRef.current) imgRef.current.src = DefaultImage;
     setLoaded(true);
