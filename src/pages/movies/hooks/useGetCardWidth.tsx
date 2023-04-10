@@ -17,7 +17,7 @@ const useGetCardWidth = () => {
     };
   }, []);
   useEffect(() => {
-    const cardBoxRefCopy = cardBoxRef.current as HTMLElement;
+    const cardBoxRefCopy = cardBoxRef.current as HTMLDivElement;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

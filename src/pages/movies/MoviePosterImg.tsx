@@ -5,7 +5,7 @@ import DefaultImage from '../../assets/defaultImage.png';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import { IMAGE_PATH } from '../../constants/imagePath';
-import { useIsImgLoaded } from '../hooks/useIsImageLoad';
+import useIsImgLoaded from '../hooks/useIsImageLoad';
 interface MoviePosterImgProps {
   movie: IMovieResult | SimilarType;
   handleClickNavigate: HandleClickNaviType;

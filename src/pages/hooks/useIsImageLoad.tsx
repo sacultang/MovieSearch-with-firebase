@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, RefObject } from 'react';
 
-export const useIsImgLoaded = <T extends HTMLDivElement>(
+const useIsImgLoaded = <T extends HTMLDivElement>(
   cardBoxRef?: RefObject<T>
 ) => {
   const [loaded, setLoaded] = useState(false);
@@ -31,3 +31,4 @@ export const useIsImgLoaded = <T extends HTMLDivElement>(
   }, [cardBoxRef]);
   return { imgRef, loaded, setLoaded };
 };
+export default useIsImgLoaded;
