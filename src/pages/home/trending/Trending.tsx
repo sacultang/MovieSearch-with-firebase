@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import useTrendingFetch from './hooks/useTrendingFetch';
 import TrendingScroll from './TrendingScroll';
 interface ITabPannel {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   value: number;
   index: number;
 }

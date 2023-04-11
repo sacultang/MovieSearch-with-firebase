@@ -8,7 +8,7 @@ import PopularScroll from './PopularScroll';
 import useMovieFetch from './hooks/useMovieFetch';
 
 interface ITabPannel {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   value: number;
   index: number;
 }

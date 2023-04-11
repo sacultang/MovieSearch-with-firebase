@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container/Container';
 interface PaddingLayoutProps {
-  children: [React.ReactElement, React.ReactElement];
+  children: React.ReactNode;
 }
 const PaddingLayout = ({ children }: PaddingLayoutProps) => {
   return (
