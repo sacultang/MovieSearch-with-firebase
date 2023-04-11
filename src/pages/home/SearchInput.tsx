@@ -18,8 +18,9 @@ const SearchInput = ({
       e.preventDefault();
       const data = new FormData(e.currentTarget);
       const search = data.get('search');
-      if (search === '' || search === null || search === undefined) return;
       handleDrawerClose && handleDrawerClose();
+      if (search === '' || search === null || search === undefined) return;
+
       navigate(`/search/${search}`);
     },
     [navigate, handleDrawerClose]

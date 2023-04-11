@@ -1,29 +1,35 @@
-import { useSelector } from 'react-redux';
-import Grid from '@mui/material/Grid';
 import PageGridItem from '../../components/pageGrid/PageGridItem';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../../store/store';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import MovieCard from '../movies/MovieCard';
-const SearchResults = () => {
-  const movieData = useSelector((state: RootState) => state.movie.movie);
-  const navigate = useNavigate();
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
+import Container from '@mui/material/Container';
+import { useOutletContext } from 'react-router-dom';
+import { IMovie } from '../../types/movieType';
 
+type OutletChildProps = {
+  searchResults: IMovie;
+};
+const SearchResults = () => {
+  const { searchResults } = useOutletContext<OutletChildProps>();
+  const navigate = useNavigate();
   const handleClickNavigate: HandleClickNaviType = (id, type) => {
     navigate(`/details/${type}/${id}`, { state: { type, id } });
   };
   return (
-    <Grid container mt={3}>
-      {movieData.results &&
-        movieData.results.map((movie) => (
-          <PageGridItem key={movie.id}>
-            <MovieCard
-              movie={movie}
-              handleClickNavigate={handleClickNavigate}
-            />
-          </PageGridItem>
-        ))}
-    </Grid>
+    <Container sx={{ flexGrow: 1 }}>
+      <PageGridContainer>
+        {searchResults.results &&
+          searchResults.results.map((movie) => (
+            <PageGridItem key={movie.id}>
+              <MovieCard
+                movie={movie}
+                handleClickNavigate={handleClickNavigate}
+              />
+            </PageGridItem>
+          ))}
+      </PageGridContainer>
+    </Container>
   );
 };
 
