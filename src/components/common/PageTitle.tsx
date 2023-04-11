@@ -42,6 +42,11 @@ const PageTitle = ({ url, params }: ITitleProps) => {
       return <PageTitleLayout>즐겨찾기 목록</PageTitleLayout>;
     case `/list/${params?.query as string}`:
       return <PageTitleLayout>{params?.query as string}</PageTitleLayout>;
+    case `/search/${params?.query as string}`:
+      return (
+        <PageTitleLayout>{params?.query as string}의 검색 결과</PageTitleLayout>
+      );
+
     default:
       return <PageTitleLayout>페이지</PageTitleLayout>;
   }

@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
@@ -8,6 +7,7 @@ import useFetchHooks from '../hooks/useFetchHooks';
 import PageGridItem from '../../components/pageGrid/PageGridItem';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from './MovieCard';
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
 
 const MoviePage = () => {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ const MoviePage = () => {
   return (
     <Container sx={{ flexGrow: 1 }}>
       <PageTitle url={pathname} />
-      <Grid container>
+      <PageGridContainer>
         {datas.results &&
           datas.results.map((movie) => (
             <PageGridItem key={movie.id}>
@@ -27,7 +27,7 @@ const MoviePage = () => {
               />
             </PageGridItem>
           ))}
-      </Grid>
+      </PageGridContainer>
 
       <PaginationComp setPage={setPage} page={page} totalPage={totalPage} />
     </Container>

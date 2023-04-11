@@ -1,12 +1,12 @@
 import { useLocation, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/common/PageTitle';
 import PageGridItem from '../../components/pageGrid/PageGridItem';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
 
 const Favorite = () => {
   const location = useLocation();
@@ -18,7 +18,7 @@ const Favorite = () => {
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
-      <Grid container>
+      <PageGridContainer>
         {movieDatas.length > 0 &&
           movieDatas.map((movie) => (
             <PageGridItem key={movie.id}>
@@ -28,7 +28,7 @@ const Favorite = () => {
               />
             </PageGridItem>
           ))}
-      </Grid>
+      </PageGridContainer>
     </Container>
   );
 };

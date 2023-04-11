@@ -2,11 +2,11 @@ import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/common/PageTitle';
 import PageGridItem from '../../components/pageGrid/PageGridItem';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
 
 const ListPage = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const ListPage = () => {
   return (
     <Container sx={{ flexGrow: 1, minHeight: 800 }}>
       <PageTitle url={location.pathname} params={params} />
-      <Grid container>
+      <PageGridContainer>
         {myList.length > 0 &&
           myList.map(
             (item) =>
@@ -31,7 +31,7 @@ const ListPage = () => {
                 </PageGridItem>
               ))
           )}
-      </Grid>
+      </PageGridContainer>
     </Container>
   );
 };
