@@ -2,8 +2,8 @@ import { memo } from 'react';
 import MovieCard from '../../movies/MovieCard';
 import { IMovieResult } from '../../../types/movieType';
 
-import GridItemProvider from '../../../components/common/GridItemProvider';
-import ScrollGridContainer from '../components/ScrollGridContainer';
+import PageGridItem from '../../../components/pageGrid/PageGridItem';
+import ScrollGridContainer from '../../../components/scrollGrid/ScrollGridContainer';
 import useHandleNavigate from '../../hooks/useHandleNavigate';
 
 interface TrendingScollProp {
@@ -16,13 +16,13 @@ const TrendingScroll = ({ trendingDatas }: TrendingScollProp) => {
     <ScrollGridContainer>
       {trendingDatas &&
         trendingDatas.map((movie) => (
-          <GridItemProvider key={movie.id}>
+          <PageGridItem key={movie.id}>
             <MovieCard
               movie={movie}
               handleClickNavigate={handleClickNavigate}
               scrollcard="true"
             />
-          </GridItemProvider>
+          </PageGridItem>
         ))}
     </ScrollGridContainer>
   );

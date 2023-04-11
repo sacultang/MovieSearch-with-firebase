@@ -4,7 +4,7 @@ import { IMAGE_PATH } from '../../../constants/imagePath';
 import Typography from '@mui/material/Typography';
 import DefaultImage from '../../../assets/defaultImage.png';
 import useIsImgLoaded from '../../hooks/useIsImageLoad';
-import GridItemProvider from '../../../components/common/GridItemProvider';
+import PageGridItem from '../../../components/pageGrid/PageGridItem';
 import Card from '@mui/material/Card';
 import styled from '@emotion/styled';
 import sliceTextLength from '../../../utils/sliceText';
@@ -23,7 +23,7 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
   }, [creditItem.name]);
 
   return (
-    <GridItemProvider>
+    <PageGridItem>
       <CardItem scrollcard={'true'}>
         {!loaded && (
           <Skeleton
@@ -65,7 +65,7 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
           {sliceCreditName}
         </Typography>
       </CardItem>
-    </GridItemProvider>
+    </PageGridItem>
   );
 };
 

@@ -1,11 +1,11 @@
 import Typography from '@mui/material/Typography';
 import { SimilarType } from '../../types/similarType';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
-import ScrollGridContainer from '../home/components/ScrollGridContainer';
+import ScrollGridContainer from '../../components/scrollGrid/ScrollGridContainer';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
-import TabLayout from '../home/common/TabLayout';
+import TabLayout from '../../components/scrollGrid/TabLayout';
 interface SimilarPageProps {
   similarData: SimilarType[];
 }
@@ -20,13 +20,13 @@ const SimilarPage = ({ similarData }: SimilarPageProps) => {
       <ScrollWrapBox>
         <ScrollGridContainer>
           {similarData.map((movie) => (
-            <GridItemProvider key={movie.id}>
+            <PageGridItem key={movie.id}>
               <MovieCard
                 movie={movie}
                 handleClickNavigate={handleClickNavigate}
                 scrollcard="true"
               />
-            </GridItemProvider>
+            </PageGridItem>
           ))}
         </ScrollGridContainer>
       </ScrollWrapBox>

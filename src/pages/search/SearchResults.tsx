@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import { HandleClickNaviType } from '../../types/handleClickNaviType';
@@ -16,12 +16,12 @@ const SearchResults = () => {
     <Grid container mt={3}>
       {movieData.results &&
         movieData.results.map((movie) => (
-          <GridItemProvider key={movie.id}>
+          <PageGridItem key={movie.id}>
             <MovieCard
               movie={movie}
               handleClickNavigate={handleClickNavigate}
             />
-          </GridItemProvider>
+          </PageGridItem>
         ))}
     </Grid>
   );

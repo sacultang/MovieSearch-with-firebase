@@ -24,10 +24,10 @@ import SearchInput from '../../pages/home/SearchInput';
 
 interface DrawerMenuProp {
   barOpen: boolean;
-  setBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDrawerClose: () => void;
 }
 
-const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
+const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
   const user = useSelector((state: RootState) => state.user.user);
   const myListPage = useSelector((state: RootState) => state.listMovie.list);
   const navigate = useNavigate();
@@ -46,9 +46,7 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
       navigate('/');
     }
   };
-  const handleDrawerClose = () => {
-    setBarOpen(false);
-  };
+
   return (
     <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
       <Toolbar

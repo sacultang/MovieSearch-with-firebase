@@ -1,8 +1,8 @@
 import Typography from '@mui/material/Typography';
 import CreditsCard from './components/CreditsCard';
 import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
-import ScrollGridContainer from '../home/components/ScrollGridContainer';
-import TabLayout from '../home/common/TabLayout';
+import ScrollGridContainer from '../../components/scrollGrid/ScrollGridContainer';
+import TabLayout from '../../components/scrollGrid/TabLayout';
 
 import { CreditType } from '../../types/creditType';
 

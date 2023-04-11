@@ -2,7 +2,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import PageTitle from '../../components/common/PageTitle';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import useHandleNavigate from '../hooks/useHandleNavigate';
@@ -21,12 +21,12 @@ const Favorite = () => {
       <Grid container>
         {movieDatas.length > 0 &&
           movieDatas.map((movie) => (
-            <GridItemProvider key={movie.id}>
+            <PageGridItem key={movie.id}>
               <MovieCard
                 movie={movie.movie}
                 handleClickNavigate={handleClickNavigate}
               />
-            </GridItemProvider>
+            </PageGridItem>
           ))}
       </Grid>
     </Container>

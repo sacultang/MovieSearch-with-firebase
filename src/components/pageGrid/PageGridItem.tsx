@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid';
 interface GridItemProps {
   children: React.ReactNode;
 }
-const GridItemProvider = ({ children }: GridItemProps) => {
+const PageGridItem = ({ children }: GridItemProps) => {
   return (
     <Grid
       item
@@ -19,4 +19,4 @@ const GridItemProvider = ({ children }: GridItemProps) => {
   );
 };
 
-export default GridItemProvider;
+export default PageGridItem;

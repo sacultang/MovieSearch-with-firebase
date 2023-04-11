@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import useFetchHooks from '../hooks/useFetchHooks';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
@@ -20,9 +20,9 @@ const TvPage = () => {
       <Grid container>
         {datas.results &&
           datas.results.map((tv) => (
-            <GridItemProvider key={tv.id}>
+            <PageGridItem key={tv.id}>
               <MovieCard movie={tv} handleClickNavigate={handleClickNavigate} />
-            </GridItemProvider>
+            </PageGridItem>
           ))}
       </Grid>
       <PaginationComp setPage={setPage} page={page} totalPage={totalPage} />

@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import useFetchHooks from '../hooks/useFetchHooks';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from './MovieCard';
 
@@ -20,12 +20,12 @@ const MoviePage = () => {
       <Grid container>
         {datas.results &&
           datas.results.map((movie) => (
-            <GridItemProvider key={movie.id}>
+            <PageGridItem key={movie.id}>
               <MovieCard
                 movie={movie}
                 handleClickNavigate={handleClickNavigate}
               />
-            </GridItemProvider>
+            </PageGridItem>
           ))}
       </Grid>
 

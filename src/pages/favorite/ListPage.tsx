@@ -1,6 +1,6 @@
 import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/common/PageTitle';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
@@ -23,12 +23,12 @@ const ListPage = () => {
             (item) =>
               decodeURIComponent(item.id) === params.query &&
               item.list.map((list, idx) => (
-                <GridItemProvider key={idx}>
+                <PageGridItem key={idx}>
                   <MovieCard
                     movie={list}
                     handleClickNavigate={handleClickNavigate}
                   />
-                </GridItemProvider>
+                </PageGridItem>
               ))
           )}
       </Grid>
