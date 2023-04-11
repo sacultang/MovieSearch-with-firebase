@@ -15,11 +15,11 @@ import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 
+import MenuListItem from './MenuListItem';
 import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
 import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-
 import SearchInput from '../../pages/home/SearchInput';
 
 interface DrawerMenuProp {
@@ -67,7 +67,7 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
             fontSize={'1.2rem'}
             color="#fff"
           >
-            MOVIE
+            O-Movie
           </Typography>
         </Link>
       </Toolbar>
@@ -91,13 +91,12 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {moviePath.map((list) => (
-          <ListItem key={list.text} disablePadding onClick={handleDrawerClose}>
-            <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton aria-label="MOVIE 링크">
-                <ListItemText primary={list.text} />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
+          <MenuListItem
+            list={list}
+            key={list.text}
+            handleDrawerClose={handleDrawerClose}
+            buttonHandler={buttonHandler}
+          />
         ))}
       </List>
       <Divider />
@@ -114,13 +113,12 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {tvPath.map((list) => (
-          <ListItem key={list.text} disablePadding onClick={handleDrawerClose}>
-            <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton aria-label="TV 링크">
-                <ListItemText primary={list.text} />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
+          <MenuListItem
+            list={list}
+            key={list.text}
+            handleDrawerClose={handleDrawerClose}
+            buttonHandler={buttonHandler}
+          />
         ))}
       </List>
       <Divider />
@@ -138,17 +136,12 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
             </Typography>
           </ListItem>
           {myFavoritePage.map((list) => (
-            <ListItem
+            <MenuListItem
+              list={list}
               key={list.text}
-              disablePadding
-              onClick={handleDrawerClose}
-            >
-              <NavLink to={`${list.path}`} style={buttonHandler}>
-                <ListItemButton aria-label="즐겨 찾기">
-                  <ListItemText primary={list.text} />
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
+              handleDrawerClose={handleDrawerClose}
+              buttonHandler={buttonHandler}
+            />
           ))}
           {myListPage &&
             myListPage.map((list) => (

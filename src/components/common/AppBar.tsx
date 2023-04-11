@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import DrawerMenu from './DrawerMenu';
+import DrawerMenu from '../Drawer/DrawerMenu';
 import RegisterGroup from '../RegisterGroup';
 import Footer from './Footer';
 import styled from '@emotion/styled';
