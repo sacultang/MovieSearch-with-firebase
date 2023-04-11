@@ -3,10 +3,9 @@ import Box from '@mui/material/Box';
 
 interface ScrollWarpBoxProps {
   children: React.ReactNode;
-  height?: number;
 }
-const ScrollWrapBox = ({ children, height }: ScrollWarpBoxProps) => {
-  return <ScrollBox height={height}>{children}</ScrollBox>;
+const ScrollWrapBox = ({ children }: ScrollWarpBoxProps) => {
+  return <ScrollBox>{children}</ScrollBox>;
 };
 
 export default ScrollWrapBox;
@@ -23,5 +22,4 @@ const ScrollBox = styled(Box)`
     background-color: var(--main-bg-color);
     border-radius: 4px;
   }
-  height: ${({ height }) => height + 'px'};
 `;

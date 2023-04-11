@@ -1,11 +1,11 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { SimilarType } from '../../types/similarType';
 import GridItemProvider from '../../components/common/GridItemProvider';
 import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
+import ScrollGridContainer from '../home/components/ScrollGridContainer';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
+import TabLayout from '../home/common/TabLayout';
 interface SimilarPageProps {
   similarData: SimilarType[];
 }
@@ -13,12 +13,12 @@ const SimilarPage = ({ similarData }: SimilarPageProps) => {
   const handleClickNavigate = useHandleNavigate();
 
   return (
-    <Box sx={{ mt: 3 }}>
+    <TabLayout>
       <Typography variant="h5" fontWeight={500}>
         추천 컨텐츠
       </Typography>
       <ScrollWrapBox>
-        <Grid container direction="row" flexWrap="nowrap" mb={3} mt={3}>
+        <ScrollGridContainer>
           {similarData.map((movie) => (
             <GridItemProvider key={movie.id}>
               <MovieCard
@@ -28,9 +28,9 @@ const SimilarPage = ({ similarData }: SimilarPageProps) => {
               />
             </GridItemProvider>
           ))}
-        </Grid>
+        </ScrollGridContainer>
       </ScrollWrapBox>
-    </Box>
+    </TabLayout>
   );
 };
 

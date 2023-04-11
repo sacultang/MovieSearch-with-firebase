@@ -63,6 +63,7 @@ const BoxEl = styled(Box)<{ urlpath: string }>`
   height: 300px;
   background-color: var(--yellow-bg-color);
   position: relative;
+  margin: 20px 0;
   &::before {
     content: '';
     background: ${({ urlpath }) => `url(${urlpath}) no-repeat top center`};
@@ -79,5 +80,6 @@ const BoxEl = styled(Box)<{ urlpath: string }>`
     position: relative;
     display: flex;
     align-items: center;
+    min-height: 300px;
   }
 `;

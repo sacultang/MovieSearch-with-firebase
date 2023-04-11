@@ -21,18 +21,14 @@ import { HandleClickNaviType } from '../../types/handleClickNaviType';
 import useFavorite from './hooks/useFavorite';
 import useIsVisibleGetCardWidth from './hooks/useIsVisibleGetCardWidth';
 import MoviePosterImg from './MoviePosterImg';
+import sliceTextLength from '../../utils/sliceText';
 
 interface MovieCardProps {
   movie: IMovieResult | SimilarType;
   handleClickNavigate: HandleClickNaviType;
   scrollcard?: string;
 }
-const getMovieTitle = (movie: IMovieResult | SimilarType) => {
-  const originalTitle = movie.original_title || movie.original_name || '';
-  return originalTitle.length > 15
-    ? originalTitle.slice(0, 17) + ' ...'
-    : originalTitle;
-};
+
 const MovieCard = ({
   movie,
   handleClickNavigate,
@@ -49,18 +45,20 @@ const MovieCard = ({
   const open = Boolean(anchorEl);
   const cardRef = useRef<HTMLDivElement>(null);
   const { isVisible, cardWidth } = useIsVisibleGetCardWidth(cardRef);
+
   const sliceTitle = useMemo(() => {
-    return getMovieTitle(movie);
-  }, [movie]);
+    return sliceTextLength(movie.original_title || movie.original_name);
+  }, [movie.original_title, movie.original_name]);
+
   const useFavoriteIcon = useMemo(
     () =>
       isFavoriteChecked ? (
         <FavoriteIcon
           id="likeBtn"
-          sx={{ color: '#ff5d5d', width: '1rem', height: '1rem' }}
+          sx={{ color: '#ff5d5d', width: '15px', height: '15px' }}
         />
       ) : (
-        <FavoriteBorder id="likeBtn" sx={{ width: '1rem', height: '1rem' }} />
+        <FavoriteBorder id="likeBtn" sx={{ width: '15px', height: '15px' }} />
       ),
     [isFavoriteChecked]
   );
@@ -83,6 +81,7 @@ const MovieCard = ({
               position: 'absolute',
               top: 5,
               right: 5,
+              width: 32,
               height: 70,
               display: 'flex',
               flexDirection: 'column',
@@ -94,6 +93,8 @@ const MovieCard = ({
               sx={{
                 backgroundColor: 'rgba(221,221,221,0.57)',
                 borderRadius: '50%',
+                width: 32,
+                height: 32,
               }}
               onClick={(e) => handleFavorite(e, movie)}
             >
@@ -109,12 +110,14 @@ const MovieCard = ({
               sx={{
                 backgroundColor: 'rgba(221,221,221,0.57)',
                 borderRadius: '50%',
+                width: 32,
+                height: 32,
               }}
               onClick={handleOpenMenu}
             >
               <MoreVertIcon
                 id="listBtn"
-                sx={{ width: '1rem', height: '1rem' }}
+                sx={{ width: '15px', height: '15px' }}
               />
             </IconButton>
             <Menu
