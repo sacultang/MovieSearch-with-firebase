@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,12 +13,9 @@ export default function PermanentDrawerLeft() {
   const [barOpen, setBarOpen] = useState(false);
 
   const handleDrawerOpen = () => {
-    console.log('open click');
     setBarOpen(true);
   };
-  useEffect(() => {
-    console.log(barOpen);
-  }, [barOpen]);
+
   return (
     <>
       <AppBar position="static">
@@ -29,11 +26,11 @@ export default function PermanentDrawerLeft() {
           <RegisterGroup />
         </Toolbar>
       </AppBar>
+      <DrawerMenu barOpen={barOpen} setBarOpen={setBarOpen} />
       <MainContainer component="main">
         <Outlet />
       </MainContainer>
       <Footer />
-      <DrawerMenu barOpen={barOpen} setBarOpen={setBarOpen} />
     </>
   );
 }

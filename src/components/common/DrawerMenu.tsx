@@ -51,13 +51,16 @@ const DrawerMenu = ({ barOpen, setBarOpen }: DrawerMenuProp) => {
   };
   return (
     <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
-      <Toolbar sx={{ backgroundColor: 'primary.main' }}>
-        <Link to="/" aria-label="go to main-page" onClick={handleDrawerClose}>
+      <Toolbar
+        sx={{ backgroundColor: 'primary.main' }}
+        onClick={handleDrawerClose}
+      >
+        <Link to="/" aria-label="go to main-page">
           <LogoDiv aria-hidden={true}>
             <div>메인</div>
           </LogoDiv>
         </Link>
-        <Link to="/" onClick={handleDrawerClose}>
+        <Link to="/">
           <Typography
             variant="h6"
             fontWeight={600}
