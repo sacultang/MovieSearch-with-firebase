@@ -11,7 +11,8 @@ import Footer from './Footer';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
 import HideAppBarOnScroll from './HideAppBarOnScroll';
-
+import MainLogo from './MainLogo';
+import Box from '@mui/material/Box';
 const AppMenuBar = () => {
   const [barOpen, setBarOpen] = useState(false);
   const location = useLocation();
@@ -32,14 +33,18 @@ const AppMenuBar = () => {
       <HideAppBarOnScroll>
         <AppBar>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={handleDrawerOpen}
-              aria-label="drawer open"
-            >
-              <MenuIcon />
-            </IconButton>
+            <Box sx={{ display: 'flex' }}>
+              <MainLogo />
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={handleDrawerOpen}
+                aria-label="drawer open"
+                sx={{ minHeight: 64 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
             <RegisterGroup />
           </Toolbar>
         </AppBar>

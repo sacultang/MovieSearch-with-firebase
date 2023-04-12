@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import styled from '@emotion/styled';
 import MovieIcon from '@mui/icons-material/Movie';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -9,12 +8,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
-
+import MainLogo from '../common/MainLogo';
 import MenuListItem from './MenuListItem';
 import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
 import { FIREBASE_REF } from '../../constants/firebaseRef';
@@ -49,23 +47,7 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
 
   return (
     <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
-      <Toolbar sx={{ backgroundColor: 'primary.main' }}>
-        <Link to="/" aria-label="go to main-page">
-          <LogoDiv aria-hidden={true}>
-            <div>메인</div>
-          </LogoDiv>
-        </Link>
-        <Link to="/">
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            fontSize={'1.2rem'}
-            color="#fff"
-          >
-            O-Movie
-          </Typography>
-        </Link>
-      </Toolbar>
+      <MainLogo drawer={true} />
       <Divider />
       <List>
         <ListItem>
@@ -164,18 +146,6 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
 
 export default DrawerMenu;
 
-export const LogoDiv = styled.div`
-  width: 50px;
-  height: 30px;
-  border-radius: 20px;
-  background: #8360c3;
-  background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
-  background: linear-gradient(to right, #2ebf91, #8360c3);
-  margin-right: 20px;
-  div {
-    visibility: hidden;
-  }
-`;
 type NavStyleType = {
   isActive: boolean;
 };

@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import styled from '@emotion/styled';
 import AppMenuBar from '../../../components/common/AppBar';
 const ToastUi = lazy(() => import('../../../components/common/ToastUi'));
 const CreateListModal = lazy(
@@ -18,18 +17,10 @@ const Layout = () => {
       <ToastUi />
       <CreateListModal />
       <LoginAlertModal />
-      <Wrapper>
-        <AppMenuBar />
-      </Wrapper>
+      <AppMenuBar />
       <ScrollToTop />
     </Suspense>
   );
 };
 
 export default Layout;
-
-const Wrapper = styled.div`
-  height: auto;
-  min-height: 100%;
-  position: relative;
-`;

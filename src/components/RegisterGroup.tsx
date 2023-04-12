@@ -109,4 +109,5 @@ export default RegisterGroup;
 const RegisterGroupDiv = styled.div`
   display: flex;
   align-items: center;
+  min-height: 64px;
 `;
