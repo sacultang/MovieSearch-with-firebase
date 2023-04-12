@@ -130,7 +130,8 @@ const MainDetailImageBackdrop = styled.div<{ imgPath: string }>`
   margin-bottom: 20px;
 `;
 const BackDrop = styled.div`
-  padding: 40px;
+  padding: 40px 40px 0;
+  min-height: 690px;
   background-image: linear-gradient(
     to right,
     rgb(208 208 208) 150px,
