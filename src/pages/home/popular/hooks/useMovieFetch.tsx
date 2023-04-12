@@ -31,6 +31,7 @@ const useMovieFetch = () => {
 
   useEffect(() => {
     popularMovieAndTvFetch('movie');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { value, handleChangeTap, movieAndTvDatas };
