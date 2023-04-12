@@ -31,7 +31,7 @@ const useMovieFetch = () => {
 
   useEffect(() => {
     popularMovieAndTvFetch('movie');
-  }, [popularMovieAndTvFetch]);
+  }, []);
 
   return { value, handleChangeTap, movieAndTvDatas };
 };

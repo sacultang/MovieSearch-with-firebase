@@ -1,12 +1,12 @@
 import { useLocation, useParams } from 'react-router-dom';
 import PageTitle from '../../components/common/PageTitle';
-import GridItemProvider from '../../components/common/GridItemProvider';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
+import PageContainer from '../../components/pageGrid/PageContainer';
 
 const ListPage = () => {
   const location = useLocation();
@@ -15,24 +15,24 @@ const ListPage = () => {
   const handleClickNavigate = useHandleNavigate();
 
   return (
-    <Container sx={{ flexGrow: 1, minHeight: 800 }}>
+    <PageContainer minHeight={700}>
       <PageTitle url={location.pathname} params={params} />
-      <Grid container>
+      <PageGridContainer>
         {myList.length > 0 &&
           myList.map(
             (item) =>
               decodeURIComponent(item.id) === params.query &&
               item.list.map((list, idx) => (
-                <GridItemProvider key={idx}>
+                <PageGridItem key={idx}>
                   <MovieCard
                     movie={list}
                     handleClickNavigate={handleClickNavigate}
                   />
-                </GridItemProvider>
+                </PageGridItem>
               ))
           )}
-      </Grid>
-    </Container>
+      </PageGridContainer>
+    </PageContainer>
   );
 };
 

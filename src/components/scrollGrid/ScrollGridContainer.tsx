@@ -8,9 +8,10 @@ const ScrollGridContainer = ({ children }: ScrollGridContainerProps) => {
       container
       direction="row"
       flexWrap="nowrap"
+      justifyContent="flex-start"
+      alignItems="flex-start"
       mb={3}
       mt={3}
-      height={400}
     >
       {children}
     </Grid>

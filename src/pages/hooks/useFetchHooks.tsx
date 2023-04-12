@@ -25,9 +25,9 @@ const useFetchHooks = (url: string) => {
           navigate('/error', { replace: true });
         }
         const { results }: { results: IMovieResult[] } = res.data;
-        const newResults = results.map((item) => {
-          return { ...item, media_type: MEDIA_TYPE };
-        });
+        const newResults = results.map((item) =>
+          item.media_type ? { ...item } : { ...item, media_type: MEDIA_TYPE }
+        );
         setDatas({ ...res.data, results: newResults });
         setTotalPage(res.data.total_pages);
       } catch (e) {

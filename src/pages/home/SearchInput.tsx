@@ -1,26 +1,29 @@
 import { FormEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setBarOpen } from '../../store/barOpenCloseSlice';
 interface SearchInputProps {
   query?: string | undefined;
   border: string;
+  handleDrawerClose?: () => void;
 }
 
-const SearchInput = ({ query, border }: SearchInputProps) => {
+const SearchInput = ({
+  query,
+  border,
+  handleDrawerClose,
+}: SearchInputProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const goSearchResultPage = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const data = new FormData(e.currentTarget);
       const search = data.get('search');
+      handleDrawerClose && handleDrawerClose();
       if (search === '' || search === null || search === undefined) return;
-      dispatch(setBarOpen(false));
+
       navigate(`/search/${search}`);
     },
-    [navigate, dispatch]
+    [navigate, handleDrawerClose]
   );
   return (
     <InputWrap onSubmit={goSearchResultPage} border={border}>

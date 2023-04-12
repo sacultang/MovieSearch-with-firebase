@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import styled from '@emotion/styled';
 import MovieIcon from '@mui/icons-material/Movie';
@@ -15,25 +15,23 @@ import Toolbar from '@mui/material/Toolbar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 
+import MenuListItem from './MenuListItem';
 import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
 import { FIREBASE_REF } from '../../constants/firebaseRef';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { setBarOpen } from '../../store/barOpenCloseSlice';
 import SearchInput from '../../pages/home/SearchInput';
 
 interface DrawerMenuProp {
   barOpen: boolean;
+  handleDrawerClose: () => void;
 }
 
-const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
-  const dispatch = useDispatch();
+const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
   const user = useSelector((state: RootState) => state.user.user);
   const myListPage = useSelector((state: RootState) => state.listMovie.list);
   const navigate = useNavigate();
-  const handlMenuOpenClose = () => {
-    dispatch(setBarOpen(false));
-  };
+
   const handleDeleteMyList = async (
     e: React.MouseEvent<HTMLDivElement>,
     listId: string
@@ -48,44 +46,23 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
       navigate('/');
     }
   };
+
   return (
-    <Drawer
-      sx={{
-        width: 200,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: 200,
-          boxSizing: 'border-box',
-        },
-        display: {
-          xs: barOpen ? 'block' : 'none',
-          sm: barOpen ? 'block' : 'none',
-          md: 'block',
-        },
-        zIndex: 1252,
-      }}
-      variant="permanent"
-      anchor="left"
-      open={barOpen}
-    >
-      <Toolbar
-        sx={{
-          backgroundColor: 'primary.main',
-        }}
-      >
-        <Link to="/" aria-label="go to main-page" onClick={handlMenuOpenClose}>
+    <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
+      <Toolbar sx={{ backgroundColor: 'primary.main' }}>
+        <Link to="/" aria-label="go to main-page">
           <LogoDiv aria-hidden={true}>
             <div>메인</div>
           </LogoDiv>
         </Link>
-        <Link to="/" onClick={handlMenuOpenClose}>
+        <Link to="/">
           <Typography
             variant="h6"
             fontWeight={600}
             fontSize={'1.2rem'}
             color="#fff"
           >
-            MOVIE
+            O-Movie
           </Typography>
         </Link>
       </Toolbar>
@@ -109,13 +86,11 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {moviePath.map((list) => (
-          <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
-            <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton aria-label="MOVIE 링크">
-                <ListItemText primary={list.text} />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
+          <MenuListItem
+            list={list}
+            key={list.text}
+            buttonHandler={buttonHandler}
+          />
         ))}
       </List>
       <Divider />
@@ -132,13 +107,11 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {tvPath.map((list) => (
-          <ListItem key={list.text} disablePadding onClick={handlMenuOpenClose}>
-            <NavLink to={`${list.path}`} style={buttonHandler}>
-              <ListItemButton aria-label="TV 링크">
-                <ListItemText primary={list.text} />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
+          <MenuListItem
+            list={list}
+            key={list.text}
+            buttonHandler={buttonHandler}
+          />
         ))}
       </List>
       <Divider />
@@ -156,17 +129,11 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
             </Typography>
           </ListItem>
           {myFavoritePage.map((list) => (
-            <ListItem
+            <MenuListItem
+              list={list}
               key={list.text}
-              disablePadding
-              onClick={handlMenuOpenClose}
-            >
-              <NavLink to={`${list.path}`} style={buttonHandler}>
-                <ListItemButton aria-label="즐겨 찾기">
-                  <ListItemText primary={list.text} />
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
+              buttonHandler={buttonHandler}
+            />
           ))}
           {myListPage &&
             myListPage.map((list) => (
@@ -174,7 +141,7 @@ const DrawerMenu = ({ barOpen }: DrawerMenuProp) => {
                 <NavLink
                   to={`/list/${list.id}`}
                   style={buttonHandler}
-                  onClick={handlMenuOpenClose}
+                  onClick={handleDrawerClose}
                 >
                   <ListItemButton sx={{ flex: 3 }} aria-label="목록 이름">
                     <ListItemText primary={decodeURIComponent(list.id)} />

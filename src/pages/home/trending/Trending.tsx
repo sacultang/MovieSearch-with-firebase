@@ -1,13 +1,13 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import TabLayout from '../common/TabLayout';
+import TabLayout from '../../../components/scrollGrid/TabLayout';
 import ScrollWrapBox from '../../../components/scrollGrid/ScrollWrapBox';
 import styled from '@emotion/styled';
 import useTrendingFetch from './hooks/useTrendingFetch';
 import TrendingScroll from './TrendingScroll';
 interface ITabPannel {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   value: number;
   index: number;
 }

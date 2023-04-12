@@ -1,32 +1,30 @@
 import { useLocation } from 'react-router-dom';
-
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
-import GridItemProvider from '../../components/common/GridItemProvider';
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 import useFetchHooks from '../hooks/useFetchHooks';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
+import PageGridContainer from '../../components/pageGrid/PageGridContainer';
+import PageContainer from '../../components/pageGrid/PageContainer';
 const TvPage = () => {
   const { pathname } = useLocation();
   const { totalPage, setPage, page, datas } = useFetchHooks(pathname);
   const handleClickNavigate = useHandleNavigate();
 
   return (
-    <Container sx={{ flexGrow: 1 }}>
+    <PageContainer>
       <PageTitle url={pathname} />
-      <Grid container>
+      <PageGridContainer>
         {datas.results &&
           datas.results.map((tv) => (
-            <GridItemProvider key={tv.id}>
+            <PageGridItem key={tv.id}>
               <MovieCard movie={tv} handleClickNavigate={handleClickNavigate} />
-            </GridItemProvider>
+            </PageGridItem>
           ))}
-      </Grid>
+      </PageGridContainer>
       <PaginationComp setPage={setPage} page={page} totalPage={totalPage} />
-    </Container>
+    </PageContainer>
   );
 };
 

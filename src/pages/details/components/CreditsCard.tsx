@@ -1,12 +1,14 @@
 import Skeleton from '@mui/material/Skeleton';
-import Grid from '@mui/material/Grid';
 import { CreditType } from '../../../types/creditType';
 import { IMAGE_PATH } from '../../../constants/imagePath';
 import Typography from '@mui/material/Typography';
 import DefaultImage from '../../../assets/defaultImage.png';
-import Box from '@mui/material/Box';
 import useIsImgLoaded from '../../hooks/useIsImageLoad';
-
+import PageGridItem from '../../../components/pageGrid/PageGridItem';
+import Card from '@mui/material/Card';
+import styled from '@emotion/styled';
+import sliceTextLength from '../../../utils/sliceText';
+import { useMemo } from 'react';
 interface CreditsCardProps {
   creditItem: CreditType;
 }
@@ -16,14 +18,13 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
   const handleImageError = () => {
     if (imgRef.current) imgRef.current.src = DefaultImage;
   };
+  const sliceCreditName = useMemo(() => {
+    return sliceTextLength(creditItem.name);
+  }, [creditItem.name]);
+
   return (
-    <Grid item minWidth={200} width={200} height={300} margin={'5px'}>
-      <Box
-        borderRadius={1}
-        overflow="hidden"
-        height={'100%'}
-        position="relative"
-      >
+    <PageGridItem>
+      <CardItem scrollcard={'true'}>
         {!loaded && (
           <Skeleton
             sx={{
@@ -40,7 +41,6 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
           ref={imgRef}
           alt={creditItem.profile_path ? creditItem.name : 'creadit people'}
           style={{
-            cursor: 'pointer',
             width: '100%',
             height: '100%',
             opacity: loaded ? 1 : 0,
@@ -48,12 +48,31 @@ const CreditsCard = ({ creditItem }: CreditsCardProps) => {
           }}
           onError={handleImageError}
         />
-      </Box>
-      <Typography variant="subtitle1" fontWeight={500} mt={1}>
-        {creditItem.name}
-      </Typography>
-    </Grid>
+
+        <Typography
+          gutterBottom
+          variant="h2"
+          component="h2"
+          sx={{
+            fontSize: '1rem',
+            fontWeight: 700,
+            pt: 1,
+            pb: 1,
+            pr: 1,
+            pl: 1,
+          }}
+        >
+          {sliceCreditName}
+        </Typography>
+      </CardItem>
+    </PageGridItem>
   );
 };
 
 export default CreditsCard;
+
+const CardItem = styled(Card)<{ scrollcard: string | undefined }>`
+  margin: 5px;
+  position: relative;
+  width: ${({ scrollcard }) => scrollcard && '200px'};
+`;

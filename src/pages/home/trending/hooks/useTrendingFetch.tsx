@@ -30,7 +30,7 @@ const useTrendingFetch = () => {
 
   useEffect(() => {
     trendingTodayFetch('day');
-  }, [trendingTodayFetch]);
+  }, []);
 
   return { value, trendingDatas, handleChangeTap };
 };

@@ -39,6 +39,7 @@ const MoviePosterImg = ({
         src={`${cardWidth > 200 ? IMAGE_PATH.w400 : IMAGE_PATH.w200}/${
           movie?.poster_path
         }`}
+        loading="lazy"
         alt={movie?.original_title || movie?.original_name || 'default Img'}
         ref={imgRef}
         style={{
