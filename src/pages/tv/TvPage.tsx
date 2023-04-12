@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import Container from '@mui/material/Container';
 import PaginationComp from '../../components/common/PaginationComp';
 import PageTitle from '../../components/common/PageTitle';
 import PageGridItem from '../../components/pageGrid/PageGridItem';
@@ -7,14 +6,14 @@ import useFetchHooks from '../hooks/useFetchHooks';
 import useHandleNavigate from '../hooks/useHandleNavigate';
 import MovieCard from '../movies/MovieCard';
 import PageGridContainer from '../../components/pageGrid/PageGridContainer';
-
+import PageContainer from '../../components/pageGrid/PageContainer';
 const TvPage = () => {
   const { pathname } = useLocation();
   const { totalPage, setPage, page, datas } = useFetchHooks(pathname);
   const handleClickNavigate = useHandleNavigate();
 
   return (
-    <Container sx={{ flexGrow: 1 }}>
+    <PageContainer>
       <PageTitle url={pathname} />
       <PageGridContainer>
         {datas.results &&
@@ -25,7 +24,7 @@ const TvPage = () => {
           ))}
       </PageGridContainer>
       <PaginationComp setPage={setPage} page={page} totalPage={totalPage} />
-    </Container>
+    </PageContainer>
   );
 };
 

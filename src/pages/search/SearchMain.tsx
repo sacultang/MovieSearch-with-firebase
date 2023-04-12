@@ -1,11 +1,11 @@
 import { useEffect, useCallback, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import Container from '@mui/material/Container';
 import { requestData } from '../../api/TMDB/request';
 import { METHOD_CONS } from '../../constants/fetchMethod';
 import PageTitle from '../../components/common/PageTitle';
 import PaginationComp from '../../components/common/PaginationComp';
+import PageContainer from '../../components/pageGrid/PageContainer';
 import { IMovie } from '../../types/movieType';
 const SearchMain = () => {
   const [page, setPage] = useState(1);
@@ -25,19 +25,18 @@ const SearchMain = () => {
         query,
         page,
       });
-
       setSearchResults(res.data);
     } catch (e) {
       throw new Error(`${e}`);
     }
-  }, [query, page]);
+  }, [page, query]);
 
   useEffect(() => {
     searchFetch();
   }, [query, searchFetch, page]);
 
   return (
-    <Container>
+    <PageContainer>
       <PageTitle url={pathname} params={params} />
       <Outlet context={{ searchResults }} />
       <PaginationComp
@@ -45,7 +44,7 @@ const SearchMain = () => {
         setPage={setPage}
         page={page}
       />
-    </Container>
+    </PageContainer>
   );
 };
 

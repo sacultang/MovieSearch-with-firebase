@@ -21,7 +21,7 @@ const DetailsPage = () => {
     return <Loader />;
   }
   return (
-    <Box component="section">
+    <Box component="section" minHeight={1200} height={'auto'}>
       {details?.poster_path && (
         <MainDetailImageBackdrop
           imgPath={`${IMAGE_PATH.original}/${details?.backdrop_path}`}
@@ -126,6 +126,7 @@ const MainDetailImageBackdrop = styled.div<{ imgPath: string }>`
   position: relative;
   background: ${(props) => `url(${props.imgPath}) no-repeat top center`};
   background-size: cover;
+  min-height: 690px;
 `;
 const BackDrop = styled.div`
   padding: 40px;
