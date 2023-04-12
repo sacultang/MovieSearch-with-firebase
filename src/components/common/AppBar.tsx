@@ -33,7 +33,7 @@ const AppMenuBar = () => {
       <HideAppBarOnScroll>
         <AppBar>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <MainLogo />
               <IconButton
                 color="inherit"

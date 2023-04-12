@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 interface MainLogoProp {
@@ -7,7 +7,15 @@ interface MainLogoProp {
 }
 const MainLogo = ({ drawer }: MainLogoProp) => {
   return (
-    <Toolbar sx={{ backgroundColor: 'primary.main' }}>
+    <Box
+      sx={{
+        backgroundColor: 'primary.main',
+        minHeight: 64,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Link to="/" aria-label="go to main-page">
         <LogoDiv aria-hidden={true}>
           <div>메인</div>
@@ -25,7 +33,7 @@ const MainLogo = ({ drawer }: MainLogoProp) => {
           </Typography>
         </Link>
       )}
-    </Toolbar>
+    </Box>
   );
 };
 
