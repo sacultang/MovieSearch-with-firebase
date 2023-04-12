@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, useState } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,11 +9,20 @@ import DrawerMenu from '../Drawer/DrawerMenu';
 import RegisterGroup from '../RegisterGroup';
 import Footer from './Footer';
 import styled from '@emotion/styled';
+import { useLocation } from 'react-router-dom';
 export default function PermanentDrawerLeft() {
   const [barOpen, setBarOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setBarOpen(false);
+  }, [location.pathname]);
 
   const handleDrawerOpen = () => {
     setBarOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setBarOpen(false);
   };
 
   return (
@@ -26,7 +35,7 @@ export default function PermanentDrawerLeft() {
           <RegisterGroup />
         </Toolbar>
       </AppBar>
-      <DrawerMenu barOpen={barOpen} setBarOpen={setBarOpen} />
+      <DrawerMenu barOpen={barOpen} handleDrawerClose={handleDrawerClose} />
       <MainContainer component="main">
         <Outlet />
       </MainContainer>

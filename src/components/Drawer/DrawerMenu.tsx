@@ -49,10 +49,7 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
 
   return (
     <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
-      <Toolbar
-        sx={{ backgroundColor: 'primary.main' }}
-        onClick={handleDrawerClose}
-      >
+      <Toolbar sx={{ backgroundColor: 'primary.main' }}>
         <Link to="/" aria-label="go to main-page">
           <LogoDiv aria-hidden={true}>
             <div>메인</div>
@@ -72,7 +69,7 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
       <Divider />
       <List>
         <ListItem>
-          <SearchInput border="drawer" handleDrawerClose={handleDrawerClose} />
+          <SearchInput border="drawer" />
         </ListItem>
       </List>
       <Divider />
@@ -92,7 +89,6 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
           <MenuListItem
             list={list}
             key={list.text}
-            handleDrawerClose={handleDrawerClose}
             buttonHandler={buttonHandler}
           />
         ))}
@@ -114,7 +110,6 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
           <MenuListItem
             list={list}
             key={list.text}
-            handleDrawerClose={handleDrawerClose}
             buttonHandler={buttonHandler}
           />
         ))}
@@ -137,7 +132,6 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
             <MenuListItem
               list={list}
               key={list.text}
-              handleDrawerClose={handleDrawerClose}
               buttonHandler={buttonHandler}
             />
           ))}

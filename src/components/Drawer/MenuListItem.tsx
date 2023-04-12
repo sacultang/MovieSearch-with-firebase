@@ -9,12 +9,12 @@ interface MenuList {
     text: string;
     path: string;
   };
-  handleDrawerClose: () => void;
+
   buttonHandler: ({ isActive }: { isActive: boolean }) => CSSProperties;
 }
-const MenuListItem = ({ list, handleDrawerClose, buttonHandler }: MenuList) => {
+const MenuListItem = ({ list, buttonHandler }: MenuList) => {
   return (
-    <ListItem key={list.text} disablePadding onClick={handleDrawerClose}>
+    <ListItem key={list.text} disablePadding>
       <NavLink to={`${list.path}`} style={buttonHandler}>
         <ListItemButton aria-label={list.text}>
           <ListItemText primary={list.text} />
