@@ -79,20 +79,20 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 - Login & Join  
   firebase의 `Authentication method`를 이용해 로그인과 회원가입을 구현하였습니다.
 
-  [참고 파일\_register/Login](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/register/Login.tsx)  
-  [참고 파일\_register/Join](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/register/Join.tsx)
+  [참고 파일\_register/Login](./src/pages/register/Login.tsx)  
+  [참고 파일\_register/Join](./src/pages/register/Join.tsx)
 
 - 즐겨찾기 추가 및 삭제  
   firebase의 firebasestore Database를 이용해 user의 ID로 DB가 생성되도록 하고, 영화를 즐겨찾기 목록에 추가 및 삭제를 할 수 있도록 하였습니다.
 
-  [참고 파일\_hooks/useFavorite](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/movies/hooks/useFavorite.tsx)
+  [참고 파일\_hooks/useFavorite](./src/pages/movies/hooks/useFavorite.tsx)
 
 - list목록 추가 및 삭제
   user의 영화목록을 생성하고 컨텐츠를 추가 할 수 있는 기능입니다.  
   list목록의 path가 직접 생성한 이름으로 설정되기 때문에 한글,특수문자가 포함되어도
   path가 제대로 인식될 수 있도록 `encodeURLComponent()`를 사용하여 정상적으로 동작하도록 하였습니다.
 
-  [참고 파일\_hooks/useAddList](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/components/listModal/hooks/useAddList.tsx)
+  [참고 파일\_hooks/useAddList](./src/components/listModal/hooks/useAddList.tsx)
 
 ![스크린샷 2023-03-21 오후 3 33 05](https://user-images.githubusercontent.com/85508157/227698412-56386be6-5be6-4f4f-a8ca-9d9215ea001c.png)
 
@@ -100,20 +100,21 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 - `IntersectionObserver` 를 사용하여 이미지를 화면에 보이는 부분만 렌더링 하여 초기 렌더링 성능 수치 약 20%정도 상승하였습니다.
 
-  [참고 파일\_hooks/useIsImageLoad](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/hooks/useIsImageLoad.tsx)
+  [참고 파일\_hooks/useIsImageLoad](./src/pages/hooks/useIsImageLoad.tsx)
+
   ![스크린샷 2022-09-01 오후 4 42 44](https://user-images.githubusercontent.com/85508157/227698822-04b6955a-1918-42f7-a8dc-59a8c5e6a01f.png)
   ![스크린샷 2023-03-26 오전 12 35 04](https://user-images.githubusercontent.com/85508157/227733244-3c423364-fa34-4bbe-ba6f-7495daa774ea.png)
 
 - Image resize
   화면 사이즈 조절시 포스터이미지의 사이즈를 조절하여 2:3비율에 맞게 출력하도록 하였습니다.
 
-  [참고 파일\_hooks/useIsVisibleGetCardWidth](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/pages/movies/hooks/useIsVisibleGetCardWidth.tsx)  
-  [참고 파일\_movies/MoviePosterImg](https://github.com/sacultang/MovieSearch-with-firebase/blob/bfb6190a1c0602d1e2a6286df936d2e01406a604/src/pages/movies/MoviePosterImg.tsx)
+  [참고 파일\_hooks/useIsVisibleGetCardWidth](./src/pages/movies/hooks/useIsVisibleGetCardWidth.tsx)  
+  [참고 파일\_movies/MoviePosterImg](./src/pages/movies/MoviePosterImg.tsx)
 
 ### ☑️ Axios Interceptor를 이용한 API 캐시
 
 - axis interceptor를 이용해 동일한 resquest와 response에 대한 API 캐시를 구현하였습니다.  
-  [참고 파일\_TMDB/baseURL](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/api/TMDB/baseUrl.ts)
+  [참고 파일\_TMDB/baseURL](./src/api/TMDB/baseUrl.ts)
 
 ```js
 const cache: { [key: string]: any } = {};
@@ -170,7 +171,7 @@ TMDBServer.interceptors.request.use(
 
 - react-router-dom의 중첩라우팅 기능을 통해  
   록인이 필요한 페이지와 아닌 페이지를 `Outlet` 컴포넌트로 따로 렌더링 하게 하였습니다.  
-  [참고 파일\_router/index](https://github.com/sacultang/MovieSearch-with-firebase/blob/main/src/router/index.tsx)
+  [참고 파일\_router/index](./src/router/index.tsx)
 
 ## 회고
 
