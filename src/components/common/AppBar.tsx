@@ -29,7 +29,12 @@ export default function PermanentDrawerLeft() {
     <>
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <IconButton color="inherit" edge="start" onClick={handleDrawerOpen}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerOpen}
+            aria-label="drawer open"
+          >
             <MenuIcon />
           </IconButton>
           <RegisterGroup />
