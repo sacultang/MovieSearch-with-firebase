@@ -11,7 +11,7 @@ interface ILaoutProps {
 }
 const PageTitleLayout = ({ children }: ILaoutProps) => {
   return (
-    <Box pt={3} pb={3}>
+    <Box pb={3}>
       <Typography variant="h4" fontWeight={500}>
         {children}
       </Typography>
