@@ -2,14 +2,15 @@ import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 interface TabLayoutProps {
   children?: ReactNode;
+  mainPage?: boolean;
 }
-const TabLayout = ({ children }: TabLayoutProps) => {
+const TabLayout = ({ children, mainPage }: TabLayoutProps) => {
   return (
     <Box
       sx={{
         width: 'auto',
         height: 'auto',
-        minHeight: 400,
+        minHeight: mainPage ? 510 : 430,
         marginBottom: 4,
       }}
     >

@@ -20,7 +20,7 @@ const WhatsPopular = () => {
   const { value, handleChangeTap, movieAndTvDatas } = useMovieFetch();
 
   return (
-    <TabLayout>
+    <TabLayout mainPage={true}>
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         WhatsPopular
       </TitleTypo>

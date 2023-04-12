@@ -19,7 +19,7 @@ const Trending = () => {
   const { value, trendingDatas, handleChangeTap } = useTrendingFetch();
 
   return (
-    <TabLayout>
+    <TabLayout mainPage={true}>
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         Trending
       </TitleTypo>
