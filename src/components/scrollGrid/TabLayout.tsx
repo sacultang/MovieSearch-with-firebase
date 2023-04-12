@@ -6,12 +6,11 @@ interface TabLayoutProps {
 const TabLayout = ({ children }: TabLayoutProps) => {
   return (
     <Box
-      mt={5}
-      mb={5}
       sx={{
         width: 'auto',
         height: 'auto',
-        minHeight: 510,
+        minHeight: 400,
+        marginBottom: 4,
       }}
     >
       {children}

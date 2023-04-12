@@ -127,6 +127,7 @@ const MainDetailImageBackdrop = styled.div<{ imgPath: string }>`
   background: ${(props) => `url(${props.imgPath}) no-repeat top center`};
   background-size: cover;
   min-height: 690px;
+  margin-bottom: 20px;
 `;
 const BackDrop = styled.div`
   padding: 40px;
