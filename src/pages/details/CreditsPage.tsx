@@ -18,7 +18,7 @@ const CreditsPage = ({ credits }: CreditsPageProps) => {
       </Typography>
       <ScrollWrapBox>
         <ScrollGridContainer>
-          {credits.length &&
+          {credits &&
             credits
               ?.slice(0, 20)
               .map((creditItem) => (
