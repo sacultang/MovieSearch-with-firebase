@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import styled from '@emotion/styled';
-import AppBar from '../../../components/common/AppBar';
+import AppMenuBar from '../../../components/common/AppBar';
 const ToastUi = lazy(() => import('../../../components/common/ToastUi'));
 const CreateListModal = lazy(
   () => import('../../../components/listModal/CreateListModal')
@@ -19,7 +19,7 @@ const Layout = () => {
       <CreateListModal />
       <LoginAlertModal />
       <Wrapper>
-        <AppBar />
+        <AppMenuBar />
       </Wrapper>
       <ScrollToTop />
     </Suspense>

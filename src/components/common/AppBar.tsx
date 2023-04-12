@@ -10,7 +10,9 @@ import RegisterGroup from '../RegisterGroup';
 import Footer from './Footer';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router-dom';
-export default function PermanentDrawerLeft() {
+import HideAppBarOnScroll from './HideAppBarOnScroll';
+
+const AppMenuBar = () => {
   const [barOpen, setBarOpen] = useState(false);
   const location = useLocation();
 
@@ -27,19 +29,21 @@ export default function PermanentDrawerLeft() {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={handleDrawerOpen}
-            aria-label="drawer open"
-          >
-            <MenuIcon />
-          </IconButton>
-          <RegisterGroup />
-        </Toolbar>
-      </AppBar>
+      <HideAppBarOnScroll>
+        <AppBar>
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={handleDrawerOpen}
+              aria-label="drawer open"
+            >
+              <MenuIcon />
+            </IconButton>
+            <RegisterGroup />
+          </Toolbar>
+        </AppBar>
+      </HideAppBarOnScroll>
       <DrawerMenu barOpen={barOpen} handleDrawerClose={handleDrawerClose} />
       <MainContainer component="main">
         <Outlet />
@@ -47,8 +51,8 @@ export default function PermanentDrawerLeft() {
       <Footer />
     </>
   );
-}
-
+};
+export default AppMenuBar;
 type MainContainerProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
@@ -68,4 +72,5 @@ const MainContainer = styled(Container)<MainContainerProps>`
     xl: '1536px';
   }
   height: 'auto';
+  margin-top: 80px;
 `;
