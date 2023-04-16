@@ -9,8 +9,6 @@ const useIsImgLoaded = <T extends HTMLDivElement>(
   useEffect(() => {
     const imgRefCopy = imgRef.current as HTMLImageElement;
 
-    const cardBoxRefCopy = cardBoxRef && (cardBoxRef.current as HTMLDivElement);
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -19,7 +17,6 @@ const useIsImgLoaded = <T extends HTMLDivElement>(
         }
       },
       {
-        root: cardBoxRefCopy,
         rootMargin: '500px 0px 0px 0px',
       }
     );
