@@ -11,6 +11,8 @@ import Join from '../pages/register/Join';
 import Login from '../pages/register/Login';
 import Loader from '../components/common/Loader';
 import AuthenticationRoute from '../router/AuthenticationRoute';
+import Favorite from '../pages/favorite/Favorite';
+import ListPage from '../pages/favorite/ListPage';
 const MoviePage = lazy(() => import('../pages/movies/MoviePage'));
 const TvPage = lazy(() => import('../pages/tv/TvPage'));
 const SearchMain = lazy(() => import('../pages/search/SearchMain'));
@@ -18,9 +20,7 @@ const SearchResults = lazy(() => import('../pages/search/SearchResults'));
 const DetailsPage = lazy(() => import('../pages/details/DetailsPage'));
 const Layout = lazy(() => import('../pages/home/common/Layout'));
 const Home = lazy(() => import('../pages/home/Home'));
-const Favorite = lazy(() => import('../pages/favorite/Favorite'));
 const PageNotFound = lazy(() => import('../pages/Error/PageNotFound'));
-const ListPage = lazy(() => import('../pages/favorite/ListPage'));
 
 const IndexRouter = () => {
   const user = useSelector((state: RootState) => state.user.user);
