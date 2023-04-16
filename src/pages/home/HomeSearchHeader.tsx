@@ -1,16 +1,13 @@
 import { memo } from 'react';
-
 import { useGetDiscoverQuery } from '../../store/moviesApi';
 import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
 import SearchInput from './SearchInput';
-import { IMAGE_PATH } from '../../constants/imagePath';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-const getRandom = () => {
-  const num = Math.floor(Math.random() * 20);
-  return num;
-};
+import { IMAGE_PATH } from '../../constants/imagePath';
+import { getRandomNum } from '../../utils/getRandomNum';
+
 const HomeSearchHeader = () => {
   const { data } = useGetDiscoverQuery(
     '/discover/movie?with_network=123&language=en-US'
@@ -21,7 +18,7 @@ const HomeSearchHeader = () => {
       {!!data && (
         <BoxEl
           urlpath={`${IMAGE_PATH.w1200}/${
-            data.results[getRandom()].backdrop_path
+            data.results[getRandomNum()].backdrop_path
           }`}
         >
           <Container
@@ -49,7 +46,7 @@ const HomeSearchHeader = () => {
                 now.
               </Typography>
             </Box>
-            <SearchInput query={''} border={''} />
+            <SearchInput />
           </Container>
         </BoxEl>
       )}
@@ -60,7 +57,9 @@ const HomeSearchHeader = () => {
 export default memo(HomeSearchHeader);
 
 const BoxEl = styled(Box)<{ urlpath: string }>`
-  height: 300px;
+  min-height: 300px;
+  max-height: 100%;
+  padding: 20px 0;
   background-color: var(--yellow-bg-color);
   position: relative;
   margin: 20px 0;

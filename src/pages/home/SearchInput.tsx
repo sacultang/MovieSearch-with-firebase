@@ -2,8 +2,8 @@ import { FormEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 interface SearchInputProps {
-  query?: string | undefined;
-  border: string;
+  query?: string;
+  border?: string;
   handleDrawerClose?: () => void;
 }
 
@@ -43,7 +43,7 @@ const SearchInput = ({
 
 export default SearchInput;
 
-const InputWrap = styled.form<{ border: string }>`
+const InputWrap = styled.form<{ border: string | undefined }>`
   display: flex;
   border-radius: ${(props) => (props.border === 'drawer' ? 0 : '20px')};
   overflow: hidden;
