@@ -15,7 +15,7 @@ const CreditsPage = ({ credits }: CreditsPageProps) => {
       <Typography variant="h5" fontWeight={500}>
         출연진
       </Typography>
-      <ScrollWrapBox>
+      <ScrollWrapBox credit="credit">
         <ScrollGridContainer>
           {credits &&
             credits.slice(0, 20).map((creditItem) => (

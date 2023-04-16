@@ -57,8 +57,7 @@ const HomeSearchHeader = () => {
 export default memo(HomeSearchHeader);
 
 const BoxEl = styled(Box)<{ urlpath: string }>`
-  min-height: 300px;
-  max-height: 100%;
+  min-height: 340px;
   padding: 20px 0;
   background-color: var(--yellow-bg-color);
   position: relative;

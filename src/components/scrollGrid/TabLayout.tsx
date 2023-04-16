@@ -9,7 +9,7 @@ const TabLayout = ({ children, mainPage }: TabLayoutProps) => {
     <Box
       sx={{
         width: 'auto',
-        height: 'auto',
+        height: mainPage ? 510 : 430,
         minHeight: mainPage ? 510 : 430,
         marginBottom: 4,
       }}

@@ -3,13 +3,15 @@ import Box from '@mui/material/Box';
 
 interface ScrollWarpBoxProps {
   children: React.ReactNode;
+  credit?: string;
 }
-const ScrollWrapBox = ({ children }: ScrollWarpBoxProps) => {
-  return <ScrollBox>{children}</ScrollBox>;
+const ScrollWrapBox = ({ children, credit }: ScrollWarpBoxProps) => {
+  return <ScrollBox credit={credit}>{children}</ScrollBox>;
 };
 
 export default ScrollWrapBox;
-const ScrollBox = styled(Box)`
+const ScrollBox = styled(Box)<{ credit: string | undefined }>`
+  min-height: ${({ credit }) => (credit ? '406px' : '434px')};
   overflow-x: scroll;
   &::-webkit-scrollbar {
     width: 1px;
