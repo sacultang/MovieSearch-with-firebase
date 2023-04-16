@@ -3,9 +3,8 @@ import CreditsCard from './components/CreditsCard';
 import ScrollWrapBox from '../../components/scrollGrid/ScrollWrapBox';
 import ScrollGridContainer from '../../components/scrollGrid/ScrollGridContainer';
 import TabLayout from '../../components/scrollGrid/TabLayout';
-
 import { CreditType } from '../../types/creditType';
-
+import PageGridItem from '../../components/pageGrid/PageGridItem';
 interface CreditsPageProps {
   credits: CreditType[];
 }
@@ -19,11 +18,15 @@ const CreditsPage = ({ credits }: CreditsPageProps) => {
       <ScrollWrapBox>
         <ScrollGridContainer>
           {credits &&
-            credits
-              ?.slice(0, 20)
-              .map((creditItem) => (
-                <CreditsCard key={creditItem.name} creditItem={creditItem} />
-              ))}
+            credits.slice(0, 20).map((creditItem) => (
+              <PageGridItem
+                key={creditItem.name}
+                scrollcard="true"
+                credit="credit"
+              >
+                <CreditsCard creditItem={creditItem} />
+              </PageGridItem>
+            ))}
         </ScrollGridContainer>
       </ScrollWrapBox>
     </TabLayout>

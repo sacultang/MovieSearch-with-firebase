@@ -15,7 +15,7 @@ const PopularScroll = ({ movieAndTvDatas }: PopularScrollProp) => {
     <ScrollGridContainer>
       {movieAndTvDatas &&
         movieAndTvDatas.map((movie) => (
-          <PageGridItem key={movie.id}>
+          <PageGridItem key={movie.id} scrollcard="true">
             <MovieCard
               movie={movie}
               handleClickNavigate={handleClickNavigate}

@@ -16,7 +16,7 @@ const TrendingScroll = ({ trendingDatas }: TrendingScollProp) => {
     <ScrollGridContainer>
       {trendingDatas &&
         trendingDatas.map((movie) => (
-          <PageGridItem key={movie.id}>
+          <PageGridItem key={movie.id} scrollcard="true">
             <MovieCard
               movie={movie}
               handleClickNavigate={handleClickNavigate}

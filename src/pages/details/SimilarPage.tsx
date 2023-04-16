@@ -20,7 +20,7 @@ const SimilarPage = ({ similarData }: SimilarPageProps) => {
       <ScrollWrapBox>
         <ScrollGridContainer>
           {similarData.map((movie) => (
-            <PageGridItem key={movie.id}>
+            <PageGridItem key={movie.id} scrollcard="true">
               <MovieCard
                 movie={movie}
                 handleClickNavigate={handleClickNavigate}
