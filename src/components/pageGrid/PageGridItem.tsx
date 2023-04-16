@@ -16,11 +16,11 @@ const PageGridItem = ({ children, scrollcard, credit }: GridItemProps) => {
   return (
     <Grid
       item
-      xs={12}
-      sm={6}
-      md={6}
-      lg={4}
-      xl={3}
+      xs={!scrollcard && 12}
+      sm={!scrollcard && 6}
+      md={!scrollcard && 6}
+      lg={!scrollcard && 4}
+      xl={!scrollcard && 3}
       position="relative"
       height="auto"
       ref={cardRef}

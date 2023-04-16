@@ -16,7 +16,7 @@ const SkeletonCard = ({ scrollcard, credit, cardWidth }: SkeletonCardProp) => {
       >
         <Skeleton height="100%" variant="rounded" width="100%" />
       </Box>
-      <Box height={credit ? 45 : 68}>
+      <Box height={credit ? 40 : 68}>
         {!credit && (
           <Box overflow="hidden" p={1}>
             <Skeleton height={15} variant="rounded" />
