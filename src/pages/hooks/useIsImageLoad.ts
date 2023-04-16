@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState, RefObject } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
-const useIsImgLoaded = <T extends HTMLDivElement>(
-  cardBoxRef?: RefObject<T>
-) => {
+const useIsImgLoaded = () => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const imgRefCopy = imgRef.current as HTMLImageElement;
+    const imgRefCopy = imgRef && (imgRef.current as HTMLImageElement);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -25,7 +23,7 @@ const useIsImgLoaded = <T extends HTMLDivElement>(
     return () => {
       observer.unobserve(imgRefCopy);
     };
-  }, [cardBoxRef]);
+  }, []);
   return { imgRef, loaded, setLoaded };
 };
 export default useIsImgLoaded;
