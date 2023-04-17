@@ -84,14 +84,14 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 - 즐겨찾기 추가 및 삭제  
   firebase의 firebasestore Database를 이용해 user의 ID로 DB가 생성되도록 하고, 영화를 즐겨찾기 목록에 추가 및 삭제를 할 수 있도록 하였습니다.
 
-  [참고 파일\_hooks/useFavorite](./src/pages/movies/hooks/useFavorite.tsx)
+  [참고 파일\_hooks/useFavorite](./src/pages/movies/hooks/useFavorite.ts)
 
 - list목록 추가 및 삭제
   user의 영화목록을 생성하고 컨텐츠를 추가 할 수 있는 기능입니다.  
   list목록의 path가 직접 생성한 이름으로 설정되기 때문에 한글,특수문자가 포함되어도
   path가 제대로 인식될 수 있도록 `encodeURLComponent()`를 사용하여 정상적으로 동작하도록 하였습니다.
 
-  [참고 파일\_hooks/useAddList](./src/components/listModal/hooks/useAddList.tsx)
+  [참고 파일\_hooks/useAddList](./src/components/listModal/hooks/useAddList.ts)
 
 ![스크린샷 2023-03-21 오후 3 33 05](https://user-images.githubusercontent.com/85508157/227698412-56386be6-5be6-4f4f-a8ca-9d9215ea001c.png)
 
@@ -99,7 +99,7 @@ REACT_APP_MEASURE_MENT_ID="YOUR KEY"
 
 - `IntersectionObserver` 를 사용하여 이미지를 화면에 보이는 부분만 렌더링 하여 초기 렌더링 성능 수치 약 20%정도 상승하였습니다.
 
-  [참고 파일\_hooks/useIsImageLoad](./src/pages/hooks/useIsImageLoad.tsx)
+  [참고 파일\_hooks/useIsImageLoad](./src/pages/hooks/useIsImageLoad.ts)
 
   ![스크린샷 2022-09-01 오후 4 42 44](https://user-images.githubusercontent.com/85508157/227698822-04b6955a-1918-42f7-a8dc-59a8c5e6a01f.png)
   ![스크린샷 2023-03-26 오전 12 35 04](https://user-images.githubusercontent.com/85508157/227733244-3c423364-fa34-4bbe-ba6f-7495daa774ea.png)
