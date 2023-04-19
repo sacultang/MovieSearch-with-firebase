@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 import { collection, deleteDoc, setDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import {
@@ -24,10 +24,7 @@ const useFavorite = (movie: IMovieResult | SimilarType) => {
     (state: RootState) => state.favorite.favoriteMovie
   );
 
-  const isFavoriteChecked = useMemo(
-    () => checkFavoriteMovieId(movie.id, userFavorite),
-    [movie.id, userFavorite]
-  );
+  const isFavoriteChecked = checkFavoriteMovieId(movie.id, userFavorite);
 
   const handleFavorite = useCallback(
     async (

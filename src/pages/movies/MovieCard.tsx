@@ -47,17 +47,13 @@ const MovieCard = ({
     return sliceTextLength(movie.original_title || movie.original_name);
   }, [movie.original_title, movie.original_name]);
 
-  const useFavoriteIcon = useMemo(
-    () =>
-      isFavoriteChecked ? (
-        <FavoriteIcon
-          id="likeBtn"
-          sx={{ color: '#ff5d5d', width: '15px', height: '15px' }}
-        />
-      ) : (
-        <FavoriteBorder id="likeBtn" sx={{ width: '15px', height: '15px' }} />
-      ),
-    [isFavoriteChecked]
+  const useFavoriteIcon = isFavoriteChecked ? (
+    <FavoriteIcon
+      id="likeBtn"
+      sx={{ color: '#ff5d5d', width: '15px', height: '15px' }}
+    />
+  ) : (
+    <FavoriteBorder id="likeBtn" sx={{ width: '15px', height: '15px' }} />
   );
 
   return (

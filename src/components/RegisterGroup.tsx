@@ -4,18 +4,20 @@ import PersonIcon from '@mui/icons-material/Person';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, signOut } from 'firebase/auth';
 import { RootState } from '../store/store';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import '../firebase';
+import { setFavoriteAction } from '../store/favoriteListSlice';
 
 const RegisterGroup = () => {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
   const handleOpenMenu = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -25,6 +27,7 @@ const RegisterGroup = () => {
   };
   const handleLogOut = async () => {
     await signOut(getAuth());
+    dispatch(setFavoriteAction([]));
     setAnchorEl(null);
   };
 
