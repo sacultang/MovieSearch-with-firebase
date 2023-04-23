@@ -12,7 +12,7 @@ const useIsVisible = <T extends HTMLDivElement>(ref: React.RefObject<T>) => {
           observer.unobserve(cardBoxRefCopy);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.25 }
     );
     if (cardBoxRefCopy) {
       observer.observe(cardBoxRefCopy);
