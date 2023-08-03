@@ -1,13 +1,11 @@
-import LinkScrollToTop from './components/common/LinkScrollToTop';
 import IndexRouter from './router';
 
+import useTransPageScroll from './hooks/useTransPageScroll';
+
 function App() {
-  return (
-    <>
-      <LinkScrollToTop />
-      <IndexRouter />
-    </>
-  );
+  useTransPageScroll();
+
+  return <IndexRouter />;
 }
 
 export default App;
