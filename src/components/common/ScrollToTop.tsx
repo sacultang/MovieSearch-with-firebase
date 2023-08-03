@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
 const ScrollToTop = () => {
   const [scrollY, setScrollY] = useState(0);
   const [btnStatus, setBtnStatus] = useState(false);
@@ -20,6 +21,7 @@ const ScrollToTop = () => {
   const watch = useCallback(() => {
     window.addEventListener('scroll', handleFollow);
   }, [handleFollow]);
+
   useEffect(() => {
     if (scrollY > 200) {
       setBtnStatus(true);
@@ -27,12 +29,14 @@ const ScrollToTop = () => {
       setBtnStatus(false);
     }
   }, [scrollY]);
+
   useEffect(() => {
     watch();
     return () => {
       window.removeEventListener('scroll', handleFollow);
     };
   }, [handleFollow, watch]);
+
   const handleTop = useCallback(() => {
     window.scrollTo({
       top: 0,
@@ -41,6 +45,7 @@ const ScrollToTop = () => {
     setScrollY(0);
     setBtnStatus(false);
   }, []);
+
   return (
     <ToTopDiv btnStatus={btnStatus} onClick={handleTop}>
       <ArrowUpwardIcon color="inherit" />

@@ -6,6 +6,6 @@ export const theme = createTheme({
       dark: '#2a2a2e',
       light: '#fff',
     },
-    mode: 'light',
+    mode: 'dark',
   },
 });

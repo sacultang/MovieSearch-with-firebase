@@ -3,22 +3,20 @@ import '../firebase';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-
 import useFirebaseRef from './hooks/useFirebaseRef';
 import useFirebaseAuthStateChanged from './hooks/useFirebaseAuthStateChanged';
-
 import Join from '../pages/register/Join';
 import Login from '../pages/register/Login';
 import Loader from '../components/common/Loader';
 import AuthenticationRoute from '../router/AuthenticationRoute';
 import Favorite from '../pages/favorite/Favorite';
 import ListPage from '../pages/favorite/ListPage';
+import Layout from '@/components/layout/Layout';
 const MoviePage = lazy(() => import('../pages/movies/MoviePage'));
 const TvPage = lazy(() => import('../pages/tv/TvPage'));
 const SearchMain = lazy(() => import('../pages/search/SearchMain'));
 const SearchResults = lazy(() => import('../pages/search/SearchResults'));
 const DetailsPage = lazy(() => import('../pages/details/DetailsPage'));
-const Layout = lazy(() => import('../pages/home/common/Layout'));
 const Home = lazy(() => import('../pages/home/Home'));
 const PageNotFound = lazy(() => import('../pages/Error/PageNotFound'));
 

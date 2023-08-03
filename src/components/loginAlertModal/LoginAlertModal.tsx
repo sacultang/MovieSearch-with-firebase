@@ -5,9 +5,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../store/store';
+import { RootState } from '@/store/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLoginAlertAction } from '../../store/toastSlice';
+import { setLoginAlertAction } from '@/store/toastSlice';
+
 const LoginAlertModal = () => {
   const loginAlert = useSelector((state: RootState) => state.toast.loginAlert);
   const dispatch = useDispatch();

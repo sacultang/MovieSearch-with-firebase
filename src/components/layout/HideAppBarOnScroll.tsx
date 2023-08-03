@@ -1,4 +1,5 @@
 import Slide from '@mui/material/Slide';
+import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import React from 'react';
 interface HideAppBarProps {
@@ -12,7 +13,7 @@ const HideAppBarOnScroll = ({ children, window }: HideAppBarProps) => {
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      {children}
+      <AppBar>{children}</AppBar>
     </Slide>
   );
 };
