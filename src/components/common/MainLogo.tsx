@@ -9,7 +9,6 @@ const MainLogo = ({ drawer }: MainLogoProp) => {
   return (
     <Box
       sx={{
-        backgroundColor: 'primary.main',
         minHeight: 64,
         display: 'flex',
         justifyContent: 'center',

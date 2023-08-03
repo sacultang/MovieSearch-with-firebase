@@ -11,7 +11,7 @@ import MainLogo from '../common/MainLogo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setThemeAction } from '@/store/themeSlice';
 import { RootState } from '@/store/store';
-
+import Switch from '@mui/material/Switch';
 const AppMenuBar = () => {
   const [barOpen, setBarOpen] = useState(false);
   const darkMode = useSelector((state: RootState) => state.themeMode.themeMode);
@@ -35,7 +35,9 @@ const AppMenuBar = () => {
   return (
     <>
       <HideAppBarOnScroll>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar
+          sx={{ justifyContent: 'space-between', bgcolor: 'primary.main' }}
+        >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <MainLogo />
             <IconButton
@@ -48,8 +50,15 @@ const AppMenuBar = () => {
               <MenuIcon />
             </IconButton>
           </Box>
-          <button onClick={setThemeMode}>dark</button>
-          <RegisterGroup />
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Switch
+              onChange={setThemeMode}
+              inputProps={{ 'aria-label': 'thememode-controller' }}
+              defaultChecked={darkMode}
+              color="info"
+            />
+            <RegisterGroup />
+          </Box>
         </Toolbar>
       </HideAppBarOnScroll>
       <DrawerMenu barOpen={barOpen} handleDrawerClose={handleDrawerClose} />

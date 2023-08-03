@@ -22,6 +22,7 @@ const rootReducer = combineReducers({
   themeMode: themeSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

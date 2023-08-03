@@ -68,11 +68,7 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {moviePath.map((list) => (
-          <MenuListItem
-            list={list}
-            key={list.text}
-            buttonHandler={buttonHandler}
-          />
+          <MenuListItem list={list} key={list.text} />
         ))}
       </List>
       <Divider />
@@ -89,11 +85,7 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
           </Typography>
         </ListItem>
         {tvPath.map((list) => (
-          <MenuListItem
-            list={list}
-            key={list.text}
-            buttonHandler={buttonHandler}
-          />
+          <MenuListItem list={list} key={list.text} />
         ))}
       </List>
       <Divider />
@@ -111,20 +103,12 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
             </Typography>
           </ListItem>
           {myFavoritePage.map((list) => (
-            <MenuListItem
-              list={list}
-              key={list.text}
-              buttonHandler={buttonHandler}
-            />
+            <MenuListItem list={list} key={list.text} />
           ))}
           {myListPage &&
             myListPage.map((list) => (
               <ListItem key={list.id} disablePadding>
-                <NavLink
-                  to={`/list/${list.id}`}
-                  style={buttonHandler}
-                  onClick={handleDrawerClose}
-                >
+                <NavLink to={`/list/${list.id}`} onClick={handleDrawerClose}>
                   <ListItemButton sx={{ flex: 3 }} aria-label="목록 이름">
                     <ListItemText primary={decodeURIComponent(list.id)} />
                   </ListItemButton>
@@ -145,16 +129,3 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
 };
 
 export default DrawerMenu;
-
-type NavStyleType = {
-  isActive: boolean;
-};
-const buttonHandler = ({ isActive }: NavStyleType) => {
-  return {
-    width: '100%',
-    backgroundColor: isActive ? '#f3f3f3' : '',
-    borderLeft: isActive ? '5px solid var(--yellow-text-color)' : '',
-    color: '#000 ',
-    display: 'flex',
-  };
-};

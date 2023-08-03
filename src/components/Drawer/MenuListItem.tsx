@@ -1,25 +1,35 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
 
 interface MenuList {
   list: {
     text: string;
     path: string;
   };
-
-  buttonHandler: ({ isActive }: { isActive: boolean }) => CSSProperties;
 }
-const MenuListItem = ({ list, buttonHandler }: MenuList) => {
+const MenuListItem = ({ list }: MenuList) => {
   return (
-    <ListItem key={list.text} disablePadding>
-      <NavLink to={`${list.path}`} style={buttonHandler}>
+    <ListItem disablePadding>
+      <Link
+        component={NavLink}
+        to={list.path}
+        sx={{
+          width: '100%',
+          '&.active': {
+            bgcolor: 'primary.light',
+            color: 'text.primary',
+          },
+          color: 'text.primary',
+        }}
+        underline="none"
+      >
         <ListItemButton aria-label={list.text}>
-          <ListItemText primary={list.text} />
+          <ListItemText>{list.text}</ListItemText>
         </ListItemButton>
-      </NavLink>
+      </Link>
     </ListItem>
   );
 };
