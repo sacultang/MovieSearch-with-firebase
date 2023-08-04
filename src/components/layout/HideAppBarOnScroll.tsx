@@ -13,7 +13,9 @@ const HideAppBarOnScroll = ({ children, window }: HideAppBarProps) => {
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      <AppBar>{children}</AppBar>
+      <AppBar sx={{ boxShadow: 'none' }} enableColorOnDark>
+        {children}
+      </AppBar>
     </Slide>
   );
 };

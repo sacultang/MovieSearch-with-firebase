@@ -1,6 +1,7 @@
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import { memo, useEffect, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import type { FlexBoxProps } from '../ui/FlexBox';
 
 const ScrollToTop = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -54,19 +55,19 @@ const ScrollToTop = () => {
 };
 
 export default memo(ScrollToTop);
-type ToTopTypeProps = {
+
+interface ToTopTypeProps extends FlexBoxProps {
   btnStatus: boolean;
-};
-const ToTopDiv = styled.div`
+}
+
+const ToTopDiv = styled.div<ToTopTypeProps>`
   cursor: pointer;
   position: fixed;
   bottom: 5%;
   right: 3%;
   z-index: 3;
-  opacity: ${({ btnStatus }: ToTopTypeProps) => (btnStatus ? 1 : 0)};
+  opacity: ${({ btnStatus }) => (btnStatus ? 1 : 0)};
   transition: opacity 0.3s ease;
-  background-color: var(--main-bg-color);
-  border: 1px solid #565656;
   box-shadow: 1px 3px 10px 2px rgba(178, 178, 178, 0.48);
   display: flex;
   width: 40px;
@@ -74,5 +75,4 @@ const ToTopDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
 `;

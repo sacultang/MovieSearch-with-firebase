@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { createTheme } from '@mui/material/styles';
 import { RootState } from '@/store/store';
-import { grey, amber, indigo } from '@mui/material/colors';
+import { grey, amber } from '@mui/material/colors';
 
 const useTheme = () => {
   const darkMode = useSelector((state: RootState) => state.themeMode.themeMode);
@@ -11,11 +11,11 @@ const useTheme = () => {
     palette: {
       mode,
       primary: {
-        main: indigo[500],
-        light: indigo[50],
-        dark: indigo[900],
+        main: grey[100],
+        light: grey[400],
+        dark: grey[900],
         ...(mode === 'dark' && {
-          main: grey[800],
+          main: grey[900],
           light: grey[500],
         }),
       },
@@ -29,8 +29,8 @@ const useTheme = () => {
         }),
       },
       background: {
-        default: '#fff',
-        paper: '#fff',
+        default: grey[100],
+        paper: grey[200],
         ...(mode === 'dark' && {
           default: grey[900],
           paper: grey[900],

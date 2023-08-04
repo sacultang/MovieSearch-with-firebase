@@ -1,11 +1,10 @@
 import Footer from './Footer';
 import MainContainer from './MainContainer';
-import AppMenuBar from './AppBar';
-
+import Header from './Header';
 const Layout = () => {
   return (
     <>
-      <AppMenuBar />
+      <Header />
       <MainContainer />
       <Footer />
     </>
