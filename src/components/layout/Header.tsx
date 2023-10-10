@@ -5,14 +5,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DrawerMenu from '../Drawer/DrawerMenu';
 import RegisterGroup from '../RegisterGroup';
 import { useLocation } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import HideAppBarOnScroll from './HideAppBarOnScroll';
+import FlexBox from '../ui/FlexBox';
 import MainLogo from '../common/MainLogo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setThemeAction } from '@/store/themeSlice';
 import { RootState } from '@/store/store';
 import Switch from '@mui/material/Switch';
-const AppMenuBar = () => {
+import AppBar from '@mui/material/AppBar';
+const Header = () => {
   const [barOpen, setBarOpen] = useState(false);
   const darkMode = useSelector((state: RootState) => state.themeMode.themeMode);
   const location = useLocation();
@@ -34,35 +34,39 @@ const AppMenuBar = () => {
 
   return (
     <>
-      <HideAppBarOnScroll>
-        <Toolbar
-          sx={{ justifyContent: 'space-between', bgcolor: 'primary.main' }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <AppBar
+        sx={{
+          boxShadow: 'none',
+          borderBottom: '1px solid',
+          borderColor: 'primary.light',
+          backgroundImage: 'none',
+        }}
+      >
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <FlexBox alignItems="center">
             <MainLogo />
             <IconButton
-              color="inherit"
               edge="start"
               onClick={handleDrawerOpen}
               aria-label="drawer open"
-              sx={{ minHeight: 64 }}
             >
               <MenuIcon />
             </IconButton>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          </FlexBox>
+          <FlexBox alignItems="center">
             <Switch
               onChange={setThemeMode}
               inputProps={{ 'aria-label': 'thememode-controller' }}
-              defaultChecked={darkMode}
+              checked={darkMode}
               color="info"
             />
             <RegisterGroup />
-          </Box>
+          </FlexBox>
         </Toolbar>
-      </HideAppBarOnScroll>
+      </AppBar>
+
       <DrawerMenu barOpen={barOpen} handleDrawerClose={handleDrawerClose} />
     </>
   );
 };
-export default AppMenuBar;
+export default Header;

@@ -16,7 +16,7 @@ const ToastUi = () => {
             bottom: '5%',
             left: '5%',
             zIndex: 9999,
-            backgroundColor: '#444444',
+            backgroundColor: 'secondary.main',
             padding: '15px 30px',
           }}
         >

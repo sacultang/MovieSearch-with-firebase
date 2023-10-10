@@ -5,8 +5,6 @@ const Footer = () => {
       component="footer"
       sx={{
         height: '100px',
-        backgroundColor: 'var(--main-bg-color)',
-        color: 'var(--main-text-color)',
         width: '100%',
         fontSize: '0.9rem',
         display: 'flex',

@@ -98,6 +98,7 @@ const Login = () => {
               fullWidth
               label="이메일"
               autoFocus
+              color="success"
               autoComplete="off"
               onChange={handleInputValue}
               error={EMAIL_REGEX.test(joinValue.email) ? false : true}
@@ -116,6 +117,7 @@ const Login = () => {
               label="패스워드"
               type="password"
               autoComplete="off"
+              color="success"
               onChange={handleInputValue}
               error={PW_REGEX.test(joinValue.password) ? false : true}
               helperText={
@@ -130,7 +132,7 @@ const Login = () => {
           type="submit"
           fullWidth
           variant="contained"
-          color="primary"
+          color="success"
           sx={{ mt: 3 }}
           disabled={errorData}
           loading={loading}

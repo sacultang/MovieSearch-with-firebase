@@ -23,7 +23,13 @@ const Trending = () => {
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         Trending
       </TitleTypo>
-      <Tabs value={value} onChange={handleChangeTap}>
+      <Tabs
+        value={value}
+        onChange={handleChangeTap}
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="trending tabs"
+      >
         <Tab label="오늘" id="day"></Tab>
         <Tab label="이번주" id="week"></Tab>
       </Tabs>
