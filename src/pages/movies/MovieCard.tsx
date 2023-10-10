@@ -157,7 +157,7 @@ const MovieCard = ({
             sx={{
               width: '1rem',
               height: '1rem',
-              color: 'var(--yellow-text-color)',
+              color: 'secondary.main',
               mb: 0,
             }}
           />

@@ -1,44 +1,26 @@
 import styled from '@emotion/styled';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import FlexBox from '../ui/FlexBox';
+import ListItemLink from '../ui/ListItemLink';
+
 interface MainLogoProp {
   drawer?: boolean;
 }
 const MainLogo = ({ drawer }: MainLogoProp) => {
   return (
-    <Box
-      sx={{
-        minHeight: 64,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Link to="/" aria-label="go to main-page">
-        <LogoDiv aria-hidden={true}>
-          <div>메인</div>
-        </LogoDiv>
-      </Link>
-      {drawer && (
-        <Link to="/">
-          <Typography
-            variant="h6"
-            fontWeight={600}
-            fontSize={'1.2rem'}
-            color="#fff"
-          >
-            O-Movie
-          </Typography>
-        </Link>
-      )}
-    </Box>
+    <FlexBox justifyContent="center" alignItems="center" minHeight={64}>
+      <ListItemLink
+        to="/"
+        aria-label="go to main-page"
+        primary={<LogoDiv aria-label="logo" />}
+      />
+    </FlexBox>
   );
 };
 
 export default MainLogo;
 
-const LogoDiv = styled.div`
+const LogoDiv = styled.span`
+  display: block;
   width: 50px;
   height: 30px;
   border-radius: 20px;
@@ -46,7 +28,4 @@ const LogoDiv = styled.div`
   background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);
   background: linear-gradient(to right, #2ebf91, #8360c3);
   margin-right: 20px;
-  div {
-    visibility: hidden;
-  }
 `;

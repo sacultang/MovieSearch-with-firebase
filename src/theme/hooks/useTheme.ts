@@ -24,8 +24,8 @@ const useTheme = () => {
         light: amber[50],
         dark: amber[900],
         ...(mode === 'dark' && {
-          main: grey[800],
-          light: grey[500],
+          main: amber[300],
+          light: amber[300],
         }),
       },
       background: {
