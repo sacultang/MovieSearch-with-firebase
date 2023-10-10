@@ -40,7 +40,7 @@ const RegisterGroup = () => {
             fontSize: '0.8rem',
             mb: 0,
             mr: 2,
-            color: 'var(--main-text-color)',
+            color: 'text.main',
           }}
         >
           {user.email}님 안녕하세요.
@@ -69,7 +69,7 @@ const RegisterGroup = () => {
             <Typography
               gutterBottom
               variant="body1"
-              sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
+              sx={{ fontSize: '0.8rem', mb: 0, color: 'text.main' }}
             >
               &nbsp;로그아웃
             </Typography>
@@ -87,7 +87,7 @@ const RegisterGroup = () => {
             <Typography
               gutterBottom
               variant="body1"
-              sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
+              sx={{ fontSize: '0.8rem', mb: 0, color: 'text.main' }}
             >
               &nbsp;로그인
             </Typography>
@@ -96,7 +96,7 @@ const RegisterGroup = () => {
             <Typography
               gutterBottom
               variant="body1"
-              sx={{ fontSize: '0.8rem', mb: 0, color: '#161618' }}
+              sx={{ fontSize: '0.8rem', mb: 0, color: 'text.main' }}
             >
               &nbsp;회원가입
             </Typography>

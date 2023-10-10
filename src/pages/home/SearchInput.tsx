@@ -1,17 +1,13 @@
 import { FormEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 interface SearchInputProps {
-  query?: string;
-  border?: string;
+  isDrawer?: boolean;
   handleDrawerClose?: () => void;
 }
 
-const SearchInput = ({
-  query,
-  border,
-  handleDrawerClose,
-}: SearchInputProps) => {
+const SearchInput = ({ isDrawer, handleDrawerClose }: SearchInputProps) => {
   const navigate = useNavigate();
   const goSearchResultPage = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -26,16 +22,14 @@ const SearchInput = ({
     [navigate, handleDrawerClose]
   );
   return (
-    <InputWrap onSubmit={goSearchResultPage} border={border}>
+    <InputWrap onSubmit={goSearchResultPage} isDrawer={isDrawer}>
       <InputField
         type="text"
-        placeholder={query ? query : '영화,TV 프로그램 검색..'}
+        placeholder="영화,TV 프로그램 검색.."
         name="search"
       />
-      {border === 'drawer' ? null : (
-        <ButtonWrap>
-          <SearchButton>검색</SearchButton>
-        </ButtonWrap>
+      {isDrawer ? null : (
+        <Button sx={{ backgroundColor: 'secondary.main' }}>검색</Button>
       )}
     </InputWrap>
   );
@@ -43,12 +37,12 @@ const SearchInput = ({
 
 export default SearchInput;
 
-const InputWrap = styled.form<{ border: string | undefined }>`
+const InputWrap = styled.form<{ isDrawer: boolean | undefined }>`
   display: flex;
-  border-radius: ${(props) => (props.border === 'drawer' ? 0 : '20px')};
+  border-radius: ${(props) => (props.isDrawer ? 0 : '20px')};
   overflow: hidden;
   width: 100%;
-  border: ${(props) => (props.border ? '1px solid #c9c9c9' : 'none')};
+  border: ${(props) => (props.isDrawer ? '1px solid #c9c9c9' : 'none')};
   background-color: #fff;
   box-sizing: border-box;
 `;
@@ -62,21 +56,4 @@ const InputField = styled.input`
   &:focus {
     outline-width: 0;
   }
-`;
-const ButtonWrap = styled.div`
-  border: 0.1px solid #c9c9c9;
-  border-radius: 0 19px 19px 0;
-  overflow: hidden;
-  min-width: 50px;
-  max-width: 100px;
-`;
-const SearchButton = styled.button`
-  height: 100%;
-  min-width: 50px;
-  max-width: 100px;
-  background: var(--main-bg-color);
-  border: none;
-  outline: none;
-  border-radius: 0 19px 19px 0;
-  color: #fff;
 `;

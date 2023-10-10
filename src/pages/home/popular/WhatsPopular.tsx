@@ -24,7 +24,13 @@ const WhatsPopular = () => {
       <TitleTypo fontSize={'1.2rem'} sx={{ fontWeight: 600 }}>
         WhatsPopular
       </TitleTypo>
-      <Tabs value={value} onChange={handleChangeTap}>
+      <Tabs
+        value={value}
+        onChange={handleChangeTap}
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="whats popular tabs"
+      >
         <Tab label="영화" id="movie" />
         <Tab label="TV" id="tv" />
       </Tabs>

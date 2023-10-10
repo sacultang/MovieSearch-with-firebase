@@ -2,10 +2,7 @@ import styled from '@emotion/styled';
 import FlexBox from '../ui/FlexBox';
 import ListItemLink from '../ui/ListItemLink';
 
-interface MainLogoProp {
-  drawer?: boolean;
-}
-const MainLogo = ({ drawer }: MainLogoProp) => {
+const MainLogo = () => {
   return (
     <FlexBox justifyContent="center" alignItems="center" minHeight={64}>
       <ListItemLink

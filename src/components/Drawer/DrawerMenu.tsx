@@ -12,7 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MainLogo from '../common/MainLogo';
 import MenuListItem from './MenuListItem';
 import { moviePath, tvPath, myFavoritePage } from './DrawerMenuList';
-
+import SearchInput from '@/pages/home/SearchInput';
 import useUser from '@/pages/hooks/useUser';
 
 interface DrawerMenuProp {
@@ -27,7 +27,13 @@ const DrawerMenu = ({ barOpen, handleDrawerClose }: DrawerMenuProp) => {
   return (
     <Drawer anchor="left" open={barOpen} onClose={handleDrawerClose}>
       <Box sx={{ width: '200px', pl: 1, pr: 1 }}>
-        <MainLogo drawer={true} />
+        <MainLogo />
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <SearchInput isDrawer={true} />
+          </ListItem>
+        </List>
         <Divider />
         <List>
           <ListItem disablePadding>
