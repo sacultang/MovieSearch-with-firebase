@@ -40,6 +40,7 @@ const TrailerPage = ({ trailers }: TrailerPageProps) => {
                   height="100%"
                   title={item.name}
                   src={`https://youtube.com/embed/${item.key}`}
+                  style={{ borderWidth: 'inherit' }}
                 />
               </Container>
             </Box>
