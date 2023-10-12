@@ -4,14 +4,16 @@ import Loader from '../../components/common/Loader';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
+import { Theme, useTheme } from '@mui/material';
 import { IMAGE_PATH } from '../../constants/imagePath';
 import TrailerPage from './TrailerPage';
 import CreditsPage from './CreditsPage';
 import SimilarPage from './SimilarPage';
 import useDeatilsFetch from './hooks/useDeatilsFetch';
+import ProductionCompanies from './components/ProductionCompany';
 
 const DetailsPage = () => {
+  const theme = useTheme();
   const { pathname } = useLocation();
   const urlPath = pathname.replace('/details', '');
   const { similarData, trailers, credits, details, loading } =
@@ -26,7 +28,7 @@ const DetailsPage = () => {
         <MainDetailImageBackdrop
           imgPath={`${IMAGE_PATH.original}/${details?.backdrop_path}`}
         >
-          <BackDrop>
+          <BackDrop theme={theme}>
             <Grid
               container
               p={2}
@@ -62,17 +64,19 @@ const DetailsPage = () => {
                   )
                 </Typography>
                 <Typography>
-                  <em style={{ fontWeight: 500 }}>
+                  <Typography variant="caption" style={{ fontWeight: 500 }}>
                     {details?.original_name || details?.original_title}
-                  </em>
+                  </Typography>
                   {'  '}
-                  <em style={{ fontWeight: 500 }}>
+                  <Typography variant="caption" style={{ fontWeight: 500 }}>
                     {details?.episode_run_time || details?.runtime}
-                  </em>
+                  </Typography>
                   minutes
                 </Typography>
                 {details.genres.map((item) => (
-                  <GenereSpanTag key={item.id}>{item.name}</GenereSpanTag>
+                  <GenereSpanTag key={item.id} theme={theme}>
+                    {item.name}
+                  </GenereSpanTag>
                 ))}
                 <Typography variant="h6" fontWeight={600} fontSize={'0.9rem'}>
                   개요
@@ -91,20 +95,11 @@ const DetailsPage = () => {
                     Production Company
                   </Typography>
                   <Box display={'flex'} alignItems={'center'}>
-                    {details?.production_companies.map((item, idx) => (
-                      <div key={item.id || idx}>
-                        {item.logo_path && (
-                          <img
-                            src={`${IMAGE_PATH.w200}/${item.logo_path}`}
-                            alt={item.name}
-                            style={{
-                              width: '60px',
-                              marginTop: '10px',
-                              marginRight: '10px',
-                            }}
-                          />
-                        )}
-                      </div>
+                    {details?.production_companies.map((companies, idx) => (
+                      <ProductionCompanies
+                        key={companies.id || idx}
+                        companies={companies}
+                      />
                     ))}
                   </Box>
                 </Box>
@@ -128,21 +123,25 @@ const MainDetailImageBackdrop = styled.div<{ imgPath: string }>`
   background-size: cover;
   min-height: 690px;
   margin-bottom: 20px;
+  border-radius: 50px;
 `;
-const BackDrop = styled.div`
+const BackDrop = styled.div<{ theme: Theme }>`
+  border: 1px solid ${(props) => props.theme.palette.primary.light};
+  border-radius: 50px;
   padding: 40px 40px 0;
   min-height: 690px;
+  opacity: 0.9;
   background-image: linear-gradient(
-    to right,
-    rgb(208 208 208) 150px,
-    rgb(135 135 135 / 84%) 100%
+    to bottom,
+    ${(props) => props.theme.palette.primary.main} 150px,
+    ${(props) => props.theme.palette.primary.dark} 90%
   );
 `;
 
-const GenereSpanTag = styled.span`
-  border: 2px solid var(--orange-border-color);
-  color: var(--orange-border-color);
-  padding: 2px;
+const GenereSpanTag = styled.span<{ theme: Theme }>`
+  background-color: ${({ theme }) => theme.palette.secondary.dark};
+  padding: 4px;
+  border-radius: 4px;
   font-size: 0.8rem;
   margin: 10px 5px;
   margin-left: 0;
